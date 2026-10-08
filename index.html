@@ -6,7 +6,7 @@ html,body{margin:0;height:100%;background:var(--ground);color:var(--ink);font-fa
 #wma-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px}
 .g-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px 22px;text-align:center}
 h1{margin:0 0 4px;font-size:20px;font-weight:700}p{margin:0 0 16px;font-size:13.5px;color:var(--ink-soft)}
-input{width:100%;box-sizing:border-box;font:inherit;font-size:24px;letter-spacing:.4em;text-align:center;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);-webkit-text-security:disc}
+input{width:100%;box-sizing:border-box;font:inherit;font-size:24px;letter-spacing:.12em;text-align:center;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);-webkit-text-security:disc}
 input:focus{outline:2px solid var(--accent);outline-offset:1px}
 button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer;border:1px solid var(--accent);background:var(--accent-wash);color:var(--ink)}
 .g-msg{min-height:18px;margin:10px 0 0;font-size:13px}
@@ -14,11 +14,11 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 </style></head><body>
 <div id="wma-gate" role="dialog" aria-modal="true" aria-label="Access code"><form class="g-box" autocomplete="off">
 <h1>WM001 Waste Management</h1><p>Enter the access code to open the application.</p>
-<input id="wma-gate-in" type="text" inputmode="numeric" maxlength="6" pattern="[0-9]*" aria-label="Access code" autocomplete="off" autofocus>
+<input id="wma-gate-in" type="text" maxlength="64" aria-label="Access code" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
 <button type="submit">Open</button><div class="g-msg" id="wma-gate-msg" aria-live="polite"></div><div class="bar"><i id="wma-bar"></i></div></form></div>
 <script>
 (function(){
-  var META={"salt":"5711db235d93e8e6e971e7065996933a","iv":"afa83c2b4290c4fe207b2fe9","rounds":310000,"bytes":10340080,"plain":21023998}, CHECK="8a58ae544f42ad3cef55e4ae7a2c703cfe5e560eb042af952f79213a06c86ae2";
+  var META={"salt":"086ef7ae297b813e1521a6144d39bb39","iv":"a60ca678e4f509360edc34fc","rounds":310000,"bytes":10340080,"plain":21023998}, CHECK="81a6bc73202f432c728333cc60dec14f70149c7bf97f2c5af4849232c4ac1d1c";
   var form=document.querySelector("form"), inp=document.getElementById("wma-gate-in"), msg=document.getElementById("wma-gate-msg"), bar=document.getElementById("wma-bar");
   var n=0, wait=0, busy=false, blob=null;
   function hex2buf(h){ var a=new Uint8Array(h.length/2); for(var i=0;i<a.length;i++) a[i]=parseInt(h.substr(i*2,2),16); return a; }
