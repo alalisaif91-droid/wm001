@@ -1,0 +1,67 @@
+{
+ "asof": "2026-10-08 17:33",
+ "tz": "Asia/Dubai",
+ "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
+ "thresholds": {
+  "watch": 10.0,
+  "high": 25.0
+ },
+ "modelLevel": "none",
+ "worstMax6": 0,
+ "points": [
+  {
+   "name": "RAK city (MRF, Sectors 3 and 4)",
+   "lat": 25.7549,
+   "lon": 55.9705,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Al Rams (1B)",
+   "lat": 25.8713,
+   "lon": 56.0218,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Al Burairat, Wadi Al Beeh front (2B)",
+   "lat": 25.7708,
+   "lon": 56.0397,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Jebel Jais road, Wadi Shehah (1C)",
+   "lat": 25.9357,
+   "lon": 56.1176,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Khatt, Wadi Naqab front (5A)",
+   "lat": 25.6433,
+   "lon": 56.0105,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Al Jazeera Al Hamra (6A)",
+   "lat": 25.6952,
+   "lon": 55.7945,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Showkah and Kadrah (8A)",
+   "lat": 25.0925,
+   "lon": 56.1193,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  },
+  {
+   "name": "Al Munai (9A)",
+   "lat": 24.9231,
+   "lon": 56.1496,
+   "error": "<urlopen error Tunnel connection failed: 403 Forbidden>"
+  }
+ ],
+ "ncm": {
+  "level": "unknown",
+  "text": "NCM page not readable at 17:33",
+  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
+  "asof": "2026-10-08 17:33"
+ }
+}
