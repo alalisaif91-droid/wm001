@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WM Twin Map</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3E%3Crect width=%2716%27 height=%2716%27 rx=%273%27 fill=%27%230C1319%27/%3E%3Cpath d=%27M3 12h10M4 12V7l4-3 4 3v5%27 stroke=%27%2322C55E%27 stroke-width=%271.6%27 fill=%27none%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="cesium/Widgets/widgets.css">
+<style>
+:root{--bg:#0C1319;--panel:#121B23;--panel-2:#17232C;--ink:#E7EEF3;--ink-soft:#9EB0BF;--ink-faint:#67798A;--line:#24333F;--line-soft:#1B2831;--accent:#57C4DD;--accent-deep:#2FA3C0;--accent-wash:rgba(47,163,192,.14);
+  --gold:#D9A968;--public:#F2C94C;--commercial:#E5934B;--industrial:#8FA6C8;--residential:#B0B7C3;--medical:#E8646A;--bins:#57C4DD;--route1:#FFD166;--route2:#06D6A0;--route3:#EF476F;--route4:#A786FF;--route5:#F78C6B;--route6:#8ECAE6;
+  --sans:Calibri,Carlito,"Segoe UI",system-ui,sans-serif;--mono:Consolas,Calibri,monospace;
+  --text:var(--ink);--text2:var(--ink-soft);--border:var(--line);--panel-2:#17232C;--ink-soft:#9EB0BF;--ink-faint:#67798A;--line-soft:#1B2831;--forecast:#4C7180;--extreme:#E8646A;--high:#E5934B;--medium:#D6B23F;--good:#4FBF8C;--ground:#0C1319}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13.5px;overflow:hidden}
+#app{display:grid;grid-template-columns:1fr 380px;height:100vh}
+#host{position:relative;min-width:0}
+#host .page.wm001-twin{height:100%}
+#twin-cesium{height:100% !important}
+/* one column for the twin: its workspace becomes a strip above the map and the map takes the full width. The twin's own
+   markup is untouched; only the page lays it out differently. */
+#host .page.wm001-twin .sec-head{display:none}
+#host .page.wm001-twin>.card.pad{margin:0!important;padding:4px 10px 8px!important;border:0;border-radius:0;box-shadow:none;height:100%;display:flex;flex-direction:column;min-height:0}
+#host .page.wm001-twin .card-title{margin:0 0 2px}
+#host .page.wm001-twin .card-title h3{font-size:13px}
+#twin-ws{grid-template-columns:1fr!important;grid-template-rows:auto minmax(0,1fr);gap:6px!important;margin-top:2px!important;flex:1;min-height:0}
+#twin-left{flex-direction:row!important;align-items:stretch;max-height:132px!important;overflow:auto}
+#twin-left .twin-tabs{flex-direction:column;border-bottom:0;border-right:1px solid var(--line);flex:0 0 auto}
+#twin-left .twin-tabs button{text-align:left;padding:4px 10px;border-bottom:0;border-left:2px solid transparent}
+#twin-left .twin-tabs button.on{border-left-color:var(--accent)}
+#twin-left .twin-tabbody{flex:1 1 auto;min-width:0;padding:5px 10px}
+#twin-left .twin-tabbody[data-tab="layers"].on{display:flex;flex-wrap:wrap;align-items:center;gap:3px 12px}
+#twin-left .twin-k{margin:0!important}
+#twin-disc,#twin-layers,#twin-sectors{display:flex;flex-wrap:wrap;gap:2px 6px;align-items:center}
+#twin-layers label.tl{padding:1px 8px;border:1px solid var(--line-soft);border-radius:999px;white-space:nowrap}
+#twin-layers label.tl small{margin-left:6px}
+#twin-right{max-height:none!important;flex:1;min-height:0;display:flex;flex-direction:column}
+#twin-scene{height:calc(100vh - 284px)!important;min-height:380px}
+/* the controls over the map: the card, the filters, zoom and the corner views. Dark panels, Calibri, nothing that hides the picture */
+#tm-controls{position:absolute;inset:0;pointer-events:none;z-index:6;font-family:var(--sans)}
+#tm-controls>*{pointer-events:auto}
+.tm-panel{position:absolute;left:10px;background:rgba(12,19,25,.86);border:1px solid var(--line);border-radius:10px;color:var(--ink);backdrop-filter:blur(4px)}
+#tm-card{top:44px;width:254px;padding:10px 12px 8px}
+#tm-card h4{margin:0 0 6px;font-size:14px;font-weight:700;letter-spacing:.01em;padding-bottom:6px;border-bottom:1px solid var(--gold)}
+#tm-card .tm-sub{display:inline-block;margin-left:6px;padding:0 6px;border-radius:999px;background:var(--gold);color:#0C1319;font-size:10.5px;font-weight:700;vertical-align:middle}
+.tm-row{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--ink-soft);padding:2px 0}
+.tm-row b{color:var(--ink);font-variant-numeric:tabular-nums;font-weight:600}
+.tm-row.tm-strong{color:var(--ink);font-weight:600;margin-top:2px}
+.tm-row i,#tm-filter-body i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid rgba(255,255,255,.25)}
+.tm-hint{font-size:10.5px;color:var(--ink-faint);margin-top:5px;line-height:1.35}
+.tm-filters{top:auto;bottom:14px;width:254px;padding:0}
+#tm-filter-btn{width:100%;background:none;border:0;color:var(--ink);font:inherit;font-size:13px;font-weight:600;padding:9px 12px;text-align:left;cursor:pointer;display:flex;justify-content:space-between}
+#tm-filter-body{padding:0 12px 10px;max-height:46vh;overflow:auto;border-top:1px solid var(--line)}
+#tm-filter-body label{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-soft);padding:4px 0}
+#tm-filter-body label.tm-sep{border-top:1px solid var(--line-soft);margin-top:4px;padding-top:7px}
+#tm-filter-body input{margin:0}
+.tm-zoom{position:absolute;left:274px;top:44px;display:flex;flex-direction:column;align-items:center;background:rgba(12,19,25,.86);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.tm-zoom button{width:40px;height:34px;background:none;border:0;color:var(--ink);font-size:20px;line-height:1;cursor:pointer}
+.tm-zoom button:hover,#tm-filter-btn:hover,.tm-view:hover{background:rgba(255,255,255,.08)}
+.tm-zoom span{font-size:10.5px;color:var(--ink-soft);padding:2px 0}
+.tm-view{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;color:var(--ink);font:inherit;font-size:12px;cursor:pointer;text-shadow:0 1px 3px #000}
+.tm-view i{width:38px;height:32px;border-radius:9px;background:rgba(12,19,25,.86);border:1px solid var(--line);display:block;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20' fill='none' stroke='%23E7EEF3' stroke-width='1.6'%3E%3Crect x='2' y='5' width='20' height='13' rx='2'/%3E%3Ccircle cx='12' cy='11.5' r='3.5'/%3E%3Cpath d='M8 5l1.5-2.5h5L16 5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:22px}
+.tm-nw{left:330px;top:44px}.tm-ne{right:16px;top:44px}.tm-sw{left:280px;bottom:20px}.tm-se{right:16px;bottom:20px}
+   /* the strip, its gap and the toolbar rows above the map take 284 px */
+aside#ws{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+#ws header{padding:12px 14px 10px;border-bottom:1px solid var(--line)}
+#ws h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.02em}
+#ws .sub{color:var(--ink-soft);font-size:12px;margin-top:2px}
+#ws nav{display:flex;flex-wrap:wrap;gap:4px;padding:8px 10px;border-bottom:1px solid var(--line)}
+#ws nav button{background:var(--panel-2);border:1px solid var(--line);color:var(--ink-soft);padding:5px 9px;border-radius:3px;cursor:pointer;font:inherit;font-size:12px}
+#ws nav button.on{color:var(--ink);border-color:var(--accent);background:var(--accent-wash)}
+#ws main{overflow:auto;padding:10px 14px 24px;min-height:0}
+.tab{display:none}.tab.on{display:block}
+#ws h2{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);margin:14px 0 6px}
+#ws p{margin:0 0 8px;color:var(--ink-soft);line-height:1.45}
+#ws label{display:block;font-size:12px;color:var(--ink-soft);margin:8px 0 3px}
+#ws input,#ws select,#ws textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:6px 8px;border-radius:3px;font:inherit}
+button.btn{background:var(--accent-deep);border:0;color:#04131a;font:inherit;font-weight:700;padding:7px 11px;border-radius:3px;cursor:pointer;margin:6px 6px 0 0}
+button.btn.ghost{background:var(--panel-2);color:var(--ink);border:1px solid var(--line);font-weight:400}
+button.btn.warn{background:#E5934B;color:#1a0d02}
+button.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-block;padding:1px 7px;border-radius:2px;font-size:11px;font-weight:700;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-soft)}
+.pill.ok{color:var(--good);border-color:rgba(79,191,140,.5)}.pill.warn{color:var(--high);border-color:rgba(229,147,75,.5)}.pill.bad{color:var(--extreme);border-color:rgba(232,100,106,.5)}
+.layer{display:grid;grid-template-columns:18px 14px 1fr auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line-soft)}
+.layer .sw{width:14px;height:14px;border-radius:2px;border:1px solid rgba(255,255,255,.25)}
+.layer small{color:var(--ink-faint);display:block;font-size:11px}
+.layer .n{font-variant-numeric:tabular-nums;color:var(--ink-soft);font-size:12px}
+.list{max-height:240px;overflow:auto;border:1px solid var(--line);border-radius:3px;background:var(--bg)}
+.list div{padding:5px 8px;border-bottom:1px solid var(--line-soft);cursor:pointer;font-size:12.5px}
+.list div:hover{background:var(--panel-2)}
+.list b{font-variant-numeric:tabular-nums}
+.note{background:var(--accent-wash);border-left:3px solid var(--accent);padding:8px 10px;margin:8px 0;font-size:12.5px}
+.err{background:rgba(232,100,106,.12);border-left:3px solid var(--extreme);padding:8px 10px;margin:8px 0;font-size:12.5px}
+.dz-table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0;font-variant-numeric:tabular-nums}.dz-table th{text-align:left;color:var(--ink-faint);font-weight:600;border-bottom:1px solid var(--line);padding:3px 4px}.dz-table td{border-bottom:1px solid var(--line);padding:3px 4px;vertical-align:top}
+.note.warn{border-left-color:var(--high)}.dz-src{font-size:11.5px;line-height:1.45}.dz-src b{color:var(--ink)}button.btn[disabled]{opacity:.45;cursor:default}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:12.5px}.kv dt{color:var(--ink-faint)}.kv dd{margin:0;color:var(--ink)}
+#status{position:absolute;left:10px;top:10px;z-index:5;background:rgba(12,19,25,.85);border:1px solid var(--line);padding:6px 10px;border-radius:3px;font-size:12px;color:var(--ink-soft);max-width:60%}
+#capture-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:14px;z-index:5;background:rgba(229,147,75,.92);color:#1a0d02;padding:8px 14px;border-radius:3px;font-weight:700;display:none}
+.legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:11.5px;color:var(--ink-soft)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+@media (max-width:900px){#app{grid-template-columns:1fr}aside#ws{position:absolute;right:0;top:0;bottom:0;width:min(380px,92vw);z-index:6}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}.grid2 label{font-size:12px;color:var(--ink-soft)}.grid2 input{width:100%}.kpis{display:flex;flex-wrap:wrap;gap:6px 14px;margin:8px 0;font-size:13px}.kpis b{color:var(--ink);margin-left:4px}table.plan{width:100%;border-collapse:collapse;font-size:12px}table.plan th,table.plan td{padding:4px 6px;border-bottom:1px solid var(--line-soft);text-align:left}table.plan td.num,table.plan th:nth-child(n+3){text-align:right}
+</style>
+<style>#twin-left{display:none!important}#twin-scene{height:calc(100vh - 150px)!important;min-height:300px}#app{grid-template-columns:1fr 300px}</style></head>
+<body>
+<div id="app">
+  <div id="host">
+    <div id="status">Loading the twin…</div>
+    <div id="capture-hint">Click on the map to place a bin · Esc cancels</div>
+    <section id="twin-host" class="page wm001-twin active" data-page="twin"></section>
+  </div>
+  <aside id="ws">
+    <header><h1>WM Twin Map</h1><div class="sub">Bins, public areas, commercial, industrial, medical, collection routes, flood and water accumulation · platform <span id="ws-plat" class="pill">checking…</span></div></header>
+    <nav>
+      <button data-tab="layers" class="on">Layers</button><button data-tab="bins">Bins</button><button data-tab="areas">Areas</button><button data-tab="plan">Plan</button><button data-tab="landuse">Land use</button><button data-tab="routes">Routes</button><button data-tab="select">Selection</button><button data-tab="atlas">Atlas</button><button data-tab="account">Account</button>
+    </nav>
+    <main>
+      <section class="tab on" id="tab-layers">
+        <p>Platform layers drawn over the WM001 twin. Every feature carries its origin and accuracy class; nothing from OpenStreetMap or a phone capture is shown as verified.</p>
+        <div id="layer-list"></div>
+        <div class="legend" style="margin-top:8px"><span><i style="background:var(--public)"></i>public</span><span><i style="background:var(--commercial)"></i>commercial</span><span><i style="background:var(--industrial)"></i>industrial</span><span><i style="background:var(--residential)"></i>residential</span><span><i style="background:var(--medical)"></i>medical</span><span><i style="background:var(--bins)"></i>bins</span><span><i style="background:#B14BD9"></i>RAKEZ contract</span><span><i style="background:var(--route1)"></i>routes</span></div>
+        <div id="layer-note" class="note" style="display:none"></div>
+      </section>
+      <section class="tab" id="tab-bins">
+        <p>Capture bin locations by clicking on the map. Each bin is a user submitted point (about 5 m accuracy until surveyed); two bins within 2 m are refused as duplicates.</p>
+        <div class="row"><button class="btn" id="bin-capture">Place a bin</button><button class="btn ghost" id="bin-reload">Reload bins</button></div>
+        <label>Bin type</label><select id="bin-type"><option>1100 L</option><option>240 L</option><option>660 L</option><option>Skip 6 m3</option><option>Underground</option><option>Public litter bin</option></select>
+        <label>Stream</label><select id="bin-stream"><option>MSW</option><option>Recyclables</option><option>Green waste</option><option>Commercial</option><option>Medical</option></select>
+        <label>Units at this point</label><input id="bin-units" type="number" min="1" value="1">
+        <label>Note</label><input id="bin-note" placeholder="landmark, access, owner">
+        <h2>Bins on the platform <span id="bin-count" class="pill">0</span></h2>
+        <div id="bin-list" class="list"></div>
+      </section>
+      <section class="tab" id="tab-areas">
+        <p>Draw public areas, commercial, industrial and residential zones, contract zones (RAKEZ) and service areas directly on the twin. Each area is a user submitted polygon (about 5 m) with the name, the contract and a note; the platform validates it and keeps who drew it and when.</p>
+        <label>Area type</label><select id="area-class"><option value="contract_zone">Contract zone (RAKEZ or other)</option><option value="landuse_industrial">Industrial zone</option><option value="landuse_commercial">Commercial zone</option><option value="landuse_public">Public area</option><option value="landuse_residential">Residential zone</option><option value="generator_medical">Medical generator (site)</option><option value="service_area">Service area (collection)</option></select>
+        <label>Name</label><input id="area-name" placeholder="e.g. RAKEZ Al Ghail Industrial Park">
+        <label>Contract or owner</label><input id="area-contract" placeholder="e.g. RAKEZ PSD-1195">
+        <label>Note</label><input id="area-note" placeholder="what is collected here, frequency, access">
+        <div class="row"><button class="btn" id="area-draw">Draw an area</button><button class="btn ghost" id="area-finish" disabled>Finish</button></div>
+        <div id="area-hint" class="note" style="min-height:1.2em"></div>
+        <div class="legend"><span><i style="background:#F2C94C"></i>public areas (yellow)</span><span><i style="background:#B14BD9"></i>RAKEZ contract zones (purple)</span><span><i style="background:#C77DFF"></i>service areas</span></div>
+      </section>
+      <section class="tab" id="tab-plan">
+        <p>Divide equipment and labour by collection density. Each public collection area drawn in Google Earth carries its density (normal, heavy); every house inside it gets one 1,100 L bin. The figures below are planning assumptions; edit them and the table follows.</p>
+        <div class="grid2">
+          <label>Services a week, heavy areas<input id="pl-freqHeavy" type="number" min="1" max="14"></label>
+          <label>Services a week, normal areas<input id="pl-freqNormal" type="number" min="1" max="14"></label>
+          <label>Bins per load (1,100 L, rear loader)<input id="pl-binsPerLoad" type="number" min="10" max="400"></label>
+          <label>Minutes per bin (service and move)<input id="pl-minPerBin" type="number" min="0.3" max="10" step="0.1"></label>
+          <label>Haul minutes per load (to facility and back)<input id="pl-haulMin" type="number" min="0" max="240"></label>
+          <label>Productive minutes per shift<input id="pl-shiftMin" type="number" min="60" max="720"></label>
+          <label>Working days a week<input id="pl-days" type="number" min="1" max="7"></label>
+          <label>Crew per vehicle (driver and helpers)<input id="pl-crew" type="number" min="1" max="6"></label>
+        </div>
+        <div id="plan-body"></div>
+      </section>
+      <section class="tab" id="tab-landuse">
+        <p>Public areas, commercial, industrial and residential zones, plus medical and commercial generators, from OpenStreetMap (ODbL) as a reference layer. The Municipality land use replaces it when it arrives.</p>
+        <div class="row"><button class="btn" id="lu-import">Import from OpenStreetMap (nine sectors)</button></div>
+        <div id="lu-result"></div>
+        <h2>Medical generators</h2><div id="med-list" class="list"></div>
+        <h2>Commercial generators</h2><div id="com-list" class="list"></div>
+      </section>
+      <section class="tab" id="tab-routes">
+        <h2>Design the routes of an area</h2>
+        <p>Every house of a collection area or of a whole sub sector. Houses on one stretch of road become one street stop, a trip carries at most what the truck carries and ends at the tipping site, and trips fill vehicles to the length of a shift. Each input is prefilled from the weighbridge tickets and the fleet register, says where it came from, and can be changed. The design is stored as a proposed plan, never as the authoritative route.</p>
+        <label for="dz-area">Area</label><select id="dz-area"><option value="">Opening the tab loads the areas</option></select>
+        <div class="row"><div style="flex:1"><label for="dz-freq">Collections a week</label><select id="dz-freq"><option value="7">Daily</option><option value="6">Six a week</option><option value="3">Three a week</option><option value="2" selected>Twice a week (GDL-01)</option><option value="1">Once a week</option></select></div><div style="flex:1"><label for="dz-kg">Waste a house a day, kg</label><input id="dz-kg" type="number" min="0.5" max="60" step="0.01"></div></div>
+        <div class="row"><div style="flex:1"><label for="dz-veh">Vehicle</label><select id="dz-veh"></select></div><div style="flex:1"><label for="dz-load">Load a trip, t</label><input id="dz-load" type="number" min="0.3" max="40" step="0.01"></div></div>
+        <div class="row"><div style="flex:1"><label for="dz-hpc">Houses a container</label><input id="dz-hpc" type="number" min="1" max="20" step="0.5" value="2"></div><div style="flex:1"><label for="dz-svc">Seconds a container</label><input id="dz-svc" type="number" min="10" max="600" value="60"></div><div style="flex:1"><label for="dz-shift">Shift hours</label><input id="dz-shift" type="number" min="2" max="16" step="0.5" value="8"></div></div>
+        <div class="row"><div style="flex:1"><label for="dz-depot">Depot</label><select id="dz-depot"></select></div><div style="flex:1"><label for="dz-tip">Tipping site</label><select id="dz-tip"></select></div></div>
+        <div class="row"><div style="flex:1"><label for="dz-start">Start</label><input id="dz-start" type="time" value="07:00"></div><div style="flex:1"><label for="dz-unload">Unload minutes</label><input id="dz-unload" type="number" min="0" max="120" value="15"></div></div>
+        <div id="dz-basis" class="note dz-src"></div>
+        <div class="row"><button class="btn" id="dz-go">Design the routes</button><button class="btn ghost" id="dz-csv" disabled>Route sheets (CSV)</button></div>
+        <div id="dz-result"></div>
+        <h2>Plan a few stops</h2>
+        <p>Route optimisation for a handful of stops: registered bins, or the houses in the view. Stops are visited once each, vehicles carry a number of units. The plan is stored as a proposed scenario, never as the authoritative route.</p>
+        <label>Depot</label><select id="rt-depot"></select>
+        <label>Stop source</label><select id="rt-source"><option value="registered">Registered bins</option><option value="houses">Houses in the current view, one 1,100 L bin each (at most 400)</option></select>
+        <label>Stops</label><select id="rt-stops"><option value="view">Bins inside the current view</option><option value="all">All bins</option></select>
+        <div class="row"><div style="flex:1"><label>Vehicles</label><input id="rt-veh" type="number" min="1" max="30" value="2"></div><div style="flex:1"><label>Capacity (units)</label><input id="rt-cap" type="number" min="1" value="40"></div><div style="flex:1"><label>Max route km</label><input id="rt-max" type="number" min="1" placeholder="none"></div></div>
+        <div class="row"><div style="flex:1"><label>Departure</label><input id="rt-start" type="time" value="07:00"></div><div style="flex:1"><label>Seconds per stop</label><input id="rt-service" type="number" min="5" max="1800" value="60"></div><div style="flex:1"><label>Unload minutes</label><input id="rt-unload-min" type="number" min="0" max="120" value="15"></div></div>
+        <div class="note">Routing runs on a directed road network: one way streets, speed by road class, junction delays, and peak factors on main roads at 07 to 09, 13 to 15 and 17 to 19 (the traffic model; live traffic feeds come with the telematics phase). All equipment starts at Al Mullah Transit Station.</div>
+        <label>Plan name</label><input id="rt-name" placeholder="e.g. Sector 3 morning run">
+        <div class="row"><button class="btn" id="rt-go">Optimise</button><button class="btn ghost" id="rt-clear">Clear routes</button></div>
+        <div id="rt-result"></div>
+        <h2>Saved plans</h2><div id="rt-plans" class="list"></div>
+        <h2>Registered routes</h2>
+        <p>The route register of the smart bin system, as exported to WM002 MAP APP: the codes, groups and values set in the system. The export carries no route geometry and no link from a bin to a route, so the register is a list here, not lines on the map.</p>
+        <div class="row"><div style="flex:1"><label for="rr-sub">Sub sector</label><select id="rr-sub"><option value="">Opening the tab loads the register</option></select></div><div style="flex:1"><label for="rr-group">Group</label><select id="rr-group"><option value="">All groups</option></select></div></div>
+        <div id="rr-note" class="dz-src" style="color:var(--ink-faint);margin:6px 0"></div>
+        <div id="rr-list" style="max-height:360px;overflow:auto"></div>
+      </section>
+      <section class="tab" id="tab-select">
+        <p>Click a bin, zone, generator, route, water point, risk cell or hazard on the map.</p>
+        <div id="sel"></div>
+      </section>
+      <section class="tab" id="tab-atlas">
+        <p>Map products from the twin: a flood impact map, a collection day map, an annotated scenario view. Choose a template, set the look, add what the map should say, export the picture.</p>
+        <label>Template</label><select id="at-template"><option value="flood">Flood impacts (monochrome base, blue extents, impacted houses)</option><option value="days">Collection days (areas by service day, insets)</option><option value="story">Scenario view (callouts, flow arrows, photo insets)</option></select>
+        <label>Title</label><input id="at-title" placeholder="e.g. Flood impacts, Ras Al Khaimah, design storm 50 mm in 3 hours">
+        <label>Subtitle</label><input id="at-sub" placeholder="e.g. PSD Waste Management, WM Twin, 14 Sep 2026">
+        <div class="row"><button class="btn" id="at-apply">Apply template</button><button class="btn ghost" id="at-plan">Plan view (north up)</button><button class="btn ghost" id="at-reset">Back to the working map</button></div>
+        <div id="at-flood" class="at-panel"><h2>Scenarios on the map</h2><div id="at-scen" class="note">loading the scenario runs…</div><label>Risk band drawn</label><select id="at-band"><option value="high">High and above: avoid where possible</option><option value="moderate">Moderate and above: review before dispatch</option></select><label style="margin-top:6px"><input type="checkbox" id="at-impacts" checked> Colour the houses standing on a drawn cell (purple: frequent storm, pink: design storm)</label><div class="note">The model scores relative accumulation risk from eleven weighted factors, 0 to 100. It is not a modelled water depth and the band drawn is not an inundation extent. Moderate is 57 per cent of the grid at 100 mm, so drawing it shades most of the emirate. Drainage assets, wadi lines and flood history are still placeholders, so the score cannot yet separate the areas that drain.</div></div>
+        <div id="at-days" class="at-panel" style="display:none"><h2>Service days by area</h2><div class="note">Tick the days each drawn area is served; the map colours it by its first day and lists the rest. Areas without a schedule are hatched "no schedule assigned". Saved on the O&amp;M platform as a collection schedule record (sign in with an editing role).</div><div id="at-areas"></div></div>
+        <div id="at-story" class="at-panel" style="display:none"><h2>Annotations</h2>
+          <label>Callout text</label><input id="at-callout" placeholder="e.g. PREDICTED ACCUMULATION ZONE">
+          <label>Highlight role</label><select id="at-role"><option value="water">Water, accumulation (blue)</option><option value="protect">Protected, floodable area (green)</option><option value="plot">Development, works (orange)</option><option value="hazard">Hazard, closure (red)</option></select>
+          <div class="row"><button class="btn" id="at-hl">Highlight area (draw)</button><button class="btn" id="at-co">Callout (click)</button><button class="btn" id="at-flow">Where does the water go (click)</button></div>
+          <div class="row"><button class="btn" id="at-zones">Accumulation zones in view</button><button class="btn ghost" id="at-photo">Photo inset (click, then choose the photo)</button><input id="at-photo-file" type="file" accept="image/*" style="display:none"></div>
+          <div id="at-hint" class="note" style="min-height:1.2em"></div>
+          <div class="row"><button class="btn ghost" id="at-clear">Clear annotations</button></div>
+        </div>
+        <h2>Insets</h2><div class="note">Zoom to a dense area and press Add inset: the current view is captured and framed beside the main map on export, with its extent drawn on the main map.</div>
+        <div class="row"><button class="btn ghost" id="at-inset">Add inset of this view</button><button class="btn ghost" id="at-inset-clear">Clear insets</button></div><div id="at-insets" class="list"></div>
+        <h2>Export</h2><div class="row"><button class="btn" id="at-export">Export PNG</button><select id="at-size" style="width:auto;margin-top:6px" title="Print size: the scene renders at up to four times the screen resolution"><option value="screen">screen size</option><option value="a4">A4 landscape, 200 dpi</option><option value="a3">A3 landscape, 200 dpi</option><option value="a2">A2 landscape, 200 dpi</option></select><label style="margin:0"><input type="checkbox" id="at-legend" checked> legend</label><label style="margin:0"><input type="checkbox" id="at-scale" checked> scale bar</label></div>
+        <div id="at-out" class="note"></div>
+      </section>
+      <section class="tab" id="tab-account">
+        <div id="acct"></div>
+      </section>
+    </main>
+  </aside>
+</div>
+<script src="cesium/Cesium.js"></script>
+<script>(function(){var v=Date.now();function add(src,next){var s=document.createElement('script');s.src=src+'?v='+v;s.onload=next;document.body.appendChild(s);}add('wm001-twin.js',function(){add('twin-map.js',function(){add('twin-atlas.js',function(){add('twin-2d.js');});});});})();</script>
+</body>
+</html>

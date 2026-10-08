@@ -1,0 +1,68 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><title>WMA · Waste Management Application</title>
+<style>
+:root{--ground:#0C1319;--panel:#121C24;--panel-2:#17232C;--line:#24333F;--ink:#E7EEF3;--ink-soft:#9EB0BF;--accent:#2FA3C0;--accent-wash:rgba(47,163,192,.14);--sans:Calibri,Carlito,"Segoe UI",sans-serif}
+html,body{margin:0;height:100%;background:var(--ground);color:var(--ink);font-family:var(--sans)}
+#wma-gate{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px}
+.g-box{width:100%;max-width:360px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px 22px;text-align:center}
+h1{margin:0 0 4px;font-size:20px;font-weight:700}p{margin:0 0 16px;font-size:13.5px;color:var(--ink-soft)}
+input{width:100%;box-sizing:border-box;font:inherit;font-size:24px;letter-spacing:.4em;text-align:center;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);-webkit-text-security:disc}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer;border:1px solid var(--accent);background:var(--accent-wash);color:var(--ink)}
+.g-msg{min-height:18px;margin:10px 0 0;font-size:13px}
+.bar{height:4px;background:var(--panel-2);border-radius:2px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+</style></head><body>
+<div id="wma-gate" role="dialog" aria-modal="true" aria-label="Access code"><form class="g-box" autocomplete="off">
+<h1>WM001 Waste Management</h1><p>Enter the access code to open the application.</p>
+<input id="wma-gate-in" type="text" inputmode="numeric" maxlength="6" pattern="[0-9]*" aria-label="Access code" autocomplete="off" autofocus>
+<button type="submit">Open</button><div class="g-msg" id="wma-gate-msg" aria-live="polite"></div><div class="bar"><i id="wma-bar"></i></div></form></div>
+<script>
+(function(){
+  var META={"salt":"5711db235d93e8e6e971e7065996933a","iv":"afa83c2b4290c4fe207b2fe9","rounds":310000,"bytes":10340080,"plain":21023998}, CHECK="8a58ae544f42ad3cef55e4ae7a2c703cfe5e560eb042af952f79213a06c86ae2";
+  var form=document.querySelector("form"), inp=document.getElementById("wma-gate-in"), msg=document.getElementById("wma-gate-msg"), bar=document.getElementById("wma-bar");
+  var n=0, wait=0, busy=false, blob=null;
+  function hex2buf(h){ var a=new Uint8Array(h.length/2); for(var i=0;i<a.length;i++) a[i]=parseInt(h.substr(i*2,2),16); return a; }
+  function hex(buf){ var a=new Uint8Array(buf), s=""; for(var i=0;i<a.length;i++){ s+=("0"+a[i].toString(16)).slice(-2); } return s; }
+  function fetchBin(){
+    if(blob) return Promise.resolve(blob);
+    return fetch("app.bin",{cache:"force-cache"}).then(function(r){
+      if(!r.ok) throw new Error("app.bin "+r.status);
+      var total=META.bytes, got=0, reader=r.body.getReader(), parts=[];
+      function pump(){ return reader.read().then(function(x){ if(x.done){ return; } parts.push(x.value); got+=x.value.length; bar.style.width=Math.min(100,Math.round(70*got/total))+"%"; return pump(); }); }
+      return pump().then(function(){ var all=new Uint8Array(got), o=0; parts.forEach(function(p){ all.set(p,o); o+=p.length; }); blob=all; return all; });
+    });
+  }
+  function gunzip(buf){
+    if(typeof DecompressionStream!=="function") throw new Error("This browser cannot open the application. Use Chrome, Edge or Safari 16.4 or newer.");
+    var ds=new DecompressionStream("gzip"); var w=ds.writable.getWriter(); w.write(buf); w.close();
+    return new Response(ds.readable).arrayBuffer();
+  }
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+    if(busy) return;
+    if(Date.now()<wait){ msg.textContent="Wait a few seconds and try again."; return; }
+    var v=(inp.value||"").replace(/\s+/g,"");
+    if(!window.crypto||!crypto.subtle){ msg.textContent="This browser cannot check the access code. Use Chrome, Edge or Safari."; return; }
+    busy=true; msg.textContent="Checking the code"; bar.style.width="5%";
+    crypto.subtle.digest("SHA-256", new TextEncoder().encode("WM001/gate/v1|"+v)).then(function(b){
+      if(hex(b)!==CHECK){ throw new Error("bad code"); }
+      msg.textContent="Loading the application";
+      return fetchBin();
+    }).then(function(ct){
+      msg.textContent="Opening"; bar.style.width="75%";
+      return crypto.subtle.importKey("raw", new TextEncoder().encode(v), "PBKDF2", false, ["deriveKey"]).then(function(km){
+        return crypto.subtle.deriveKey({name:"PBKDF2", salt:hex2buf(META.salt), iterations:META.rounds, hash:"SHA-256"}, km, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+      }).then(function(key){ return crypto.subtle.decrypt({name:"AES-GCM", iv:hex2buf(META.iv)}, key, ct); });
+    }).then(function(gz){ bar.style.width="90%"; return gunzip(gz); }).then(function(buf){
+      var html=new TextDecoder().decode(buf);
+      bar.style.width="100%";
+      document.open(); document.write(html); document.close();
+    }).catch(function(e){
+      busy=false; bar.style.width="0";
+      if(String(e.message)==="bad code"){ n++; inp.value=""; msg.textContent="Access code not recognised."; if(n>=5){ wait=Date.now()+30000; msg.textContent="Too many attempts. Wait 30 seconds."; n=0; } }
+      else { msg.textContent=e.message||"Could not open the application."; }
+    });
+  });
+  setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 30);
+})();
+</script></body></html>

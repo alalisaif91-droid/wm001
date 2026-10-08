@@ -1,0 +1,1461 @@
+{
+ "meta": {
+  "title": "Collection baseline from the weighbridge tickets",
+  "status": "RECOMPUTED by PSD Waste Management from the records named here; not a register figure",
+  "tickets": {
+   "file": "Ministry Report MOCCAE_2026 Updated File.xlsx",
+   "sheet": "WB Report",
+   "rows": 105873,
+   "from": "2026-01-01",
+   "to": "2026-06-30",
+   "days": 181
+  },
+  "filter": "Customer PUBLIC SERVICE or PUBLIC COLLECTION, Status In, Mat Category MUNICIPAL SOLID WASTE",
+  "publicMsw": {
+   "tickets": 31886,
+   "tonnes": 188793.0,
+   "tonnesPerDay": 1043.1
+  },
+  "subSectorRule": "the code at the end of the ticket's Source; 89 tickets carry none (AL NAKHEEL-2 56, AL DHAITH-4 30, MUNTASER RD. 2, WADI AL EJEILI  9A 1)",
+  "compactors": [
+   "BIG REAR LOADER",
+   "SMALL REAR LOADER",
+   "FRONT LOADER"
+  ],
+  "houseRule": "houses (kind 0) of houses_all.json by the sub sector of the named collection area they stand in",
+  "kgPerHouseDay": "compactor tonnes of the sub sector over 181 days, divided by its houses. The tickets include waste from shops and public bins on the same rounds, so this is what a round carries per house served, not what a household produces",
+  "fleet": {
+   "file": "WM001 Master Reference v3.1.xlsx",
+   "sheet": "07 Equipment Register",
+   "asOf": "2026-07-29",
+   "note": "the register carries no payload and no body volume; the load per trip above is the measured substitute"
+  },
+  "limits": [
+   "a ticket is a truck at a weighbridge, not a route: no street, no container count, no fill level",
+   "July to September 2026 tickets are not in the export",
+   "sub sectors 8A, 8C and 9A carry few tickets; their figures are thin"
+  ],
+  "builtBy": "database/seeds/build_collection_baseline.py",
+  "builtAt": "2026-09-27T21:06:28"
+ },
+ "vehicleTypes": [
+  {
+   "type": "BIG REAR LOADER",
+   "liftsContainers": true,
+   "trips": 8640,
+   "vehicles": 51,
+   "loadT": {
+    "p10": 4.72,
+    "median": 8.84,
+    "mean": 8.71,
+    "p90": 12.3
+   },
+   "tripsPerVehicleDay": {
+    "median": 1.0,
+    "mean": 1.46,
+    "p90": 2
+   }
+  },
+  {
+   "type": "PICKUP TRUCK",
+   "liftsContainers": false,
+   "trips": 6987,
+   "vehicles": 35,
+   "loadT": {
+    "p10": 0.58,
+    "median": 0.94,
+    "mean": 1.04,
+    "p90": 1.58
+   },
+   "tripsPerVehicleDay": {
+    "median": 2,
+    "mean": 2.75,
+    "p90": 5
+   }
+  },
+  {
+   "type": "SIX-WHEEL TRUCK",
+   "liftsContainers": false,
+   "trips": 4904,
+   "vehicles": 88,
+   "loadT": {
+    "p10": 2.99,
+    "median": 7.38,
+    "mean": 9.56,
+    "p90": 20.2
+   },
+   "tripsPerVehicleDay": {
+    "median": 2.0,
+    "mean": 2.02,
+    "p90": 3
+   }
+  },
+  {
+   "type": "SMALL REAR LOADER",
+   "liftsContainers": true,
+   "trips": 4422,
+   "vehicles": 10,
+   "loadT": {
+    "p10": 1.24,
+    "median": 1.86,
+    "mean": 1.97,
+    "p90": 2.66
+   },
+   "tripsPerVehicleDay": {
+    "median": 3.0,
+    "mean": 3.34,
+    "p90": 5
+   }
+  },
+  {
+   "type": "FRONT LOADER",
+   "liftsContainers": true,
+   "trips": 2443,
+   "vehicles": 13,
+   "loadT": {
+    "p10": 4.82,
+    "median": 8.6,
+    "mean": 8.55,
+    "p90": 12.36
+   },
+   "tripsPerVehicleDay": {
+    "median": 2,
+    "mean": 2.22,
+    "p90": 4
+   }
+  },
+  {
+   "type": "TMC",
+   "liftsContainers": false,
+   "trips": 1996,
+   "vehicles": 11,
+   "loadT": {
+    "p10": 1.84,
+    "median": 3.78,
+    "mean": 4.47,
+    "p90": 7.82
+   },
+   "tripsPerVehicleDay": {
+    "median": 2.0,
+    "mean": 2.0,
+    "p90": 3
+   }
+  },
+  {
+   "type": "BIG HOOK LIFT",
+   "liftsContainers": false,
+   "trips": 1110,
+   "vehicles": 27,
+   "loadT": {
+    "p10": 0.94,
+    "median": 2.1,
+    "mean": 3.03,
+    "p90": 6.15
+   },
+   "tripsPerVehicleDay": {
+    "median": 1,
+    "mean": 1.55,
+    "p90": 3
+   }
+  },
+  {
+   "type": "TRAILER",
+   "liftsContainers": false,
+   "trips": 1021,
+   "vehicles": 14,
+   "loadT": {
+    "p10": 7.78,
+    "median": 14.54,
+    "mean": 16.77,
+    "p90": 28.18
+   },
+   "tripsPerVehicleDay": {
+    "median": 1.0,
+    "mean": 1.44,
+    "p90": 2
+   }
+  },
+  {
+   "type": "CHAIN LOADER",
+   "liftsContainers": false,
+   "trips": 336,
+   "vehicles": 5,
+   "loadT": {
+    "p10": 0.42,
+    "median": 0.68,
+    "mean": 0.95,
+    "p90": 1.2
+   },
+   "tripsPerVehicleDay": {
+    "median": 2.0,
+    "mean": 1.95,
+    "p90": 2
+   }
+  },
+  {
+   "type": "SMALL HOOK LIFT",
+   "liftsContainers": false,
+   "trips": 26,
+   "vehicles": 4,
+   "loadT": {
+    "p10": 0.42,
+    "median": 0.48,
+    "mean": 0.52,
+    "p90": 0.72
+   },
+   "tripsPerVehicleDay": {
+    "median": 1.0,
+    "mean": 1.0,
+    "p90": 1
+   }
+  }
+ ],
+ "subSectors": [
+  {
+   "code": "1A",
+   "sector": 1,
+   "sourceNames": [
+    "SHAAM-1A",
+    "KHOR KHWAIR-1A",
+    "AL JEER-1A",
+    "GHALILAH-1A"
+   ],
+   "trips": 1578,
+   "tonnes": 9224.7,
+   "tonnesPerDay": 51.0,
+   "compactorTrips": 915,
+   "compactorTonnes": 6013.5,
+   "compactorTonnesPerDay": 33.2,
+   "houses": 7454,
+   "kgPerHouseDay": 4.46,
+   "kgPerHouseDayAllTrucks": 6.84,
+   "activeDays": 181,
+   "vehicles": 72,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.85
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.1
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.03
+    }
+   ],
+   "byVehicleType": {
+    "FRONT LOADER": 627,
+    "PICKUP TRUCK": 231,
+    "SIX-WHEEL TRUCK": 222,
+    "BIG REAR LOADER": 184,
+    "TMC": 176,
+    "SMALL REAR LOADER": 104,
+    "TRAILER": 32,
+    "BIG HOOK LIFT": 2
+   },
+   "byWeekday": {
+    "Sat": 207,
+    "Sun": 265,
+    "Mon": 221,
+    "Tue": 228,
+    "Wed": 245,
+    "Thu": 224,
+    "Fri": 188
+   }
+  },
+  {
+   "code": "1B",
+   "sector": 1,
+   "sourceNames": [
+    "AL RAMS-1B"
+   ],
+   "trips": 1567,
+   "tonnes": 14692.7,
+   "tonnesPerDay": 81.2,
+   "compactorTrips": 721,
+   "compactorTonnes": 4507.6,
+   "compactorTonnesPerDay": 24.9,
+   "houses": 6467,
+   "kgPerHouseDay": 3.85,
+   "kgPerHouseDayAllTrucks": 12.55,
+   "activeDays": 181,
+   "vehicles": 100,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.9
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.07
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.02
+    }
+   ],
+   "byVehicleType": {
+    "SIX-WHEEL TRUCK": 570,
+    "FRONT LOADER": 380,
+    "SMALL REAR LOADER": 180,
+    "BIG REAR LOADER": 161,
+    "TRAILER": 146,
+    "PICKUP TRUCK": 84,
+    "TMC": 25,
+    "BIG HOOK LIFT": 16,
+    "SMALL HOOK LIFT": 5
+   },
+   "byWeekday": {
+    "Sat": 177,
+    "Sun": 224,
+    "Mon": 239,
+    "Tue": 289,
+    "Wed": 212,
+    "Thu": 274,
+    "Fri": 152
+   }
+  },
+  {
+   "code": "1C",
+   "sector": 1,
+   "sourceNames": [
+    "JABAL JAIS-1C",
+    "JEBEL JAIS-1C"
+   ],
+   "trips": 217,
+   "tonnes": 275.6,
+   "tonnesPerDay": 1.5,
+   "compactorTrips": 23,
+   "compactorTonnes": 88.8,
+   "compactorTonnesPerDay": 0.5,
+   "houses": 174,
+   "kgPerHouseDay": 2.82,
+   "kgPerHouseDayAllTrucks": 8.75,
+   "activeDays": 163,
+   "vehicles": 24,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.96
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.04
+    }
+   ],
+   "byVehicleType": {
+    "PICKUP TRUCK": 182,
+    "FRONT LOADER": 20,
+    "BIG HOOK LIFT": 10,
+    "BIG REAR LOADER": 3,
+    "SIX-WHEEL TRUCK": 1,
+    "TRAILER": 1
+   },
+   "byWeekday": {
+    "Sat": 25,
+    "Sun": 38,
+    "Mon": 32,
+    "Tue": 27,
+    "Wed": 28,
+    "Thu": 30,
+    "Fri": 37
+   }
+  },
+  {
+   "code": "2A",
+   "sector": 2,
+   "sourceNames": [
+    "SHAMAL-2A",
+    "AL GHUB-2A",
+    "GHEELAN-2A"
+   ],
+   "trips": 1603,
+   "tonnes": 8705.2,
+   "tonnesPerDay": 48.1,
+   "compactorTrips": 634,
+   "compactorTonnes": 4786.9,
+   "compactorTonnesPerDay": 26.4,
+   "houses": 7022,
+   "kgPerHouseDay": 3.77,
+   "kgPerHouseDayAllTrucks": 6.85,
+   "activeDays": 181,
+   "vehicles": 71,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.89
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.06
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.03
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 555,
+    "PICKUP TRUCK": 424,
+    "SIX-WHEEL TRUCK": 265,
+    "BIG HOOK LIFT": 212,
+    "FRONT LOADER": 78,
+    "TRAILER": 39,
+    "TMC": 29,
+    "SMALL REAR LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 232,
+    "Sun": 250,
+    "Mon": 241,
+    "Tue": 243,
+    "Wed": 228,
+    "Thu": 233,
+    "Fri": 176
+   }
+  },
+  {
+   "code": "2B",
+   "sector": 2,
+   "sourceNames": [
+    "AL NAKHEEL-2B",
+    "AL BURAIRAT-2B",
+    "AL QUSSAIDAT-2B",
+    "AL ARAIBI-2B"
+   ],
+   "trips": 3615,
+   "tonnes": 22091.8,
+   "tonnesPerDay": 122.1,
+   "compactorTrips": 2057,
+   "compactorTonnes": 15101.4,
+   "compactorTonnesPerDay": 83.4,
+   "houses": 10080,
+   "kgPerHouseDay": 8.28,
+   "kgPerHouseDayAllTrucks": 12.11,
+   "activeDays": 181,
+   "vehicles": 135,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.82
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.1
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.07
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 1443,
+    "PICKUP TRUCK": 491,
+    "SMALL REAR LOADER": 458,
+    "SIX-WHEEL TRUCK": 428,
+    "TMC": 418,
+    "FRONT LOADER": 156,
+    "CHAIN LOADER": 151,
+    "BIG HOOK LIFT": 45,
+    "TRAILER": 24,
+    "SMALL HOOK LIFT": 1
+   },
+   "byWeekday": {
+    "Sat": 452,
+    "Sun": 601,
+    "Mon": 555,
+    "Tue": 525,
+    "Wed": 526,
+    "Thu": 536,
+    "Fri": 420
+   }
+  },
+  {
+   "code": "3A",
+   "sector": 3,
+   "sourceNames": [
+    "JULAN-3A",
+    "JULFAR-3A"
+   ],
+   "trips": 2179,
+   "tonnes": 13996.9,
+   "tonnesPerDay": 77.3,
+   "compactorTrips": 1198,
+   "compactorTonnes": 8376.9,
+   "compactorTonnesPerDay": 46.3,
+   "houses": 9321,
+   "kgPerHouseDay": 4.97,
+   "kgPerHouseDayAllTrucks": 8.3,
+   "activeDays": 181,
+   "vehicles": 84,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.88
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.07
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.04
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 743,
+    "SMALL REAR LOADER": 451,
+    "PICKUP TRUCK": 364,
+    "SIX-WHEEL TRUCK": 347,
+    "BIG HOOK LIFT": 191,
+    "TRAILER": 58,
+    "TMC": 21,
+    "FRONT LOADER": 4
+   },
+   "byWeekday": {
+    "Sat": 305,
+    "Sun": 322,
+    "Mon": 320,
+    "Tue": 341,
+    "Wed": 298,
+    "Thu": 347,
+    "Fri": 246
+   }
+  },
+  {
+   "code": "3B",
+   "sector": 3,
+   "sourceNames": [
+    "AL MAIREED-3B",
+    "AL MAMOURAH-3B",
+    "AL MAIRID-3B",
+    "MAMOURAH-3B"
+   ],
+   "trips": 1877,
+   "tonnes": 6584.4,
+   "tonnesPerDay": 36.4,
+   "compactorTrips": 1052,
+   "compactorTonnes": 4313.8,
+   "compactorTonnesPerDay": 23.8,
+   "houses": 4383,
+   "kgPerHouseDay": 5.44,
+   "kgPerHouseDayAllTrucks": 8.3,
+   "activeDays": 181,
+   "vehicles": 63,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.88
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.07
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.03
+    }
+   ],
+   "byVehicleType": {
+    "SMALL REAR LOADER": 715,
+    "PICKUP TRUCK": 511,
+    "BIG REAR LOADER": 336,
+    "TMC": 177,
+    "SIX-WHEEL TRUCK": 113,
+    "BIG HOOK LIFT": 23,
+    "FRONT LOADER": 1,
+    "TRAILER": 1
+   },
+   "byWeekday": {
+    "Sat": 247,
+    "Sun": 290,
+    "Mon": 276,
+    "Tue": 297,
+    "Wed": 270,
+    "Thu": 271,
+    "Fri": 226
+   }
+  },
+  {
+   "code": "3C",
+   "sector": 3,
+   "sourceNames": [
+    "RAS AL KHAIMAH-3C",
+    "RAK CITY-3C",
+    "DAHAN-3C",
+    "AL DAITH-3C"
+   ],
+   "trips": 3880,
+   "tonnes": 17690.1,
+   "tonnesPerDay": 97.7,
+   "compactorTrips": 2331,
+   "compactorTonnes": 12347.0,
+   "compactorTonnesPerDay": 68.2,
+   "houses": 3347,
+   "kgPerHouseDay": 20.38,
+   "kgPerHouseDayAllTrucks": 29.2,
+   "activeDays": 181,
+   "vehicles": 157,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.81
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.1
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.08
+    }
+   ],
+   "byVehicleType": {
+    "SMALL REAR LOADER": 1222,
+    "BIG REAR LOADER": 1078,
+    "PICKUP TRUCK": 703,
+    "BIG HOOK LIFT": 260,
+    "SIX-WHEEL TRUCK": 258,
+    "TMC": 147,
+    "CHAIN LOADER": 133,
+    "FRONT LOADER": 31,
+    "TRAILER": 30,
+    "SMALL HOOK LIFT": 18
+   },
+   "byWeekday": {
+    "Sat": 529,
+    "Sun": 613,
+    "Mon": 540,
+    "Tue": 572,
+    "Wed": 547,
+    "Thu": 587,
+    "Fri": 492
+   }
+  },
+  {
+   "code": "4A",
+   "sector": 4,
+   "sourceNames": [
+    "KHUZAM-4A",
+    "AL KHARAN-4A",
+    "AL NADIYA-4A"
+   ],
+   "trips": 1557,
+   "tonnes": 6073.6,
+   "tonnesPerDay": 33.6,
+   "compactorTrips": 714,
+   "compactorTonnes": 3887.9,
+   "compactorTonnesPerDay": 21.5,
+   "houses": 5622,
+   "kgPerHouseDay": 3.82,
+   "kgPerHouseDayAllTrucks": 5.97,
+   "activeDays": 181,
+   "vehicles": 91,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.88
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.07
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.03
+    }
+   ],
+   "byVehicleType": {
+    "PICKUP TRUCK": 559,
+    "SMALL REAR LOADER": 415,
+    "BIG REAR LOADER": 298,
+    "TMC": 130,
+    "SIX-WHEEL TRUCK": 102,
+    "BIG HOOK LIFT": 34,
+    "TRAILER": 17,
+    "FRONT LOADER": 1,
+    "CHAIN LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 205,
+    "Sun": 212,
+    "Mon": 242,
+    "Tue": 277,
+    "Wed": 210,
+    "Thu": 217,
+    "Fri": 194
+   }
+  },
+  {
+   "code": "4B",
+   "sector": 4,
+   "sourceNames": [
+    "AL DHAIT-4B",
+    "AL DHAITH-4B",
+    "ZAITH JANOBI-4B"
+   ],
+   "trips": 4063,
+   "tonnes": 23386.6,
+   "tonnesPerDay": 129.2,
+   "compactorTrips": 1868,
+   "compactorTonnes": 14834.6,
+   "compactorTonnesPerDay": 82.0,
+   "houses": 16593,
+   "kgPerHouseDay": 4.94,
+   "kgPerHouseDayAllTrucks": 7.79,
+   "activeDays": 181,
+   "vehicles": 125,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.82
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.09
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.07
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 1442,
+    "PICKUP TRUCK": 1134,
+    "SIX-WHEEL TRUCK": 529,
+    "TMC": 512,
+    "SMALL REAR LOADER": 409,
+    "FRONT LOADER": 17,
+    "TRAILER": 11,
+    "BIG HOOK LIFT": 8,
+    "CHAIN LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 652,
+    "Sun": 595,
+    "Mon": 590,
+    "Tue": 629,
+    "Wed": 573,
+    "Thu": 591,
+    "Fri": 433
+   }
+  },
+  {
+   "code": "5A",
+   "sector": 5,
+   "sourceNames": [
+    "KHATT-5A",
+    "AL FAHLAIN-5A",
+    "AL FELYYAH-5A",
+    "AL HAIL-5A"
+   ],
+   "trips": 1161,
+   "tonnes": 7777.4,
+   "tonnesPerDay": 43.0,
+   "compactorTrips": 408,
+   "compactorTonnes": 3780.1,
+   "compactorTonnesPerDay": 20.9,
+   "houses": 14894,
+   "kgPerHouseDay": 1.4,
+   "kgPerHouseDayAllTrucks": 2.88,
+   "activeDays": 181,
+   "vehicles": 69,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.9
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.07
+    },
+    {
+     "name": "Al Mullah Transit Station",
+     "share": 0.02
+    }
+   ],
+   "byVehicleType": {
+    "PICKUP TRUCK": 421,
+    "FRONT LOADER": 367,
+    "SIX-WHEEL TRUCK": 221,
+    "TMC": 45,
+    "TRAILER": 42,
+    "BIG REAR LOADER": 41,
+    "BIG HOOK LIFT": 24
+   },
+   "byWeekday": {
+    "Sat": 137,
+    "Sun": 151,
+    "Mon": 143,
+    "Tue": 191,
+    "Wed": 196,
+    "Thu": 192,
+    "Fri": 151
+   }
+  },
+  {
+   "code": "5B",
+   "sector": 5,
+   "sourceNames": [
+    "AL KHARAN-5B",
+    "AL DIGDAGA-5B",
+    "AL HAMRANIAH-5B",
+    "AWAFI-5B"
+   ],
+   "trips": 2809,
+   "tonnes": 17005.5,
+   "tonnesPerDay": 94.0,
+   "compactorTrips": 1356,
+   "compactorTonnes": 7481.5,
+   "compactorTonnesPerDay": 41.3,
+   "houses": 10026,
+   "kgPerHouseDay": 4.12,
+   "kgPerHouseDayAllTrucks": 9.37,
+   "activeDays": 181,
+   "vehicles": 150,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.84
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.1
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.04
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 745,
+    "SIX-WHEEL TRUCK": 708,
+    "PICKUP TRUCK": 440,
+    "SMALL REAR LOADER": 358,
+    "FRONT LOADER": 253,
+    "TRAILER": 216,
+    "BIG HOOK LIFT": 55,
+    "TMC": 34
+   },
+   "byWeekday": {
+    "Sat": 435,
+    "Sun": 410,
+    "Mon": 428,
+    "Tue": 468,
+    "Wed": 402,
+    "Thu": 388,
+    "Fri": 278
+   }
+  },
+  {
+   "code": "6A",
+   "sector": 6,
+   "sourceNames": [
+    "AL JAZEERA AL HAMRA-6A",
+    "AL RIFFA-6A",
+    "EMIRATES RD-6A",
+    "MINA AL ARAB-6A"
+   ],
+   "trips": 4263,
+   "tonnes": 27478.7,
+   "tonnesPerDay": 151.8,
+   "compactorTrips": 1607,
+   "compactorTonnes": 14344.4,
+   "compactorTonnesPerDay": 79.3,
+   "houses": 9472,
+   "kgPerHouseDay": 8.37,
+   "kgPerHouseDayAllTrucks": 16.03,
+   "activeDays": 181,
+   "vehicles": 153,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.52
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.26
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.21
+    }
+   ],
+   "byVehicleType": {
+    "PICKUP TRUCK": 1283,
+    "BIG REAR LOADER": 1200,
+    "SIX-WHEEL TRUCK": 954,
+    "FRONT LOADER": 303,
+    "TMC": 250,
+    "BIG HOOK LIFT": 143,
+    "SMALL REAR LOADER": 104,
+    "TRAILER": 25,
+    "CHAIN LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 669,
+    "Sun": 650,
+    "Mon": 637,
+    "Tue": 651,
+    "Wed": 577,
+    "Thu": 626,
+    "Fri": 453
+   }
+  },
+  {
+   "code": "7A",
+   "sector": 7,
+   "sourceNames": [
+    "AL GHAYL-7A",
+    "ADHAN-7A",
+    "MINAI TRANSFER STATION-7A",
+    "AL SAADI-7A"
+   ],
+   "trips": 1226,
+   "tonnes": 10810.1,
+   "tonnesPerDay": 59.7,
+   "compactorTrips": 543,
+   "compactorTonnes": 4461.8,
+   "compactorTonnesPerDay": 24.7,
+   "houses": 1784,
+   "kgPerHouseDay": 13.82,
+   "kgPerHouseDayAllTrucks": 33.48,
+   "activeDays": 180,
+   "vehicles": 79,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.55
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.42
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.02
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 339,
+    "TRAILER": 281,
+    "FRONT LOADER": 204,
+    "SIX-WHEEL TRUCK": 164,
+    "PICKUP TRUCK": 158,
+    "BIG HOOK LIFT": 49,
+    "TMC": 31
+   },
+   "byWeekday": {
+    "Sat": 147,
+    "Sun": 214,
+    "Mon": 201,
+    "Tue": 201,
+    "Wed": 180,
+    "Thu": 163,
+    "Fri": 120
+   }
+  },
+  {
+   "code": "8A",
+   "sector": 8,
+   "sourceNames": [
+    "SHOWKAH-8A",
+    "MAMDUAH-8A",
+    "WADI AL SFANI-8A",
+    "KADRAH-8A"
+   ],
+   "trips": 29,
+   "tonnes": 758.7,
+   "tonnesPerDay": 4.2,
+   "compactorTrips": 10,
+   "compactorTonnes": 44.9,
+   "compactorTonnesPerDay": 0.2,
+   "houses": 2327,
+   "kgPerHouseDay": 0.11,
+   "kgPerHouseDayAllTrucks": 1.8,
+   "activeDays": 16,
+   "vehicles": 16,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.6
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.3
+    },
+    {
+     "name": "Al Jazeera Landfill",
+     "share": 0.1
+    }
+   ],
+   "byVehicleType": {
+    "TRAILER": 17,
+    "BIG REAR LOADER": 9,
+    "SMALL HOOK LIFT": 2,
+    "SMALL REAR LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 5,
+    "Sun": 7,
+    "Mon": 3,
+    "Tue": 0,
+    "Wed": 2,
+    "Thu": 7,
+    "Fri": 5
+   }
+  },
+  {
+   "code": "8C",
+   "sector": 8,
+   "sourceNames": [
+    "MASAFI-8C"
+   ],
+   "trips": 118,
+   "tonnes": 1280.0,
+   "tonnesPerDay": 7.1,
+   "compactorTrips": 61,
+   "compactorTonnes": 473.9,
+   "compactorTonnesPerDay": 2.6,
+   "houses": 32,
+   "kgPerHouseDay": 81.81,
+   "kgPerHouseDayAllTrucks": 220.99,
+   "activeDays": 70,
+   "vehicles": 30,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.79
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.18
+    },
+    {
+     "name": "Al Mullah Transit Station",
+     "share": 0.03
+    }
+   ],
+   "byVehicleType": {
+    "BIG REAR LOADER": 60,
+    "TRAILER": 40,
+    "SIX-WHEEL TRUCK": 17,
+    "FRONT LOADER": 1
+   },
+   "byWeekday": {
+    "Sat": 34,
+    "Sun": 15,
+    "Mon": 14,
+    "Tue": 14,
+    "Wed": 13,
+    "Thu": 21,
+    "Fri": 7
+   }
+  },
+  {
+   "code": "9A",
+   "sector": 9,
+   "sourceNames": [
+    "AL MUNIAI-9A",
+    "RAFAQ-9A",
+    "AL BARAHAA-9A",
+    "WADI AL KHOR-9A"
+   ],
+   "trips": 55,
+   "tonnes": 719.7,
+   "tonnesPerDay": 4.0,
+   "compactorTrips": 6,
+   "compactorTonnes": 22.4,
+   "compactorTonnesPerDay": 0.1,
+   "houses": 1927,
+   "kgPerHouseDay": 0.06,
+   "kgPerHouseDayAllTrucks": 2.06,
+   "activeDays": 40,
+   "vehicles": 23,
+   "tip": [
+    {
+     "name": "Material Recovery Facility (MRF)",
+     "share": 0.67
+    },
+    {
+     "name": "Seih Al Bana Landfill",
+     "share": 0.33
+    }
+   ],
+   "byVehicleType": {
+    "TRAILER": 41,
+    "SIX-WHEEL TRUCK": 5,
+    "SMALL REAR LOADER": 4,
+    "BIG REAR LOADER": 2,
+    "BIG HOOK LIFT": 1,
+    "TMC": 1,
+    "PICKUP TRUCK": 1
+   },
+   "byWeekday": {
+    "Sat": 13,
+    "Sun": 7,
+    "Mon": 12,
+    "Tue": 4,
+    "Wed": 7,
+    "Thu": 10,
+    "Fri": 2
+   }
+  }
+ ],
+ "hours": [
+  639,
+  339,
+  65,
+  23,
+  38,
+  7,
+  86,
+  687,
+  2374,
+  2383,
+  2049,
+  2272,
+  2846,
+  3671,
+  4044,
+  1654,
+  776,
+  1076,
+  1072,
+  1055,
+  1026,
+  1298,
+  1341,
+  1065
+ ],
+ "fleet": [
+  {
+   "type": "Rear Loader - Large",
+   "ticketType": "BIG REAR LOADER",
+   "units": 43,
+   "working": 36,
+   "breakdown": 7,
+   "bySector": {
+    "4B": 6,
+    "Commercial": 5,
+    "3A": 4,
+    "Recycling": 3,
+    "2B": 3,
+    "3B": 3,
+    "1A": 2,
+    "5A": 2,
+    "6A": 2,
+    "7A": 2,
+    "4A": 2,
+    "2A": 2,
+    "3C": 2,
+    "5B": 2,
+    "4E": 1,
+    "8C": 1,
+    "1C": 1
+   }
+  },
+  {
+   "type": "Administration Vehicles",
+   "ticketType": null,
+   "units": 34,
+   "working": 31,
+   "breakdown": 3,
+   "bySector": {
+    "not recorded": 34
+   }
+  },
+  {
+   "type": "Pickup - 3T",
+   "ticketType": null,
+   "units": 28,
+   "working": 24,
+   "breakdown": 4,
+   "bySector": {
+    "4C": 6,
+    "4A": 3,
+    "6A": 3,
+    "Recycling": 2,
+    "4D": 2,
+    "2B": 1,
+    "5B": 1,
+    "1B": 1,
+    "4B": 1,
+    "2A": 1,
+    "8C": 1,
+    "7A": 1,
+    "9A": 1,
+    "3B": 1,
+    "1A": 1,
+    "4E": 1,
+    "8A": 1
+   }
+  },
+  {
+   "type": "Hook Loader (RORO) - Heavy",
+   "ticketType": null,
+   "units": 25,
+   "working": 23,
+   "breakdown": 2,
+   "bySector": {
+    "Commercial": 25
+   }
+  },
+  {
+   "type": "Tipper Truck",
+   "ticketType": null,
+   "units": 16,
+   "working": 13,
+   "breakdown": 3,
+   "bySector": {
+    "4F": 16
+   }
+  },
+  {
+   "type": "Knuckle Boom-Heavy (Crane)",
+   "ticketType": null,
+   "units": 12,
+   "working": 10,
+   "breakdown": 2,
+   "bySector": {
+    "4B": 3,
+    "6A": 2,
+    "Commercial": 1,
+    "1A": 1,
+    "8A & 9A & 8C": 1,
+    "3C & 4A": 1,
+    "5B": 1,
+    "3B": 1,
+    "1B": 1
+   }
+  },
+  {
+   "type": "Tipper Trailer Box",
+   "ticketType": null,
+   "units": 12,
+   "working": 12,
+   "breakdown": 0,
+   "bySector": {
+    "4F": 11,
+    "w": 1
+   }
+  },
+  {
+   "type": "Tipper Trailer",
+   "ticketType": null,
+   "units": 11,
+   "working": 8,
+   "breakdown": 3,
+   "bySector": {
+    "4F": 11
+   }
+  },
+  {
+   "type": "Transport Buses",
+   "ticketType": null,
+   "units": 11,
+   "working": 10,
+   "breakdown": 1,
+   "bySector": {
+    "not recorded": 2,
+    "1B & 3A": 1,
+    "5A & 5B & 4B": 1,
+    "2A & 2B": 1,
+    "7A": 1,
+    "3B": 1,
+    "9A": 1,
+    "1A": 1,
+    "6A": 1,
+    "Night": 1
+   }
+  },
+  {
+   "type": "Front Loaders",
+   "ticketType": "FRONT LOADER",
+   "units": 10,
+   "working": 9,
+   "breakdown": 1,
+   "bySector": {
+    "6A": 2,
+    "1A": 2,
+    "7A": 2,
+    "Recycling": 1,
+    "1B": 1,
+    "5B": 1,
+    "5A": 1
+   }
+  },
+  {
+   "type": "Rear Loader - Small",
+   "ticketType": "SMALL REAR LOADER",
+   "units": 10,
+   "working": 7,
+   "breakdown": 3,
+   "bySector": {
+    "3A": 2,
+    "Recycling": 1,
+    "3B & 2B": 1,
+    "3C": 1,
+    "2B": 1,
+    "1A & 1B": 1,
+    "4B": 1,
+    "4A": 1,
+    "3B": 1
+   }
+  },
+  {
+   "type": "Sweeper Truck",
+   "ticketType": null,
+   "units": 10,
+   "working": 7,
+   "breakdown": 3,
+   "bySector": {
+    "4F": 10
+   }
+  },
+  {
+   "type": "Skip Loader",
+   "ticketType": null,
+   "units": 7,
+   "working": 6,
+   "breakdown": 1,
+   "bySector": {
+    "Commercial": 7
+   }
+  },
+  {
+   "type": "Wheel Loader -Shovel",
+   "ticketType": null,
+   "units": 6,
+   "working": 6,
+   "breakdown": 0,
+   "bySector": {
+    "4F": 4,
+    "not recorded": 2
+   }
+  },
+  {
+   "type": "TMA Vehicle",
+   "ticketType": null,
+   "units": 5,
+   "working": 2,
+   "breakdown": 3,
+   "bySector": {
+    "4F": 5
+   }
+  },
+  {
+   "type": "Hook Loader (RORO) - Light",
+   "ticketType": null,
+   "units": 5,
+   "working": 4,
+   "breakdown": 1,
+   "bySector": {
+    "Commercial": 5
+   }
+  },
+  {
+   "type": "Compactor trailer",
+   "ticketType": null,
+   "units": 5,
+   "working": 1,
+   "breakdown": 4,
+   "bySector": {
+    "4F": 5
+   }
+  },
+  {
+   "type": "Backhoe Loader - JCB",
+   "ticketType": null,
+   "units": 4,
+   "working": 1,
+   "breakdown": 3,
+   "bySector": {
+    "4F": 4
+   }
+  },
+  {
+   "type": "Drawbar",
+   "ticketType": null,
+   "units": 4,
+   "working": 4,
+   "breakdown": 0,
+   "bySector": {
+    "Commercial": 4
+   }
+  },
+  {
+   "type": "Van - Freezer",
+   "ticketType": null,
+   "units": 3,
+   "working": 3,
+   "breakdown": 0,
+   "bySector": {
+    "Medical waste": 3
+   }
+  },
+  {
+   "type": "Rear Loader - Medium",
+   "ticketType": "BIG REAR LOADER",
+   "units": 2,
+   "working": 0,
+   "breakdown": 2,
+   "bySector": {
+    "Commercial": 2
+   }
+  },
+  {
+   "type": "Bin Washer",
+   "ticketType": null,
+   "units": 2,
+   "working": 2,
+   "breakdown": 0,
+   "bySector": {
+    "4E": 2
+   }
+  },
+  {
+   "type": "Skid Steer Loader - Bobcat",
+   "ticketType": null,
+   "units": 2,
+   "working": 2,
+   "breakdown": 0,
+   "bySector": {
+    "4F": 2
+   }
+  },
+  {
+   "type": "Beach Cleaner",
+   "ticketType": null,
+   "units": 2,
+   "working": 1,
+   "breakdown": 1,
+   "bySector": {
+    "4F": 2
+   }
+  },
+  {
+   "type": "Hook Loader (RORO) HV With Crane",
+   "ticketType": null,
+   "units": 2,
+   "working": 1,
+   "breakdown": 1,
+   "bySector": {
+    "2A": 1,
+    "3A": 1
+   }
+  },
+  {
+   "type": "xz",
+   "ticketType": null,
+   "units": 1,
+   "working": 0,
+   "breakdown": 1,
+   "bySector": {
+    "1B": 1
+   }
+  }
+ ]
+}
