@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-09 11:32",
+ "asof": "2026-10-09 12:33",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "thresholds": {
@@ -60,8 +60,8 @@
  ],
  "ncm": {
   "level": "unknown",
-  "text": "NCM page not readable at 11:32",
+  "text": "NCM page not readable at 12:33",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-09 11:32"
+  "asof": "2026-10-09 12:33"
  }
 }
