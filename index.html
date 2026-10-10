@@ -1,5 +1,5 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><title>WMA · Waste Management Application</title>
+<meta name="robots" content="noindex,nofollow"><meta http-equiv="Cache-Control" content="no-store"><title>WMA · Waste Management Application</title>
 <style>
 :root{--ground:#0C1319;--panel:#121C24;--panel-2:#17232C;--line:#24333F;--ink:#E7EEF3;--ink-soft:#9EB0BF;--accent:#2FA3C0;--accent-wash:rgba(47,163,192,.14);--sans:Calibri,Carlito,"Segoe UI",sans-serif}
 html,body{margin:0;height:100%;background:var(--ground);color:var(--ink);font-family:var(--sans)}
@@ -18,14 +18,14 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 <button type="submit">Open</button><div class="g-msg" id="wma-gate-msg" aria-live="polite"></div><div class="bar"><i id="wma-bar"></i></div></form></div>
 <script>
 (function(){
-  var META={"salt":"cdce7b4c4a367bf69da9b1f0e62f342d","iv":"e9305673ea5a5e230b6c6fe7","rounds":310000,"bytes":10353895,"plain":21078580}, CHECK="98d2dfd698c29a49fe893b41be74002666edeee4c6801fa010df3c64a98250c1";
+  var META={"salt":"790f69a1ec03854a975f8569f183f6cd","iv":"b768705d8ea7970a707b2d2c","rounds":310000,"bytes":10353895,"plain":21078580}, CHECK="98d2dfd698c29a49fe893b41be74002666edeee4c6801fa010df3c64a98250c1";
   var form=document.querySelector("form"), inp=document.getElementById("wma-gate-in"), msg=document.getElementById("wma-gate-msg"), bar=document.getElementById("wma-bar");
   var n=0, wait=0, busy=false, blob=null;
   function hex2buf(h){ var a=new Uint8Array(h.length/2); for(var i=0;i<a.length;i++) a[i]=parseInt(h.substr(i*2,2),16); return a; }
   function hex(buf){ var a=new Uint8Array(buf), s=""; for(var i=0;i<a.length;i++){ s+=("0"+a[i].toString(16)).slice(-2); } return s; }
   function fetchBin(){
     if(blob) return Promise.resolve(blob);
-    return fetch("app.bin",{cache:"force-cache"}).then(function(r){
+    return fetch("app.bin?v="+CHECK.slice(0,12),{cache:"no-store"}).then(function(r){
       if(!r.ok) throw new Error("app.bin "+r.status);
       var total=META.bytes, got=0, reader=r.body.getReader(), parts=[];
       function pump(){ return reader.read().then(function(x){ if(x.done){ return; } parts.push(x.value); got+=x.value.length; bar.style.width=Math.min(100,Math.round(70*got/total))+"%"; return pump(); }); }
