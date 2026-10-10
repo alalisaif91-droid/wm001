@@ -18,7 +18,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 <button type="submit">Open</button><div class="g-msg" id="wma-gate-msg" aria-live="polite"></div><div class="bar"><i id="wma-bar"></i></div></form></div>
 <script>
 (function(){
-  var META={"salt":"9b477f0666fa1ec72b7f836d27f68992","iv":"1dfcc91ae21d7ba8f5de70e5","rounds":310000,"bytes":10353895,"plain":21078580}, CHECK="81a6bc73202f432c728333cc60dec14f70149c7bf97f2c5af4849232c4ac1d1c";
+  var META={"salt":"cdce7b4c4a367bf69da9b1f0e62f342d","iv":"e9305673ea5a5e230b6c6fe7","rounds":310000,"bytes":10353895,"plain":21078580}, CHECK="98d2dfd698c29a49fe893b41be74002666edeee4c6801fa010df3c64a98250c1";
   var form=document.querySelector("form"), inp=document.getElementById("wma-gate-in"), msg=document.getElementById("wma-gate-msg"), bar=document.getElementById("wma-bar");
   var n=0, wait=0, busy=false, blob=null;
   function hex2buf(h){ var a=new Uint8Array(h.length/2); for(var i=0;i<a.length;i++) a[i]=parseInt(h.substr(i*2,2),16); return a; }
