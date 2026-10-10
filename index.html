@@ -18,7 +18,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 <button type="submit">Open</button><div class="g-msg" id="wma-gate-msg" aria-live="polite"></div><div class="bar"><i id="wma-bar"></i></div></form></div>
 <script>
 (function(){
-  var META={"salt":"790f69a1ec03854a975f8569f183f6cd","iv":"b768705d8ea7970a707b2d2c","rounds":310000,"bytes":10353895,"plain":21078580}, CHECK="98d2dfd698c29a49fe893b41be74002666edeee4c6801fa010df3c64a98250c1";
+  var META={"rounds":310000,"approx":10400000}, CHECK="98d2dfd698c29a49fe893b41be74002666edeee4c6801fa010df3c64a98250c1";
   var form=document.querySelector("form"), inp=document.getElementById("wma-gate-in"), msg=document.getElementById("wma-gate-msg"), bar=document.getElementById("wma-bar");
   var n=0, wait=0, busy=false, blob=null;
   function hex2buf(h){ var a=new Uint8Array(h.length/2); for(var i=0;i<a.length;i++) a[i]=parseInt(h.substr(i*2,2),16); return a; }
@@ -27,7 +27,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     if(blob) return Promise.resolve(blob);
     return fetch("app.bin?v="+CHECK.slice(0,12),{cache:"no-store"}).then(function(r){
       if(!r.ok) throw new Error("app.bin "+r.status);
-      var total=META.bytes, got=0, reader=r.body.getReader(), parts=[];
+      var total=+r.headers.get("content-length")||META.approx, got=0, reader=r.body.getReader(), parts=[];
       function pump(){ return reader.read().then(function(x){ if(x.done){ return; } parts.push(x.value); got+=x.value.length; bar.style.width=Math.min(100,Math.round(70*got/total))+"%"; return pump(); }); }
       return pump().then(function(){ var all=new Uint8Array(got), o=0; parts.forEach(function(p){ all.set(p,o); o+=p.length; }); blob=all; return all; });
     });
@@ -51,8 +51,8 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     }).then(function(ct){
       msg.textContent="Opening"; bar.style.width="75%";
       return crypto.subtle.importKey("raw", new TextEncoder().encode(v), "PBKDF2", false, ["deriveKey"]).then(function(km){
-        return crypto.subtle.deriveKey({name:"PBKDF2", salt:hex2buf(META.salt), iterations:META.rounds, hash:"SHA-256"}, km, {name:"AES-GCM", length:256}, false, ["decrypt"]);
-      }).then(function(key){ return crypto.subtle.decrypt({name:"AES-GCM", iv:hex2buf(META.iv)}, key, ct); });
+        return crypto.subtle.deriveKey({name:"PBKDF2", salt:ct.subarray(0,16), iterations:META.rounds, hash:"SHA-256"}, km, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+      }).then(function(key){ return crypto.subtle.decrypt({name:"AES-GCM", iv:ct.subarray(16,28)}, key, ct.subarray(28)).catch(function(){ throw new Error("The code was accepted but the file did not decrypt. Press Ctrl+F5 once and try again."); }); });
     }).then(function(gz){ bar.style.width="90%"; return gunzip(gz); }).then(function(buf){
       var html=new TextDecoder().decode(buf);
       bar.style.width="100%";
@@ -60,7 +60,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     }).catch(function(e){
       busy=false; bar.style.width="0";
       if(String(e.message)==="bad code"){ n++; inp.value=""; msg.textContent="Access code not recognised."; if(n>=5){ wait=Date.now()+30000; msg.textContent="Too many attempts. Wait 30 seconds."; n=0; } }
-      else { msg.textContent=e.message||"Could not open the application."; }
+      else { msg.textContent=e.message||"Could not open the application. Press Ctrl+F5 and try again."; if(window.console) console.error(e); }
     });
   });
   setTimeout(function(){ try{ inp.focus(); }catch(e){} }, 30);
