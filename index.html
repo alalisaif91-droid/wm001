@@ -62,7 +62,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
         }).then(function(k){ return crypto.subtle.decrypt({name:"AES-GCM", iv:sd.subarray(16,28)}, k, sd.subarray(28,76)); })
           .then(function(dk){ return crypto.subtle.importKey("raw", dk, "AES-GCM", false, ["decrypt"]); }, function(){ return slot(i+1); });
       }
-      return slot(0).then(function(key){ return crypto.subtle.decrypt({name:"AES-GCM", iv:ct.subarray(bo,bo+12)}, key, ct.subarray(bo+12)); });
+      return slot(0).then(function(key){ window.__WMA_KEY=key; return crypto.subtle.decrypt({name:"AES-GCM", iv:ct.subarray(bo,bo+12)}, key, ct.subarray(bo+12)); });
     }).then(function(gz){ bar.style.width="90%"; return gunzip(gz); }).then(function(buf){
       var html=new TextDecoder().decode(buf);
       bar.style.width="100%";

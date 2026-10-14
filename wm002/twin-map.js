@@ -1961,7 +1961,7 @@
   function renderAccount() {
     var el = $("acct");
     if (USER) { el.innerHTML = '<p>Signed in as <b>' + esc(USER.name) + '</b> (' + esc(USER.role) + '). Platform ' + esc(PLAT) + '.</p><button class="btn ghost" id="acct-out">Sign out</button>'; $("acct-out").onclick = async function () { await api.logout(); renderAccount(); updatePlatPill(); }; return; }
-    el.innerHTML = '<p>Sign in to the O&M platform to place bins, import land use and optimise routes. Viewing needs no sign in beyond a platform account.</p><label>Platform address</label><input id="acct-url" value="' + esc(PLAT) + '"><label>Email</label><input id="acct-email" type="email" autocomplete="username"><label>Password</label><input id="acct-pw" type="text" data-masked="1" style="-webkit-text-security:disc" autocomplete="current-password"><button class="btn" id="acct-in">Sign in</button><div id="acct-err"></div>';
+    el.innerHTML = '<p>Sign in to the O&M platform to place bins, import land use and optimise routes. Viewing needs no sign in beyond a platform account.</p><label>Platform address</label><input id="acct-url" value="' + esc(PLAT) + '"><label>Email</label><input id="acct-email" type="email" autocomplete="username"><label>Password</label><input id="acct-pw" type="text" data-masked="1" autocomplete="off" style="-webkit-text-security:disc" autocomplete="current-password"><button class="btn" id="acct-in">Sign in</button><div id="acct-err"></div>';
     $("acct-in").onclick = async function () { PLAT = $("acct-url").value.replace(/\/+$/, ""); try { localStorage.setItem("omcc-platform-url", PLAT); } catch (e) {} try { await api.login($("acct-email").value.trim(), $("acct-pw").value); renderAccount(); updatePlatPill(); await reloadAll(); await loadPlans(); document.querySelector('nav button[data-tab="layers"]').click(); } catch (e) { $("acct-err").innerHTML = '<div class="err">' + esc(e.status === 401 ? "Email or password is wrong." : e.message) + '</div>'; } };
     $("acct-pw").onkeydown = function (ev) { if (ev.key === "Enter") $("acct-in").click(); };
   }
@@ -2024,7 +2024,7 @@
   }
   function urlLayers() {
     (URLQ.get("layers") || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean).forEach(function (k) {
-      var cb = document.querySelector('input[data-layer="' + k.replace(/[^a-z0-9_]/gi, "") + '"]');
+      var cb = document.querySelector('input[data-layer="' + k.replace(/[^a-z0-9_-]/gi, "") + '"]');   // flood layer keys carry hyphens (water-points, road-closures)
       if (cb && !cb.checked) cb.click();
     });
   }
