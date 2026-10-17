@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Rain Status</title>
+<style>
+:root{--sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;--navy:#0B2545;--blue:#3B4CA3;--blue2:#8395DB;--ink:#14202B;--grey:#5C6672;--pale:#D3DAE3;--soft:#F3F5F7;--bg:#FFFFFF;--red:#7A1F1F;--amber:#A85A1E;--ochre:#8C7326;--green:#3E6E58;--slate:#6E7A86}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101820;--ink:#E6EAEF;--grey:#9AA6B3;--pale:#2A3540;--soft:#18222C;--navy:#C3CCEE}}
+:root[data-theme=dark]{--bg:#101820;--ink:#E6EAEF;--grey:#9AA6B3;--pale:#2A3540;--soft:#18222C;--navy:#C3CCEE}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.35}
+.wrap{max-width:420px;margin:0 auto;padding:14px 16px}
+h1{font-size:15px;margin:0 0 2px;color:var(--navy);letter-spacing:.02em}
+.sub{font-size:11px;color:var(--grey);margin-bottom:10px}
+.stage{border-radius:8px;padding:10px 12px;color:#fff;background:var(--slate);display:flex;justify-content:space-between;align-items:center}
+.stage b{font-size:17px}.stage small{font-size:11px;opacity:.9;display:block}
+.stage.s1{background:var(--slate)}.stage.s2{background:var(--ochre)}.stage.s3{background:var(--amber)}.stage.s4{background:var(--red)}
+.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}
+.tile{background:var(--soft);border:1px solid var(--pale);border-radius:6px;padding:8px}
+.tile b{display:block;font-size:18px;color:var(--navy)}.tile span{font-size:10.5px;color:var(--grey)}
+.feed{font-size:11.5px;color:var(--grey);display:flex;justify-content:space-between;align-items:center;margin:6px 0}
+.old{color:#fff;background:var(--red);padding:2px 6px;border-radius:4px;font-weight:bold}
+table{width:100%;border-collapse:collapse;font-size:11.5px}th{text-align:left;color:var(--grey);font-weight:normal;border-bottom:1px solid var(--pale);padding:4px 2px}
+td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:5px;background:var(--pale);border-radius:3px;overflow:hidden}.bar i{display:block;height:5px;background:var(--blue)}
+.ncm{font-size:11.5px;margin:8px 0;padding:8px;border-left:3px solid var(--blue2);background:var(--soft)}
+.links{font-size:11.5px;margin-top:10px}.links a{color:var(--blue);text-decoration:none;margin-right:12px}
+.foot{font-size:10px;color:var(--grey);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>RAIN EMERGENCY, RAS AL KHAIMAH</h1>
+  <div class="sub">Waste Management, PSD. The season 07 Oct 2026 to 31 Mar 2027. Plan WA-PSD-PLN-05.</div>
+  <div id="stage" class="stage"><div><b>…</b><small></small></div><div style="text-align:right;font-size:11px">stage the<br>record supports</div></div>
+  <div class="feed"><span id="feed">feed …</span><span id="old" class="old" hidden>FEED IS OLD</span></div>
+  <div class="row">
+    <div class="tile"><b id="t1">…</b><span>mm, worst 6 h ahead</span></div>
+    <div class="tile"><b id="t2">…</b><span>pumps on standby</span></div>
+    <div class="tile"><b id="t3">…</b><span>actions late</span></div>
+  </div>
+  <div id="ncm" class="ncm">NCM …</div>
+  <table><thead><tr><th>Rain point</th><th class="n">24 h mm</th><th class="n">72 h mm</th><th style="width:34%"></th></tr></thead><tbody id="pts"></tbody></table>
+  <div class="links"><a id="console" href="#" target="_blank" rel="noopener">Full console (sign in)</a><a href="../">WM001</a></div>
+  <div class="foot" id="foot">Model: Open Meteo at the plan's eight rain points, a forecast, not a warning. NCM is the warning. Live register: Wet Utilities pump map. No person is named on this page.</div>
+</div>
+<script>
+(async function(){
+  var r=await fetch('status.json?x='+Date.now(),{cache:'no-store'}); var s=await r.json();
+  var cls={'Routine readiness':'s1','Enhanced watch':'s2','Pre deployment':'s3','Active response':'s4'}[s.stage]||'s1';
+  var st=document.getElementById('stage'); st.className='stage '+cls; st.querySelector('b').textContent=s.stage; st.querySelector('small').textContent=s.stageWhy;
+  var asof=new Date(s.feedAsof.replace(' ','T')+':00+04:00'); var ageH=(Date.now()-asof.getTime())/36e5;
+  document.getElementById('feed').textContent='Feed '+s.feedAsof+' UAE ('+(ageH<1?'under an hour':Math.round(ageH)+' h')+' old) · pumps read '+(s.pumps.captured||'').slice(0,16);
+  if(ageH>24){document.getElementById('old').hidden=false;}
+  document.getElementById('t1').textContent=(s.worstMax6==null?'…':s.worstMax6);
+  document.getElementById('t2').textContent=s.pumps.standby+' / '+s.pumps.total;
+  document.getElementById('t3').textContent=s.actions.late+' / '+s.actions.total;
+  var n=s.ncm||{}; document.getElementById('ncm').innerHTML='<b>NCM '+(n.level||'none')+'</b> · '+(n.text||'no reading')+(n.asof?' <span style="color:var(--grey)">('+n.asof+')</span>':'');
+  var mx=Math.max(10,...s.points.map(function(p){return p.next72||0}));
+  document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+p.name+'</td><td class="n">'+(p.error?'no data':p.next24)+'</td><td class="n">'+(p.error?'':p.next72)+'</td><td><div class="bar"><i style="width:'+w+'%"></i></div></td></tr>'}).join('');
+  document.getElementById('console').href=s.console;
+  document.getElementById('foot').textContent+=' Written '+s.written+'.';
+})().catch(function(e){document.getElementById('stage').querySelector('b').textContent='status unavailable';});
+</script>
+</body>
+</html>
