@@ -1,12 +1,12 @@
 {
- "written": "2026-10-17 20:00",
+ "written": "2026-10-17 22:01",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-17 20:00",
+ "feedAsof": "2026-10-17 22:01",
  "modelLevel": "none",
- "worstMax6": 2.3,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -54,28 +54,28 @@
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 2.1,
-   "next72": 2.1,
-   "max6": 2.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 2.3,
-   "next72": 2.3,
-   "max6": 2.3,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   }
  ],
  "pumps": {
-  "captured": "2026-10-17 19:47",
+  "captured": "2026-10-17 20:17",
   "total": 133,
   "standby": 23,
   "working": 0,
