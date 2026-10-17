@@ -1,12 +1,12 @@
 {
- "written": "2026-10-17 17:00",
+ "written": "2026-10-17 18:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-17 17:00",
+ "feedAsof": "2026-10-17 18:00",
  "modelLevel": "none",
- "worstMax6": 1.3,
+ "worstMax6": 0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -19,10 +19,10 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Rams (1B)",
@@ -61,21 +61,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.9,
-   "next72": 1.2,
-   "max6": 1.2,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.9,
-   "next72": 1.3,
-   "max6": 1.3,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   }
  ],
  "pumps": {
-  "captured": "2026-10-17 16:48",
+  "captured": "2026-10-17 17:47",
   "total": 133,
   "standby": 23,
   "working": 0,
