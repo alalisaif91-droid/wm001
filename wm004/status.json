@@ -1,10 +1,10 @@
 {
- "written": "2026-10-19 14:00",
+ "written": "2026-10-19 14:52",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-19 14:00",
+ "feedAsof": "2026-10-19 14:49",
  "modelLevel": "none",
  "worstMax6": 6.4,
  "thresholds": {
@@ -13,8 +13,8 @@
  },
  "ncm": {
   "level": "none",
-  "text": "No rain warning for Ras Al Khaimah. Fog warnings only, issued 17 Oct 2026 01:35: red fog 05:45 to 09:00 and yellow fog 02:30 to 09:00 on 17 Oct 2026 over some coastal and internal areas (Abu Dhabi and Al Dhafra on the map); RAK not named.",
-  "asof": "2026-10-17 06:32"
+  "text": "NCM warning issued 19 Oct 2026 10:50, text only, no colour on the map (\"No warning for now\"): chance of some convective cloud formation over some eastern and southern areas, with rainfall and fresh to strong winds at times and clouds causing blowing dust at up to 50 km/h, from 14:00 until 21:00 on 19 Oct 2026. Ras Al Khaimah not named; no rain colour alert in force.",
+  "asof": "2026-10-19 14:49"
  },
  "points": [
   {
@@ -75,7 +75,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-19 13:47",
+  "captured": "2026-10-19 14:47",
   "total": 133,
   "standby": 36,
   "working": 0,
