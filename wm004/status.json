@@ -1,12 +1,12 @@
 {
- "written": "2026-10-19 15:07",
+ "written": "2026-10-19 16:02",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-19 15:00",
+ "feedAsof": "2026-10-19 16:02",
  "modelLevel": "none",
- "worstMax6": 5.6,
+ "worstMax6": 0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -19,63 +19,63 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 5.1,
-   "next72": 5.1,
-   "max6": 5.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 5.6,
-   "next72": 5.8,
-   "max6": 5.6,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   }
  ],
  "pumps": {
-  "captured": "2026-10-19 15:02",
+  "captured": "2026-10-19 15:47",
   "total": 133,
   "standby": 36,
   "working": 0,
