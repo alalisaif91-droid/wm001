@@ -1,5 +1,5 @@
 {
- "written": "2026-10-19 15:00",
+ "written": "2026-10-19 15:07",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
@@ -75,7 +75,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-19 14:47",
+  "captured": "2026-10-19 15:02",
   "total": 133,
   "standby": 36,
   "working": 0,
