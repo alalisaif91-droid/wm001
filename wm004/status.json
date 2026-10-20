@@ -1,12 +1,12 @@
 {
- "written": "2026-10-20 10:07",
+ "written": "2026-10-20 11:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-20 10:07",
+ "feedAsof": "2026-10-20 11:00",
  "modelLevel": "none",
- "worstMax6": 0,
+ "worstMax6": 0.2,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -19,70 +19,70 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Rams (1B)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.2,
+   "next72": 0.3,
+   "max6": 0.2,
+   "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
+   "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
+   "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-20 09:17",
+  "captured": "2026-10-20 10:47",
   "total": 135,
   "standby": 39,
   "working": 0,
   "noPump": 95
  },
  "actions": {
-  "total": 29,
+  "total": 21,
   "late": 5
  },
  "season": "07 Oct 2026 to 31 Mar 2027",
