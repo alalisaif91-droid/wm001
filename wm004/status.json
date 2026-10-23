@@ -1,10 +1,10 @@
 {
- "written": "2026-10-23 13:21",
+ "written": "2026-10-23 14:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-23 13:21",
+ "feedAsof": "2026-10-23 14:00",
  "modelLevel": "none",
  "worstMax6": 0.4,
  "thresholds": {
@@ -75,7 +75,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-23 13:21",
+  "captured": "2026-10-23 13:47",
   "total": 135,
   "standby": 40,
   "working": 0,
