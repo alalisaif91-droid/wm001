@@ -1,10 +1,10 @@
 {
- "written": "2026-10-23 05:36",
+ "written": "2026-10-23 05:41",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "No NCM signal for Ras Al Khaimah; the model under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-23 05:35",
+ "feedAsof": "2026-10-23 05:41",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -26,56 +26,56 @@
   },
   {
    "name": "Al Rams (1B)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-22 22:17",
+  "captured": "2026-10-23 05:41",
   "total": 135,
   "standby": 40,
   "working": 0,
