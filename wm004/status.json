@@ -1,10 +1,10 @@
 {
- "written": "2026-10-24 22:00",
+ "written": "2026-10-24 23:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM alert level has not been read, so no stage is proposed from the weather alone; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-24 22:00",
+ "feedAsof": "2026-10-24 23:00",
  "modelLevel": "none",
  "worstMax6": 0,
  "thresholds": {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-24 21:47",
+  "captured": "2026-10-24 22:47",
   "total": 134,
   "standby": 40,
   "working": 0,
