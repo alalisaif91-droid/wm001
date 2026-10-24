@@ -1,19 +1,19 @@
 {
- "written": "2026-10-24 15:00",
+ "written": "2026-10-24 18:20",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather model could not be read at the last run, so no stage is proposed from it",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-24 15:00",
+ "feedAsof": "2026-10-24 18:19",
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.2,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
+  "level": "unknown",
+  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet. Last logged reading: The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
   "asof": "2026-10-24 13:02"
  },
  "points": [
@@ -62,8 +62,8 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -75,7 +75,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-24 14:47",
+  "captured": "2026-10-24 18:19",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -90,14 +90,14 @@
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
  "hazards": {
   "rain": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
    "ncm": "none",
    "stationRainNow": false
   },
   "fog": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
@@ -109,22 +109,22 @@
    "stations": []
   }
  },
- "readingQuality": "full",
+ "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 2.0,
+  "ageHours": 5.3,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 6.0
+  "warningsAgeHours": 9.3
  },
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-24 15:00",
-  "lastGoodAsof": "2026-10-24 15:00",
-  "readingQuality": "full",
+  "lastRun": "2026-10-24 18:19",
+  "lastGoodAsof": "2026-10-24 18:19",
+  "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 2,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 6.0
+  "ncmWarningsReadingAgeHours": 9.3
  }
 }
