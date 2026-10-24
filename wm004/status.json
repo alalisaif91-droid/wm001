@@ -1,12 +1,12 @@
 {
- "written": "2026-10-24 14:00",
+ "written": "2026-10-24 15:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-24 14:00",
+ "feedAsof": "2026-10-24 15:00",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -62,8 +62,8 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -75,7 +75,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-24 13:47",
+  "captured": "2026-10-24 14:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -111,20 +111,20 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 1.0,
+  "ageHours": 2.0,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 5.0
+  "warningsAgeHours": 6.0
  },
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-24 14:00",
-  "lastGoodAsof": "2026-10-24 14:00",
+  "lastRun": "2026-10-24 15:00",
+  "lastGoodAsof": "2026-10-24 15:00",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.0
+  "ncmWarningsReadingAgeHours": 6.0
  }
 }
