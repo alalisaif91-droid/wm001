@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-25 02:46",
+ "asof": "2026-10-25 03:14",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "thresholds": {
@@ -17,15 +17,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -312,15 +308,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 20,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -607,15 +599,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -902,15 +890,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 18,
    "gustMax24": 21,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -1197,15 +1181,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 31,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -1492,15 +1472,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T02:00",
+   "peakAt": "2026-10-25T03:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -1790,12 +1766,8 @@
    "peakAt": "2026-10-27T16:00",
    "peakMm": 0.4,
    "probMax24": 28,
-   "gustMax24": 19,
+   "gustMax24": 18,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -2085,12 +2057,8 @@
    "peakAt": "2026-10-27T17:00",
    "peakMm": 0.7,
    "probMax24": 8,
-   "gustMax24": 22,
+   "gustMax24": 20,
    "hourly": [
-    [
-     "2026-10-25T02:00",
-     0
-    ],
     [
      "2026-10-25T03:00",
      0
@@ -2371,68 +2339,9 @@
   }
  ],
  "ncm": {
-  "level": "unknown",
-  "levelInForce": "none",
-  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-24 18:19, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
+  "level": "none",
+  "text": "NCM warnings page read at 03:05 on 25 Oct 2026: no coloured warning region on the map. One text warning in force, issued 24/10 22:45: chance of fog formation with a deterioration in horizontal visibility, which may drop even further at times over some internal areas from 03:00 until 09:00 Sunday 25/10/2026. Ras Al Khaimah not named; no rain, dust or wind warning.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-24 13:02",
-  "id": "NCM-20261024-005",
-  "ageHours": 11.6,
-  "areas": "all areas",
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "rakNamed": "unknown",
-  "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
-  },
-  "levelsInForce": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
-  },
-  "inForce": [],
-  "upcoming": [],
-  "stale": true,
-  "by": "engine",
-  "kind": "warning",
-  "warningsAgeHours": 15.7,
-  "autoAgeHours": 11.6,
-  "shown": "the latest warning reading",
-  "bulletin": {
-   "id": "NCM-20261024-003",
-   "asof": "2026-10-24 09:59",
-   "text": "NCM 5 day bulletin of 24 Oct 2026, read automatically; the bulletin carries no colour, so this is not a warning. Fog or mist is named for 24 Oct to 28 Oct (a chance or a probability). Convective cloud with rainfall is named for 24 Oct to 28 Oct. Blowing dust is named for 24 Oct, 26 Oct to 28 Oct with wind reaching 50 km/h.",
-   "source": "https://www.ncm.gov.ae/services/download-weather-bulletin?lang=en"
-  },
-  "pageShows": {
-   "state": "warnings",
-   "colours": [
-    "yellow"
-   ],
-   "since": "2026-10-24 18:19",
-   "seen": "2026-10-24 18:19",
-   "pending": true,
-   "pendingHazards": [
-    "rain",
-    "fog",
-    "dust"
-   ],
-   "coveredBy": [],
-   "namedHazards": [],
-   "note": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-24 18:19, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add"
-  },
-  "refused": {
-   "open": [],
-   "count": 0,
-   "dealtWith": 0,
-   "unreadableLines": null,
-   "note": "a reading typed by a person and refused by the log (ncm_refused.jsonl) is a high alert until a valid reading for the same level is logged or python ncm_log.py clear-refused acknowledges it"
-  }
+  "asof": "2026-10-25 03:05"
  }
 }
