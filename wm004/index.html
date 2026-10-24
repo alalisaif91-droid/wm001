@@ -40,6 +40,8 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
     <div class="tile"><b id="t2">…</b><span>pumps on standby</span></div>
     <div class="tile"><b id="t3">…</b><span>actions late</span></div>
   </div>
+  <div id="haz" class="ncm" hidden></div>
+  <div id="eng" class="feed" hidden></div>
   <div id="ncm" class="ncm">NCM …</div>
   <table><thead><tr><th>Rain point</th><th class="n">24 h mm</th><th class="n">72 h mm</th><th style="width:34%"></th></tr></thead><tbody id="pts"></tbody></table>
   <div class="links"><a id="console" href="#" target="_blank" rel="noopener">Full console (sign in)</a><a href="../">WM001</a></div>
@@ -56,9 +58,14 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   document.getElementById('t1').textContent=(s.worstMax6==null?'…':s.worstMax6);
   document.getElementById('t2').textContent=s.pumps.standby+' / '+s.pumps.total;
   document.getElementById('t3').textContent=s.actions.late+' / '+s.actions.total;
-  var n=s.ncm||{}; document.getElementById('ncm').innerHTML='<b>NCM '+(n.level||'none')+'</b> · '+(n.text||'no reading')+(n.asof?' <span style="color:var(--grey)">('+n.asof+')</span>':'');
+  var n=s.ncm||{}, nl=n.levels||{}; var nh='NCM rain '+(n.level||'none')+(nl.fog&&nl.fog!=='none'?' · fog '+nl.fog:'')+(nl.dust&&nl.dust!=='none'?' · dust '+nl.dust:'');
+  document.getElementById('ncm').innerHTML='<b>'+nh+'</b> · '+(n.text||'no reading')+(n.asof?' <span style="color:var(--grey)">('+n.asof+')</span>':'');
   var mx=Math.max(10,...s.points.map(function(p){return p.next72||0}));
   document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+p.name+'</td><td class="n">'+(p.error?'no data':p.next24)+'</td><td class="n">'+(p.error?'':p.next72)+'</td><td><div class="bar"><i style="width:'+w+'%"></i></div></td></tr>'}).join('');
+  var hz=s.hazards||{}, rows=[];
+  ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+x.level+(k==='dust'?'':' (NCM '+((k==='rain'?x.ncm:x.ncm)||'none')+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
+  if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}
+  var en=s.engine; if(en){var eb=document.getElementById('eng'); var t=[]; if(en.ok===false){t.push('LAST ENGINE RUN FAILED ('+en.lastRun+'); showing the last good reading of '+(en.lastGoodAsof||'unknown'));} else if(en.pointsTotal){t.push('Reading '+(en.readingQuality||'')+': '+en.pointsRead+' of '+en.pointsTotal+' points');} if(en.ncmWarningsReadingAgeHours!=null){t.push('NCM warnings last read by a person '+Math.round(en.ncmWarningsReadingAgeHours)+' h ago');} if(t.length){eb.hidden=false; eb.textContent=t.join(' · ');}}
   document.getElementById('console').href=s.console;
   document.getElementById('foot').textContent+=' Written '+s.written+'.';
 })().catch(function(e){document.getElementById('stage').querySelector('b').textContent='status unavailable';});
