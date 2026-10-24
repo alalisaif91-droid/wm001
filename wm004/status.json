@@ -1,10 +1,10 @@
 {
- "written": "2026-10-25 02:09",
+ "written": "2026-10-25 02:47",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM alert level has not been read, so no stage is proposed from the weather alone; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 02:05",
+ "feedAsof": "2026-10-25 02:46",
  "modelLevel": "none",
  "worstMax6": 1.1,
  "thresholds": {
