@@ -1,10 +1,10 @@
 {
- "written": "2026-10-25 02:47",
+ "written": "2026-10-25 03:14",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The NCM alert level has not been read, so no stage is proposed from the weather alone; the model is under 10 mm in 6 h",
+ "stage": "Routine readiness",
+ "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 02:46",
+ "feedAsof": "2026-10-25 03:14",
  "modelLevel": "none",
  "worstMax6": 1.1,
  "thresholds": {
@@ -12,20 +12,11 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-24 18:19, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
-  "asof": "2026-10-24 13:02",
-  "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
-  },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ]
+  "level": "none",
+  "text": "NCM warnings page read at 03:05 on 25 Oct 2026: no coloured warning region on the map. One text warning in force, issued 24/10 22:45: chance of fog formation with a deterioration in horizontal visibility, which may drop even further at times over some internal areas from 03:00 until 09:00 Sunday 25/10/2026. Ras Al Khaimah not named; no rain, dust or wind warning.",
+  "asof": "2026-10-25 03:05",
+  "levels": null,
+  "hazard": null
  },
  "points": [
   {
@@ -86,7 +77,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-25 02:06",
+  "captured": "2026-10-25 03:04",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -99,24 +90,49 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "none",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "none",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 11.6,
-  "by": "engine",
-  "kind": "warning",
-  "warningsAgeHours": 15.7
+  "ageHours": null,
+  "by": null,
+  "kind": null,
+  "warningsAgeHours": null
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-25 00:38",
-  "lastGoodAsof": "2026-10-25 00:38",
-  "readingQuality": "degraded",
+  "lastRun": "2026-10-25 03:03",
+  "lastGoodAsof": "2026-10-25 03:03",
+  "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 3,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 15.7
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
