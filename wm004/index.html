@@ -25,6 +25,8 @@ table{width:100%;border-collapse:collapse;font-size:11.5px}th{text-align:left;co
 td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;font-variant-numeric:tabular-nums}
 .bar{height:5px;background:var(--pale);border-radius:3px;overflow:hidden}.bar i{display:block;height:5px;background:var(--blue)}
 .ncm{font-size:11.5px;margin:8px 0;padding:8px;border-left:3px solid var(--blue2);background:var(--soft)}
+.alertbox{font-size:12px;margin:0 0 8px;padding:8px 10px;border:1px solid var(--red);border-left:5px solid var(--red);background:var(--soft);color:var(--ink)}
+.alertbox b{color:var(--red)}.alertbox div+div{margin-top:6px}
 .links{font-size:11.5px;margin-top:10px}.links a{color:var(--blue);text-decoration:none;margin-right:12px}
 .foot{font-size:10px;color:var(--grey);margin-top:8px}
 </style>
@@ -33,6 +35,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
 <div class="wrap">
   <h1>RAIN EMERGENCY, RAS AL KHAIMAH</h1>
   <div class="sub">Waste Management, PSD. The season 07 Oct 2026 to 31 Mar 2027. Plan WA-PSD-PLN-05.</div>
+  <div id="alert" class="alertbox" hidden></div>
   <div id="stage" class="stage"><div><b>…</b><small></small></div><div style="text-align:right;font-size:11px">stage the<br>record supports</div></div>
   <div class="feed"><span id="feed">feed …</span><span id="old" class="old" hidden>FEED IS OLD</span></div>
   <div class="row">
@@ -59,9 +62,12 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   document.getElementById('t2').textContent=s.pumps.standby+' / '+s.pumps.total;
   document.getElementById('t3').textContent=s.actions.late+' / '+s.actions.total;
   var n=s.ncm||{}, nl=n.levels||{}; var nh='NCM rain '+(n.level||'none')+(nl.fog&&nl.fog!=='none'?' · fog '+nl.fog:'')+(nl.dust&&nl.dust!=='none'?' · dust '+nl.dust:'');
-  document.getElementById('ncm').innerHTML='<b>'+nh+'</b> · '+(n.text||'no reading')+(n.asof?' <span style="color:var(--grey)">('+n.asof+')</span>':'');
+  var nb=document.getElementById('ncm'); nb.textContent=''; var nbb=document.createElement('b'); nbb.textContent=nh; nb.appendChild(nbb); nb.appendChild(document.createTextNode(' · '+(n.text||'no reading')));
+  if(n.asof){var ns=document.createElement('span'); ns.style.color='var(--grey)'; ns.textContent=' ('+n.asof+')'; nb.appendChild(ns);}
+  var ha=s.highAlerts||[]; if(ha.length){var ab=document.getElementById('alert'); ab.hidden=false; ab.textContent=''; ha.forEach(function(x){var d=document.createElement('div'); var bb=document.createElement('b'); bb.textContent='HIGH ALERT '; d.appendChild(bb); d.appendChild(document.createTextNode(x.text||'')); ab.appendChild(d);});}
   var mx=Math.max(10,...s.points.map(function(p){return p.next72||0}));
-  document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+p.name+'</td><td class="n">'+(p.error?'no data':p.next24)+'</td><td class="n">'+(p.error?'':p.next72)+'</td><td><div class="bar"><i style="width:'+w+'%"></i></div></td></tr>'}).join('');
+  var esc=function(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});};
+  document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':esc(p.next24))+'</td><td class="n">'+(p.error?'':esc(p.next72))+'</td><td><div class="bar"><i style="width:'+(isFinite(w)?w:0)+'%"></i></div></td></tr>'}).join('');
   var hz=s.hazards||{}, rows=[];
   ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+x.level+(k==='dust'?'':' (NCM '+((k==='rain'?x.ncm:x.ncm)||'none')+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
   if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}
