@@ -18,7 +18,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def uae_now():
-    return datetime.datetime.utcnow() + datetime.timedelta(hours=4)
+    return datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None) + datetime.timedelta(hours=4)
 
 
 def fetch(lat, lon):
@@ -63,6 +63,14 @@ def main():
     try:
         prev = json.load(open(out_path, encoding='utf-8'))
     except Exception:
+        pass
+    # several triggers can start a run (the schedule, the pinger every 15 minutes, the laptop every hour): a feed written in the last 20 minutes is fresh enough, so they do not pile up commits
+    try:
+        age = (uae_now() - datetime.datetime.strptime(prev.get('asof', ''), '%Y-%m-%d %H:%M')).total_seconds() / 60.0
+        if 0 <= age < 20 and os.environ.get('FEED_FORCE') != '1':
+            print('weather.json is %.0f minutes old: fresh enough, nothing to do' % age)
+            return 0
+    except (ValueError, TypeError):
         pass
     ncm = prev.get('ncm') or {'level': 'unknown', 'text': 'No NCM reading recorded yet', 'source': 'https://www.ncm.gov.ae', 'asof': None}
     try:
