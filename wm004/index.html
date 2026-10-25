@@ -74,6 +74,19 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   var en=s.engine; if(en){var eb=document.getElementById('eng'); var t=[]; if(en.ok===false){t.push('LAST ENGINE RUN FAILED ('+en.lastRun+'); showing the last good reading of '+(en.lastGoodAsof||'unknown'));} else if(en.pointsTotal){t.push('Reading '+(en.readingQuality||'')+': '+en.pointsRead+' of '+en.pointsTotal+' points');} if(en.ncmWarningsReadingAgeHours!=null){t.push('NCM warnings last read by a person '+Math.round(en.ncmWarningsReadingAgeHours)+' h ago');} if(t.length){eb.hidden=false; eb.textContent=t.join(' · ');}}
   document.getElementById('console').href=s.console;
   document.getElementById('foot').textContent+=' Written '+s.written+'.';
+  // 25 Oct 2026: the rain feed is refreshed by GitHub Actions every 30 minutes whether or not the laptop is awake. When it is newer than the laptop's status, show it.
+  try{
+    var wr=await fetch('weather.json?x='+Date.now(),{cache:'no-store'}); var w=await wr.json();
+    var good=(w.points||[]).filter(function(p){return !p.error;});
+    if(w.asof && good.length>=6 && w.asof>s.feedAsof){
+      var wa=new Date(w.asof.replace(' ','T')+':00+04:00'), wh=(Date.now()-wa.getTime())/36e5;
+      document.getElementById('feed').textContent='Rain feed '+w.asof+' UAE ('+(wh<1?'under an hour':Math.round(wh)+' h')+' old, refreshed by the site every 30 minutes) · pumps read '+(s.pumps.captured||'').slice(0,16)+' · status written '+s.written;
+      document.getElementById('old').hidden=!(wh>24);
+      document.getElementById('t1').textContent=(w.worstMax6==null?'…':w.worstMax6);
+      var mx2=Math.max(10,...good.map(function(p){return p.next72||0}));
+      document.getElementById('pts').innerHTML=w.points.map(function(p){var q=Math.round(100*(p.next72||0)/mx2);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':esc(p.next24))+'</td><td class="n">'+(p.error?'':esc(p.next72))+'</td><td><div class="bar"><i style="width:'+(isFinite(q)?q:0)+'%"></i></div></td></tr>';}).join('');
+    }
+  }catch(e){}
 })().catch(function(e){document.getElementById('stage').querySelector('b').textContent='status unavailable';});
 </script>
 </body>
