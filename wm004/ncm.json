@@ -1,8 +1,8 @@
 {
  "level": "none",
- "text": "NCM warnings page read at 08:22 on 25 Oct 2026 by Barq: no rain warning in force. The only warning is a yellow fog warning for some internal areas, 03:00 to 09:00 on 25 Oct 2026 (issued 24 Oct 22:45); RAK not named.",
- "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-10-25 08:24",
+ "text": "No warning for now (NCM warnings map, read 25 Oct 2026 11:54 UAE); the NCM ticker carries no weather warning, only temperature and earthquake notes",
+ "source": "https://www.ncm.gov.ae",
+ "asof": "2026-10-25 11:54",
  "levels": {
   "rain": "none",
   "fog": "none",
@@ -13,5 +13,5 @@
  ],
  "areas": "",
  "ageHours": 0.0,
- "id": "NCM-20261025-005"
+ "id": "NCM-20261025-007"
 }
