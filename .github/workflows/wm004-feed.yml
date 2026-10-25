@@ -1,0 +1,52 @@
+# WM004 rain feed, every 30 minutes, on GitHub's own servers (25 Oct 2026).
+# The department laptop used to write wm004/weather.json, but it goes into Modern Standby and no scheduled task runs while it sleeps
+# (gaps of 7 h at night), and the cloud routine sits behind a proxy that refuses Open-Meteo. This job runs whether or not any laptop is awake.
+# It reads the Open-Meteo model at the eight rain points, writes wm004/weather.json, commits it to main and brings gh-pages level (the site is served from gh-pages).
+# If fewer than 6 of the 8 points answer, the script writes nothing and exits 1: the run fails (GitHub e-mails the owner) and the last good file stays.
+name: WM004 rain feed
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wm004-feed.yml'
+      - 'wm004/weather_feed_action.py'
+permissions:
+  contents: write
+concurrency:
+  group: wm004-feed
+  cancel-in-progress: false
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Read Open-Meteo and write wm004/weather.json
+        run: python3 wm004/weather_feed_action.py wm004/weather.json
+      - name: Commit to main and bring gh-pages level
+        run: |
+          set -e
+          git config user.name "WM004 rain feed"
+          git config user.email "wm004@users.noreply.github.com"
+          if git diff --quiet -- wm004/weather.json; then echo "weather.json unchanged"; exit 0; fi
+          ASOF=$(python3 -c "import json;print(json.load(open('wm004/weather.json'))['asof'])")
+          git add wm004/weather.json
+          git commit -m "wm004: weather feed ${ASOF} (GitHub Actions)"
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push origin HEAD:main && break
+            echo "push to main rejected, try $i"; sleep $((i * 5))
+          done
+          for i in 1 2 3 4; do
+            git fetch origin gh-pages main
+            TREE=$(git rev-parse origin/main^{tree})
+            if [ "$TREE" = "$(git rev-parse origin/gh-pages^{tree})" ]; then echo "gh-pages already level"; break; fi
+            C=$(git commit-tree "$TREE" -p origin/gh-pages -m "wm004: site synced from main $(git rev-parse --short origin/main) (GitHub Actions)")
+            git push origin "$C:refs/heads/gh-pages" && break
+            echo "push to gh-pages rejected, try $i"; sleep $((i * 5))
+          done
