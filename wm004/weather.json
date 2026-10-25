@@ -1,7 +1,8 @@
 {
- "asof": "2026-10-25 08:20",
+ "asof": "2026-10-25 08:50",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
+ "writer": "GitHub Actions, every 30 minutes",
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -1645,7 +1646,7 @@
    "max6": 0.9,
    "peakAt": "2026-10-27T17:00",
    "peakMm": 0.4,
-   "probMax24": 28,
+   "probMax24": 35,
    "gustMax24": 21,
    "hourly": [
     [
@@ -1916,7 +1917,7 @@
    "max6": 0.6,
    "peakAt": "2026-10-27T17:00",
    "peakMm": 0.3,
-   "probMax24": 8,
+   "probMax24": 5,
    "gustMax24": 30,
    "hourly": [
     [
@@ -2180,8 +2181,19 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "NCM warnings page read at 03:05 on 25 Oct 2026: no coloured warning region on the map. One text warning in force, issued 24/10 22:45: chance of fog formation with a deterioration in horizontal visibility, which may drop even further at times over some internal areas from 03:00 until 09:00 Sunday 25/10/2026. Ras Al Khaimah not named; no rain, dust or wind warning.",
-  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-25 03:05"
+  "text": "NCM warnings page read at 08:22 on 25 Oct 2026 by Barq: no rain warning in force. The only warning is a yellow fog warning for some internal areas, 03:00 to 09:00 on 25 Oct 2026 (issued 24 Oct 22:45); RAK not named.",
+  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
+  "asof": "2026-10-25 08:24",
+  "levels": {
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
+  },
+  "hazard": [
+   "rain"
+  ],
+  "areas": "",
+  "ageHours": 0.0,
+  "id": "NCM-20261025-005"
  }
 }
