@@ -1,10 +1,10 @@
 {
- "written": "2026-10-25 17:59",
+ "written": "2026-10-25 18:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 17:59",
+ "feedAsof": "2026-10-25 18:00",
  "modelLevel": "none",
  "worstMax6": 3.7,
  "thresholds": {
@@ -76,7 +76,7 @@
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.7,
+   "next24": 0.8,
    "next72": 4.5,
    "max6": 3.7,
    "error": false
@@ -132,13 +132,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-25 15:20",
-  "lastGoodAsof": "2026-10-25 15:20",
+  "lastRun": "2026-10-25 17:59",
+  "lastGoodAsof": "2026-10-25 17:59",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 2,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.4
+  "ncmWarningsReadingAgeHours": 6.1
  }
 }
