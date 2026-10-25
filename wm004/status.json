@@ -1,83 +1,89 @@
 {
- "written": "2026-10-25 08:20",
+ "written": "2026-10-25 08:53",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
- "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 08:20",
+ "feedAsof": "2026-10-25 08:24",
  "modelLevel": "none",
- "worstMax6": 0.9,
+ "worstMax6": 0.6,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "NCM warnings page read at 03:05 on 25 Oct 2026: no coloured warning region on the map. One text warning in force, issued 24/10 22:45: chance of fog formation with a deterioration in horizontal visibility, which may drop even further at times over some internal areas from 03:00 until 09:00 Sunday 25/10/2026. Ras Al Khaimah not named; no rain, dust or wind warning.",
-  "asof": "2026-10-25 03:05",
-  "levels": null,
-  "hazard": null
+  "text": "NCM warnings page read at 08:22 on 25 Oct 2026 by Barq: no rain warning in force. The only warning is a yellow fog warning for some internal areas, 03:00 to 09:00 on 25 Oct 2026 (issued 24 Oct 22:45); RAK not named.",
+  "asof": "2026-10-25 08:24",
+  "levels": {
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
+  },
+  "hazard": [
+   "rain"
+  ]
  },
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.3,
+   "max6": 0.3,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.2,
-   "next72": 1.2,
-   "max6": 0.9,
+   "next24": 0.0,
+   "next72": 0.6,
+   "max6": 0.6,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.2,
-   "next72": 0.9,
+   "next24": 0.0,
+   "next72": 0.8,
    "max6": 0.6,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-25 08:20",
+  "captured": "2026-10-25 08:50",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -118,21 +124,21 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": null,
-  "by": null,
-  "kind": null,
-  "warningsAgeHours": null
+  "ageHours": 0.0,
+  "by": "manual",
+  "kind": "warning",
+  "warningsAgeHours": 0.0
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-25 06:20",
-  "lastGoodAsof": "2026-10-25 06:20",
+  "lastRun": "2026-10-25 08:24",
+  "lastGoodAsof": "2026-10-25 08:24",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.3
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
