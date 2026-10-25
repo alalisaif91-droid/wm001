@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-25 13:32",
+ "asof": "2026-10-25 13:44",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
