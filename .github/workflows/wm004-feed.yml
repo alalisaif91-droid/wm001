@@ -2,6 +2,8 @@
 # The department laptop used to write wm004/weather.json, but it goes into Modern Standby and no scheduled task runs while it sleeps
 # (gaps of 7 h at night), and the cloud routine sits behind a proxy that refuses Open-Meteo. This job runs whether or not any laptop is awake.
 # It reads the Open-Meteo model at the eight rain points, writes wm004/weather.json, commits it to main and brings gh-pages level (the site is served from gh-pages).
+# A second trigger: a push that changes wm004/feed.trigger starts a run at once (the department laptop touches it every hour when it is awake), because GitHub's own schedule can start
+# late or, on a new workflow, not at all for a while.
 # If fewer than 6 of the 8 points answer, the script writes nothing and exits 1: the run fails (GitHub e-mails the owner) and the last good file stays.
 name: WM004 rain feed
 on:
@@ -13,6 +15,7 @@ on:
     paths:
       - '.github/workflows/wm004-feed.yml'
       - 'wm004/weather_feed_action.py'
+      - 'wm004/feed.trigger'
 permissions:
   contents: write
 concurrency:
