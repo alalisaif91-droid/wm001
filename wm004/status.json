@@ -1,12 +1,12 @@
 {
- "written": "2026-10-25 08:53",
+ "written": "2026-10-25 08:55",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 08:24",
+ "feedAsof": "2026-10-25 08:55",
  "modelLevel": "none",
- "worstMax6": 0.6,
+ "worstMax6": 0.9,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -27,57 +27,57 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.3,
-   "max6": 0.3,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.6,
-   "max6": 0.6,
+   "next24": 0.2,
+   "next72": 1.2,
+   "max6": 0.9,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.0,
-   "next72": 0.8,
+   "next24": 0.2,
+   "next72": 0.9,
    "max6": 0.6,
    "error": false
   }
