@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-25 10:56",
+ "asof": "2026-10-25 11:56",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,15 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -281,15 +277,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 19,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -544,15 +536,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -807,15 +795,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 18,
    "gustMax24": 21,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -1070,15 +1054,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 30,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -1333,15 +1313,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-25T10:00",
+   "peakAt": "2026-10-25T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -1602,10 +1578,6 @@
    "gustMax24": 22,
    "hourly": [
     [
-     "2026-10-25T10:00",
-     0
-    ],
-    [
      "2026-10-25T11:00",
      0
     ],
@@ -1861,13 +1833,9 @@
    "max6": 0.6,
    "peakAt": "2026-10-27T17:00",
    "peakMm": 0.3,
-   "probMax24": 15,
+   "probMax24": 5,
    "gustMax24": 15,
    "hourly": [
-    [
-     "2026-10-25T10:00",
-     0
-    ],
     [
      "2026-10-25T11:00",
      0
@@ -2117,9 +2085,9 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "NCM warnings page read at 08:22 on 25 Oct 2026 by Barq: no rain warning in force. The only warning is a yellow fog warning for some internal areas, 03:00 to 09:00 on 25 Oct 2026 (issued 24 Oct 22:45); RAK not named.",
-  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-25 08:24",
+  "text": "No warning for now (NCM warnings map, read 25 Oct 2026 11:54 UAE); the NCM ticker carries no weather warning, only temperature and earthquake notes",
+  "source": "https://www.ncm.gov.ae",
+  "asof": "2026-10-25 11:54",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -2130,6 +2098,6 @@
   ],
   "areas": "",
   "ageHours": 0.0,
-  "id": "NCM-20261025-005"
+  "id": "NCM-20261025-007"
  }
 }
