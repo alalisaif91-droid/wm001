@@ -1,5 +1,5 @@
 {
- "written": "2026-10-25 22:00",
+ "written": "2026-10-25 23:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-25 21:47",
+  "captured": "2026-10-25 22:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -132,13 +132,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-25 21:20",
-  "lastGoodAsof": "2026-10-25 21:20",
+  "lastRun": "2026-10-25 22:20",
+  "lastGoodAsof": "2026-10-25 22:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 9.4
+  "ncmWarningsReadingAgeHours": 10.4
  }
 }
