@@ -1,12 +1,12 @@
 {
- "written": "2026-10-25 12:00",
+ "written": "2026-10-25 13:35",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-25 12:00",
+ "feedAsof": "2026-10-25 13:35",
  "modelLevel": "none",
- "worstMax6": 0.9,
+ "worstMax6": 3.7,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.4,
-   "next72": 1.4,
-   "max6": 0.9,
+   "next24": 0.1,
+   "next72": 4.0,
+   "max6": 2.4,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
    "next24": 0,
-   "next72": 0.7,
-   "max6": 0.6,
+   "next72": 4.1,
+   "max6": 3.7,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-25 11:47",
+  "captured": "2026-10-25 13:35",
   "total": 134,
   "standby": 40,
   "working": 0,
