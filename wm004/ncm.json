@@ -1,17 +1,20 @@
 {
  "level": "none",
- "text": "No warning for now (NCM warnings map, read 25 Oct 2026 11:54 UAE); the NCM ticker carries no weather warning, only temperature and earthquake notes",
- "source": "https://www.ncm.gov.ae",
- "asof": "2026-10-25 11:54",
+ "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
+ "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
+ "asof": "2026-10-26 08:20",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "rain"
+  "rain",
+  "fog",
+  "dust",
+  "wind"
  ],
- "areas": "",
+ "areas": "all areas",
  "ageHours": 0.0,
- "id": "NCM-20261025-007"
+ "id": "NCM-20261026-004"
 }
