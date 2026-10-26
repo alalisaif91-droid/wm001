@@ -1,27 +1,30 @@
 {
- "written": "2026-10-26 02:00",
+ "written": "2026-10-26 08:23",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
+ "stage": "Enhanced watch",
+ "stageWhy": "NCM yellow or the model above 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-26 02:00",
- "modelLevel": "none",
- "worstMax6": 1.9,
+ "feedAsof": "2026-10-26 08:23",
+ "modelLevel": "watch",
+ "worstMax6": 10.4,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "No warning for now (NCM warnings map, read 25 Oct 2026 11:54 UAE); the NCM ticker carries no weather warning, only temperature and earthquake notes",
-  "asof": "2026-10-25 11:54",
+  "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
+  "asof": "2026-10-26 08:20",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
   "hazard": [
-   "rain"
+   "rain",
+   "fog",
+   "dust",
+   "wind"
   ]
  },
  "points": [
@@ -49,15 +52,15 @@
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0,
-   "next72": 1.0,
-   "max6": 1.0,
+   "next72": 1.3,
+   "max6": 1.3,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
    "next24": 0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0,
+   "max6": 0,
    "error": false
   },
   {
@@ -70,20 +73,20 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0,
-   "next72": 1.9,
-   "max6": 1.9,
+   "next72": 14.4,
+   "max6": 9.6,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
    "next24": 0,
-   "next72": 1.2,
-   "max6": 1.2,
+   "next72": 15.7,
+   "max6": 10.4,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-26 01:47",
+  "captured": "2026-10-26 08:23",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -96,49 +99,24 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {
-  "rain": {
-   "level": "none",
-   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
-   "ncm": "none",
-   "stationRainNow": false,
-   "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
-    "applied": false
-   }
-  },
-  "fog": {
-   "level": "none",
-   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
-  },
-  "dust": {
-   "level": "reported only",
-   "label": "Station reports (Reported); no level",
-   "stations": []
-  }
- },
- "readingQuality": "full",
+ "hazards": {},
+ "readingQuality": null,
  "ncmDetail": {
   "ageHours": 0.0,
-  "by": "manual",
+  "by": "engine",
   "kind": "warning",
   "warningsAgeHours": 0.0
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-26 01:20",
-  "lastGoodAsof": "2026-10-26 01:20",
+  "lastRun": "2026-10-26 08:20",
+  "lastGoodAsof": "2026-10-26 08:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 13.4
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
