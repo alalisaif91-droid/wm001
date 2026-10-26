@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-26 13:57",
+ "asof": "2026-10-26 14:57",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,15 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-26T13:00",
+   "peakAt": "2026-10-26T14:00",
    "peakMm": 0,
-   "probMax24": 0,
-   "gustMax24": 22,
+   "probMax24": 3,
+   "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -269,15 +265,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-26T13:00",
+   "peakAt": "2026-10-26T14:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 19,
+   "gustMax24": 20,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -520,15 +512,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-26T13:00",
+   "peakAt": "2026-10-26T14:00",
    "peakMm": 0,
-   "probMax24": 0,
-   "gustMax24": 22,
+   "probMax24": 5,
+   "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -768,18 +756,14 @@
    "lat": 25.9357,
    "lon": 56.1176,
    "next6": 0,
-   "next24": 0,
+   "next24": 0.1,
    "next72": 1.4,
    "max6": 1.1,
    "peakAt": "2026-10-28T14:00",
    "peakMm": 0.8,
-   "probMax24": 13,
+   "probMax24": 23,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -1022,15 +1006,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-26T13:00",
+   "peakAt": "2026-10-26T14:00",
    "peakMm": 0,
-   "probMax24": 3,
-   "gustMax24": 26,
+   "probMax24": 5,
+   "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -1273,15 +1253,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-26T13:00",
+   "peakAt": "2026-10-26T14:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 22,
+   "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
@@ -1530,10 +1506,6 @@
    "gustMax24": 34,
    "hourly": [
     [
-     "2026-10-26T13:00",
-     0
-    ],
-    [
      "2026-10-26T14:00",
      0
     ],
@@ -1780,10 +1752,6 @@
    "probMax24": 33,
    "gustMax24": 29,
    "hourly": [
-    [
-     "2026-10-26T13:00",
-     0
-    ],
     [
      "2026-10-26T14:00",
      0
