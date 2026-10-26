@@ -1,10 +1,10 @@
 {
- "written": "2026-10-26 09:10",
+ "written": "2026-10-26 10:00",
  "tz": "Asia/Dubai",
  "stage": "Enhanced watch",
  "stageWhy": "NCM yellow or the model above 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-26 08:23",
+ "feedAsof": "2026-10-26 10:00",
  "modelLevel": "watch",
  "worstMax6": 10.4,
  "thresholds": {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-26 08:47",
+  "captured": "2026-10-26 09:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -135,13 +135,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-26 08:23",
-  "lastGoodAsof": "2026-10-26 08:23",
+  "lastRun": "2026-10-26 09:20",
+  "lastGoodAsof": "2026-10-26 09:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.1
+  "ncmWarningsReadingAgeHours": 1.0
  }
 }
