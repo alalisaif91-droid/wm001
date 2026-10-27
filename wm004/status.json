@@ -1,30 +1,27 @@
 {
- "written": "2026-10-26 23:00",
+ "written": "2026-10-27 08:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-26 23:00",
+ "feedAsof": "2026-10-27 08:00",
  "modelLevel": "none",
- "worstMax6": 5.0,
+ "worstMax6": 6.5,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
-  "asof": "2026-10-26 08:20",
+  "text": "NCM warnings map read in the browser 27 Oct 2026: No warning for now; ticker carries only temperature and earthquake notes, latest 25 Oct 09:12",
+  "asof": "2026-10-27 07:41",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
   "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
+   "rain"
   ]
  },
  "points": [
@@ -51,9 +48,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.1,
-   "next72": 1.5,
-   "max6": 1.4,
+   "next24": 0.2,
+   "next72": 0.6,
+   "max6": 0.4,
    "error": false
   },
   {
@@ -72,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 2.8,
-   "next72": 6.5,
-   "max6": 3.7,
+   "next24": 5.9,
+   "next72": 9.6,
+   "max6": 5.9,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 2.5,
-   "next72": 7.5,
-   "max6": 5.0,
+   "next24": 6.5,
+   "next72": 10.6,
+   "max6": 6.5,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-26 22:47",
+  "captured": "2026-10-27 07:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -113,10 +110,10 @@
    }
   },
   "fog": {
-   "level": "none",
+   "level": "alert",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
-   "observed": "none",
+   "observed": "alert",
    "ncm": "none"
   },
   "dust": {
@@ -128,20 +125,20 @@
  "readingQuality": "full",
  "ncmDetail": {
   "ageHours": 0.0,
-  "by": "engine",
+  "by": "manual",
   "kind": "warning",
   "warningsAgeHours": 0.0
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-26 22:20",
-  "lastGoodAsof": "2026-10-26 22:20",
+  "lastRun": "2026-10-27 07:41",
+  "lastGoodAsof": "2026-10-27 07:41",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 14.0
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
