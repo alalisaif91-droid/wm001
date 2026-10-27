@@ -1,5 +1,5 @@
 {
- "written": "2026-10-27 15:00",
+ "written": "2026-10-27 16:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-27 14:47",
+  "captured": "2026-10-27 15:02",
   "total": 134,
   "standby": 40,
   "working": 0,
