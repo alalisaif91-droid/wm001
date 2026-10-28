@@ -1,10 +1,10 @@
 {
- "written": "2026-10-28 23:00",
+ "written": "2026-10-29 00:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 23:00",
+ "feedAsof": "2026-10-29 00:00",
  "modelLevel": "none",
  "worstMax6": 0.5,
  "thresholds": {
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 22:47",
+  "captured": "2026-10-28 23:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -91,7 +91,7 @@
  },
  "actions": {
   "total": 30,
-  "late": 21
+  "late": 23
  },
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
@@ -114,7 +114,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "none"
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -124,22 +124,22 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 15.2,
+  "ageHours": 16.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 15.2,
+  "warningsAgeHours": 16.1,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-28 22:20",
-  "lastGoodAsof": "2026-10-28 22:20",
+  "lastRun": "2026-10-28 23:22",
+  "lastGoodAsof": "2026-10-28 23:22",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 3,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 14.5
+  "ncmWarningsReadingAgeHours": 15.5
  }
 }
