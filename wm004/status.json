@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29 02:00",
+ "written": "2026-10-29 03:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
@@ -124,22 +124,22 @@
  },
  "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 18.2,
+  "ageHours": 19.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 18.2,
+  "warningsAgeHours": 19.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": false,
-  "lastRun": "2026-10-29 01:20",
+  "lastRun": "2026-10-29 02:20",
   "lastGoodAsof": "2026-10-29 00:20",
   "readingQuality": "none",
   "pointsRead": 0,
   "pointsTotal": 8,
   "alertCount": 15,
-  "modelFailuresInARow": 1,
-  "ncmWarningsReadingAgeHours": 17.5
+  "modelFailuresInARow": 2,
+  "ncmWarningsReadingAgeHours": 18.5
  }
 }
