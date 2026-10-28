@@ -1,12 +1,12 @@
 {
- "written": "2026-10-28 19:00",
+ "written": "2026-10-28 20:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 19:00",
+ "feedAsof": "2026-10-28 20:00",
  "modelLevel": "none",
- "worstMax6": 0.3,
+ "worstMax6": 0.5,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -49,15 +49,15 @@
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next72": 0.5,
+   "max6": 0.5,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -70,20 +70,20 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0,
-   "next72": 0.2,
-   "max6": 0.2,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
    "next24": 0,
-   "next72": 0.3,
-   "max6": 0.3,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 18:47",
+  "captured": "2026-10-28 19:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -132,13 +132,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-28 18:20",
-  "lastGoodAsof": "2026-10-28 18:20",
+  "lastRun": "2026-10-28 19:20",
+  "lastGoodAsof": "2026-10-28 19:20",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 2,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 10.5
+  "ncmWarningsReadingAgeHours": 11.5
  }
 }
