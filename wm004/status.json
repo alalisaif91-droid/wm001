@@ -1,10 +1,10 @@
 {
- "written": "2026-10-28 20:00",
+ "written": "2026-10-28 21:00",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
+ "stage": "Not determined",
+ "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 20:00",
+ "feedAsof": "2026-10-28 21:00",
  "modelLevel": "none",
  "worstMax6": 0.5,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "level": "unknown",
+  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-28 16:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
   "asof": "2026-10-28 07:50",
   "levels": {
-   "rain": "none",
-   "fog": "red",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "rain"
@@ -27,28 +27,28 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0,
+   "next24": 0.0,
    "next72": 0.5,
    "max6": 0.5,
    "error": false
@@ -62,28 +62,28 @@
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0,
-   "next72": 0,
-   "max6": 0,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0,
+   "next24": 0.0,
    "next72": 0.1,
    "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0,
+   "next24": 0.0,
    "next72": 0.1,
    "max6": 0.1,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 19:47",
+  "captured": "2026-10-28 20:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -124,21 +124,22 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 0.0,
+  "ageHours": 13.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 0.0
+  "warningsAgeHours": 13.2,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-28 19:20",
-  "lastGoodAsof": "2026-10-28 19:20",
+  "lastRun": "2026-10-28 20:49",
+  "lastGoodAsof": "2026-10-28 20:49",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 2,
+  "alertCount": 3,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 11.5
+  "ncmWarningsReadingAgeHours": 13.0
  }
 }
