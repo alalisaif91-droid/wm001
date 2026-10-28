@@ -56,7 +56,8 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     var wide=window.innerWidth>760;
     if(view==="mobile" && wide){
       /* a phone width frame: the console runs inside it, so its own phone layout applies; a bar outside the frame switches back */
-      var inner=html.replace("<head>","<head><script>window.__WM004_VIEW='mobile-inner';<\/script>");
+      /* inside the frame the page has no host name of its own (about:srcdoc), so the console would think it is not on the website and would not refresh: tell it it is live */
+      var inner=html.split("/github\\.io$/.test(location.hostname)").join("true").replace("<head>","<head><script>window.__WM004_VIEW='mobile-inner';window.__WM004_LIVE=true;<\/script>");
       document.open();
       document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WM004 Rain Emergency Response</title><style>html,body{margin:0;height:100%;background:#0C1319;color:#E7EEF3;font-family:Calibri,Carlito,"Segoe UI",sans-serif}body{display:flex;flex-direction:column;align-items:center}.vbar{box-sizing:border-box;width:100%;display:flex;gap:10px;align-items:center;justify-content:center;padding:6px 12px;font-size:13px;color:#9EB0BF;border-bottom:1px solid #24333F}.vbar a{color:#E7EEF3;text-decoration:underline;cursor:pointer}.phone{flex:1;min-height:0;width:430px;max-width:100%;border-left:1px solid #24333F;border-right:1px solid #24333F;background:#fff}iframe{display:block;width:100%;height:100%;border:0}</style></head><body><div class="vbar"><span>Mobile view</span><a id="vd">Desktop view</a><a id="va">Auto</a></div><div class="phone"><iframe id="vf" title="WM004 mobile view"></iframe></div></body></html>');
       document.close();
