@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-28 16:56",
+ "asof": "2026-10-28 17:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 5.3,
+ "worstMax6": 0.3,
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
@@ -18,15 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T16:00",
+   "peakAt": "2026-10-28T17:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -257,15 +253,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T16:00",
+   "peakAt": "2026-10-28T17:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 20,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -496,15 +488,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T16:00",
+   "peakAt": "2026-10-28T17:00",
    "peakMm": 0,
-   "probMax24": 0,
+   "probMax24": 3,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -737,13 +725,9 @@
    "max6": 0.1,
    "peakAt": "2026-10-28T18:00",
    "peakMm": 0.1,
-   "probMax24": 28,
+   "probMax24": 20,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -974,15 +958,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T16:00",
+   "peakAt": "2026-10-28T17:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 26,
+   "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -1213,15 +1193,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T16:00",
+   "peakAt": "2026-10-28T17:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 24,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     0
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -1448,19 +1424,15 @@
    "name": "Showkah and Kadrah (8A)",
    "lat": 25.0925,
    "lon": 56.1193,
-   "next6": 5.2,
-   "next24": 5.2,
-   "next72": 5.4,
-   "max6": 5.2,
-   "peakAt": "2026-10-28T16:00",
-   "peakMm": 5.2,
-   "probMax24": 55,
+   "next6": 0,
+   "next24": 0,
+   "next72": 0.2,
+   "max6": 0.2,
+   "peakAt": "2026-10-30T17:00",
+   "peakMm": 0.2,
+   "probMax24": 45,
    "gustMax24": 32,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     5.2
-    ],
     [
      "2026-10-28T17:00",
      0
@@ -1687,19 +1659,15 @@
    "name": "Al Munai (9A)",
    "lat": 24.9231,
    "lon": 56.1496,
-   "next6": 5.3,
-   "next24": 5.3,
-   "next72": 5.6,
-   "max6": 5.3,
-   "peakAt": "2026-10-28T16:00",
-   "peakMm": 5.3,
-   "probMax24": 23,
+   "next6": 0,
+   "next24": 0,
+   "next72": 0.3,
+   "max6": 0.3,
+   "peakAt": "2026-10-30T17:00",
+   "peakMm": 0.3,
+   "probMax24": 43,
    "gustMax24": 31,
    "hourly": [
-    [
-     "2026-10-28T16:00",
-     5.3
-    ],
     [
      "2026-10-28T17:00",
      0
