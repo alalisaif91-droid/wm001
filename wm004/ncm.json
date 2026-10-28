@@ -1,17 +1,17 @@
 {
  "level": "none",
- "text": "NCM warnings map read in the browser 27 Oct 2026: No warning for now; ticker carries only temperature and earthquake notes, latest 25 Oct 09:12",
- "source": "https://www.ncm.gov.ae",
- "asof": "2026-10-27 07:41",
+ "text": "The NCM warnings page shows warning colours (yellow, red) that nobody has logged yet, first seen 2026-10-28 07:44, and no person has logged a reading naming dust since: the dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+ "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
+ "asof": "2026-10-28 07:49",
  "levels": {
   "rain": "none",
-  "fog": "none",
-  "dust": "none"
+  "fog": "red",
+  "dust": "unknown"
  },
  "hazard": [
   "rain"
  ],
  "areas": "",
  "ageHours": 0.0,
- "id": "NCM-20261027-003"
+ "id": "NCM-20261028-004"
 }

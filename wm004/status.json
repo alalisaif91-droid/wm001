@@ -1,10 +1,10 @@
 {
- "written": "2026-10-28 07:44",
+ "written": "2026-10-28 07:50",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
- "stageWhy": "The last NCM reading (none) is 24 hours old and is not current; the model is under 10 mm in 6 h",
+ "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 07:44",
+ "feedAsof": "2026-10-28 07:50",
  "modelLevel": "none",
  "worstMax6": 1.6,
  "thresholds": {
@@ -13,12 +13,12 @@
  },
  "ncm": {
   "level": "none",
-  "text": "NCM warnings map read in the browser 27 Oct 2026: No warning for now; ticker carries only temperature and earthquake notes, latest 25 Oct 09:12",
-  "asof": "2026-10-27 07:41",
+  "text": "The NCM warnings page shows warning colours (yellow, red) that nobody has logged yet, first seen 2026-10-28 07:44, and no person has logged a reading naming dust since: the dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "asof": "2026-10-28 07:49",
   "levels": {
    "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "fog": "red",
+   "dust": "unknown"
   },
   "hazard": [
    "rain"
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 07:44",
+  "captured": "2026-10-28 07:50",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -96,8 +96,33 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "unknown",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "unknown",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "degraded",
  "ncmDetail": {
   "ageHours": 0.0,
   "by": "manual",
@@ -107,13 +132,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-27 16:20",
-  "lastGoodAsof": "2026-10-27 16:20",
+  "lastRun": "2026-10-28 07:49",
+  "lastGoodAsof": "2026-10-28 07:49",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 2,
+  "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 8.7
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
