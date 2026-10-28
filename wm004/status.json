@@ -1,10 +1,10 @@
 {
- "written": "2026-10-28 14:00",
+ "written": "2026-10-28 15:22",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 14:00",
+ "feedAsof": "2026-10-28 15:22",
  "modelLevel": "none",
  "worstMax6": 5.0,
  "thresholds": {
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 13:17",
+  "captured": "2026-10-28 15:22",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -98,11 +98,11 @@
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
  "hazards": {
   "rain": {
-   "level": "none",
+   "level": "watch",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
    "ncm": "none",
-   "stationRainNow": false,
+   "stationRainNow": true,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -132,13 +132,13 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-28 13:20",
-  "lastGoodAsof": "2026-10-28 13:20",
+  "lastRun": "2026-10-28 15:20",
+  "lastGoodAsof": "2026-10-28 15:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.5
+  "ncmWarningsReadingAgeHours": 7.5
  }
 }
