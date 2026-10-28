@@ -1,12 +1,12 @@
 {
- "written": "2026-10-28 15:22",
+ "written": "2026-10-28 16:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 15:22",
+ "feedAsof": "2026-10-28 16:00",
  "modelLevel": "none",
- "worstMax6": 5.0,
+ "worstMax6": 5.3,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -48,9 +48,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.2,
-   "next72": 0.2,
-   "max6": 0.2,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -69,16 +69,16 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 5.0,
-   "next72": 5.2,
-   "max6": 5.0,
+   "next24": 5.2,
+   "next72": 5.4,
+   "max6": 5.2,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 4.0,
-   "next72": 4.3,
-   "max6": 4.0,
+   "next24": 5.3,
+   "next72": 5.6,
+   "max6": 5.3,
    "error": false
   }
  ],
