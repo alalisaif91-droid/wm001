@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29 01:00",
+ "written": "2026-10-29 02:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
@@ -100,9 +100,9 @@
   "rain": {
    "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
+   "model": "unknown",
    "ncm": "unknown",
-   "stationRainNow": false,
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -112,7 +112,7 @@
   "fog": {
    "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
+   "forecast": "unknown",
    "observed": "none",
    "ncm": "unknown"
   },
@@ -122,24 +122,24 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 17.2,
+  "ageHours": 18.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 17.2,
+  "warningsAgeHours": 18.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
-  "ok": true,
-  "lastRun": "2026-10-29 00:20",
+  "ok": false,
+  "lastRun": "2026-10-29 01:20",
   "lastGoodAsof": "2026-10-29 00:20",
-  "readingQuality": "degraded",
-  "pointsRead": 8,
+  "readingQuality": "none",
+  "pointsRead": 0,
   "pointsTotal": 8,
-  "alertCount": 3,
-  "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 16.5
+  "alertCount": 15,
+  "modelFailuresInARow": 1,
+  "ncmWarningsReadingAgeHours": 17.5
  }
 }
