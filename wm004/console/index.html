@@ -12,12 +12,19 @@ h1{margin:0 0 4px;font-size:20px;font-weight:700}p{margin:0 0 16px;font-size:13.
 #gate-in:focus{outline:2px solid var(--accent);outline-offset:1px}
 button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer;border:1px solid var(--accent);background:var(--accent-wash);color:var(--ink)}
 .g-msg{min-height:18px;margin:10px 0 0;font-size:13px}
+.view{border:1px solid var(--line);border-radius:8px;margin:12px 0 0;padding:6px 8px 8px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.view legend{font-size:12px;color:var(--ink-soft);padding:0 6px}
+.view label{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink);padding:5px 12px;border:1px solid var(--line);border-radius:14px;cursor:pointer}
+.view input{margin:0;accent-color:var(--accent)}
+.view label:has(input:checked){background:var(--accent-wash);border-color:var(--accent)}
 .bar{height:4px;background:var(--panel-2);border-radius:2px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
 </style></head><body>
 <div id="gate" role="dialog" aria-modal="true" aria-label="Access code"><form class="g-box" autocomplete="off">
 <h1>WM004 Rain Emergency Response</h1><p>Enter the access code to open the console. It refreshes its weather feed every 15 minutes.</p>
 <input id="gate-in" type="text" maxlength="96" aria-label="Access code" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
 <label class="shw"><input type="checkbox" id="gate-show"> Show the code I type</label>
+<fieldset class="view" aria-label="Open as"><legend>Open as</legend>
+<label><input type="radio" name="gview" value="auto" checked> Auto</label><label><input type="radio" name="gview" value="desktop"> Desktop</label><label><input type="radio" name="gview" value="mobile"> Mobile</label></fieldset>
 <button type="submit">Open</button><div class="g-msg" id="gate-msg" aria-live="polite"></div><div class="bar"><i id="gate-bar"></i></div></form></div>
 <script>
 (function(){
@@ -38,6 +45,33 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     var ds=new DecompressionStream("gzip"); var w=ds.writable.getWriter(); w.write(buf); w.close();
     return new Response(ds.readable).arrayBuffer();
   }
+  /* The view: Auto (the page decides from the screen), Desktop (a desktop layout even on a phone), Mobile (the phone layout even on a wide screen, in a phone width frame).
+     The choice comes from the address (?view=mobile or ?view=desktop, so a link can carry it), else from the buttons above, else from what this browser remembered (set only when a button is used). */
+  var KEY="wm004_view", VIEWS={auto:1,desktop:1,mobile:1};
+  function qView(){ var m=/[?&]view=(auto|desktop|mobile)/.exec(location.search); return m?m[1]:""; }
+  function savedView(){ try{ var v=localStorage.getItem(KEY); return VIEWS[v]?v:""; }catch(e){ return ""; } }
+  (function(){ var v=qView()||savedView(); if(v){ var r=document.querySelector('input[name=gview][value='+v+']'); if(r) r.checked=true; } })();
+  function chosenView(){ var r=document.querySelector('input[name=gview]:checked'); var v=r?r.value:"auto"; if(!qView()){ try{ if(v==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,v); }catch(e){} } return qView()||v; }
+  function openIn(html, view){
+    var wide=window.innerWidth>760;
+    if(view==="mobile" && wide){
+      /* a phone width frame: the console runs inside it, so its own phone layout applies; a bar outside the frame switches back */
+      var inner=html.replace("<head>","<head><script>window.__WM004_VIEW='mobile-inner';<\/script>");
+      document.open();
+      document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WM004 Rain Emergency Response</title><style>html,body{margin:0;height:100%;background:#0C1319;color:#E7EEF3;font-family:Calibri,Carlito,"Segoe UI",sans-serif}body{display:flex;flex-direction:column;align-items:center}.vbar{box-sizing:border-box;width:100%;display:flex;gap:10px;align-items:center;justify-content:center;padding:6px 12px;font-size:13px;color:#9EB0BF;border-bottom:1px solid #24333F}.vbar a{color:#E7EEF3;text-decoration:underline;cursor:pointer}.phone{flex:1;min-height:0;width:430px;max-width:100%;border-left:1px solid #24333F;border-right:1px solid #24333F;background:#fff}iframe{display:block;width:100%;height:100%;border:0}</style></head><body><div class="vbar"><span>Mobile view</span><a id="vd">Desktop view</a><a id="va">Auto</a></div><div class="phone"><iframe id="vf" title="WM004 mobile view"></iframe></div></body></html>');
+      document.close();
+      function sw(v){ try{ if(v==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,v); }catch(e){} var u=location.pathname+(v==="auto"?"":"?view="+v); location.href=u; }
+      document.getElementById("vd").onclick=function(){ sw("desktop"); };
+      document.getElementById("va").onclick=function(){ sw("auto"); };
+      document.getElementById("vf").srcdoc=inner;
+      return;
+    }
+    if(view==="desktop" && !wide){
+      /* a desktop layout on a narrow screen: ask the browser for a wide page and let it scale it down */
+      html=html.replace(/<meta name="viewport"[^>]*>/i,'<meta name="viewport" content="width=1280">');
+    }
+    document.open(); document.write(html); document.close();
+  }
   form.addEventListener("submit",function(ev){
     ev.preventDefault();
     if(busy) return;
@@ -56,7 +90,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     }).then(function(gz){ bar.style.width="90%"; msg.textContent="Opening"; return gunzip(gz); }).then(function(buf){
       var html=new TextDecoder().decode(buf);
       bar.style.width="100%";
-      document.open(); document.write(html); document.close();
+      openIn(html, chosenView());
     }).catch(function(e){
       busy=false; bar.style.width="0";
       if(String(e.message)==="bad code"){ tries++; try{ inp.select(); }catch(x){} msg.textContent="Access code not recognised. Tick Show the code and check it."; wait=Date.now()+Math.min(30000,1500*tries); }
