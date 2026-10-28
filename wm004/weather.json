@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-28 21:58",
+ "asof": "2026-10-28 22:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,15 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T21:00",
+   "peakAt": "2026-10-28T22:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T21:00",
-     0
-    ],
     [
      "2026-10-28T22:00",
      0
@@ -237,15 +233,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T21:00",
+   "peakAt": "2026-10-28T22:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 20,
    "hourly": [
-    [
-     "2026-10-28T21:00",
-     0
-    ],
     [
      "2026-10-28T22:00",
      0
@@ -456,15 +448,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T21:00",
+   "peakAt": "2026-10-28T22:00",
    "peakMm": 0,
-   "probMax24": 3,
+   "probMax24": 8,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T21:00",
-     0
-    ],
     [
      "2026-10-28T22:00",
      0
@@ -681,10 +669,6 @@
    "gustMax24": 24,
    "hourly": [
     [
-     "2026-10-28T21:00",
-     0
-    ],
-    [
      "2026-10-28T22:00",
      0
     ],
@@ -900,10 +884,6 @@
    "gustMax24": 22,
    "hourly": [
     [
-     "2026-10-28T21:00",
-     0
-    ],
-    [
      "2026-10-28T22:00",
      0
     ],
@@ -1113,15 +1093,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T21:00",
+   "peakAt": "2026-10-28T22:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T21:00",
-     0
-    ],
     [
      "2026-10-28T22:00",
      0
@@ -1338,10 +1314,6 @@
    "gustMax24": 31,
    "hourly": [
     [
-     "2026-10-28T21:00",
-     0
-    ],
-    [
      "2026-10-28T22:00",
      0
     ],
@@ -1553,13 +1525,9 @@
    "max6": 0.1,
    "peakAt": "2026-10-30T15:00",
    "peakMm": 0.1,
-   "probMax24": 3,
+   "probMax24": 5,
    "gustMax24": 30,
    "hourly": [
-    [
-     "2026-10-28T21:00",
-     0
-    ],
     [
      "2026-10-28T22:00",
      0
@@ -1765,19 +1733,37 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
   "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
   "asof": "2026-10-28 07:50",
   "levels": {
    "rain": "none",
-   "fog": "red",
+   "fog": "none",
    "dust": "none"
   },
   "hazard": [
    "rain"
   ],
   "areas": "",
-  "ageHours": 0.0,
-  "id": "NCM-20261028-006"
+  "ageHours": 15.2,
+  "id": "NCM-20261028-006",
+  "pageShows": {
+   "state": "warnings",
+   "colours": [
+    "yellow",
+    "orange"
+   ],
+   "since": "2026-10-28 22:20",
+   "seen": "2026-10-28 22:20",
+   "pending": true,
+   "pendingHazards": [
+    "rain",
+    "fog",
+    "dust"
+   ],
+   "namedHazards": [],
+   "note": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add"
+  },
+  "writtenAt": "2026-10-28 23:00"
  }
 }
