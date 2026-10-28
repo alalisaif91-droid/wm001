@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-28 07:41",
+ "asof": "2026-10-28 09:26",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,19 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -293,19 +285,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 10,
+   "probMax24": 5,
    "gustMax24": 19,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -568,19 +552,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 10,
+   "probMax24": 23,
    "gustMax24": 24,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -839,23 +815,15 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0.1,
+   "next6": 0.4,
    "next24": 1.2,
    "next72": 1.2,
    "max6": 1.2,
    "peakAt": "2026-10-28T17:00",
    "peakMm": 0.6,
-   "probMax24": 65,
-   "gustMax24": 24,
+   "probMax24": 60,
+   "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -1118,19 +1086,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 15,
+   "probMax24": 8,
    "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -1393,19 +1353,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -1671,16 +1623,8 @@
    "peakAt": "2026-10-28T15:00",
    "peakMm": 1.4,
    "probMax24": 60,
-   "gustMax24": 22,
+   "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -1943,19 +1887,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-28T07:00",
+   "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 40,
+   "probMax24": 38,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-10-28T07:00",
-     0
-    ],
-    [
-     "2026-10-28T08:00",
-     0
-    ],
     [
      "2026-10-28T09:00",
      0
@@ -2213,12 +2149,12 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "NCM warnings map read in the browser 27 Oct 2026: No warning for now; ticker carries only temperature and earthquake notes, latest 25 Oct 09:12",
-  "source": "https://www.ncm.gov.ae",
-  "asof": "2026-10-27 07:41",
+  "text": "No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
+  "asof": "2026-10-28 07:50",
   "levels": {
    "rain": "none",
-   "fog": "none",
+   "fog": "red",
    "dust": "none"
   },
   "hazard": [
@@ -2226,6 +2162,6 @@
   ],
   "areas": "",
   "ageHours": 0.0,
-  "id": "NCM-20261027-003"
+  "id": "NCM-20261028-006"
  }
 }
