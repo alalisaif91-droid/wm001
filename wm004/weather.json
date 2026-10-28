@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-28 21:20",
+ "asof": "2026-10-28 21:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -1116,7 +1116,7 @@
    "peakAt": "2026-10-28T21:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 25,
+   "gustMax24": 24,
    "hourly": [
     [
      "2026-10-28T21:00",
@@ -1553,7 +1553,7 @@
    "max6": 0.1,
    "peakAt": "2026-10-30T15:00",
    "peakMm": 0.1,
-   "probMax24": 5,
+   "probMax24": 3,
    "gustMax24": 30,
    "hourly": [
     [
