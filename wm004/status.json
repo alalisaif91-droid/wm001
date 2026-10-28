@@ -1,12 +1,12 @@
 {
- "written": "2026-10-28 13:03",
+ "written": "2026-10-28 14:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The last NCM reading shows no alert for Ras Al Khaimah; the model is under 10 mm in 6 h",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-28 10:00",
+ "feedAsof": "2026-10-28 14:00",
  "modelLevel": "none",
- "worstMax6": 6.6,
+ "worstMax6": 5.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -48,9 +48,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.5,
-   "next72": 0.5,
-   "max6": 0.5,
+   "next24": 0.2,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 5.3,
-   "next72": 5.4,
-   "max6": 5.3,
+   "next24": 5.0,
+   "next72": 5.2,
+   "max6": 5.0,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 6.6,
-   "next72": 6.6,
-   "max6": 6.6,
+   "next24": 4.0,
+   "next72": 4.3,
+   "max6": 4.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 13:02",
+  "captured": "2026-10-28 13:17",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -98,11 +98,11 @@
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
  "hazards": {
   "rain": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "unknown",
+   "model": "none",
    "ncm": "none",
-   "stationRainNow": null,
+   "stationRainNow": false,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -110,9 +110,9 @@
    }
   },
   "fog": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "unknown",
+   "forecast": "none",
    "observed": "none",
    "ncm": "none"
   },
@@ -122,7 +122,7 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "full",
  "ncmDetail": {
   "ageHours": 0.0,
   "by": "manual",
@@ -131,14 +131,14 @@
  },
  "highAlerts": [],
  "engine": {
-  "ok": false,
-  "lastRun": "2026-10-28 12:40",
-  "lastGoodAsof": "2026-10-28 10:20",
-  "readingQuality": "degraded",
-  "pointsRead": 0,
+  "ok": true,
+  "lastRun": "2026-10-28 13:20",
+  "lastGoodAsof": "2026-10-28 13:20",
+  "readingQuality": "full",
+  "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 13,
-  "modelFailuresInARow": 1,
-  "ncmWarningsReadingAgeHours": 4.8
+  "alertCount": 0,
+  "modelFailuresInARow": 0,
+  "ncmWarningsReadingAgeHours": 5.5
  }
 }
