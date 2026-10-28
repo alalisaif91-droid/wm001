@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-28 09:26",
+ "asof": "2026-10-28 09:56",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -815,12 +815,12 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0.4,
-   "next24": 1.2,
-   "next72": 1.2,
-   "max6": 1.2,
-   "peakAt": "2026-10-28T17:00",
-   "peakMm": 0.6,
+   "next6": 0.3,
+   "next24": 0.5,
+   "next72": 0.5,
+   "max6": 0.5,
+   "peakAt": "2026-10-28T13:00",
+   "peakMm": 0.2,
    "probMax24": 60,
    "gustMax24": 26,
    "hourly": [
@@ -842,23 +842,23 @@
     ],
     [
      "2026-10-28T13:00",
-     0.1
+     0.2
     ],
     [
      "2026-10-28T14:00",
-     0.2
-    ],
-    [
-     "2026-10-28T15:00",
-     0.2
-    ],
-    [
-     "2026-10-28T16:00",
      0
     ],
     [
+     "2026-10-28T15:00",
+     0
+    ],
+    [
+     "2026-10-28T16:00",
+     0.1
+    ],
+    [
      "2026-10-28T17:00",
-     0.6
+     0.1
     ],
     [
      "2026-10-28T18:00",
@@ -1889,7 +1889,7 @@
    "max6": 0,
    "peakAt": "2026-10-28T09:00",
    "peakMm": 0,
-   "probMax24": 38,
+   "probMax24": 25,
    "gustMax24": 26,
    "hourly": [
     [
