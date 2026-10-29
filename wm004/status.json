@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29 11:00",
+ "written": "2026-10-29 12:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The weather model could not be read at the last run, so no stage is proposed from it",
@@ -124,22 +124,22 @@
  },
  "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 27.2,
+  "ageHours": 28.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 27.2,
+  "warningsAgeHours": 28.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": false,
-  "lastRun": "2026-10-29 10:50",
+  "lastRun": "2026-10-29 11:35",
   "lastGoodAsof": "2026-10-29 00:20",
   "readingQuality": "none",
   "pointsRead": 0,
   "pointsTotal": 8,
   "alertCount": 15,
-  "modelFailuresInARow": 9,
-  "ncmWarningsReadingAgeHours": 27.0
+  "modelFailuresInARow": 10,
+  "ncmWarningsReadingAgeHours": 27.8
  }
 }
