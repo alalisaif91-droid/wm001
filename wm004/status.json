@@ -1,5 +1,5 @@
 {
- "written": "2026-10-29 06:00",
+ "written": "2026-10-29 10:28",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
@@ -13,7 +13,7 @@
  },
  "ncm": {
   "level": "unknown",
-  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
   "asof": "2026-10-28 07:50",
   "levels": {
    "rain": "unknown",
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-29 00:47",
+  "captured": "2026-10-29 06:02",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -124,22 +124,22 @@
  },
  "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 22.2,
+  "ageHours": 26.6,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 22.2,
+  "warningsAgeHours": 26.7,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": false,
-  "lastRun": "2026-10-29 05:20",
+  "lastRun": "2026-10-29 09:55",
   "lastGoodAsof": "2026-10-29 00:20",
   "readingQuality": "none",
   "pointsRead": 0,
   "pointsTotal": 8,
   "alertCount": 15,
-  "modelFailuresInARow": 5,
-  "ncmWarningsReadingAgeHours": 21.5
+  "modelFailuresInARow": 7,
+  "ncmWarningsReadingAgeHours": 26.1
  }
 }
