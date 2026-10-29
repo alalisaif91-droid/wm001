@@ -1,10 +1,10 @@
 {
- "written": "2026-10-29 17:00",
+ "written": "2026-10-29 18:18",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-29 17:00",
+ "feedAsof": "2026-10-29 18:18",
  "modelLevel": "none",
  "worstMax6": 0.8,
  "thresholds": {
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.2,
+   "next24": 0.3,
    "next72": 1.1,
    "max6": 0.8,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.3,
+   "next24": 0.4,
    "next72": 1.2,
    "max6": 0.8,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-29 16:47",
+  "captured": "2026-10-29 18:18",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -100,9 +100,9 @@
   "rain": {
    "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
+   "model": "unknown",
    "ncm": "unknown",
-   "stationRainNow": false,
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -112,8 +112,8 @@
   "fog": {
    "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
+   "forecast": "unknown",
+   "observed": "unknown",
    "ncm": "unknown"
   },
   "dust": {
@@ -124,21 +124,21 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 33.2,
+  "ageHours": 34.5,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 33.2,
+  "warningsAgeHours": 34.5,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-29 16:50",
-  "lastGoodAsof": "2026-10-29 16:50",
+  "lastRun": "2026-10-29 16:48",
+  "lastGoodAsof": "2026-10-29 16:48",
   "readingQuality": "degraded",
-  "pointsRead": 8,
+  "pointsRead": 2,
   "pointsTotal": 8,
-  "alertCount": 3,
+  "alertCount": 14,
   "modelFailuresInARow": 0,
   "ncmWarningsReadingAgeHours": 33.0
  }
