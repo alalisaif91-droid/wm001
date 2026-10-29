@@ -1,10 +1,10 @@
 {
- "written": "2026-10-29 16:00",
+ "written": "2026-10-29 17:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-29 16:00",
+ "feedAsof": "2026-10-29 17:00",
  "modelLevel": "none",
  "worstMax6": 0.8,
  "thresholds": {
@@ -34,10 +34,10 @@
   },
   {
    "name": "Al Rams (1B)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
@@ -48,10 +48,10 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": null,
-   "next72": null,
-   "max6": null,
-   "error": true
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
+   "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-29 15:47",
+  "captured": "2026-10-29 16:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -124,22 +124,22 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 32.2,
+  "ageHours": 33.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 32.2,
+  "warningsAgeHours": 33.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-29 15:20",
-  "lastGoodAsof": "2026-10-29 15:20",
+  "lastRun": "2026-10-29 16:50",
+  "lastGoodAsof": "2026-10-29 16:50",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 3,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 31.5
+  "ncmWarningsReadingAgeHours": 33.0
  }
 }
