@@ -1,12 +1,12 @@
 {
- "written": "2026-10-29 00:00",
+ "written": "2026-10-29 06:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-29 00:00",
+ "feedAsof": "2026-10-29 06:00",
  "modelLevel": "none",
- "worstMax6": 0.5,
+ "worstMax6": 0.3,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -27,9 +27,9 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -41,23 +41,23 @@
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.5,
-   "max6": 0.5,
+   "next72": 0.3,
+   "max6": 0.3,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -70,20 +70,20 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-28 23:47",
+  "captured": "2026-10-29 00:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -100,9 +100,9 @@
   "rain": {
    "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
+   "model": "unknown",
    "ncm": "unknown",
-   "stationRainNow": false,
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -112,7 +112,7 @@
   "fog": {
    "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
+   "forecast": "unknown",
    "observed": "none",
    "ncm": "unknown"
   },
@@ -122,24 +122,24 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 16.2,
+  "ageHours": 22.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 16.1,
+  "warningsAgeHours": 22.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
-  "ok": true,
-  "lastRun": "2026-10-28 23:22",
-  "lastGoodAsof": "2026-10-28 23:22",
-  "readingQuality": "degraded",
-  "pointsRead": 8,
+  "ok": false,
+  "lastRun": "2026-10-29 05:20",
+  "lastGoodAsof": "2026-10-29 00:20",
+  "readingQuality": "none",
+  "pointsRead": 0,
   "pointsTotal": 8,
-  "alertCount": 3,
-  "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 15.5
+  "alertCount": 15,
+  "modelFailuresInARow": 5,
+  "ncmWarningsReadingAgeHours": 21.5
  }
 }
