@@ -1,12 +1,12 @@
 {
- "written": "2026-10-29 10:28",
+ "written": "2026-10-29 11:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
+ "stageWhy": "The weather model could not be read at the last run, so no stage is proposed from it",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-29 06:00",
- "modelLevel": "none",
- "worstMax6": 0.3,
+ "feedAsof": "2026-10-29 10:33",
+ "modelLevel": "unknown",
+ "worstMax6": null,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -27,59 +27,59 @@
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.3,
-   "max6": 0.3,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   }
  ],
  "pumps": {
@@ -124,22 +124,22 @@
  },
  "readingQuality": "none",
  "ncmDetail": {
-  "ageHours": 26.6,
+  "ageHours": 27.2,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 26.7,
+  "warningsAgeHours": 27.2,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": false,
-  "lastRun": "2026-10-29 09:55",
+  "lastRun": "2026-10-29 10:50",
   "lastGoodAsof": "2026-10-29 00:20",
   "readingQuality": "none",
   "pointsRead": 0,
   "pointsTotal": 8,
   "alertCount": 15,
-  "modelFailuresInARow": 7,
-  "ncmWarningsReadingAgeHours": 26.1
+  "modelFailuresInARow": 9,
+  "ncmWarningsReadingAgeHours": 27.0
  }
 }
