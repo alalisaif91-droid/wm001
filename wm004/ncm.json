@@ -1,8 +1,8 @@
 {
  "level": "none",
- "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+ "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-10-28 07:50",
+ "asof": "2026-10-30 08:22",
  "levels": {
   "rain": "none",
   "fog": "none",
@@ -12,24 +12,7 @@
   "rain"
  ],
  "areas": "",
- "ageHours": 15.2,
- "id": "NCM-20261028-006",
- "pageShows": {
-  "state": "warnings",
-  "colours": [
-   "yellow",
-   "orange"
-  ],
-  "since": "2026-10-28 22:20",
-  "seen": "2026-10-28 22:20",
-  "pending": true,
-  "pendingHazards": [
-   "rain",
-   "fog",
-   "dust"
-  ],
-  "namedHazards": [],
-  "note": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add"
- },
- "writtenAt": "2026-10-28 23:00"
+ "ageHours": 0.0,
+ "id": "NCM-20261030-003",
+ "writtenAt": "2026-10-30 08:24"
 }

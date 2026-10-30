@@ -1,24 +1,24 @@
 {
- "written": "2026-10-29 17:00",
+ "written": "2026-10-30 08:24",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
+ "stageWhy": "The weather engine has not written for 16 hours (last 2026-10-29 16:48), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-29 17:00",
+ "feedAsof": "2026-10-30 08:24",
  "modelLevel": "none",
- "worstMax6": 0.8,
+ "worstMax6": 0.3,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
-  "asof": "2026-10-28 07:50",
+  "level": "none",
+  "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
+  "asof": "2026-10-30 08:22",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
    "rain"
@@ -48,9 +48,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.3,
+   "next72": 0.3,
+   "max6": 0.3,
    "error": false
   },
   {
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.2,
-   "next72": 1.1,
-   "max6": 0.8,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.3,
-   "next72": 1.2,
-   "max6": 0.8,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-29 16:47",
+  "captured": "2026-10-30 08:24",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -96,50 +96,25 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {
-  "rain": {
-   "level": "unknown",
-   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
-   "ncm": "unknown",
-   "stationRainNow": false,
-   "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
-    "applied": false
-   }
-  },
-  "fog": {
-   "level": "unknown",
-   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
-   "ncm": "unknown"
-  },
-  "dust": {
-   "level": "reported only",
-   "label": "Station reports (Reported); no level",
-   "stations": []
-  }
- },
- "readingQuality": "degraded",
+ "hazards": {},
+ "readingQuality": null,
  "ncmDetail": {
-  "ageHours": 33.2,
+  "ageHours": 0.0,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 33.2,
-  "stale": true
+  "warningsAgeHours": 0.0,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-29 16:50",
-  "lastGoodAsof": "2026-10-29 16:50",
-  "readingQuality": "degraded",
+  "lastRun": "2026-10-30 08:22",
+  "lastGoodAsof": "2026-10-30 08:22",
+  "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 3,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 33.0
+  "ncmWarningsReadingAgeHours": 0.0
  }
 }
