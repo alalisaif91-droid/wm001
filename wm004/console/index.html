@@ -28,7 +28,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 <button type="submit">Open</button><div class="g-msg" id="gate-msg" aria-live="polite"></div><div class="bar"><i id="gate-bar"></i></div></form></div>
 <script>
 (function(){
-  var ROUNDS=1000000, APPROX=4751021;
+  var ROUNDS=1000000, APPROX=3834115;
   var form=document.querySelector("form"), inp=document.getElementById("gate-in"), msg=document.getElementById("gate-msg"), bar=document.getElementById("gate-bar");
   var busy=false, wait=0, tries=0;
   document.getElementById("gate-show").addEventListener("change",function(e){ inp.className=e.target.checked?"shown":""; });
