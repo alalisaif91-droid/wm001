@@ -1,10 +1,10 @@
 {
- "written": "2026-10-30 23:00",
+ "written": "2026-10-31 00:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-30 23:00",
+ "feedAsof": "2026-10-31 00:00",
  "modelLevel": "none",
  "worstMax6": 0.2,
  "thresholds": {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-30 22:47",
+  "captured": "2026-10-30 23:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -94,7 +94,7 @@
  },
  "actions": {
   "total": 30,
-  "late": 23
+  "late": 24
  },
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
@@ -127,22 +127,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.5,
+  "ageHours": 4.5,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 14.7,
+  "warningsAgeHours": 15.6,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-30 22:50",
-  "lastGoodAsof": "2026-10-30 22:50",
+  "lastRun": "2026-10-30 23:35",
+  "lastGoodAsof": "2026-10-30 23:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 14.5
+  "ncmWarningsReadingAgeHours": 15.2
  }
 }
