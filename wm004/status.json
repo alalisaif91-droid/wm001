@@ -1,8 +1,8 @@
 {
- "written": "2026-10-30 08:24",
+ "written": "2026-10-30 09:00",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather engine has not written for 16 hours (last 2026-10-29 16:48), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
  "feedAsof": "2026-10-30 08:24",
  "modelLevel": "none",
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-30 08:24",
+  "captured": "2026-10-30 08:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -96,25 +96,50 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "none",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "none",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.0,
+  "ageHours": 0.6,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 0.0,
+  "warningsAgeHours": 0.6,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-30 08:22",
-  "lastGoodAsof": "2026-10-30 08:22",
+  "lastRun": "2026-10-30 08:35",
+  "lastGoodAsof": "2026-10-30 08:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.0
+  "ncmWarningsReadingAgeHours": 0.2
  }
 }
