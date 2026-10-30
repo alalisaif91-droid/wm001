@@ -1,6 +1,6 @@
 {
  "level": "none",
- "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
+ "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
  "asof": "2026-10-30 08:22",
  "levels": {
@@ -12,7 +12,23 @@
   "rain"
  ],
  "areas": "",
- "ageHours": 0.0,
+ "ageHours": 3.6,
  "id": "NCM-20261030-003",
- "writtenAt": "2026-10-30 08:24"
+ "pageShows": {
+  "state": "warnings",
+  "colours": [
+   "yellow"
+  ],
+  "since": "2026-10-30 11:35",
+  "seen": "2026-10-30 11:35",
+  "pending": true,
+  "pendingHazards": [
+   "rain",
+   "fog",
+   "dust"
+  ],
+  "namedHazards": [],
+  "note": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
+ },
+ "writtenAt": "2026-10-30 12:00"
 }
