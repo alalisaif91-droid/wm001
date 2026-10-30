@@ -1,12 +1,12 @@
 {
- "written": "2026-10-30 19:23",
+ "written": "2026-10-30 19:29",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The weather engine has not written for 6 hours (last 2026-10-30 13:00), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-30 12:00",
+ "feedAsof": "2026-10-30 19:29",
  "modelLevel": "none",
- "worstMax6": 0.6,
+ "worstMax6": 0.2,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -48,9 +48,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.6,
-   "next72": 0.6,
-   "max6": 0.6,
+   "next24": 0.1,
+   "next72": 0.3,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.3,
-   "next72": 0.3,
-   "max6": 0.3,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-30 12:02",
+  "captured": "2026-10-30 19:29",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -99,10 +99,10 @@
  "hazards": {},
  "readingQuality": null,
  "ncmDetail": {
-  "ageHours": 11.0,
+  "ageHours": 11.1,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 11.0,
+  "warningsAgeHours": 11.1,
   "stale": true
  },
  "highAlerts": [],
