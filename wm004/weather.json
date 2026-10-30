@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-30 10:57",
+ "asof": "2026-10-30 11:57",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,15 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T10:00",
+   "peakAt": "2026-10-30T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -281,15 +277,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T10:00",
+   "peakAt": "2026-10-30T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 18,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -544,15 +536,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T10:00",
+   "peakAt": "2026-10-30T11:00",
    "peakMm": 0,
    "probMax24": 3,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -813,10 +801,6 @@
    "gustMax24": 22,
    "hourly": [
     [
-     "2026-10-30T10:00",
-     0
-    ],
-    [
      "2026-10-30T11:00",
      0
     ],
@@ -1070,15 +1054,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T10:00",
+   "peakAt": "2026-10-30T11:00",
    "peakMm": 0,
    "probMax24": 5,
    "gustMax24": 28,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -1333,15 +1313,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T10:00",
+   "peakAt": "2026-10-30T11:00",
    "peakMm": 0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -1602,10 +1578,6 @@
    "gustMax24": 25,
    "hourly": [
     [
-     "2026-10-30T10:00",
-     0
-    ],
-    [
      "2026-10-30T11:00",
      0
     ],
@@ -1855,7 +1827,7 @@
    "name": "Al Munai (9A)",
    "lat": 24.9231,
    "lon": 56.1496,
-   "next6": 0.2,
+   "next6": 0.3,
    "next24": 0.3,
    "next72": 0.3,
    "max6": 0.3,
@@ -1864,10 +1836,6 @@
    "probMax24": 53,
    "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-30T10:00",
-     0
-    ],
     [
      "2026-10-30T11:00",
      0
@@ -2117,7 +2085,7 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
+  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
   "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
   "asof": "2026-10-30 08:22",
   "levels": {
@@ -2129,8 +2097,24 @@
    "rain"
   ],
   "areas": "",
-  "ageHours": 0.0,
+  "ageHours": 3.6,
   "id": "NCM-20261030-003",
-  "writtenAt": "2026-10-30 08:24"
+  "pageShows": {
+   "state": "warnings",
+   "colours": [
+    "yellow"
+   ],
+   "since": "2026-10-30 11:35",
+   "seen": "2026-10-30 11:35",
+   "pending": true,
+   "pendingHazards": [
+    "rain",
+    "fog",
+    "dust"
+   ],
+   "namedHazards": [],
+   "note": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
+  },
+  "writtenAt": "2026-10-30 12:00"
  }
 }
