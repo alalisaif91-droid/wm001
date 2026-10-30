@@ -1,10 +1,10 @@
 {
- "written": "2026-10-30 11:00",
+ "written": "2026-10-30 12:00",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The NCM warnings page shows a warning colour that nobody has logged, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-30 11:00",
+ "feedAsof": "2026-10-30 12:00",
  "modelLevel": "none",
  "worstMax6": 0.6,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
+  "level": "unknown",
+  "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
   "asof": "2026-10-30 08:22",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "rain"
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-30 10:32",
+  "captured": "2026-10-30 11:54",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -98,10 +98,10 @@
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
  "hazards": {
   "rain": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -110,11 +110,11 @@
    }
   },
   "fog": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "none"
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -122,24 +122,24 @@
    "stations": []
   }
  },
- "readingQuality": "full",
+ "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 2.6,
+  "ageHours": 3.6,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 2.7,
-  "stale": false
+  "warningsAgeHours": 3.6,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-30 10:50",
-  "lastGoodAsof": "2026-10-30 10:50",
-  "readingQuality": "full",
+  "lastRun": "2026-10-30 11:35",
+  "lastGoodAsof": "2026-10-30 11:35",
+  "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 2,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 2.5
+  "ncmWarningsReadingAgeHours": 3.2
  }
 }
