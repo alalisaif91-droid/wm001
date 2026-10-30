@@ -9,6 +9,9 @@
 :root{--sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;--navy:#0B2545;--blue:#3B4CA3;--blue2:#8395DB;--ink:#14202B;--grey:#5C6672;--pale:#D3DAE3;--soft:#F3F5F7;--bg:#FFFFFF;--red:#7A1F1F;--amber:#A85A1E;--ochre:#8C7326;--green:#3E6E58;--slate:#6E7A86}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101820;--ink:#E6EAEF;--grey:#9AA6B3;--pale:#2A3540;--soft:#18222C;--navy:#C3CCEE}}
 :root[data-theme=dark]{--bg:#101820;--ink:#E6EAEF;--grey:#9AA6B3;--pale:#2A3540;--soft:#18222C;--navy:#C3CCEE}
+:root{--ncm-y:#7A5B00;--ncm-o:#A8480A;--ncm-r:#B01E1E;--ncm-hatch:rgba(92,102,114,.16)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--ncm-y:#F0C419;--ncm-o:#FF9A3D;--ncm-r:#FF7A7A;--ncm-hatch:rgba(154,166,179,.14)}}
+:root[data-theme=dark]{--ncm-y:#F0C419;--ncm-o:#FF9A3D;--ncm-r:#FF7A7A;--ncm-hatch:rgba(154,166,179,.14)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.35}
 .wrap{max-width:420px;margin:0 auto;padding:14px 16px}
 h1{font-size:15px;margin:0 0 2px;color:var(--navy);letter-spacing:.02em}
@@ -27,6 +30,9 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
 .ncm{font-size:11.5px;margin:8px 0;padding:8px;border-left:3px solid var(--blue2);background:var(--soft)}
 .alertbox{font-size:12px;margin:0 0 8px;padding:8px 10px;border:1px solid var(--red);border-left:5px solid var(--red);background:var(--soft);color:var(--ink)}
 .alertbox b{color:var(--red)}.alertbox div+div{margin-top:6px}
+.ncmc{--c:var(--slate);display:block;border:1px solid var(--pale);border-left:5px solid var(--c);border-radius:6px;padding:8px 10px;margin:0 0 10px;color:var(--ink);text-decoration:none;background:var(--soft)}
+.ncmc b{display:block;font-size:17px;color:var(--c)}.ncmc small{display:block;font-size:11.5px;color:var(--grey)}.ncmc .go{display:block;font-size:11.5px;color:var(--ink);text-decoration:underline;margin-top:2px}
+.ncmc.y{--c:var(--ncm-y)}.ncmc.o{--c:var(--ncm-o)}.ncmc.r{--c:var(--ncm-r)}.ncmc.none b{color:var(--ink)}.ncmc.nr{background-image:repeating-linear-gradient(135deg,var(--ncm-hatch) 0 6px,transparent 6px 12px);border-style:dashed;border-left-style:solid}.ncmc.nr b{color:var(--ink)}
 .links{font-size:11.5px;margin-top:10px}.links a{color:var(--blue);text-decoration:none;margin-right:12px}
 .foot{font-size:10px;color:var(--grey);margin-top:8px}
 </style>
@@ -35,6 +41,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
 <div class="wrap">
   <h1>RAIN EMERGENCY, RAS AL KHAIMAH</h1>
   <div class="sub">Waste Management, PSD. The season 07 Oct 2026 to 31 Mar 2027. Plan WA-PSD-PLN-05.</div>
+  <a id="ncmcard" class="ncmc nr" href="ncm/"><b id="ncmWord">NCM: reading</b><small id="ncmWhen"></small><span class="go">Open the NCM board</span></a>
   <div id="alert" class="alertbox" hidden></div>
   <div id="stage" class="stage"><div><b>…</b><small></small></div><div style="text-align:right;font-size:11px">stage the<br>record supports</div></div>
   <div class="feed"><span id="feed">feed …</span><span id="old" class="old" hidden>FEED IS OLD</span></div>
@@ -51,6 +58,23 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   <div class="foot" id="foot">Model: Open Meteo at the plan's eight rain points, a forecast, not a warning. NCM is the warning. Live register: Wet Utilities pump map. No person is named on this page.</div>
 </div>
 <script>
+/* 30 Oct 2026: the NCM reader, public facts only: the state word, the colour, the hazard and the time from ncm_state.json. NCM's own words and pictures stay behind the access code on the board. A file that cannot be read, or a reader silent over 40 minutes, is never calm. The age uses the Date header of the reply. */
+(function(){
+  var COL={red:'Red',orange:'Orange',yellow:'Yellow'},CLS={red:'r',orange:'o',yellow:'y'},HZ={rain:'Rain',fog:'Fog',dust:'Dust',wind:'Wind',sea:'Rough sea',other:'Other hazard'};
+  function uae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
+  function age(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
+  function put(cls,word,when){var c=document.getElementById('ncmcard');c.className='ncmc '+cls;document.getElementById('ncmWord').textContent=word;document.getElementById('ncmWhen').textContent=when;}
+  async function read(){try{
+    var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store'});var d=Date.parse(r.headers.get('date')||''),now=isNaN(d)?Date.now():d;if(!r.ok)throw new Error('status '+r.status);var s=await r.json();
+    var t=Date.parse(s.readAt||''),m=isNaN(t)?null:(now-t)/6e4,at=(uae(s.readAt)||'no time')+' UAE'+(m==null?'':' ('+age(m)+' ago)');
+    if(m==null||m>40){put('nr','NCM: READER SILENT','Last read '+at+'. This is not a current reading.');return;}
+    if(s.state==='WARNING'){var rr={'touched':0,'not known':1,'not touched':2},rk={red:3,orange:2,yellow:1},top=(s.items||[]).slice().sort(function(p,q){var x=(rr[p.rak]==null?1:rr[p.rak])-(rr[q.rak]==null?1:rr[q.rak]);return x||(rk[q.colour]||0)-(rk[p.colour]||0);})[0],c=top?top.colour:s.highest,hz=((top&&top.hazards)||s.hazards||[]).map(function(h){return HZ[h]||String(h);}).join(', ');put(CLS[c]||'nr','NCM: '+(COL[c]||'Colour not read')+(hz?' · '+hz:''),(s.count>1?s.count+' warnings. ':'')+'Read '+at+'. Reported.');return;}
+    if(s.state==='TEXT WARNING'){put('nr','NCM: Text warning, colour not read','Read '+at+'. Reported.');return;}
+    if(s.state==='NO WARNING IN FORCE'){put('none','NCM: No warning in force','Read '+at+'. Reported.');return;}
+    put('nr','NCM: NO READING','Read '+at+'.');
+  }catch(e){put('nr','NCM: NO READING','The file of the NCM reader could not be read.');}}
+  read();setInterval(read,60000);
+})();
 (async function(){
   var r=await fetch('status.json?x='+Date.now(),{cache:'no-store'}); var s=await r.json();
   var cls={'Routine readiness':'s1','Enhanced watch':'s2','Pre deployment':'s3','Active response':'s4','Not determined':'s0'}[s.stage]||'s0';   // 28 Oct 2026 (L2): Not determined has its own look, never the Routine one
@@ -68,7 +92,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   var ha=s.highAlerts||[]; if(ha.length){var ab=document.getElementById('alert'); ab.hidden=false; ab.textContent=''; ha.forEach(function(x){var d=document.createElement('div'); var bb=document.createElement('b'); bb.textContent='HIGH ALERT '; d.appendChild(bb); d.appendChild(document.createTextNode(x.text||'')); ab.appendChild(d);});}
   var mx=Math.max(10,...s.points.map(function(p){return p.next72||0}));
   var esc=function(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});};
-  document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':esc(p.next24))+'</td><td class="n">'+(p.error?'':(p.next72==null?'no reading':esc(p.next72)))+'</td><td><div class="bar"><i style="width:'+(isFinite(w)?w:0)+'%"></i></div></td></tr>'}).join('');
+  document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':(p.next24==null?'no reading':esc(p.next24)))+'</td><td class="n">'+(p.error?'':(p.next72==null?'no reading':esc(p.next72)))+'</td><td><div class="bar"><i style="width:'+(isFinite(w)?w:0)+'%"></i></div></td></tr>'}).join('');
   var hz=s.hazards||{}, rows=[];
   ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+nw(x.level)+(k==='dust'?'':' (NCM '+nw(x.ncm)+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
   if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}
@@ -85,7 +109,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
       document.getElementById('old').hidden=!(wh>24);
       document.getElementById('t1').textContent=(w.worstMax6==null?'…':w.worstMax6);
       var mx2=Math.max(10,...good.map(function(p){return p.next72||0}));
-      document.getElementById('pts').innerHTML=w.points.map(function(p){var q=Math.round(100*(p.next72||0)/mx2);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':esc(p.next24))+'</td><td class="n">'+(p.error?'':(p.next72==null?'no reading':esc(p.next72)))+'</td><td><div class="bar"><i style="width:'+(isFinite(q)?q:0)+'%"></i></div></td></tr>';}).join('');
+      document.getElementById('pts').innerHTML=w.points.map(function(p){var q=Math.round(100*(p.next72||0)/mx2);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':(p.next24==null?'no reading':esc(p.next24)))+'</td><td class="n">'+(p.error?'':(p.next72==null?'no reading':esc(p.next72)))+'</td><td><div class="bar"><i style="width:'+(isFinite(q)?q:0)+'%"></i></div></td></tr>';}).join('');
     }
   }catch(e){}
 })().catch(function(e){document.getElementById('stage').querySelector('b').textContent='status unavailable';});
