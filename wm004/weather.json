@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-30 04:14",
+ "asof": "2026-10-30 08:21",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,27 +18,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T04:00",
+   "peakAt": "2026-10-30T08:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 21,
+   "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -305,27 +289,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T04:00",
+   "peakAt": "2026-10-30T08:00",
    "peakMm": 0,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 18,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -592,27 +560,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T04:00",
+   "peakAt": "2026-10-30T08:00",
    "peakMm": 0,
-   "probMax24": 8,
-   "gustMax24": 21,
+   "probMax24": 3,
+   "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -875,31 +827,15 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0,
+   "next6": 0.2,
    "next24": 0.3,
-   "next72": 0.5,
+   "next72": 0.3,
    "max6": 0.3,
    "peakAt": "2026-10-30T13:00",
    "peakMm": 0.2,
-   "probMax24": 80,
-   "gustMax24": 23,
+   "probMax24": 50,
+   "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -1114,7 +1050,7 @@
     ],
     [
      "2026-11-01T13:00",
-     0.2
+     0
     ],
     [
      "2026-11-01T14:00",
@@ -1166,27 +1102,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T04:00",
+   "peakAt": "2026-10-30T08:00",
    "peakMm": 0,
-   "probMax24": 8,
-   "gustMax24": 27,
+   "probMax24": 5,
+   "gustMax24": 29,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -1453,27 +1373,11 @@
    "next24": 0,
    "next72": 0,
    "max6": 0,
-   "peakAt": "2026-10-30T04:00",
+   "peakAt": "2026-10-30T08:00",
    "peakMm": 0,
    "probMax24": 0,
-   "gustMax24": 22,
+   "gustMax24": 23,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -1737,30 +1641,14 @@
    "lat": 25.0925,
    "lon": 56.1193,
    "next6": 0,
-   "next24": 0.2,
-   "next72": 0.2,
-   "max6": 0.2,
-   "peakAt": "2026-10-30T13:00",
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
+   "peakAt": "2026-10-30T16:00",
    "peakMm": 0.1,
-   "probMax24": 58,
-   "gustMax24": 27,
+   "probMax24": 65,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -1783,11 +1671,11 @@
     ],
     [
      "2026-10-30T13:00",
-     0.1
+     0
     ],
     [
      "2026-10-30T14:00",
-     0.1
+     0
     ],
     [
      "2026-10-30T15:00",
@@ -1795,7 +1683,7 @@
     ],
     [
      "2026-10-30T16:00",
-     0
+     0.1
     ],
     [
      "2026-10-30T17:00",
@@ -2023,31 +1911,15 @@
    "name": "Al Munai (9A)",
    "lat": 24.9231,
    "lon": 56.1496,
-   "next6": 0,
+   "next6": 0.1,
    "next24": 0.1,
    "next72": 0.1,
    "max6": 0.1,
    "peakAt": "2026-10-30T13:00",
    "peakMm": 0.1,
-   "probMax24": 33,
-   "gustMax24": 29,
+   "probMax24": 53,
+   "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-30T04:00",
-     0
-    ],
-    [
-     "2026-10-30T05:00",
-     0
-    ],
-    [
-     "2026-10-30T06:00",
-     0
-    ],
-    [
-     "2026-10-30T07:00",
-     0
-    ],
     [
      "2026-10-30T08:00",
      0
@@ -2309,9 +2181,9 @@
  ],
  "ncm": {
   "level": "none",
-  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add Last logged reading: No rain warning for Ras Al Khaimah. Warnings map: No warning for now. Fog warnings red and yellow 05:15 to 09:00 over some coastal and internal areas, RAK not named",
+  "text": "No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
   "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-28 07:50",
+  "asof": "2026-10-30 08:22",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -2321,25 +2193,8 @@
    "rain"
   ],
   "areas": "",
-  "ageHours": 15.2,
-  "id": "NCM-20261028-006",
-  "pageShows": {
-   "state": "warnings",
-   "colours": [
-    "yellow",
-    "orange"
-   ],
-   "since": "2026-10-28 22:20",
-   "seen": "2026-10-28 22:20",
-   "pending": true,
-   "pendingHazards": [
-    "rain",
-    "fog",
-    "dust"
-   ],
-   "namedHazards": [],
-   "note": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-10-28 22:20, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged with ncm_log.py add"
-  },
-  "writtenAt": "2026-10-28 23:00"
+  "ageHours": 0.0,
+  "id": "NCM-20261030-003",
+  "writtenAt": "2026-10-30 08:24"
  }
 }
