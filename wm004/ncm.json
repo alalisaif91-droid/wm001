@@ -1,34 +1,21 @@
 {
  "level": "none",
- "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: No warning for now (NCM warnings page, 30 Oct 2026 08:21; ticker latest 30/10 02:20 earthquake; radar 08:15 clear over UAE)",
- "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-10-30 08:22",
+ "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
+ "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
+ "asof": "2026-10-30 19:29",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "rain"
+  "rain",
+  "fog",
+  "dust",
+  "wind"
  ],
- "areas": "",
- "ageHours": 3.6,
- "id": "NCM-20261030-003",
- "pageShows": {
-  "state": "warnings",
-  "colours": [
-   "yellow"
-  ],
-  "since": "2026-10-30 11:35",
-  "seen": "2026-10-30 11:35",
-  "pending": true,
-  "pendingHazards": [
-   "rain",
-   "fog",
-   "dust"
-  ],
-  "namedHazards": [],
-  "note": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-10-30 11:35, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
- },
- "writtenAt": "2026-10-30 12:00"
+ "areas": "all areas",
+ "ageHours": 0.5,
+ "id": "NCM-20261030-004",
+ "writtenAt": "2026-10-30 20:00"
 }
