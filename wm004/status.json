@@ -1,12 +1,12 @@
 {
- "written": "2026-10-31 12:00",
+ "written": "2026-10-31 19:00",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather could not be read well enough at the last run, so no stage is proposed from it",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-31 12:00",
+ "feedAsof": "2026-10-31 19:00",
  "modelLevel": "none",
- "worstMax6": 1.1,
+ "worstMax6": 0.2,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -69,9 +69,9 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 1.1,
-   "next72": 1.1,
-   "max6": 1.1,
+   "next24": 0.0,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-31 11:47",
+  "captured": "2026-10-31 18:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -98,11 +98,11 @@
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
  "hazards": {
   "rain": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
+   "model": "unknown",
    "ncm": "none",
-   "stationRainNow": false,
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -110,10 +110,10 @@
    }
   },
   "fog": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
+   "forecast": "unknown",
+   "observed": "unknown",
    "ncm": "none"
   },
   "dust": {
@@ -122,24 +122,24 @@
    "stations": []
   }
  },
- "readingQuality": "full",
+ "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 4.3,
+  "ageHours": 11.3,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 4.3,
+  "warningsAgeHours": 11.4,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
-  "ok": true,
-  "lastRun": "2026-10-31 11:35",
-  "lastGoodAsof": "2026-10-31 11:35",
-  "readingQuality": "full",
-  "pointsRead": 8,
+  "ok": false,
+  "lastRun": "2026-10-31 16:39",
+  "lastGoodAsof": "2026-10-31 12:29",
+  "readingQuality": "degraded",
+  "pointsRead": 0,
   "pointsTotal": 8,
-  "alertCount": 0,
-  "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.9
+  "alertCount": 13,
+  "modelFailuresInARow": 1,
+  "ncmWarningsReadingAgeHours": 9.0
  }
 }
