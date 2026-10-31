@@ -1,21 +1,17 @@
 {
  "level": "none",
- "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
- "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-10-30 19:29",
+ "text": "NCM reading of 2026-10-31 07:42: none for rain.",
+ "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
+ "asof": "2026-10-31 07:42",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "rain",
-  "fog",
-  "dust",
-  "wind"
+  "rain"
  ],
- "areas": "all areas",
- "ageHours": 0.5,
- "id": "NCM-20261030-004",
- "writtenAt": "2026-10-30 20:00"
+ "ageHours": 0.3,
+ "id": "NCM-20261031-002",
+ "writtenAt": "2026-10-31 08:00"
 }
