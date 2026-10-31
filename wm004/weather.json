@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-31 06:56",
+ "asof": "2026-10-31 07:56",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 2.0,
+ "worstMax6": 1.4,
  "pointsRead": 8,
  "pointsTotal": 8,
  "unreadPoints": [],
@@ -23,15 +23,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -314,6 +310,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -327,15 +327,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 19,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -618,6 +614,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -631,15 +631,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -922,6 +918,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -935,15 +935,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 28,
-   "gustMax24": 23,
+   "gustMax24": 22,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -1226,6 +1222,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -1239,15 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 3,
-   "gustMax24": 26,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -1530,6 +1526,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -1543,15 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-10-31T06:00",
+   "peakAt": "2026-10-31T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 25,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -1834,6 +1830,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -1843,19 +1843,15 @@
    "lat": 25.0925,
    "lon": 56.1193,
    "next6": 0.0,
-   "next24": 2.0,
-   "next72": 2.0,
+   "next24": 1.4,
+   "next72": 1.4,
    "hoursInWindow": 72,
-   "max6": 2.0,
-   "peakAt": "2026-10-31T14:00",
-   "peakMm": 1.1,
+   "max6": 1.4,
+   "peakAt": "2026-10-31T15:00",
+   "peakMm": 1.0,
    "probMax24": 30,
    "gustMax24": 27,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -1886,15 +1882,15 @@
     ],
     [
      "2026-10-31T14:00",
-     1.1
+     0.3
     ],
     [
      "2026-10-31T15:00",
-     0.9
+     1.0
     ],
     [
      "2026-10-31T16:00",
-     0.0
+     0.1
     ],
     [
      "2026-10-31T17:00",
@@ -2138,6 +2134,10 @@
     ],
     [
      "2026-11-03T05:00",
+     0.0
+    ],
+    [
+     "2026-11-03T06:00",
      0.0
     ]
    ]
@@ -2147,19 +2147,15 @@
    "lat": 24.9231,
    "lon": 56.1496,
    "next6": 0.0,
-   "next24": 2.0,
-   "next72": 2.0,
+   "next24": 1.4,
+   "next72": 1.4,
    "hoursInWindow": 72,
-   "max6": 2.0,
-   "peakAt": "2026-10-31T14:00",
-   "peakMm": 1.1,
-   "probMax24": 48,
-   "gustMax24": 30,
+   "max6": 1.4,
+   "peakAt": "2026-10-31T15:00",
+   "peakMm": 0.7,
+   "probMax24": 8,
+   "gustMax24": 31,
    "hourly": [
-    [
-     "2026-10-31T06:00",
-     0.0
-    ],
     [
      "2026-10-31T07:00",
      0.0
@@ -2190,15 +2186,15 @@
     ],
     [
      "2026-10-31T14:00",
-     1.1
+     0.5
     ],
     [
      "2026-10-31T15:00",
-     0.9
+     0.7
     ],
     [
      "2026-10-31T16:00",
-     0.0
+     0.2
     ],
     [
      "2026-10-31T17:00",
@@ -2443,30 +2439,30 @@
     [
      "2026-11-03T05:00",
      0.0
+    ],
+    [
+     "2026-11-03T06:00",
+     0.0
     ]
    ]
   }
  ],
  "ncm": {
   "level": "none",
-  "text": "The NCM warnings page showed no warning at the time of reading (automatic rendered read). An empty page is not proof that the NCM service answered.",
-  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
-  "asof": "2026-10-30 19:29",
+  "text": "NCM reading of 2026-10-31 07:42: none for rain.",
+  "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
+  "asof": "2026-10-31 07:42",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
   "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
+   "rain"
   ],
-  "areas": "all areas",
-  "ageHours": 11.5,
-  "id": "NCM-20261030-004",
-  "writtenAt": "2026-10-30 20:00",
+  "ageHours": 0.2,
+  "id": "NCM-20261031-002",
+  "writtenAt": "2026-10-31 08:00",
   "stale": false,
   "levelAtReading": "none",
   "levelsAtReading": {
@@ -2482,7 +2478,7 @@
   },
   "inForce": [],
   "upcoming": [],
-  "refreshed": "2026-10-31 06:56",
-  "note": "the colours are those of the reading at 2026-10-30 19:29, 11.5 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now"
+  "refreshed": "2026-10-31 07:56",
+  "note": "the colours are those of the reading at 2026-10-31 07:42, 0.2 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now"
  }
 }
