@@ -1,12 +1,12 @@
 {
- "written": "2026-10-31 01:00",
+ "written": "2026-10-31 06:30",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather engine has not written for 5 hours (last 2026-10-31 01:05), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-31 01:00",
+ "feedAsof": "2026-10-31 06:30",
  "modelLevel": "none",
- "worstMax6": 0.2,
+ "worstMax6": 2.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -52,8 +52,8 @@
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.2,
-   "max6": 0.2,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -72,21 +72,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 2.0,
+   "next72": 2.0,
+   "max6": 2.0,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 2.0,
+   "next72": 2.0,
+   "max6": 2.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-31 00:47",
+  "captured": "2026-10-31 06:30",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -99,50 +99,25 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {
-  "rain": {
-   "level": "none",
-   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
-   "ncm": "none",
-   "stationRainNow": false,
-   "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
-    "applied": false
-   }
-  },
-  "fog": {
-   "level": "none",
-   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
-  },
-  "dust": {
-   "level": "reported only",
-   "label": "Station reports (Reported); no level",
-   "stations": []
-  }
- },
- "readingQuality": "full",
+ "hazards": {},
+ "readingQuality": null,
  "ncmDetail": {
-  "ageHours": 5.5,
+  "ageHours": 11.0,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 16.7,
+  "warningsAgeHours": 22.1,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-31 00:20",
-  "lastGoodAsof": "2026-10-31 00:20",
+  "lastRun": "2026-10-31 01:05",
+  "lastGoodAsof": "2026-10-31 01:05",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 16.0
+  "ncmWarningsReadingAgeHours": 16.7
  }
 }
