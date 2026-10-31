@@ -67,7 +67,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   async function read(){try{
     var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store'});var d=Date.parse(r.headers.get('date')||''),now=isNaN(d)?Date.now():d;if(!r.ok)throw new Error('status '+r.status);var s=await r.json();
     var t=Date.parse(s.readAt||''),m=isNaN(t)?null:(now-t)/6e4,at=(uae(s.readAt)||'no time')+' UAE'+(m==null?'':' ('+age(m)+' ago)');
-    if(m==null||m>40){put('nr','NCM: READER SILENT','Last read '+at+'. This is not a current reading.');return;}
+    if(m==null||m>90){put('nr','NCM: READER SILENT','Last read '+at+'. This is not a current reading.');return;}
     if(s.state==='WARNING'){var rr={'touched':0,'not known':1,'not touched':2},rk={red:3,orange:2,yellow:1},top=(s.items||[]).slice().sort(function(p,q){var x=(rr[p.rak]==null?1:rr[p.rak])-(rr[q.rak]==null?1:rr[q.rak]);return x||(rk[q.colour]||0)-(rk[p.colour]||0);})[0],c=top?top.colour:s.highest,hz=((top&&top.hazards)||s.hazards||[]).map(function(h){return HZ[h]||String(h);}).join(', ');put(CLS[c]||'nr','NCM: '+(COL[c]||'Colour not read')+(hz?' · '+hz:''),(s.count>1?s.count+' warnings. ':'')+'Read '+at+'. Reported.');return;}
     if(s.state==='TEXT WARNING'){put('nr','NCM: Text warning, colour not read','Read '+at+'. Reported.');return;}
     if(s.state==='NO WARNING IN FORCE'){put('none','NCM: No warning in force','Read '+at+'. Reported.');return;}
