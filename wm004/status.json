@@ -1,12 +1,12 @@
 {
- "written": "2026-10-31 09:00",
+ "written": "2026-10-31 10:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-31 09:00",
+ "feedAsof": "2026-10-31 10:00",
  "modelLevel": "none",
- "worstMax6": 1.4,
+ "worstMax6": 1.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -69,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 1.4,
-   "next72": 1.4,
-   "max6": 1.4,
+   "next24": 1.1,
+   "next72": 1.1,
+   "max6": 1.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 1.4,
-   "next72": 1.4,
-   "max6": 1.4,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-10-31 08:47",
+  "captured": "2026-10-31 09:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -124,22 +124,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 1.3,
+  "ageHours": 2.3,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 1.3,
+  "warningsAgeHours": 2.3,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-10-31 08:35",
-  "lastGoodAsof": "2026-10-31 08:35",
+  "lastRun": "2026-10-31 09:20",
+  "lastGoodAsof": "2026-10-31 09:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.9
+  "ncmWarningsReadingAgeHours": 1.6
  }
 }
