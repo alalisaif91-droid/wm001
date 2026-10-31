@@ -378,6 +378,98 @@ class Ncm(Folder):
         self.assertEqual(n['asof'], '2026-10-29 04:00')
 
 
+def reader_state(state='NO WARNING IN FORCE', read='2026-10-29T02:10:00Z', **kw):       # 06:10 in Ras Al Khaimah, 10 minutes before NOW
+    d = {'schema': 1, 'status': 'Reported', 'state': state, 'reason': 'list_and_ticker_clear', 'readAt': read, 'listAgeH': 3.2, 'limitH': 72, 'highest': 'none', 'hazards': [], 'count': 0, 'itemsMore': 0, 'items': [], 'tickerRead': True,
+         'rak': {'status': 'not touched', 'named': False, 'city': False, 'units': []}, 'health': {'lastOk': read, 'consecutiveFailures': 0, 'failingSince': None}}
+    d.update(kw)
+    return d
+
+
+class Reader(Folder):
+    def block(self, state, now=NOW):
+        self.put('ncm_state.json', state)
+        code, out = self.run_main(lambda la, lo: reply(now), now=now)
+        self.assertEqual(code, 0, out)
+        return self.doc()['ncm']
+
+    def test_a_fresh_reader_state_gives_the_block_and_names_itself(self):
+        n = self.block(reader_state())
+        self.assertEqual((n['level'], n['levelInForce'], n['stale'], n['asof'], n['by']), ('none', 'none', False, '2026-10-29 06:10', 'live reader'))
+        self.assertIn('ncm_state.json', n['via'])
+        self.assertEqual(n['reader']['state'], 'NO WARNING IN FORCE')
+
+    def test_a_warning_gives_the_rain_colour_and_what_is_in_force(self):
+        items = [{'id': '1', 'colour': 'orange', 'hazards': ['rain'], 'from': '2026-10-29T01:00:00Z', 'to': '2026-10-29T09:00:00Z', 'rak': 'touched', 'named': False},
+                 {'id': '2', 'colour': 'red', 'hazards': ['rain'], 'from': '2026-10-29T06:00:00Z', 'to': '2026-10-29T12:00:00Z', 'rak': 'not known', 'named': False},
+                 {'id': '3', 'colour': 'red', 'hazards': ['fog'], 'from': None, 'to': None, 'rak': 'not touched', 'named': False}]
+        n = self.block(reader_state('WARNING', highest='red', hazards=['fog', 'rain'], count=3, items=items, reason='list_items', rak={'status': 'touched', 'named': False, 'city': True, 'units': []}))
+        self.assertEqual((n['level'], n['levelInForce'], n['levels']['fog'], n['inForce'], n['upcoming']), ('red', 'orange', 'none', ['1'], ['2']))
+
+    def test_a_colour_not_read_is_unknown(self):
+        n = self.block(reader_state('WARNING', highest='not read', count=1, items=[{'id': '1', 'colour': 'not read', 'hazards': ['rain'], 'from': None, 'to': None, 'rak': 'not known', 'named': False}]))
+        self.assertEqual(n['level'], 'unknown')
+
+    def test_no_reading_and_text_warning_are_never_calm(self):
+        n = self.block(reader_state('NO READING', reason='refused', highest='not read'))
+        self.assertEqual((n['level'], n['stale']), ('unknown', True))
+        self.assertIn('NO READING', n['text'])
+        n = self.block(reader_state('TEXT WARNING', reason='ticker_only', highest='not read'))
+        self.assertEqual(set(n['levels'].values()), {'unknown'})
+
+    def test_30_minutes_old_gives_way_to_ncm_json(self):
+        self.put('ncm.json', READING)
+        n = self.block(reader_state(read='2026-10-29T01:50:00Z'))
+        self.assertEqual(n['asof'], READING['asof'])
+        self.assertIn('ncm.json', n['via'])
+        self.assertNotIn('reader', n)
+
+    def test_a_reader_block_is_not_carried_on_when_the_state_goes_old(self):
+        self.block(reader_state('WARNING', highest='red', count=1, items=[{'id': '1', 'colour': 'red', 'hazards': ['rain'], 'from': None, 'to': None, 'rak': 'touched', 'named': False}]))
+        os.remove(os.path.join(self.dir, 'ncm_state.json'))
+        later = NOW + dt.timedelta(minutes=45)
+        code, out = self.run_main(lambda la, lo: reply(later), now=later)
+        self.assertEqual(code, 0, out)
+        n = self.doc()['ncm']
+        self.assertEqual((n['level'], n['asof']), ('unknown', None))
+
+    def test_a_damaged_state_is_ignored(self):
+        with open(os.path.join(self.dir, 'ncm_state.json'), 'w') as f:
+            f.write('{broken')
+        self.put('ncm.json', READING)
+        code, out = self.run_main(lambda la, lo: reply(NOW), now=NOW)
+        self.assertEqual(code, 0, out)
+        self.assertIn('ncm.json', self.doc()['ncm']['via'])
+
+    def test_the_block_holds_no_ncm_words(self):
+        n = self.block(reader_state())
+        self.assertNotIn('text_en', json.dumps(n))
+
+
+class Refused(Folder):
+    def block(self, extra):
+        self.put('ncm.json', dict(READING, **extra))
+        code, out = self.run_main(lambda la, lo: reply(NOW), now=NOW)
+        self.assertEqual(code, 0, out)
+        return self.doc()['ncm']
+
+    def test_a_refusal_makes_the_hazards_it_names_unknown_and_the_block_stale(self):
+        n = self.block({'level': 'yellow', 'levels': {'rain': 'yellow', 'fog': 'none'}, 'refused': {'open': [{'at': '2026-10-29 05:00', 'level': 'red', 'hazard': 'rain', 'pendingHazards': ['rain']}], 'note': 'x'}})
+        self.assertEqual((n['stale'], n['level'], n['levels']['fog'], n['levelAtReading']), (True, 'unknown', 'none', 'yellow'))
+        self.assertIn('refused', n['note'])
+
+    def test_unreadable_refused_lines_make_every_hazard_unknown(self):
+        n = self.block({'refused': {'open': [], 'unreadableLines': 2}})
+        self.assertEqual((n['stale'], set(n['levels'].values())), (True, {'unknown'}))
+
+    def test_no_internal_name_in_a_refused_note_or_by(self):
+        n = self.block({'by': 'manual, through weather_feed.py', 'refused': {'open': [{'at': 'x', 'text': 'kept in ncm_refused.jsonl, python ncm_log.py clear-refused', 'reason': 'see ncm_log.py', 'pendingHazards': ['rain']}],
+                                                                              'note': 'a reading typed by a person and refused by the log (ncm_refused.jsonl) is a high alert until python ncm_log.py clear-refused acknowledges it'}})
+        blob = json.dumps(n)
+        for w in ('ncm_refused.jsonl', 'ncm_log.py', 'weather_feed.py'):
+            self.assertNotIn(w, blob)
+        self.assertEqual(n['by'], 'manual')
+
+
 class PublicText(unittest.TestCase):
     def test_no_internal_command_and_sentences_do_not_run_together(self):
         t = AC.public_text(NCM_TEXT)
