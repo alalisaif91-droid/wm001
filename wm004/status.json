@@ -1,12 +1,12 @@
 {
- "written": "2026-10-31 18:30",
+ "written": "2026-10-31 19:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
  "stageWhy": "The weather could not be read well enough at the last run, so no stage is proposed from it",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-10-31 12:00",
+ "feedAsof": "2026-10-31 19:00",
  "modelLevel": "none",
- "worstMax6": 1.1,
+ "worstMax6": 0.2,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -69,9 +69,9 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 1.1,
-   "next72": 1.1,
-   "max6": 1.1,
+   "next24": 0.0,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -83,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-10-31 12:32",
+  "captured": "2026-10-31 18:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -124,10 +124,10 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 10.8,
+  "ageHours": 11.3,
   "by": "manual",
   "kind": "warning",
-  "warningsAgeHours": 10.9,
+  "warningsAgeHours": 11.4,
   "stale": false
  },
  "highAlerts": [],
