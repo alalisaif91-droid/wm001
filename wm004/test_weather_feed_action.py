@@ -416,9 +416,9 @@ class Reader(Folder):
         n = self.block(reader_state('TEXT WARNING', reason='ticker_only', highest='not read'))
         self.assertEqual(set(n['levels'].values()), {'unknown'})
 
-    def test_30_minutes_old_gives_way_to_ncm_json(self):
+    def test_90_minutes_old_gives_way_to_ncm_json(self):
         self.put('ncm.json', READING)
-        n = self.block(reader_state(read='2026-10-29T01:50:00Z'))
+        n = self.block(reader_state(read='2026-10-29T00:50:00Z'))
         self.assertEqual(n['asof'], READING['asof'])
         self.assertIn('ncm.json', n['via'])
         self.assertNotIn('reader', n)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WM004 NCM reader, run by GitHub Actions every 15 minutes (decided 30 Oct 2026). Why: the only reader was on the laptop, hourly, and it stops when the laptop sleeps, so warnings were missed.
+"""WM004 NCM reader, run by GitHub Actions every 30 minutes (Saif, 31 Oct 2026). Why: the only reader was on the laptop, hourly, and it stops when the laptop sleeps, so warnings were missed.
 
 What it does: one ordinary page visit to the NCM warnings page, capturing only what that page loads. It never builds a token, never logs in, never hides what it is. A refusal, a block or a change of
 shape is reported and the run stops; it is never worked around. The rules are SCHEMA.md section 8 and nothing else produces NO WARNING IN FORCE. NCM's own message is never read.
@@ -29,7 +29,7 @@ REPO = 'alalisaif91-droid/wm001'
 OWNER = 'alalisaif91-droid'
 LABEL = 'wm004-ncm'
 LIMIT_H = 72                    # freshness limit of generated_at, decided 30 Oct 2026; the age is always shown and the gaps are logged so it can be set from data later
-HEARTBEAT_MIN = 25              # commit when the last commit is this old: every second 15 minute run, so a commit is never older than about 30 minutes
+HEARTBEAT_MIN = 25              # commit when the last commit is this old: every 30 minute run, so a commit is never older than about 30 minutes
 RADAR_EVERY_MIN = 28            # the radar is due at the second run after the last still, which keeps it to at most one every 30 minutes
 RADAR_MAX = 200000              # bytes of the sealed file
 STATE_MAX = 6000                # bytes of the public state
