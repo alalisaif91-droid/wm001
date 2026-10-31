@@ -1,5 +1,5 @@
 {
- "asof": "2026-10-31 06:15",
+ "asof": "2026-10-31 06:56",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -2464,7 +2464,7 @@
    "wind"
   ],
   "areas": "all areas",
-  "ageHours": 10.8,
+  "ageHours": 11.5,
   "id": "NCM-20261030-004",
   "writtenAt": "2026-10-30 20:00",
   "stale": false,
@@ -2482,7 +2482,7 @@
   },
   "inForce": [],
   "upcoming": [],
-  "refreshed": "2026-10-31 06:15",
-  "note": "the colours are those of the reading at 2026-10-30 19:29, 10.8 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now"
+  "refreshed": "2026-10-31 06:56",
+  "note": "the colours are those of the reading at 2026-10-30 19:29, 11.5 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now"
  }
 }
