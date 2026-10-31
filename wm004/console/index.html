@@ -28,7 +28,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
 <button type="submit">Open</button><div class="g-msg" id="gate-msg" aria-live="polite"></div><div class="bar"><i id="gate-bar"></i></div></form></div>
 <script>
 (function(){
-  var ROUNDS=1000000, APPROX=3834115;
+  var ROUNDS=1000000, APPROX=3844311;
   var form=document.querySelector("form"), inp=document.getElementById("gate-in"), msg=document.getElementById("gate-msg"), bar=document.getElementById("gate-bar");
   var busy=false, wait=0, tries=0;
   document.getElementById("gate-show").addEventListener("change",function(e){ inp.className=e.target.checked?"shown":""; });
@@ -73,6 +73,16 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     }
     document.open(); document.write(html); document.close();
   }
+  /* the key of the sealed NCM files, unwrapped with the same code. In memory only; a failure leaves the console on the public facts. */
+  function unlockNcm(code){
+    var s=crypto.subtle;window.__WM004_NCM_KEY=null;
+    return fetch("../ncm/key.bin",{cache:"no-store"}).then(function(r){ if(!r.ok) throw new Error("no key"); return r.arrayBuffer(); }).then(function(b){
+      var kb=new Uint8Array(b);
+      return s.importKey("raw",new TextEncoder().encode(code),"PBKDF2",false,["deriveKey"]).then(function(km){
+        return s.deriveKey({name:"PBKDF2",salt:kb.subarray(0,16),iterations:ROUNDS,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);
+      }).then(function(k){ return s.decrypt({name:"AES-GCM",iv:kb.subarray(16,28)},k,kb.subarray(28)); });
+    }).then(function(der){ return s.importKey("pkcs8",der,{name:"ECDH",namedCurve:"P-256"},false,["deriveBits"]); }).then(function(key){ window.__WM004_NCM_KEY=key; }).catch(function(){ window.__WM004_NCM_KEY=null; });
+  }
   form.addEventListener("submit",function(ev){
     ev.preventDefault();
     if(busy) return;
@@ -90,8 +100,8 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
       return crypto.subtle.decrypt({name:"AES-GCM",iv:ct.subarray(16,28)},key,ct.subarray(28)).catch(function(){ throw new Error("bad code"); });
     }).then(function(gz){ bar.style.width="90%"; msg.textContent="Opening"; return gunzip(gz); }).then(function(buf){
       var html=new TextDecoder().decode(buf);
-      bar.style.width="100%";
-      openIn(html, chosenView());
+      bar.style.width="95%"; msg.textContent="Opening the NCM key";
+      return unlockNcm(v).then(function(){ bar.style.width="100%"; openIn(html, chosenView()); });
     }).catch(function(e){
       busy=false; bar.style.width="0";
       if(String(e.message)==="bad code"){ tries++; try{ inp.select(); }catch(x){} msg.textContent="Access code not recognised. Tick Show the code and check it."; wait=Date.now()+Math.min(30000,1500*tries); }
