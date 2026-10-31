@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<title>NCM board</title>
+<style>
+/* WM004 NCM board. Charcoal telemetry: near black neutral surfaces, big thin numerals, colour only on signal. A missing reading is hatched, never a calm colour. Fonts and colours are tokens set once on :root. */
+:root{--sans:Calibri,Carlito,"Segoe UI",sans-serif;--display:"Calibri Light",Calibri,Carlito,"Segoe UI",sans-serif;--mono:Calibri,Carlito,"Segoe UI",sans-serif;
+  --ground:#ECEBE7;--ground-2:#E4E2DC;--panel:#F8F7F3;--panel-2:#F0EEE8;--line:#D3D0C8;--line-2:#A5A196;--ink:#15171A;--ink-soft:#454A51;--ink-faint:#5C626A;
+  --y:#7A5B00;--o:#A8480A;--r:#B4161B;--nr:#3B424B;--hatch:rgba(59,66,75,.15);--trace:#15171A;--trace-fill:rgba(21,23,26,.10);--tick:#8F8B81;--needle:#15171A;--lit:#15171A;--unlit:#CFCCC4;--scope:#E6E4DD;--grat:#CFCCC3;--glow:0px;--sig:var(--ink);--halo:transparent;--wash:0%;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0C0D0F;--ground-2:#111316;--panel:#15171A;--panel-2:#1C1F23;--line:#2B2F35;--line-2:#454B53;--ink:#EEF0F2;--ink-soft:#B0B6BD;--ink-faint:#8E959E;
+  --y:#F5C518;--o:#FF9233;--r:#FF5A52;--nr:#C9CED4;--hatch:rgba(201,206,212,.11);--trace:#F2F4F6;--trace-fill:rgba(233,236,239,.13);--tick:#5A6068;--needle:#F4F5F6;--lit:#E9ECEF;--unlit:#2F3338;--scope:#090A0B;--grat:#23272C;--glow:3px;--sig:var(--ink);color-scheme:dark}}
+:root[data-theme="dark"]{--ground:#0C0D0F;--ground-2:#111316;--panel:#15171A;--panel-2:#1C1F23;--line:#2B2F35;--line-2:#454B53;--ink:#EEF0F2;--ink-soft:#B0B6BD;--ink-faint:#8E959E;
+  --y:#F5C518;--o:#FF9233;--r:#FF5A52;--nr:#C9CED4;--hatch:rgba(201,206,212,.11);--trace:#F2F4F6;--trace-fill:rgba(233,236,239,.13);--tick:#5A6068;--needle:#F4F5F6;--lit:#E9ECEF;--unlit:#2F3338;--scope:#090A0B;--grat:#23272C;--glow:3px;--sig:var(--ink);color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.4}
+body{min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:1px solid var(--line-2);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--ink-soft)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+small{font-size:12.5px}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.hatch{background-image:repeating-linear-gradient(135deg,var(--hatch) 0 7px,transparent 7px 14px)}
+.nrw{color:var(--nr);font-weight:700}
+/* --- the gate: the same box as the console gate, on the charcoal ground --- */
+#gate{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:var(--ground);overflow:auto}
+#gate[hidden]{display:none}
+.g-box{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px 22px;text-align:center}
+.g-box h1{margin:0 0 4px;font-size:20px;font-weight:700}
+.g-box p{margin:0 0 16px;font-size:13.5px;color:var(--ink-soft)}
+.g-facts{margin:0 0 14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;text-align:left}
+.g-facts b{display:block;font-size:15px}
+#gate-in{width:100%;font:inherit;font-size:20px;letter-spacing:.08em;text-align:center;padding:10px 8px;border-radius:8px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);-webkit-text-security:disc}
+#gate-in.shown{-webkit-text-security:none}
+.shw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:var(--ink-soft);cursor:pointer;justify-content:center}
+.shw input{width:auto;margin:0}
+.g-go{margin-top:12px;width:100%;font-size:14px;font-weight:700;padding:9px;border-radius:8px;border:1px solid var(--ink);background:var(--ink);color:var(--ground)}
+.g-alt{margin-top:8px;width:100%;font-size:13.5px;padding:8px;border-radius:8px}
+.g-msg{min-height:18px;margin:10px 0 0;font-size:13px}
+.bar{height:4px;background:var(--panel-2);border-radius:2px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .2s}
+/* --- the head of the board --- */
+.top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 24px;border-bottom:1px solid var(--line);background:var(--panel)}
+.top b{font-size:15px}
+.top .sp{flex:1;min-width:8px}
+.top .note{font-size:12.5px;color:var(--ink-soft)}
+.top button{padding:4px 10px;font-size:13px}
+.hero{--pad:24px;position:relative;padding:22px var(--pad) 20px calc(var(--pad) + 8px);border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel) 0,var(--ground-2) 100%);overflow:hidden}
+.hero::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--sig);box-shadow:0 0 34px 2px var(--halo)}
+.hero[data-sig="y"]{--sig:var(--y);--halo:color-mix(in srgb,var(--y) 45%,transparent);--wash:9%}
+.hero[data-sig="o"]{--sig:var(--o);--halo:color-mix(in srgb,var(--o) 45%,transparent);--wash:10%}
+.hero[data-sig="r"]{--sig:var(--r);--halo:color-mix(in srgb,var(--r) 50%,transparent);--wash:12%}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(70% 130% at 0% 0%,color-mix(in srgb,var(--sig) var(--wash),transparent),transparent 72%)}
+.hero>*{position:relative;z-index:1}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,330px);gap:24px;align-items:start}
+.mesh{margin:0;min-width:0}
+.mesh svg{display:block;width:100%;height:auto;max-height:290px}
+.mesh figcaption{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.mesh .gl{stroke:var(--grat);stroke-width:1}.mesh .gt{fill:var(--ink-faint);font-size:10px;font-family:var(--sans)}
+.mesh .ln{stroke:var(--line-2);stroke-width:1}.mesh .nd{fill:var(--lit);filter:drop-shadow(0 0 var(--glow) var(--lit))}
+.mesh .nb{fill:var(--tick)}.mesh .rg{fill:var(--trace-fill);stroke:var(--lit);stroke-width:1}
+.mesh .off{fill:none;stroke:var(--nr);stroke-width:1.4;stroke-dasharray:2 2}.mesh .lb{fill:var(--ink-soft);font-size:10.5px;font-family:var(--sans)}
+.hero[data-sig="n"]{--sig:var(--line-2)}
+.hero[data-mode="silent"],.hero[data-mode="noreading"],.hero[data-mode="nofile"],.hero[data-mode="text"]{background-image:repeating-linear-gradient(135deg,color-mix(in srgb,var(--hatch) 55%,transparent) 0 14px,transparent 14px 28px),linear-gradient(180deg,var(--panel) 0,var(--ground-2) 100%)}
+.hero[data-mode="silent"] .mesh,.hero[data-mode="silent"] .bars,.hero[data-mode="silent"] #vBars,.hero[data-mode="noreading"] .mesh,.hero[data-mode="nofile"] .mesh{opacity:.4}
+.hero[data-mode="silent"]::before,.hero[data-mode="noreading"]::before,.hero[data-mode="nofile"]::before,.hero[data-mode="text"]::before{background:repeating-linear-gradient(0deg,var(--nr) 0 10px,transparent 10px 18px)}
+.st-word{font-family:var(--display);font-weight:300;font-size:clamp(44px,8.4vw,136px);line-height:1;letter-spacing:-.01em;color:var(--sig);overflow-wrap:anywhere}
+.hero[data-sig="n"] .st-word{color:var(--ink)}
+.hero[data-mode="silent"] .st-word,.hero[data-mode="noreading"] .st-word,.hero[data-mode="nofile"] .st-word{color:var(--nr);font-family:var(--sans);font-weight:700}
+.st-sub{margin-top:10px;font-size:clamp(16px,1.9vw,23px);line-height:1.3;color:var(--ink);max-width:1100px}
+.st-sub .q{color:var(--ink-soft)}
+.st-meta{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:13.5px;color:var(--ink-soft)}
+.tag{display:inline-block;font-size:12px;color:var(--ink-soft);border:1px solid var(--line-2);border-radius:4px;padding:0 6px;line-height:1.5}
+.rakline{display:inline-block;margin-top:12px;padding:4px 12px;border:1px solid var(--line-2);border-radius:6px;font-size:clamp(16px,1.7vw,21px);max-width:100%}
+.rakline b{font-weight:700}.rakline .q{margin-left:8px;font-size:.8em;color:var(--ink-soft)}
+.rakline.nk{border-style:dashed}
+.rakline.t{border-color:var(--sig)}.rakline.t b{color:var(--sig)}
+/* --- the instruments of the head: read age, list age, stations --- */
+.insts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:20px}
+.inst{min-width:0}
+.inst-k{font-size:13px;color:var(--ink-soft)}
+.inst-v{font-family:var(--display);font-weight:300;font-size:clamp(28px,3.1vw,44px);line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+.inst-s{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+.scale{display:block;width:100%;height:30px;margin-top:6px}
+.scale .tk{stroke:var(--tick);stroke-width:1}.scale .bs{stroke:var(--line-2);stroke-width:1}
+.scale .tx{fill:var(--ink-faint);font-size:10px;font-family:var(--sans)}
+.scale .fl{fill:var(--trace-fill)}.scale .nd{stroke:var(--needle);stroke-width:2}
+.scale .lm{stroke:var(--nr);stroke-width:1;stroke-dasharray:2 2}
+.bars{display:flex;align-items:flex-end;gap:3px;height:34px;margin-top:6px}
+.bars i{flex:1 1 0;min-width:0;max-width:16px;background:var(--lit);border-radius:1px}
+.bars i.off{background:repeating-linear-gradient(135deg,var(--nr) 0 2px,transparent 2px 4px);outline:1px dashed var(--nr);outline-offset:-1px}
+.bars i.un{background:var(--unlit)}
+/* --- the sheet --- */
+.sheet{padding:18px 24px 40px;display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:18px;align-items:start}
+.col{display:grid;gap:18px;min-width:0}
+.full{grid-column:1/-1;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;min-width:0}
+.panel>h2{margin:0;padding:10px 14px;font-size:15px;font-weight:700;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.panel>h2 small{font-weight:400;color:var(--ink-soft)}
+.pad{padding:12px 14px}
+.gap{padding:12px 14px;color:var(--ink-soft);font-size:14px}
+.gap b{color:var(--nr)}
+.foot{padding:8px 14px 12px;font-size:12.5px;color:var(--ink-soft)}
+/* warnings */
+.wn{--c:var(--line-2);display:grid;grid-template-columns:minmax(0,190px) minmax(0,1fr);gap:4px 18px;padding:14px 14px 14px 20px;border-bottom:1px solid var(--line);position:relative}
+.wn:last-child{border-bottom:0}
+.wn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.wn.y{--c:var(--y)}.wn.o{--c:var(--o)}.wn.r{--c:var(--r)}.wn.u::before{background:repeating-linear-gradient(0deg,var(--nr) 0 6px,transparent 6px 11px)}
+.wn-c{font-family:var(--display);font-weight:300;font-size:34px;line-height:1.05;color:var(--c)}
+.wn.u .wn-c{font-family:var(--sans);font-weight:700;font-size:21px;color:var(--nr)}
+.wn-h{font-size:17px;font-weight:700}
+.wn-m{display:flex;flex-wrap:wrap;gap:3px 12px;font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.wn-t{grid-column:1/-1;margin-top:6px;font-size:15.5px}
+.wn-t.ar{font-size:16.5px}
+.flag{font-size:12px;border:1px dashed var(--nr);border-radius:4px;padding:0 6px;color:var(--ink)}
+/* the NCM buttons */
+.btns{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.btns a{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:58px;padding:10px 14px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel);font-size:17px;font-weight:700;text-decoration:none}
+.btns a:hover{border-color:var(--ink)}
+.btns a i{font-style:normal;font-weight:400;color:var(--ink-soft)}
+.btn-note{margin:6px 0 0;font-size:13px;color:var(--ink-soft)}
+/* the stations: one channel a row */
+.st-h,.st-r{display:grid;grid-template-columns:minmax(120px,1.2fr) 56px 56px 56px minmax(120px,2fr) 74px;gap:0 10px;align-items:center;padding:6px 14px}
+.st-h{font-size:12.5px;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.st-r{border-bottom:1px solid var(--line)}.st-r:last-of-type{border-bottom:0}
+.st-n{min-width:0}.st-n b{display:block;font-size:14.5px;font-weight:700;overflow-wrap:anywhere}.st-n small{color:var(--ink-soft)}
+.st-v{text-align:right;font-size:17px;font-variant-numeric:tabular-nums lining-nums}.st-h .st-v{font-size:12.5px}
+.st-v .nrw{font-size:12px}
+.st-l{text-align:right;font-size:12.5px;color:var(--ink-soft)}
+.st-tr{min-width:0;background:var(--scope);border:1px solid var(--line);border-radius:3px}
+.sig{display:block;width:100%;height:34px}
+.sig .ba{stroke:var(--line-2);stroke-width:1;vector-effect:non-scaling-stroke}.sig .gr{stroke:var(--grat);stroke-width:1;vector-effect:non-scaling-stroke}.sig .ln{fill:none;stroke:var(--trace);stroke-width:1.5;vector-effect:non-scaling-stroke}.sig .ar{fill:var(--trace-fill);stroke:none}
+.sig-g{filter:drop-shadow(0 0 var(--glow) var(--trace))}
+.rb{display:inline-flex;align-items:flex-end;gap:2px;height:14px;vertical-align:-2px;margin-right:5px}.rb i{width:3px;background:var(--unlit);border-radius:1px}.rb i.on{background:var(--lit)}
+.scope{display:block;width:100%;background:var(--scope);border-bottom:1px solid var(--line)}
+.scope .gl{stroke:var(--grat);stroke-width:1}.scope .gt{fill:var(--ink-faint);font-size:11px;font-family:var(--sans)}
+.scope .lm{stroke:var(--nr);stroke-width:1;stroke-dasharray:4 3}.scope .ln{fill:none;stroke:var(--trace);stroke-width:1.6;filter:drop-shadow(0 0 var(--glow) var(--trace))}.scope .ar{fill:var(--trace-fill)}
+.scope .now{stroke:var(--ink-soft);stroke-width:1;stroke-dasharray:2 3}.scope .dot{fill:var(--trace);filter:drop-shadow(0 0 var(--glow) var(--trace))}
+.scope .lane{stroke:var(--grat);stroke-width:1}.scope .lb{fill:var(--ink-soft);font-size:12px;font-family:var(--sans)}
+.scope .sy{stroke:var(--y)}.scope .so{stroke:var(--o)}.scope .sr{stroke:var(--r)}.scope .su{stroke:var(--nr);stroke-dasharray:3 3}
+.scope .seg{fill:none;stroke-linecap:butt;filter:drop-shadow(0 0 var(--glow) currentColor)}.scope .seg.sy{color:var(--y)}.scope .seg.so{color:var(--o)}.scope .seg.sr{color:var(--r)}.scope .seg.su{color:var(--nr)}
+.st-r.nr{background-image:repeating-linear-gradient(135deg,var(--hatch) 0 7px,transparent 7px 14px)}
+.st-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.st-sum div b{display:block;font-family:var(--display);font-weight:300;font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums lining-nums}
+.st-sum div span{font-size:12.5px;color:var(--ink-soft)}
+/* lists */
+.kv{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;padding:12px 14px;font-size:14px}
+.kv dt{color:var(--ink-soft)}.kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums lining-nums;overflow-wrap:anywhere}
+.kv dt.w,.kv dd.w{grid-column:1/-1;text-align:left}.kv dt.w{margin-top:4px}
+.tk-i{padding:9px 14px;border-bottom:1px solid var(--line);font-size:14.5px}.tk-i:last-child{border-bottom:0}
+.tk-i .m{display:flex;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-soft)}
+.tk-i.w{border-left:4px solid var(--nr)}
+.hist{display:grid;grid-template-columns:118px 112px minmax(0,1fr);gap:0 10px;padding:7px 14px;border-bottom:1px solid var(--line);font-size:14px}
+.hist details{grid-column:3}.hist summary{cursor:pointer;color:var(--ink-soft);font-size:13px}.hist details div{margin-top:3px}
+.hist:last-child{border-bottom:0}.hist .t{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.hist.y .c{color:var(--y)}.hist.o .c{color:var(--o)}.hist.r .c{color:var(--r)}.hist .c{font-weight:700}
+.radar img{display:block;width:100%;height:auto}
+.lg{margin:0;padding:10px 14px;border-top:1px solid var(--line);font-size:14px}
+.lg b{display:block;color:var(--nr)}
+.factsbar{margin:0;padding:10px 24px;border-bottom:1px solid var(--line);background:var(--panel-2);font-size:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+@media(max-width:1100px){.sheet{grid-template-columns:minmax(0,1fr)}.btns{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+  .top{padding:8px 16px}.hero{--pad:16px;padding-top:16px}.sheet{padding:14px 16px 32px;gap:14px}.col{gap:14px}.factsbar{padding:10px 16px}
+  .insts{grid-template-columns:minmax(0,1fr);gap:14px}.hero-grid{grid-template-columns:minmax(0,1fr)}.mesh{max-width:300px}
+  .st-h{display:none}
+  .st-r{grid-template-columns:minmax(0,1fr) repeat(3,minmax(44px,52px));gap:2px 8px}
+  .st-n{grid-column:1/-1;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .st-n b{display:inline}.st-tr{grid-column:1/2;grid-row:2}.st-v{grid-row:2;font-size:15px}
+  .st-v::before{content:attr(data-k);display:block;font-size:11px;color:var(--ink-soft)}
+  .st-l{grid-column:1/-1;text-align:left}
+  .hist details{grid-column:1}
+  .wn{grid-template-columns:minmax(0,1fr)}.wn-c{font-size:30px}
+  .hist{grid-template-columns:minmax(0,1fr)}
+  .st-sum div b{font-size:24px}
+}
+@media (prefers-reduced-motion:no-preference){.pulse{animation:pl 2.4s ease-in-out infinite}@keyframes pl{50%{opacity:.35}}}
+.pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ink);margin-right:6px;vertical-align:1px}
+.pulse.off{animation:none;background:transparent;border:1px dashed var(--nr)}
+</style>
+</head>
+<body>
+<div id="gate" role="dialog" aria-modal="true" aria-label="Access code">
+  <form class="g-box" autocomplete="off">
+    <h1>WM004 NCM board</h1>
+    <p>Enter the access code to open NCM's text, the stations and the radar.</p>
+    <div class="g-facts" id="gFacts" aria-live="polite"><b>Reading the public facts</b></div>
+    <input id="gate-in" type="text" maxlength="96" aria-label="Access code" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <label class="shw"><input type="checkbox" id="gate-show"> Show the code I type</label>
+    <label class="shw"><input type="checkbox" id="gate-keep"> Keep this device unlocked</label>
+    <button class="g-go" type="submit">Open</button>
+    <button class="g-alt" type="button" id="gate-facts">Facts only, no code</button>
+    <div class="g-msg" id="gate-msg" aria-live="polite"></div>
+    <div class="bar"><i id="gate-bar"></i></div>
+  </form>
+</div>
+
+<div class="top">
+  <b>WM004 NCM board</b><span class="note" id="topNote"></span><span class="sp"></span>
+  <button type="button" id="btnAlert" aria-pressed="false">Alert me on this device</button>
+  <button type="button" id="btnTheme">Theme</button>
+  <button type="button" id="btnLock">Lock</button>
+</div>
+<div class="factsbar" id="factsBar" hidden><span>Facts only. NCM's text, the 14 stations, the radar and the history open with the access code.</span><button type="button" id="btnUnlock">Enter the code</button></div>
+
+<header class="hero" id="hero" data-mode="wait" data-sig="n">
+  <div class="hero-grid">
+    <div>
+      <div class="st-word" id="stWord" role="status" aria-live="assertive">Reading</div>
+      <div class="st-sub" id="stSub"></div>
+      <div id="stRak"></div>
+      <div class="st-meta" id="stMeta"></div>
+    </div>
+    <figure class="mesh" id="mesh" aria-label="The 14 Ras Al Khaimah stations"></figure>
+  </div>
+  <div class="insts">
+    <div class="inst"><div class="inst-k"><span class="pulse" id="pulse"></span>Read age</div><div class="inst-v" id="vRead">no reading</div><svg class="scale" id="scRead" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"></svg><div class="inst-s" id="sRead"></div></div>
+    <div class="inst"><div class="inst-k">Age of NCM's list</div><div class="inst-v" id="vList">no reading</div><svg class="scale" id="scList" viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"></svg><div class="inst-s" id="sList"></div></div>
+    <div class="inst"><div class="inst-k">RAK stations reading</div><div class="inst-v" id="vBars">no reading</div><div class="bars" id="bars" aria-hidden="true"></div><div class="inst-s" id="sBars"></div></div>
+  </div>
+</header>
+
+<div class="sheet">
+  <section class="panel full" id="pWarn" aria-label="Warnings in force" hidden><h2>Warnings in force <small id="wnCount"></small></h2><div id="wnList"></div></section>
+  <div class="full"><div class="btns">
+    <a href="https://www.ncm.gov.ae/maps-warnings?lang=en" target="_blank" rel="noopener noreferrer">Warnings <i>open NCM</i></a>
+    <a href="https://www.ncm.gov.ae/maps-radars/uae-radars-network?lang=en" target="_blank" rel="noopener noreferrer">Radar <i>open NCM</i></a>
+    <a href="https://www.ncm.gov.ae/maps-radars/radar-merge-sat?lang=en" target="_blank" rel="noopener noreferrer">Radar with satellite <i>open NCM</i></a>
+    <a href="https://www.ncm.gov.ae/?lang=en" target="_blank" rel="noopener noreferrer">NCM home <i>open NCM</i></a>
+  </div><p class="btn-note">NCM forbids framing, so each button opens NCM in a new tab.</p></div>
+  <div class="col">
+    <section class="panel" aria-label="Age of NCM's list"><h2>NCM list signal <small>age of the list in hours, Reported; each fall is NCM writing a new list</small></h2><div id="saw"></div></section>
+    <section class="panel" aria-label="Ras Al Khaimah stations"><h2>Ras Al Khaimah stations <small>rain, mm, Reported</small></h2><div id="stations"></div></section>
+    <section class="panel" aria-label="Warning lanes"><h2>Warning lanes <small>what the reader saw in force, last 7 days, Reported</small></h2><div id="lanes"></div></section>
+    <section class="panel" aria-label="NCM ticker"><h2>NCM ticker <small>English and Arabic, Reported</small></h2><div id="ticker"></div></section>
+    <section class="panel" aria-label="Recent history"><h2>Recent history <small>what the reader saw, newest first</small></h2><div id="history"></div></section>
+  </div>
+  <div class="col">
+    <section class="panel" aria-label="Reader health"><h2>Reader health</h2><div id="health"></div></section>
+    <section class="panel" aria-label="Ras Al Khaimah airport"><h2>Ras Al Khaimah airport <small>Reported</small></h2><div id="airport"></div></section>
+    <section class="panel radar" aria-label="Radar still"><h2>Radar still <small>Reported</small></h2><div id="radar"></div></section>
+  </div>
+</div>
+
+<script>
+/*__BOARD_LOGIC_START__*/
+var SILENT_MIN=40,LIST_LIMIT_H=72;
+var COLOURS={red:"Red",orange:"Orange",yellow:"Yellow"},RANK={red:3,orange:2,yellow:1};
+var HAZ={rain:"Rain",fog:"Fog",dust:"Dust",wind:"Wind",sea:"Rough sea",other:"Other hazard"};
+var CODES={TR:"Thunder rain",CC:"Cumulonimbus clouds",FG:"Fog",DS:"Dust or sand",WD:"Wind",RS:"Rough sea"};
+var FLAGS={upcoming:"Starts later",notYetPublished:"Published time is ahead of NCM's clock",timesNoOffset:"Times carry no offset: read as UAE time",timesUnreadable:"Times could not be read",colourNotRead:"Colour not read",placeNotKnown:"Place not known"};
+function isReal(v){return v!==null&&v!==undefined&&v!==""&&!(typeof v==="number"&&isNaN(v));}
+function ms(iso){var t=Date.parse(iso||"");return isNaN(t)?null:t;}
+function minsSince(iso,now){var t=ms(iso);return t==null?null:(now-t)/60000;}
+function fmtAge(m){if(m==null)return "no reading";var neg=m<0;m=Math.abs(m);var s=Math.floor(m*60),h=Math.floor(s/3600),d=Math.floor(h/24),t;
+  if(d>=2)t=d+" d "+(h%24)+" h";else if(h>=1)t=h+" h "+String(Math.floor(s/60)%60).padStart(2,"0")+" min";else t=Math.floor(s/60)+" min "+String(s%60).padStart(2,"0")+" s";return neg?t+" ahead":t;}
+var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function uae(iso){var t=ms(iso);if(t==null)return null;var d=new Date(t+4*3600000);return String(d.getUTCDate()).padStart(2,"0")+" "+MON[d.getUTCMonth()]+" "+String(d.getUTCHours()).padStart(2,"0")+":"+String(d.getUTCMinutes()).padStart(2,"0");}
+function colourWord(c){return COLOURS[c]||"Colour not read";}
+function colourCls(c){return c==="red"?"r":(c==="orange"?"o":(c==="yellow"?"y":"u"));}
+function hazardWords(x){var codes=x&&x.codes;if(codes&&codes.length)return codes.map(function(c){return CODES[c]||String(c);});return ((x&&x.hazards)||[]).map(function(h){return HAZ[h]||String(h);});}
+function rakOf(x){var r=x&&x.rak;return (r&&typeof r==="object")?(r.status||"not known"):(r||"not known");}
+/* warnings by severity, RAK first: touched, then not known (not known is not no), then not touched; inside each, red to yellow, a colour not read last of its group and flagged */
+function sortWarnings(a){var rr={"touched":0,"not known":1,"not touched":2};return (a||[]).slice().sort(function(p,q){var x=(rr[rakOf(p)]==null?1:rr[rakOf(p)])-(rr[rakOf(q)]==null?1:rr[rakOf(q)]);if(x)return x;return (RANK[q.colour]||0)-(RANK[p.colour]||0)||String(p.id).localeCompare(String(q.id));});}
+function rakWords(r){var st=(r&&r.status)||"not known",u=(r&&r.units)||[];if(st==="touched"){var c=r.city===true?"the city is touched":(r.city===false?"the city is not touched":"the city is not known");return {cls:"t",word:"touched",more:c+(u.length?": "+u.join(", "):"")+(r.named===true?", named in NCM's text":"")};}
+  if(st==="not touched")return {cls:"",word:"not touched",more:""};return {cls:"nk",word:"not known",more:(r&&r.named===true)?"named in NCM's text; the polygon test was not made":"not known is not no"};}
+/* what the head says. Nothing here can produce a calm word without a reader state that says so, read in the last 40 minutes: every other path is NO READING or READER SILENT. The message NCM's page prints over an empty map is never read: section 4 of SCHEMA.md lists what reaches it. */
+function boardView(s,now,err){
+  if(!s||typeof s!=="object")return {mode:"nofile",sig:"n",word:"NO READING",sub:err?("The reader's file could not be read: "+err):"The reader's file has not been read yet.",rak:null};
+  var age=minsSince(s.readAt,now),st=s.state;
+  if(age==null)return {mode:"noreading",sig:"n",word:"NO READING",sub:"The reader's file has no read time.",rak:null};
+  if(age>SILENT_MIN){var said=(st==="NO READING"||!st)?"NO READING":(st==="NO WARNING IN FORCE"?"No NCM warning in force":(st==="TEXT WARNING"?"a text warning, colour not read":colourWord(s.highest)+" warning"));
+    var lastOk=s.health&&s.health.lastOk;return {mode:"silent",sig:"n",word:"READER SILENT",sub:"Nothing from the reader for "+fmtAge(age)+". The last read, "+(uae(s.readAt)||"no time")+" UAE, said "+said+"."+(lastOk?" Last good read "+(uae(lastOk)||"no time")+" UAE.":" No good read is on file.")+" This is not a current reading.",rak:null,age:age};}
+  if(st==="NO WARNING IN FORCE")return {mode:"none",sig:"n",word:"No NCM warning in force",sub:"NCM's list of "+(uae(s.listTime)||"no time")+" UAE is "+fmtAge(minsSince(s.listTime,now))+" old. The list and the ticker were both read in this run.",rak:null,age:age};
+  if(st==="WARNING"){var list=sortWarnings(s.items||[]),top=list[0],c=top?top.colour:s.highest,z=colourCls(c),hz=hazardWords(top||{hazards:s.hazards}),hi=list.filter(function(x){return (RANK[x.colour]||0)>(RANK[c]||0);}).sort(function(p,q){return RANK[q.colour]-RANK[p.colour];})[0];
+    return {mode:"warning",sig:z==="u"?"n":z,word:(COLOURS[c]||"Colour not read")+(hz.length?" · "+hz.join(", "):""),sub:(s.count==null?"Warnings in force: no count":(s.count+(s.count===1?" warning":" warnings")+" in force"))+(s.colourNotRead>0?", "+s.colourNotRead+" with the colour not read":"")+(hi?". Highest: "+colourWord(hi.colour)+" · "+hazardWords(hi).join(", ")+", RAK "+rakOf(hi):"")+(s.tickerRead===false?". The ticker failed on this run"+(s.tickerFailed?": "+s.tickerFailed:""):"")+".",rak:rakWords(s.rak),age:age};}
+  if(st==="TEXT WARNING")return {mode:"text",sig:"n",word:"Text warning",sub:"NCM's ticker carries a warning and the list is empty. The colour is not read.",rak:rakWords(s.rak),age:age};
+  if(st==="NO READING")return {mode:"noreading",sig:"n",word:"NO READING",sub:(s.reasonText||s.reason||"The reader gave no reason.")+(s.oldListItems>0?". The list still held "+s.oldListItems+(s.oldListItems===1?" item":" items")+": not in force by this reading.":""),rak:null,age:age};
+  return {mode:"noreading",sig:"n",word:"NO READING",sub:"The reader's file carries a state this page does not know.",rak:null,age:age};}
+function titleOf(v){if(v.mode==="warning")return v.word+" · NCM board";if(v.mode==="none")return "No NCM warning · NCM board";return v.word+" · NCM board";}
+/* a new warning since the last read seen by this open page; the first read only sets the baseline */
+function warningIds(s){if(!s)return [];var a=(s.items||[]).map(function(x){return String(x.id);});if(s.state==="TEXT WARNING")a.push("text");else if(s.state==="WARNING"&&!a.length)a.push("warning");return a;}
+function newWarnings(seen,s){if(seen==null)return [];return warningIds(s).filter(function(i){return seen.indexOf(i)<0;});}
+/* a rain value: null is no reading, a 0 is Reported 0 */
+function mm(v){return isReal(v)&&!isNaN(+v)?(+v).toFixed(1):null;}
+/* the trace of a station: the hourly rain when the reader sends it (rainTrace), else the rain an hour in the three windows the reader gives, Recomputed from its totals. A window that cannot be worked out is null, not 0. */
+function stationTrace(x){if(!x||x.reading===false)return null;if(Array.isArray(x.rainTrace)&&x.rainTrace.length>1)return {kind:"rows",v:x.rainTrace.map(function(y){return isReal(y)&&!isNaN(+y)?+y:null;})};
+  var a=x.rain1h,b=x.rain3h,c=x.rain24h;if(!isReal(a)||!isReal(b)||!isReal(c))return null;a=+a;b=+b;c=+c;if(isNaN(a)||isNaN(b)||isNaN(c))return null;return {kind:"windows",v:[Math.max(0,c-b)/21,Math.max(0,b-a)/2,a]};}
+function tracePath(t,scale,w,h){var n=t.v.length,dx=w/n,y=function(v){return h-2-(Math.min(v,scale)/scale)*(h-5);},d="",open=false,area="";
+  for(var i=0;i<n;i++){var v=t.v[i],x0=i*dx,x1=(i+1)*dx;if(v==null){open=false;continue;}var yy=y(v).toFixed(1);d+=(open?"L":"M")+x0.toFixed(1)+" "+yy+"L"+x1.toFixed(1)+" "+yy;area+="M"+x0.toFixed(1)+" "+(h-2)+"L"+x0.toFixed(1)+" "+yy+"L"+x1.toFixed(1)+" "+yy+"L"+x1.toFixed(1)+" "+(h-2)+"Z";open=true;}return {d:d,area:area};}
+/* the age of NCM's list over time, from the reader's log of every change of the folder: it climbs from each list and falls to 0 at the next. A true sawtooth, not a drawing: the points are the list times. */
+function sawtooth(gaps,now,win){var g=(gaps||[]).map(function(x){return ms(x.generatedAt);}).filter(function(x){return x!=null;}).sort(function(a,b){return a-b;});if(!g.length)return null;var t0=now-win,p=[];
+  for(var i=0;i<g.length;i++){var a=g[i],last=i+1>=g.length,b=last?now:g[i+1];if(b<t0)continue;var sa=Math.max(a,t0);p.push([sa,(sa-a)/36e5]);p.push([b,(b-a)/36e5]);if(!last)p.push([b,0]);}return p;}
+/* a warning on the lanes: from the first read that held it to the read that saw it end, or to now when it has not ended */
+function laneRows(index,now,win){var t0=now-win,o={},W=(index&&index.warnings)||{};Object.keys(W).forEach(function(id){var w=W[id],a=ms(w.first),b=w.ended?ms(w.ended):now;if(a==null||b==null||b<t0)return;(w.hazards&&w.hazards.length?w.hazards:["other"]).forEach(function(h){(o[h]=o[h]||[]).push({id:id,a:Math.max(a,t0),b:b,colour:w.colour,rak:w.rak||"not known",open:!w.ended});});});return o;}
+/* how fresh a station's last report is, in five bars, as a network signal: 15 minute rows, so 20 minutes is full */
+function reportBars(m){return m==null?0:(m<=20?5:(m<=35?4:(m<=60?3:(m<=180?2:1))));}
+/* the stations, for the network and for the facts: NCM's public list, placed by SCHEMA.md section 6 */
+var STN=[[110,"Jais Mountain",25.950763,56.167426],[530,"Jabal Al Rahba",25.926388,56.119166],[116,"Mebreh Mountain",25.648371,56.130863],[118,"Al Heben Mountain",25.125124,56.157822],[441,"Al FarFar",25.16663,56.176008],[419,"Yanas Mountain",25.731685,56.095026],[467,"Ghazla",25.902678,56.135928],[382,"Wadi Al Tuwa",25.022378,56.126497],[345,"Shoukah",25.10554,56.042019],[183,"Al Qor",24.906501,56.152923],[481,"Umm Al Gaf",24.876261,56.27865],[420,"Ras Al Khaimah",25.771607,55.939239],[383,"Saqr Port",25.981758,56.054222],[480,"Al Marjan",25.689885,55.73136]];
+function stationName(id){var r=STN.filter(function(x){return x[0]===id;})[0];return r?r[1]:null;}
+/* the sealed files: site_ncm/CRYPTO.md */
+var INFO=new TextEncoder().encode("wm004-ncm-v1");
+function unwrapKey(keyBin,code,rounds){var s=crypto.subtle;return s.importKey("raw",new TextEncoder().encode(code.replace(/\s+/g,"")),"PBKDF2",false,["deriveKey"]).then(function(km){return s.deriveKey({name:"PBKDF2",salt:keyBin.subarray(0,16),iterations:rounds||1000000,hash:"SHA-256"},km,{name:"AES-GCM",length:256},false,["decrypt"]);}).then(function(k){return s.decrypt({name:"AES-GCM",iv:keyBin.subarray(16,28)},k,keyBin.subarray(28));}).then(function(der){return s.importKey("pkcs8",der,{name:"ECDH",namedCurve:"P-256"},false,["deriveBits"]);});}
+function readFrames(file){var out=[],dv=new DataView(file.buffer,file.byteOffset,file.byteLength),i=0;while(i<file.length){if(i+4>file.length)throw new Error("cut file");var n=dv.getUint32(i);i+=4;if(n<97||i+n>file.length)throw new Error("cut file");out.push(file.subarray(i,i+n));i+=n;}return out;}
+function openFrame(blob,priv){var s=crypto.subtle;if(String.fromCharCode.apply(null,blob.subarray(0,4))!=="WMN1")return Promise.reject(new Error("not WMN1"));return s.importKey("raw",blob.subarray(4,69),{name:"ECDH",namedCurve:"P-256"},false,[]).then(function(eph){return s.deriveBits({name:"ECDH",public:eph},priv,256);}).then(function(bits){return s.importKey("raw",bits,"HKDF",false,["deriveKey"]);}).then(function(ikm){return s.deriveKey({name:"HKDF",hash:"SHA-256",salt:new Uint8Array(0),info:INFO},ikm,{name:"AES-GCM",length:256},false,["decrypt"]);}).then(function(aes){return s.decrypt({name:"AES-GCM",iv:blob.subarray(69,81),additionalData:blob.subarray(0,81)},aes,blob.subarray(81));}).then(function(p){return JSON.parse(new TextDecoder().decode(p));});}
+/* the history: frames in the order written, newest first on the page. An item with no ended event was still in force when last read. */
+function foldHistory(frames){var map={},order=[],arch=[];(frames||[]).forEach(function(f){((f&&f.events)||[]).forEach(function(e){if(!e||!e.event)return;
+    if(e.event==="index"){arch=e.archives||arch;(e.items||[]).forEach(function(i){var k=i.type+":"+(i.id||i.key);if(!map[k]){map[k]={type:i.type,id:i.id||i.key,colour:i.colour,hazards:i.hazards,first:i.first,last:i.last,ended:i.ended||null,item:null,changes:0};order.push(k);}});return;}
+    if(e.event==="raw_first"||e.event==="shape"||e.type==null)return;var key=e.type+":"+(e.id||e.key),r=map[key];
+    if(!r){r=map[key]={type:e.type,id:e.id||e.key,first:e.t,last:e.t,ended:null,item:null,changes:0,colour:null,hazards:null};order.push(key);}
+    r.last=e.t||r.last;if(e.item){r.item=e.item;r.colour=e.item.colour||r.colour;r.hazards=e.item.hazards||r.hazards;}if(e.event==="change")r.changes++;if(e.event==="ended"){r.ended=e.t;r.lastSeen=e.lastSeen||null;}});});
+  var a=order.map(function(k){return map[k];});a.sort(function(p,q){return (ms(q.ended||q.first)||0)-(ms(p.ended||p.first)||0);});return {items:a,archives:arch};}
+/*__BOARD_LOGIC_END__*/
+
+(function(){
+  var S={state:null,stateErr:"",index:null,idxRead:"",live:null,last:null,liveErr:"",hist:null,histErr:"",histRead:"",radar:null,radarErr:"",radarAt:null,skew:0,clock:"device clock",priv:null,kept:false,seen:null,fresh:"",alerts:false,ctx:null,mode:"",facts:false};
+  var $=function(i){return document.getElementById(i);};
+  function now(){return Date.now()+S.skew;}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+  function clear(n){while(n.firstChild)n.removeChild(n.firstChild);return n;}
+  function gapEl(strong,rest){var d=el("div","gap");if(strong)d.appendChild(el("b",null,strong+" "));if(rest)d.appendChild(document.createTextNode(rest));return d;}
+  function store(k,v){try{if(v==null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+  function recall(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+  /* the theme: only a press writes it */
+  (function(){var t=recall("wm004_board_theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);})();
+  function theme(){var r=document.documentElement,cur=r.getAttribute("data-theme")||(matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),nx=cur==="dark"?"light":"dark";r.setAttribute("data-theme",nx);store("wm004_board_theme",nx);drawScales();}
+  /* ---- the key kept on this device: a CryptoKey that cannot be exported, in IndexedDB. The database is opened only when the flag says a key was kept, so reading never creates it. ---- */
+  var KEEP="wm004_board_kept";
+  function idb(){return new Promise(function(ok,no){var r=indexedDB.open("wm004_ncm",1);r.onupgradeneeded=function(){r.result.createObjectStore("k");};r.onsuccess=function(){ok(r.result);};r.onerror=function(){no(r.error);};});}
+  function keptGet(){if(recall(KEEP)!=="1")return Promise.resolve(null);return idb().then(function(d){return new Promise(function(ok){var q=d.transaction("k").objectStore("k").get("priv");q.onsuccess=function(){d.close();ok(q.result||null);};q.onerror=function(){d.close();ok(null);};});}).catch(function(){return null;});}
+  function keptPut(k){return idb().then(function(d){return new Promise(function(ok,no){var t=d.transaction("k","readwrite");t.objectStore("k").put(k,"priv");t.oncomplete=function(){d.close();store(KEEP,"1");ok(true);};t.onerror=function(){d.close();no(t.error);};});}).catch(function(){return false;});}
+  function keptDrop(){store(KEEP,null);return new Promise(function(ok){try{var r=indexedDB.deleteDatabase("wm004_ncm");r.onsuccess=r.onerror=r.onblocked=function(){ok();};}catch(e){ok();}});}
+  /* ---- fetching ---- */
+  function getBytes(u){return fetch(u+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok){var e=new Error("the website answered "+r.status);e.status=r.status;throw e;}return r.arrayBuffer();}).then(function(b){return new Uint8Array(b);});}
+  function readState(){return fetch("../ncm_state.json?t="+Date.now(),{cache:"no-store"}).then(function(r){var d=ms(r.headers.get("date"));if(d!=null){S.skew=d-Date.now();S.clock="reply Date header";}if(!r.ok)throw new Error("the website answered "+r.status);return r.json();}).then(function(j){if(!j||typeof j!=="object")throw new Error("not a reader file");S.state=j;S.stateErr="";}).catch(function(e){S.stateErr=String(e&&e.message||e).slice(0,90);});}
+  function readLive(){if(!S.priv)return Promise.resolve();return getBytes("../ncm_live.enc").then(function(u){var fr=readFrames(u);if(!fr.length)throw new Error("the file is empty");return openFrame(fr[0],S.priv).then(function(j){if(!j||j.kind!=="live")throw new Error("the file is not a live file");S.live=j;S.liveErr="";S.last=null;if(fr[1])return openFrame(fr[1],S.priv).then(function(x){S.last=x;});});}).catch(function(e){S.live=null;S.last=null;var m=String(e&&e.message||e);S.liveErr=m==="cut file"?"the sealed file is cut":(/operation|decrypt/i.test(m)?"the sealed file did not open with this key":m.slice(0,90));});}
+  function readHistory(){if(!S.priv)return Promise.resolve();var ix=S.index;if(ix&&!Object.keys(ix.warnings||{}).length&&!Object.keys(ix.ticker||{}).length&&!Object.keys(ix.announcements||{}).length){S.hist=null;S.histErr="no history file yet";return Promise.resolve();}return getBytes("../ncm_history.enc").then(function(u){var fr=readFrames(u);return Promise.all(fr.map(function(b){return openFrame(b,S.priv);}));}).then(function(a){S.hist=foldHistory(a);S.histErr="";}).catch(function(e){S.hist=null;S.histErr=e&&e.status===404?"no history file yet":(String(e&&e.message)==="cut file"?"the sealed file is cut":"the history did not open");});}
+  /* the public index of the reader: the log of list changes and the warnings it has seen, facts only */
+  function readIndex(){return fetch("../ncm_index.json?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("no index");return r.json();}).then(function(j){S.index=j;}).catch(function(){S.index=null;});}
+  function readRadar(){if(!S.priv)return Promise.resolve();if(!(S.state&&S.state.radarAt)){S.radar=null;S.radarErr="none";return Promise.resolve();}return getBytes("../ncm_radar.enc").then(function(u){var fr=readFrames(u);if(!fr.length)throw new Error("empty");return openFrame(fr[0],S.priv);}).then(function(j){if(!j||j.kind!=="radar"||!j.b64)throw new Error("not a radar file");S.radar=j;S.radarErr="";}).catch(function(e){S.radar=null;S.radarErr=e&&e.status===404?"none":"the radar still did not open";});}
+  /* the newest of the public state and the sealed reading sets the head; the sealed one only ever replaces the public one for the same read or a later one */
+  function cur(){var a=S.state,b=S.live;if(b&&a&&(ms(b.readAt)||0)>=(ms(a.readAt)||0))return Object.assign({},a,b,{items:(b.warnings&&b.warnings.length)?b.warnings:a.items,itemsMore:a.itemsMore,health:Object.assign({},a.health||{},b.health||{})});return a||b;}
+  function poll(){return readState().then(readLive).then(function(){var r=(S.state&&S.state.readAt)||"";if(r&&r!==S.idxRead){S.idxRead=r;return readIndex();}}).then(function(){var r=(S.state&&S.state.readAt)||"";var more=[];if(S.priv&&r!==S.histRead){S.histRead=r;more.push(readHistory());more.push(readRadar());}return Promise.all(more);}).then(afterPoll);}
+  function afterPoll(){var s=cur();if(s){var nw=newWarnings(S.seen,s);if(nw.length)announce(boardView(s,now(),S.stateErr));S.seen=warningIds(s);}render();}
+  /* ---- a new warning: the title changes for everyone; a notification and a tone only for a viewer who pressed the button ---- */
+  function announce(v){S.fresh="NEW ";document.title="NEW "+titleOf(v);if(!S.alerts)return;tone();try{if(window.Notification&&Notification.permission==="granted")new Notification("NCM board",{body:v.word,tag:"wm004-ncm"});}catch(e){}}
+  function tone(){try{var c=S.ctx;if(!c)return;var o=c.createOscillator(),g=c.createGain(),t=c.currentTime;o.type="sine";o.frequency.value=880;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.16,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.7);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+0.75);}catch(e){}}
+  function alertBtn(){if(S.alerts){S.alerts=false;}else{S.alerts=true;try{if(window.Notification&&Notification.permission==="default"){var q=Notification.requestPermission();if(q&&q.catch)q.catch(function(){});}}catch(e){}try{var A=window.AudioContext||window.webkitAudioContext;if(A){S.ctx=S.ctx||new A();if(S.ctx.resume){var p=S.ctx.resume();if(p&&p.catch)p.catch(function(){});}}}catch(e){}tone();}
+    $("btnAlert").setAttribute("aria-pressed",S.alerts?"true":"false");$("btnAlert").textContent=S.alerts?"Alerts on for this device":"Alert me on this device";}
+  /* ---- drawing ---- */
+  function scale(svgId,val,max,marks,label){var w=300,tk="",i;var x=function(v){return Math.max(0,Math.min(1,v/max))*w;};
+    marks.forEach(function(m){var X=x(m[0]);tk+='<line class="tk" x1="'+X+'" x2="'+X+'" y1="'+(m[2]?4:9)+'" y2="14"/>';if(m[1]!=null)tk+='<text class="tx" x="'+Math.min(w-16,X+(X?-5:0))+'" y="26">'+m[1]+'</text>';});
+    var h=tk+'<line class="bs" x1="0" x2="'+w+'" y1="14" y2="14"/>';if(val!=null&&isFinite(val)){var vx=x(val);h='<rect class="fl" x="0" y="4" width="'+vx.toFixed(1)+'" height="10"/>'+h+'<line class="nd" x1="'+vx.toFixed(1)+'" x2="'+vx.toFixed(1)+'" y1="1" y2="17"/>';}$(svgId).innerHTML=h;}
+  function drawScales(){var s=cur(),n=now(),ra=s?minsSince(s.readAt,n):null,la=s?minsSince(s.listTime,n):null;
+    var rm=[];for(var i=0;i<=40;i+=5)rm.push([i,(i===0||i===15||i===30||i===40)?i:null,i%15===0||i===40]);scale("scRead",ra,40,rm);
+    var lm=[];for(var j=0;j<=72;j+=6)lm.push([j,j%24===0?j:null,j%24===0]);scale("scList",la==null?null:la/60,72,lm);}
+  function fmtMin(m){return m<120?Math.round(m)+" min":(m<2880?Math.round(m/60)+" h":Math.round(m/1440)+" d");}
+  function warningCard(w,hasText){var c=colourCls(w.colour),d=el("article","wn "+c);d.appendChild(el("div","wn-c",c==="u"?"Colour not read":colourWord(w.colour)));var b=el("div");b.appendChild(el("div","wn-h",hazardWords(w).join(", ")||"Hazard not read"));var m=el("div","wn-m");
+    var r=rakOf(w);m.appendChild(el("span",null,"RAK "+r+(r==="touched"?((w.rak&&w.rak.city===false)||w.city===false?", city not touched":((w.rak&&w.rak.city===true)||w.city===true?", city touched":"")):"")));m.appendChild(el("span","num","From "+(uae(w.from)||"no time")));m.appendChild(el("span","num","To "+(uae(w.to)||"no time")));
+    if(w.colourName)m.appendChild(el("span",null,w.colourName));m.appendChild(el("span","tag","Reported"));b.appendChild(m);
+    var fl=w.flags||{},fb=el("div","wn-m");Object.keys(FLAGS).forEach(function(k){if(fl[k])fb.appendChild(el("span","flag",FLAGS[k]));});(w.unknownCodes||[]).forEach(function(u){fb.appendChild(el("span","flag","Code "+u+" not known to this page"));});if(fb.firstChild)b.appendChild(fb);d.appendChild(b);
+    if(hasText){if(w.en){var en=el("div","wn-t",w.en);en.lang="en";d.appendChild(en);}if(w.ar){var ar=el("div","wn-t ar",w.ar);ar.lang="ar";ar.dir="rtl";d.appendChild(ar);}if(!w.en&&!w.ar)d.appendChild(el("div","wn-t nrw","NCM's text: no reading"));}return d;}
+  function drawWarnings(s,v){var box=$("wnList"),p=$("pWarn");clear(box);
+    if(v.mode==="noreading"&&S.live&&(S.live.warnings||[]).length){p.hidden=false;$("wnCount").textContent="on a list older than the limit, not in force by this reading";sortWarnings(S.live.warnings).forEach(function(w){box.appendChild(warningCard(w,true));});return;}var useLive=S.live&&s&&S.live.readAt===s.readAt&&(S.live.warnings||[]).length;var list=useLive?S.live.warnings:((s&&s.items)||[]);
+    if(!s||(v.mode!=="warning"&&v.mode!=="silent"&&v.mode!=="text")||!list.length){p.hidden=true;if(v.mode==="text"&&S.live){p.hidden=false;box.appendChild(gapEl("Colour not read.","The text is in the ticker below."));$("wnCount").textContent="";}return;}
+    if(v.mode==="silent"){p.hidden=false;$("wnCount").textContent="as last read, not current";}else{p.hidden=false;$("wnCount").textContent=(s.count!=null?s.count+" in force, ":"")+"RAK first, by severity"+(s.itemsMore>0?", "+s.itemsMore+" more not in the public file":"");}
+    sortWarnings(list).forEach(function(w){box.appendChild(warningCard(w,!!useLive));});
+    if(S.priv&&!useLive)box.appendChild(gapEl("NCM's text: no reading.",S.liveErr?S.liveErr+".":"The sealed reading of this run has not arrived."));}
+  function drawHead(s,v){var h=$("hero");h.setAttribute("data-mode",v.mode);h.setAttribute("data-sig",v.sig);$("stWord").textContent=v.word;$("stSub").textContent=v.sub+(S.stateErr&&s?" The last fetch failed ("+S.stateErr+"); the age keeps running.":"");
+    var rk=clear($("stRak"));if(v.rak){var d=el("div","rakline "+v.rak.cls);d.appendChild(document.createTextNode("Ras Al Khaimah "));d.appendChild(el("b",null,v.rak.word));if(v.rak.more)d.appendChild(el("span","q",v.rak.more));rk.appendChild(d);}
+    var m=clear($("stMeta"));m.appendChild(el("span","tag","Reported"));if(s){m.appendChild(el("span","num","Read "+(uae(s.readAt)||"no time")+" UAE"));if(s.readClock)m.appendChild(el("span",null,"Clock: "+s.readClock));if(s.listTime)m.appendChild(el("span","num","NCM's list "+(uae(s.listTime)||"no time")+" UAE"));if(s.limitH!=null)m.appendChild(el("span",null,"List age limit "+s.limitH+" h"));}
+    document.title=S.fresh+titleOf(v);}
+  function drawInsts(s){var n=now(),ra=s?minsSince(s.readAt,n):null,la=s?minsSince(s.listTime,n):null;$("vRead").textContent=fmtAge(ra);$("sRead").textContent=s&&s.readAt?(uae(s.readAt)+" UAE, by the "+S.clock+"; silent over "+SILENT_MIN+" min"):"no read on file";$("vList").textContent=fmtAge(la);$("sList").textContent=s&&s.listTime?(uae(s.listTime)+" UAE; limit "+(s.limitH||LIST_LIMIT_H)+" h"):"no list time on file";
+    $("pulse").className="pulse"+(ra!=null&&ra<=SILENT_MIN?"":" off");
+    var liveSt=S.live&&S.live.stations,rain=s&&s.rain,exp=(rain&&rain.stationsExpected)||14,got=null,miss=[];if(liveSt){got=liveSt.filter(function(x){return x.group==="rak"&&x.reading;}).length;exp=liveSt.filter(function(x){return x.group==="rak";}).length||exp;miss=liveSt.filter(function(x){return x.group==="rak"&&!x.reading;}).map(function(x){return x.name;});}else if(rain&&rain.stationsRead!=null){got=rain.stationsRead;miss=(rain.missing||[]).map(String);}
+    $("vBars").textContent=got==null?"no reading":got+" of "+exp;var b=clear($("bars"));for(var i=0;i<exp;i++){var c=el("i",got==null?"un":(i<got?"":"off"));c.style.height=(38+62*(i+1)/exp).toFixed(0)+"%";b.appendChild(c);}var stale=S.mode==="silent"||S.mode==="noreading"||S.mode==="nofile";$("sBars").textContent=(stale&&got!=null?"As last read, not current. ":"")+(got==null?"no reading: the stations open with the code":(miss.length?"No reading: "+miss.join(", "):"Every station in NCM's reply"));}
+  function drawStations(s){var box=clear($("stations")),L=S.live,st=L&&L.stations;
+    var r=s&&s.rain;if(r){var sum=el("div","st-sum");[["Highest 1 h",r.h1],["Highest 3 h",r.h3],["Highest 24 h",r.h24]].forEach(function(p){var d=el("div"),x=p[1]||{},v=mm(x.mm);d.appendChild(el("span",null,p[0]));var bb=el("b",null,v==null?"no reading":v+" mm");if(v==null)bb.className="nrw";d.appendChild(bb);var nm=x.station!=null?(stationName(x.station)||("station "+x.station)):"";d.appendChild(el("span",null,nm));sum.appendChild(d);});box.appendChild(sum);}
+    if(!S.priv&&!st){box.appendChild(gapEl("No station rows without the code.","The numbers above are the highest of the 14."));return;}
+    if(!st){box.appendChild(gapEl("Station rows: no reading.",S.liveErr?S.liveErr+".":"The sealed reading has not arrived."));return;}
+    var rows=st.filter(function(x){return x.group==="rak";}),tr=rows.map(stationTrace),peak=1;tr.forEach(function(t){if(t)t.v.forEach(function(v){if(v!=null&&v>peak)peak=v;});});var kinds=tr.filter(Boolean)[0],rowsKind=kinds&&kinds.kind==="rows";
+    var hd=el("div","st-h");hd.setAttribute("role","row");[["","Station"],["st-v","1 h"],["st-v","3 h"],["st-v","24 h"],["","Signal"],["st-l","Last"]].forEach(function(c){hd.appendChild(el("div",c[0],c[1]));});box.appendChild(hd);
+    var gaps=0;rows.forEach(function(x,i){var bad=x.reading===false,row=el("div","st-r"+(bad?" nr":""));row.setAttribute("role","row");var n=el("div","st-n");n.appendChild(el("b",null,x.name||("Station "+x.id)));n.appendChild(el("small",null,(x.unit&&x.unit!=="None"?x.unit:"offshore")+(x.elev!=null?" · "+x.elev+" m":"")));row.appendChild(n);
+      [["rain1h","1 h"],["rain3h","3 h"],["rain24h","24 h"]].forEach(function(k){var v=bad?null:mm(x[k[0]]),c=el("div","st-v");c.setAttribute("data-k",k[1]);if(v==null)c.appendChild(el("span","nrw","no reading"));else{var low=k[0]==="rain24h"&&x.rainGaps>0;if(low)gaps++;c.textContent=(low?"≥ ":"")+v;}row.appendChild(c);});
+      var cell=el("div","st-tr"),t=tr[i];if(t){var p=tracePath(t,peak,240,30),gr="";for(var g=1;g<t.v.length;g++){var gx=(g*240/t.v.length).toFixed(1);if(t.kind==="windows"||g%6===0)gr+='<line class="gr" x1="'+gx+'" x2="'+gx+'" y1="0" y2="30"/>';}cell.innerHTML='<svg class="sig" viewBox="0 0 240 30" preserveAspectRatio="none" role="img" aria-label="rain signal of the station"><line class="gr" x1="0" x2="240" y1="15" y2="15"/>'+gr+'<line class="ba" x1="0" x2="240" y1="28" y2="28"/><g class="sig-g"><path class="ar" d="'+p.area+'"/><path class="ln" d="'+p.d+'"/></g></svg>';}else cell.appendChild(el("span","nrw","no reading"));row.appendChild(cell);
+      var lc=el("div","st-l");if(!bad){var rb=el("span","rb"),nb=reportBars(x.ageMin);rb.setAttribute("aria-hidden","true");for(var q=1;q<=5;q++){var ib=el("i",q<=nb?"on":"");ib.style.height=(20+q*16)+"%";rb.appendChild(ib);}lc.appendChild(rb);lc.appendChild(document.createTextNode(x.ageMin!=null?fmtMin(x.ageMin):"no time"));}row.appendChild(lc);box.appendChild(row);});
+    box.appendChild(el("div","foot","A 0 is Reported; a stuck gauge reads the same. A station missing from NCM's reply is no reading, not dry. "+(gaps?"≥ marks a sum that leaves out rows with no value: a lower limit. ":"")+(rowsKind?"Signal: rain an hour over the last 24 hours, one scale, top "+peak.toFixed(1)+" mm an hour.":"Signal: rain an hour in the 3 to 24 h, 1 to 3 h and last 1 h windows, drawn at equal width, one scale, top "+peak.toFixed(1)+" mm an hour; Recomputed from the three totals, the reader sends no rows.")));}
+  function drawTicker(s){var box=clear($("ticker")),L=S.live;if(!L){if(s&&s.tickerRead===false)box.appendChild(gapEl("Ticker: no reading.",s.tickerFailed||"It failed on this run."));else box.appendChild(gapEl(S.priv?"Ticker: no reading.":"The ticker opens with the code.",S.priv?(S.liveErr||"The sealed reading has not arrived."):(s&&s.tickerRead?"It was read on this run.":"")));return;}
+    var t=L.ticker||{};if(t.read===false){box.appendChild(gapEl("Ticker: no reading.",t.reason||"It failed on this run."));return;}var it=(t.items||[]).slice().sort(function(a,b){return (a.type==="news"?1:0)-(b.type==="news"?1:0);});if(!it.length){box.appendChild(gapEl("","The ticker reply held no item."));return;}
+    it.forEach(function(x){var d=el("div","tk-i"+(x.type==="news"?"":" w")),m=el("div","m");m.appendChild(el("span",null,x.type||"type not known"));m.appendChild(el("span","num",uae(x.time)||"no time"));d.appendChild(m);if(x.en){var e=el("div",null,x.en);e.lang="en";d.appendChild(e);}if(x.ar){var a=el("div",null,x.ar);a.lang="ar";a.dir="rtl";d.appendChild(a);}box.appendChild(d);});
+    var an=L.announcements;if(an&&(an.flag||(an.items||[]).length))box.appendChild(gapEl("An announcement was read.","Its shape is not known; the reader kept it raw."));}
+  function drawHistory(){var box=clear($("history"));if(!S.priv){box.appendChild(gapEl("The history opens with the code.",""));return;}if(S.histErr==="no history file yet"){box.appendChild(gapEl("No history yet.","The reader writes it from its first warning."));return;}if(S.histErr){box.appendChild(gapEl("History: no reading.",S.histErr+"."));return;}if(!S.hist){box.appendChild(gapEl("History: reading.",""));return;}
+    var news=0,it=S.hist.items.filter(function(r){if(r.type==="ticker"&&r.item&&r.item.type==="news"){news++;return false;}return true;}).slice(0,30);if(!it.length)box.appendChild(gapEl("No warning in the history yet.",""));it.forEach(function(r){var c=r.type==="warning"?colourCls(r.colour):"",d=el("div","hist "+c);d.appendChild(el("div","t",(uae(r.ended||r.first)||"no time")));d.appendChild(el("div","c",r.type==="warning"?colourWord(r.colour):(r.type==="ticker"?"Ticker "+((r.item&&r.item.type)||""):(r.type||"item"))));var w=hazardWords(r.item||{hazards:r.hazards}).join(", ");d.appendChild(el("div",null,(r.ended?"Ended":(r.first===r.last?"First seen":"Open at the last read"))+(w?": "+w:"")+(r.changes?", changed "+r.changes+" time"+(r.changes>1?"s":""):"")));var en=r.item&&r.item.en,ar=r.item&&r.item.ar;if(en||ar){var dt=el("details");dt.appendChild(el("summary",null,"NCM's text"));if(en){var e1=el("div",null,en);e1.lang="en";dt.appendChild(e1);}if(ar){var a1=el("div",null,ar);a1.lang="ar";a1.dir="rtl";dt.appendChild(a1);}d.appendChild(dt);}box.appendChild(d);});if(news)box.appendChild(el("div","foot",news+" news items of the ticker are left out of this list; they are in the ticker above."));if(S.hist.archives&&S.hist.archives.length)box.appendChild(el("div","foot","Older files on the site: "+S.hist.archives.join(", ")));}
+  function drawRadar(s){var box=clear($("radar"));if(!S.priv){box.appendChild(gapEl("The radar still opens with the code.",s&&s.radarAt?"One was captured "+(uae(s.radarAt)||"at no known time")+" UAE.":""));return;}if(S.radar){var i=document.createElement("img");i.alt="NCM radar still, frame "+(S.radar.frameTime||"time not read");i.src="data:"+(S.radar.mime||"image/jpeg")+";base64,"+S.radar.b64;box.appendChild(i);box.appendChild(el("div","foot","Frame "+(S.radar.frameTime||"time not read")+". Read "+(uae(S.radar.readAt)||"no time")+" UAE. It stays after the rain ends, so read the frame time."));return;}box.appendChild(gapEl("No radar still on file.",S.radarErr&&S.radarErr!=="none"?S.radarErr+".":"Owner: the NCM reader, which captures one when a warning is in force. Use the Radar button."));}
+  function drawAirport(){var box=clear($("airport")),a=S.live&&S.live.airport;if(!a){box.appendChild(gapEl(S.priv?"Airport: no reading.":"The airport opens with the code.",S.priv?(S.liveErr||""):""));return;}if(a.reading===false){box.appendChild(gapEl("Airport: no reading.","It was missing from NCM's reply."));return;}var dl=el("dl","kv");function row(k,v){dl.appendChild(el("dt",null,k));var d=el("dd");if(v==null)d.appendChild(el("span","nrw","no reading"));else d.textContent=v;dl.appendChild(d);}row("Last report",a.lastReport?uae(a.lastReport)+" UAE, "+Math.round(a.ageMin)+" min":null);row("Wind",isReal(a.windKmh)?Math.round(a.windKmh)+" km/h"+(isReal(a.windDir)?" from "+Math.round(a.windDir)+"°":""):null);row("Humidity",isReal(a.humidity)?Math.round(a.humidity)+" %":null);row("Temperature",isReal(a.tempC)?(+a.tempC).toFixed(1)+" °C":null);box.appendChild(dl);box.appendChild(el("div","foot","NCM's airport reply carries no rain and no visibility."));}
+  function drawHealth(s){var box=clear($("health"));if(!s){box.appendChild(gapEl("Reader health: no reading.",S.stateErr||""));return;}var h=s.health||{},dl=el("dl","kv");function row(k,v,nr){dl.appendChild(el("dt",null,k));var d=el("dd");if(v==null)d.appendChild(el("span","nrw",nr||"no reading"));else d.textContent=v;dl.appendChild(d);}
+    row("Last good read",h.lastOk?uae(h.lastOk)+" UAE":null);row("Failures in a row",h.consecutiveFailures!=null?String(h.consecutiveFailures):null);row("Failing since",h.failingSince?uae(h.failingSince)+" UAE":"not failing");row("Ticker",s.tickerRead===true?"read":(s.tickerRead===false?null:null),"not read");row("Polls","every 15 min; the file moves about every 30 min");if(s.bytes!=null||h.bytes!=null)row("Last visit",(((s.bytes!=null?s.bytes:h.bytes)/1048576).toFixed(1))+" MB, "+(s.requests!=null?s.requests:(h.requests!=null?h.requests:"no count"))+" requests");if(h.tilesRead!=null)row("Warning tiles read",String(h.tilesRead));if(s.tickerNotNews>0)row("Ticker items that are not news",String(s.tickerNotNews));if(s.announcements>0)row("Announcements",String(s.announcements));if(s.alertsSuppressedToday>0)row("Phone alerts held back today",String(s.alertsSuppressedToday));if(s.reasonText||s.reason){dl.appendChild(el("dt","w","Reader says"));dl.appendChild(el("dd","w",s.reasonText||s.reason));}box.appendChild(dl);if(S.last)box.appendChild(lastGood(S.last));}
+  function lastGood(x){var d=el("div","lg");d.appendChild(el("b",null,"Last good reading, not in force"));d.appendChild(document.createTextNode("Read "+(uae(x.readAt)||"no time")+" UAE: "+(x.state==="WARNING"?colourWord(x.highest)+" warning":(x.state||"state not read"))+"."));return d;}
+  function drawSaw(s){var box=clear($("saw")),n=now(),win=10*864e5,ix=S.index,p=ix?sawtooth(ix.gaps,n,win):null,W=Math.max(300,box.clientWidth||800),H=170,ml=38,mr=12,mt=12,mb=22,pw=W-ml-mr,ph=H-mt-mb,lim=(s&&s.limitH)||LIST_LIMIT_H;if(!p){box.appendChild(gapEl("List signal: no reading.","The reader's log of list changes has not been read."));return;}
+    var pk=lim;p.forEach(function(q){if(q[1]>pk)pk=q[1];});pk*=1.08;var x=function(t){return ml+(t-(n-win))/win*pw;},y=function(v){return mt+(1-v/pk)*ph;},g="",d="",a="";
+    for(var v=0;v<=pk;v+=24){var yy=y(v).toFixed(1);g+='<line class="gl" x1="'+ml+'" x2="'+(W-mr)+'" y1="'+yy+'" y2="'+yy+'"/><text class="gt" x="'+(ml-6)+'" y="'+(+yy+4)+'" text-anchor="end">'+v+'</text>';}
+    for(var k=0;k<=10;k++){var tt=n-k*864e5,xx=x(tt).toFixed(1);g+='<line class="gl" x1="'+xx+'" x2="'+xx+'" y1="'+mt+'" y2="'+(H-mb)+'"/>';if(k%2===0&&W>=480||k%5===0)g+='<text class="gt" x="'+xx+'" y="'+(H-6)+'" text-anchor="middle">'+(k?k+" d":"now")+'</text>';}
+    p.forEach(function(q,i){d+=(i?"L":"M")+x(q[0]).toFixed(1)+" "+y(q[1]).toFixed(1);});a=d+"L"+x(p[p.length-1][0]).toFixed(1)+" "+y(0).toFixed(1)+"L"+x(p[0][0]).toFixed(1)+" "+y(0).toFixed(1)+"Z";var e=p[p.length-1];
+    var c=el("div");c.innerHTML='<svg class="scope" viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="age of NCM\'s list over the last 10 days">'+g+'<line class="lm" x1="'+ml+'" x2="'+(W-mr)+'" y1="'+y(lim).toFixed(1)+'" y2="'+y(lim).toFixed(1)+'"/><text class="gt" x="'+(ml+4)+'" y="'+(y(lim)-4).toFixed(1)+'">limit '+lim+' h</text><path class="ar" d="'+a+'"/><path class="ln" d="'+d+'"/><circle class="dot" cx="'+x(e[0]).toFixed(1)+'" cy="'+y(e[1]).toFixed(1)+'" r="3"/></svg>';box.appendChild(c);
+    box.appendChild(el("div","foot",(ix.gaps||[]).length+" lists logged. Longest age seen "+(ix.maxAgeH!=null?ix.maxAgeH+" h":"no reading")+"; the limit is set from this log. An old list is not proof of a fault: NCM may rewrite it only when warnings change."));}
+  function drawLanes(){var box=clear($("lanes")),n=now(),win=7*864e5,ix=S.index;if(!ix){box.appendChild(gapEl("Lanes: no reading.","The reader's log has not been read."));return;}var o=laneRows(ix,n,win),ks=["rain","wind","fog","dust","sea","other"].filter(function(k){return o[k];}).concat(Object.keys(o).filter(function(k){return ["rain","wind","fog","dust","sea","other"].indexOf(k)<0;}));if(!ks.length){box.appendChild(gapEl("No warning seen by the reader in the last 7 days.","This is the reader's own record, from its first run on."));return;}
+    var W=Math.max(300,box.clientWidth||800),ml=84,mr=12,rowH=30,mt=8,mb=22,H=mt+rowH*ks.length+mb,pw=W-ml-mr,x=function(t){return ml+(t-(n-win))/win*pw;},g="";
+    for(var k=0;k<=7;k++){var xx=x(n-k*864e5).toFixed(1);g+='<line class="gl" x1="'+xx+'" x2="'+xx+'" y1="'+mt+'" y2="'+(H-mb)+'"/>';if(W>=480||k%7===0)g+='<text class="gt" x="'+xx+'" y="'+(H-6)+'" text-anchor="middle">'+(k?k+" d":"now")+'</text>';}
+    ks.forEach(function(h,i){var yy=mt+rowH*i+rowH/2;g+='<line class="lane" x1="'+ml+'" x2="'+(W-mr)+'" y1="'+yy+'" y2="'+yy+'"/><text class="lb" x="'+(ml-8)+'" y="'+(yy+4)+'" text-anchor="end">'+(HAZ[h]||"Other hazard")+'</text>';o[h].forEach(function(r){var w=r.rak==="touched"?9:(r.rak==="not known"?5:2),c=colourCls(r.colour);g+='<line class="seg s'+c+'" x1="'+x(r.a).toFixed(1)+'" x2="'+Math.max(x(r.b),x(r.a)+2).toFixed(1)+'" y1="'+yy+'" y2="'+yy+'" stroke="currentColor" stroke-width="'+w+'"/>';});});
+    var c=el("div");c.innerHTML='<svg class="scope" viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="warnings seen by the reader over the last 7 days, by hazard">'+g+'</svg>';box.appendChild(c);box.appendChild(el("div","foot","Colour is NCM's colour. Thick: touches RAK. Medium: RAK not known. Hairline: RAK not touched. A bar runs from the first read that held the warning to the read that saw it end."));}
+  function drawMesh(s){var f=clear($("mesh")),st=(S.live&&S.live.stations)||null,by={};if(st)st.forEach(function(x){by[x.id]=x;});var miss=(s&&s.rain&&s.rain.missing)||[],W=320,H=290,lo0=55.62,lo1=56.36,la0=24.82,la1=26.04,X=function(o){return 18+(o-lo0)/(lo1-lo0)*(W-30);},Y=function(a){return 8+(la1-a)/(la1-la0)*(H-20);},h="";
+    [25,25.5,26].forEach(function(a){var y=Y(a).toFixed(1);h+='<line class="gl" x1="14" x2="'+W+'" y1="'+y+'" y2="'+y+'"/><text class="gt" x="'+(W-2)+'" y="'+(+y-3)+'" text-anchor="end">'+a.toFixed(1)+' N</text>';});[55.75,56,56.25].forEach(function(o){var x=X(o).toFixed(1);h+='<line class="gl" x1="'+x+'" x2="'+x+'" y1="0" y2="'+H+'"/><text class="gt" x="'+(+x+3)+'" y="'+(H-3)+'">'+o.toFixed(2)+' E</text>';});
+    var seen={};STN.forEach(function(a,i){var ds=STN.map(function(b,j){return [Math.pow(a[2]-b[2],2)+Math.pow(a[3]-b[3],2),j];}).filter(function(q){return q[1]!==i;}).sort(function(p,q){return p[0]-q[0];}).slice(0,2);ds.forEach(function(q){var k=[Math.min(i,q[1]),Math.max(i,q[1])].join("-");if(seen[k])return;seen[k]=1;var b=STN[q[1]];h+='<line class="ln" x1="'+X(a[3]).toFixed(1)+'" y1="'+Y(a[2]).toFixed(1)+'" x2="'+X(b[3]).toFixed(1)+'" y2="'+Y(b[2]).toFixed(1)+'"/>';});});
+    if(st)st.forEach(function(x){if(x.group==="rak"||x.lat==null||x.lon<lo0||x.lon>lo1||x.lat<la0||x.lat>la1)return;h+='<circle class="nb" cx="'+X(x.lon).toFixed(1)+'" cy="'+Y(x.lat).toFixed(1)+'" r="1.6"/>';});
+    var tot=0;STN.forEach(function(a){var x=by[a[0]],cx=X(a[3]).toFixed(1),cy=Y(a[2]).toFixed(1),off=(st?(!x||x.reading===false):miss.indexOf(a[0])>=0),rain=x&&isReal(x.rain24h)?+x.rain24h:0;if(off){h+='<circle class="off" cx="'+cx+'" cy="'+cy+'" r="4.5"><title>'+a[1]+': no reading</title></circle>';return;}tot++;var op=x?(1-0.16*(5-reportBars(x.ageMin))):0.7;if(rain>0)h+='<circle class="rg" cx="'+cx+'" cy="'+cy+'" r="'+Math.min(26,5+Math.sqrt(rain)*3.4).toFixed(1)+'"/>';h+='<circle class="nd" cx="'+cx+'" cy="'+cy+'" r="3.2" opacity="'+op.toFixed(2)+'"><title>'+a[1]+'</title></circle>';});
+    [[420,"Ras Al Khaimah",-6,-7,"end"],[110,"Jais",7,-5,"start"],[480,"Al Marjan",6,12,"start"],[345,"Shoukah",-6,3,"end"],[481,"Umm Al Gaf",-6,12,"end"]].forEach(function(l){var a=STN.filter(function(x){return x[0]===l[0];})[0];h+='<text class="lb" x="'+(X(a[3])+l[2]).toFixed(1)+'" y="'+(Y(a[2])+l[3]).toFixed(1)+'" text-anchor="'+l[4]+'">'+l[1]+'</text>';});
+    f.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="the station network: a lit node is a station reporting; a dashed ring is a station with no reading; a ring grows with the rain of 24 hours">'+h+'</svg>';var ms2=S.mode;f.appendChild(el("figcaption",null,(ms2==="silent"||ms2==="noreading"||ms2==="nofile")?"As last read, not current.":(st?"Lit: reporting, brighter when fresher. Dashed: no reading. A ring grows with 24 h rain.":"Facts only: lit means reporting; the rain rings open with the code.")));}
+  function render(){var s=cur(),v=boardView(s,now(),S.stateErr);S.mode=v.mode;drawHead(s,v);drawInsts(s);drawScales();drawMesh(s);drawSaw(s);drawLanes();drawWarnings(s,v);drawStations(s);drawTicker(s);drawHistory();drawRadar(s);drawAirport();drawHealth(s);$("factsBar").hidden=!!S.priv;$("btnLock").hidden=!S.priv;$("topNote").textContent=S.priv?(S.kept?"unlocked on this device":"unlocked until this tab closes"):"facts only";window.__board={mode:v.mode,word:v.word,sub:v.sub,hasKey:!!S.priv,live:!!S.live,last:!!S.last,liveErr:S.liveErr};gateFacts(s,v);}
+  function tick(){var s=cur(),v=boardView(s,now(),S.stateErr);if(v.mode!==S.mode){render();return;}drawInsts(s);if(document.visibilityState==="visible")drawScales();if(v.mode==="none")$("stSub").textContent=v.sub+(S.stateErr?" The last fetch failed ("+S.stateErr+"); the age keeps running.":"");}
+  function gateFacts(s,v){var g=clear($("gFacts"));g.appendChild(el("b",null,v.word));g.appendChild(document.createTextNode(s&&s.readAt?"Read "+(uae(s.readAt)||"no time")+" UAE, "+fmtAge(minsSince(s.readAt,now()))+" ago. Reported.":"The public facts have not been read."));}
+  /* ---- the gate ---- */
+  var inp=$("gate-in"),msg=$("gate-msg"),bar=$("gate-bar"),busy=false,wait=0,tries=0;
+  function showGate(t){$("gate").hidden=false;msg.textContent=t||"";try{inp.focus();}catch(e){}}
+  function hideGate(){$("gate").hidden=true;inp.value="";bar.style.width="0";msg.textContent="";}
+  $("gate-show").addEventListener("change",function(e){inp.className=e.target.checked?"shown":"";});
+  $("gate-facts").addEventListener("click",function(){S.facts=true;hideGate();render();});
+  document.querySelector("form").addEventListener("submit",function(ev){ev.preventDefault();if(busy)return;if(Date.now()<wait){msg.textContent="Wait a few seconds and try again.";return;}if(!window.crypto||!crypto.subtle){msg.textContent="This browser cannot check the code here. Use the website address in Chrome, Edge or Safari.";return;}
+    var v=(inp.value||"").replace(/\s+/g,""),keep=$("gate-keep").checked;busy=true;msg.textContent="Checking the code";bar.style.width="30%";
+    getBytes("key.bin").then(function(u){return unwrapKey(u,v).catch(function(){throw new Error("bad code");});}).then(function(k){bar.style.width="70%";S.priv=k;S.kept=false;S.histRead="";if(keep)return keptPut(k).then(function(ok){S.kept=!!ok;if(!ok)msg.textContent="This browser cannot keep the key; the code is needed next time.";});}).then(function(){busy=false;hideGate();$("gate-keep").checked=false;return poll();}).catch(function(e){busy=false;bar.style.width="0";if(String(e.message)==="bad code"){tries++;try{inp.select();}catch(x){}msg.textContent="Access code not recognised. Tick Show the code and check it.";wait=Date.now()+Math.min(30000,1500*tries);}else msg.textContent="The key file could not be read: "+String(e.message||e).slice(0,80);});});
+  function lock(){S.priv=null;S.kept=false;S.live=null;S.last=null;S.hist=null;S.radar=null;S.liveErr="";S.histRead="";keptDrop().then(function(){render();showGate("Locked. The key is gone from this device.");});}
+  $("btnLock").addEventListener("click",lock);$("btnUnlock").addEventListener("click",function(){showGate("");});$("btnTheme").addEventListener("click",theme);$("btnAlert").addEventListener("click",alertBtn);
+  document.addEventListener("pointerdown",function(){if(S.fresh){S.fresh="";render();}});
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")poll();});
+  /* ---- start: the key kept on this device, if any, else the gate; the facts show either way ---- */
+  keptGet().then(function(k){if(k){S.priv=k;S.kept=true;hideGate();}else showGate("");return poll();}).then(function(){if(S.kept&&S.priv&&S.liveErr==="the sealed file did not open with this key"){var why=S.liveErr;S.priv=null;S.kept=false;S.live=null;keptDrop().then(function(){render();showGate(why+". Enter the code.");});}});
+  setInterval(poll,60000);setInterval(tick,1000);var rz=0;window.addEventListener("resize",function(){clearTimeout(rz);rz=setTimeout(function(){drawSaw(cur());drawLanes();},200);});
+})();
+</script>
+</body>
+</html>

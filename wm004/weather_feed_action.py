@@ -5,7 +5,8 @@ Reads the Open-Meteo model forecast (best match, ECMWF based) at the eight rain 
 shape the console and the website card read. A model forecast, not a warning. Python 3 standard library only.
 Rules: fewer than 6 of the 8 points read = write nothing and exit 1 (the workflow then fails visibly and GitHub e-mails the owner); the last good file stays.
 A feed written in the last 20 minutes is fresh enough and the run does nothing, unless FEED_FORCE=1.
-The NCM reading is not read here (the NCM page is a script map): it comes from wm004/ncm.json, written from the department laptop when a reading is logged, else from the previous weather.json.
+The NCM reading is not read here: it comes from wm004/ncm_state.json (the NCM live reader, every 15 minutes) when that is under 30 minutes old, else from wm004/ncm.json, written from the department laptop when a reading
+is logged. The block says which (via). Facts only: no sentence of NCM reaches this file.
 Usage: python3 wm004/weather_feed_action.py wm004/weather.json
 
 28 Oct 2026 (second audit of the weather channel, CLOUD-FEED): this is the file the hosted console loads (wm001-site wm004/weather.json), and it still had the four faults that
@@ -28,7 +29,11 @@ weather_feed_legacy.py lost on the laptop (F05, F07, LEGACY-1). Fixed here, the 
      worked out at every run, never carried.
   *  the NCM text and the note of the page colour are written for a public file: no internal command or file name (the laptop wrote "logged with ncm_log.py add"), and the sentence about the
      page ends before "Last logged reading" begins (CARD-NCM-TEXT).
-Status (30 Oct 2026): in force in wm001-site/wm004/weather_feed_action.py; the build folder rain emergency/_build/site_feed keeps the same copy.
+30 Oct 2026 (the live reader):
+  *  reader_block: the ncm block is built from wm004/ncm_state.json when it is under 30 minutes old. In force is known there, so levelInForce and inForce are stated. NO READING and TEXT WARNING give unknown, never none.
+  *  FEED-REFUSED-NOTE-INTERNAL-NAMES: refused.note, the words of a refused reading and by pass through public_text or by_role, so no internal name reaches the public feed.
+  *  HOSTED-NCM-DROPS-REFUSAL: a typed reading the log refused travels in ncm.json, and refresh_ncm makes the block stale and the hazards it names unknown.
+Status (30 Oct 2026): staged in rain emergency/_build/site_feed; deployment is in site_ncm/DEPLOY.md.
 The workflow does not change. The tests are wm001-site/wm004/test_weather_feed_action.py (python3 -m unittest, no network)."""
 import json, sys, os, re, datetime, urllib.request, urllib.parse, time
 from concurrent.futures import ThreadPoolExecutor, wait
@@ -41,6 +46,8 @@ MIN_POINTS = 6
 WINDOW_H = 72
 FORECAST_DAYS = 4                              # 4 days from midnight hold at least 73 hours from any hour of the day
 NCM_STALE_H = 24                               # the same limit as ncm_log.ncm_block on the laptop
+READER_FRESH_MIN = 30                          # ncm_state.json older than this gives way to ncm.json
+NCM_PAGE = 'https://www.ncm.gov.ae/maps-warnings?lang=en'
 FRESH_MIN = 20                                 # a feed written this many minutes ago is fresh enough (the triggers do not pile up commits)
 WRITER = 'GitHub Actions, every 30 minutes'
 NCM_LEVELS = ('none', 'yellow', 'orange', 'red')
@@ -139,6 +146,77 @@ def public_text(x):
     return (t[0].upper() + t[1:]) if t else t
 
 
+def by_role(by):
+    """who made an entry, as a role. What a person typed is never published, and neither is the name of a script."""
+    b = str(by or '').lower()
+    if not b:
+        return None
+    if b.startswith('engine'):
+        return 'engine'
+    if 'live reader' in b:
+        return 'live reader'
+    if 'backfill' in b:
+        return 'backfill'
+    return 'manual'
+
+
+def _utc_as_uae(s):
+    """a time of the reader as a naive Ras Al Khaimah time, or None"""
+    try:
+        t = datetime.datetime.fromisoformat(str(s).replace('Z', '+00:00'))
+    except (TypeError, ValueError):
+        return None
+    if t.tzinfo is None:
+        return t
+    return (t.astimezone(datetime.timezone.utc) + datetime.timedelta(hours=4)).replace(tzinfo=None)
+
+
+def reader_block(st, now):
+    """The ncm block from wm004/ncm_state.json, or None when that file is missing, in another shape or 30 minutes old or more. Facts only. A warning counts for a hazard unless it is known not to touch RAK, the same rule as the
+    NCM log. TEXT WARNING and NO READING say unknown, never none: a failed read must not look calm."""
+    if not isinstance(st, dict) or st.get('state') not in ('WARNING', 'TEXT WARNING', 'NO WARNING IN FORCE', 'NO READING'):
+        return None
+    read = _utc_as_uae(st.get('readAt'))
+    if read is None:
+        return None
+    age_min = (now - read).total_seconds() / 60.0
+    if age_min >= READER_FRESH_MIN or age_min < -10:
+        return None
+    state = st['state']
+    items = [x for x in (st.get('items') or []) if isinstance(x, dict)]
+    counts = [x for x in items if x.get('rak') != 'not touched' or x.get('named')]
+    keys = list(HAZARDS)
+
+    def top(rows, h):
+        cols = [x.get('colour') for x in rows if h in (x.get('hazards') or [])]
+        if 'not read' in cols:
+            return 'unknown'
+        return max(cols, key=NCM_LEVELS.index) if cols else 'none'
+    if state == 'NO WARNING IN FORCE':
+        levels = {h: 'none' for h in keys}
+        now_levels = dict(levels)
+    elif state == 'WARNING' and not int(st.get('itemsMore') or 0):
+        started = [x for x in counts if (_utc_as_uae(x.get('from')) or now) <= now]
+        levels = {h: top(counts, h) for h in keys}
+        now_levels = {h: top(started, h) for h in keys}
+    else:
+        levels = {h: 'unknown' for h in keys}
+        now_levels = dict(levels)
+    rak = st.get('rak') if isinstance(st.get('rak'), dict) else {}
+    what = '%s, highest %s' % (state, st.get('highest')) if state == 'WARNING' else state
+    hz = [h for h in (st.get('hazards') or []) if isinstance(h, str)]
+    text = 'NCM live reader: %s%s, RAK %s, read %s, list %s h old.' % (what, (', ' + ', '.join(hz)) if hz else '', rak.get('status') or 'not known', read.strftime('%d %b %H:%M'), st.get('listAgeH') if st.get('listAgeH') is not None else 'not read')
+    if state == 'NO READING':
+        text = 'NCM live reader: NO READING (%s), read %s. The state of the NCM warnings is not known.' % (st.get('reason'), read.strftime('%d %b %H:%M'))
+    return {'level': levels['rain'], 'levels': levels, 'levelAtReading': levels['rain'], 'levelsAtReading': dict(levels), 'levelInForce': now_levels['rain'], 'levelsInForce': now_levels,
+            'inForce': [x.get('id') for x in started] if state == 'WARNING' and levels['rain'] != 'unknown' else [], 'upcoming': [x.get('id') for x in counts if (_utc_as_uae(x.get('from')) or now) > now] if state == 'WARNING' else [],
+            'text': text, 'source': NCM_PAGE, 'via': 'NCM live reader on GitHub Actions, wm004/ncm_state.json', 'asof': read.strftime('%Y-%m-%d %H:%M'), 'ageHours': round(max(0.0, age_min) / 60.0, 2), 'hazard': hz, 'id': None,
+            'stale': state == 'NO READING', 'by': 'live reader', 'kind': 'warning', 'refreshed': now.strftime('%Y-%m-%d %H:%M'),
+            'reader': {'state': state, 'reason': st.get('reason'), 'highest': st.get('highest'), 'count': st.get('count'), 'rak': rak.get('status'), 'named': rak.get('named'), 'city': rak.get('city'), 'listAgeH': st.get('listAgeH'),
+                       'limitH': st.get('limitH'), 'tickerRead': st.get('tickerRead'), 'health': st.get('health'), 'status': 'Reported'},
+            'note': 'the colours are those of the NCM live reader at %s; it reads the list and the ticker every 15 minutes' % read.strftime('%Y-%m-%d %H:%M')}
+
+
 def refresh_ncm(n, now):
     """The ncm block as it stands at `now` (CLOUD-FEED 3 and 4). What the laptop wrote (ncm.json, or the block of the previous run) says what the reading SAID at its stamp; how old it is, whether it
     is stale and what is in force are worked out again here, at this run, from the stamp. This script cannot read the NCM log (it is on the laptop), so it never claims that a colour is in force now:
@@ -157,8 +235,15 @@ def refresh_ncm(n, now):
     ps = n.get('pageShows') if isinstance(n.get('pageShows'), dict) else {}
     page_pending = bool(ps.get('pending'))
     pend = [h for h in (ps.get('pendingHazards') or HAZARDS)] if page_pending else []
+    # a reading typed at the desk that the log refused: the laptop marks the block stale and the hazards it names unknown, so the hosted block does too (HOSTED-NCM-DROPS-REFUSAL)
+    ref = n.get('refused') if isinstance(n.get('refused'), dict) else {}
+    ref_open = [x for x in (ref.get('open') or []) if isinstance(x, dict)]
+    refused = bool(ref_open or ref.get('unreadableLines'))
+    if refused:
+        names = [h for x in ref_open for h in (x.get('pendingHazards') or HAZARDS)] if ref_open and not ref.get('unreadableLines') else list(HAZARDS)
+        pend = list(dict.fromkeys(pend + names))
     old = (age is None) or age > NCM_STALE_H
-    n['stale'] = bool(old or page_pending)                # the laptop marks a block stale while a page colour is not logged (weather_feed_legacy.apply_page_pending); the same here
+    n['stale'] = bool(old or page_pending or refused)     # the laptop marks a block stale while a page colour is not logged (weather_feed_legacy.apply_page_pending); the same here
     n['levelAtReading'] = read_level
     n['levelsAtReading'] = dict(lv)
     rain_unknown = old or ('rain' in pend) or read_level not in NCM_LEVELS
@@ -181,9 +266,19 @@ def refresh_ncm(n, now):
         if ps.get('note') is not None:
             ps['note'] = public_text(ps['note'])
         n['pageShows'] = ps
+    if 'refused' in n and isinstance(n['refused'], dict):         # FEED-REFUSED-NOTE-INTERNAL-NAMES: the note and the words of a refused reading go through the same filter as the text
+        r2 = dict(n['refused'])
+        if r2.get('note') is not None:
+            r2['note'] = public_text(r2['note'])
+        r2['open'] = [{k: (public_text(v) if k in ('text', 'reason') else v) for k, v in x.items()} for x in (r2.get('open') or []) if isinstance(x, dict)]
+        n['refused'] = r2
+    if n.get('by') is not None:
+        n['by'] = by_role(n['by'])
+    n.setdefault('via', 'laptop reading, wm004/ncm.json')
     n['refreshed'] = now.strftime('%Y-%m-%d %H:%M')
-    n['note'] = ('the colours are those of the reading at %s, %s; this feed cannot read the NCM log, so nothing is claimed to be in force now%s'
-                 % (n.get('asof') or 'an unknown time', ('%.1f h old' % age) if age is not None else 'age unknown', '; the NCM warnings page shows a colour nobody has logged' if page_pending else ''))
+    n['note'] = ('the colours are those of the reading at %s, %s; this feed cannot read the NCM log, so nothing is claimed to be in force now%s%s'
+                 % (n.get('asof') or 'an unknown time', ('%.1f h old' % age) if age is not None else 'age unknown', '; the NCM warnings page shows a colour nobody has logged' if page_pending else '',
+                    '; a reading typed at the weather desk was refused by the log' if refused else ''))
     return n
 
 
@@ -199,7 +294,7 @@ def main(argv=None, fetcher=None, now=None):
     except Exception:
         pass
     now = now or uae_now()
-    # several triggers can start a run (the schedule, the pinger every 15 minutes, the laptop every hour): a feed written in the last 20 minutes is fresh enough, so they do not pile up commits
+    # several triggers can start a run (the schedule and the laptop every hour): a feed written in the last 20 minutes is fresh enough, so they do not pile up commits
     try:
         age = (now - datetime.datetime.strptime(prev.get('asof', ''), '%Y-%m-%d %H:%M')).total_seconds() / 60.0
         if 0 <= age < FRESH_MIN and os.environ.get('FEED_FORCE') != '1':
@@ -207,12 +302,21 @@ def main(argv=None, fetcher=None, now=None):
             return 0
     except (ValueError, TypeError):
         pass
+    folder = os.path.dirname(os.path.abspath(out_path))
     ncm = prev.get('ncm') if isinstance(prev.get('ncm'), dict) else {'level': 'unknown', 'text': 'No NCM reading recorded yet', 'source': 'https://www.ncm.gov.ae', 'asof': None}
+    if ncm.get('reader'):                                    # a block of the live reader is good only while it is under 30 minutes old; it is never carried on as if it were a logged reading
+        ncm = {'level': 'unknown', 'text': 'No NCM reading recorded yet', 'source': 'https://www.ncm.gov.ae', 'asof': None}
     try:
-        with open(os.path.join(os.path.dirname(os.path.abspath(out_path)), 'ncm.json'), encoding='utf-8') as f:
+        with open(os.path.join(folder, 'ncm.json'), encoding='utf-8') as f:
             n2 = json.load(f)
         if isinstance(n2, dict) and n2.get('level') and (n2.get('asof') or '') >= (ncm.get('asof') or ''):
             ncm = n2
+    except Exception:
+        pass
+    live_block = None
+    try:
+        with open(os.path.join(folder, 'ncm_state.json'), encoding='utf-8') as f:
+            live_block = reader_block(json.load(f), now)
     except Exception:
         pass
     ex = ThreadPoolExecutor(max_workers=len(POINTS))
@@ -228,7 +332,7 @@ def main(argv=None, fetcher=None, now=None):
     level = 'high' if worst >= THRESH6['high'] else ('watch' if worst >= THRESH6['watch'] else 'none')
     out = {'asof': now.strftime('%Y-%m-%d %H:%M'), 'tz': 'Asia/Dubai', 'source': 'Open-Meteo best match model (ECMWF and others), model forecast, not an official warning',
            'writer': WRITER, 'thresholds': THRESH6, 'modelLevel': level, 'worstMax6': round(worst, 1), 'pointsRead': len(got), 'pointsTotal': len(POINTS),
-           'unreadPoints': [x['name'] for x in pts if 'error' in x], 'windowHours': WINDOW_H, 'points': pts, 'ncm': refresh_ncm(ncm, now)}
+           'unreadPoints': [x['name'] for x in pts if 'error' in x], 'windowHours': WINDOW_H, 'points': pts, 'ncm': live_block or refresh_ncm(ncm, now)}
     tmp = out_path + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
