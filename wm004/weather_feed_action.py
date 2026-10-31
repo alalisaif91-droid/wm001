@@ -5,7 +5,7 @@ Reads the Open-Meteo model forecast (best match, ECMWF based) at the eight rain 
 shape the console and the website card read. A model forecast, not a warning. Python 3 standard library only.
 Rules: fewer than 6 of the 8 points read = write nothing and exit 1 (the workflow then fails visibly and GitHub e-mails the owner); the last good file stays.
 A feed written in the last 20 minutes is fresh enough and the run does nothing, unless FEED_FORCE=1.
-The NCM reading is not read here: it comes from wm004/ncm_state.json (the NCM live reader, every 15 minutes) when that is under 30 minutes old, else from wm004/ncm.json, written from the department laptop when a reading
+The NCM reading is not read here: it comes from wm004/ncm_state.json (the NCM live reader, every 30 minutes) when that is under 90 minutes old, else from wm004/ncm.json, written from the department laptop when a reading
 is logged. The block says which (via). Facts only: no sentence of NCM reaches this file.
 Usage: python3 wm004/weather_feed_action.py wm004/weather.json
 
@@ -30,7 +30,7 @@ weather_feed_legacy.py lost on the laptop (F05, F07, LEGACY-1). Fixed here, the 
   *  the NCM text and the note of the page colour are written for a public file: no internal command or file name (the laptop wrote "logged with ncm_log.py add"), and the sentence about the
      page ends before "Last logged reading" begins (CARD-NCM-TEXT).
 30 Oct 2026 (the live reader):
-  *  reader_block: the ncm block is built from wm004/ncm_state.json when it is under 30 minutes old. In force is known there, so levelInForce and inForce are stated. NO READING and TEXT WARNING give unknown, never none.
+  *  reader_block: the ncm block is built from wm004/ncm_state.json when it is under 90 minutes old. In force is known there, so levelInForce and inForce are stated. NO READING and TEXT WARNING give unknown, never none.
   *  FEED-REFUSED-NOTE-INTERNAL-NAMES: refused.note, the words of a refused reading and by pass through public_text or by_role, so no internal name reaches the public feed.
   *  HOSTED-NCM-DROPS-REFUSAL: a typed reading the log refused travels in ncm.json, and refresh_ncm makes the block stale and the hazards it names unknown.
 Status (30 Oct 2026): staged in rain emergency/_build/site_feed; deployment is in site_ncm/DEPLOY.md.
@@ -46,7 +46,7 @@ MIN_POINTS = 6
 WINDOW_H = 72
 FORECAST_DAYS = 4                              # 4 days from midnight hold at least 73 hours from any hour of the day
 NCM_STALE_H = 24                               # the same limit as ncm_log.ncm_block on the laptop
-READER_FRESH_MIN = 30                          # ncm_state.json older than this gives way to ncm.json
+READER_FRESH_MIN = 90                          # ncm_state.json older than this gives way to ncm.json
 NCM_PAGE = 'https://www.ncm.gov.ae/maps-warnings?lang=en'
 FRESH_MIN = 20                                 # a feed written this many minutes ago is fresh enough (the triggers do not pile up commits)
 WRITER = 'GitHub Actions, every 30 minutes'
@@ -172,7 +172,7 @@ def _utc_as_uae(s):
 
 
 def reader_block(st, now):
-    """The ncm block from wm004/ncm_state.json, or None when that file is missing, in another shape or 30 minutes old or more. Facts only. A warning counts for a hazard unless it is known not to touch RAK, the same rule as the
+    """The ncm block from wm004/ncm_state.json, or None when that file is missing, in another shape or 90 minutes old or more. Facts only. A warning counts for a hazard unless it is known not to touch RAK, the same rule as the
     NCM log. TEXT WARNING and NO READING say unknown, never none: a failed read must not look calm."""
     if not isinstance(st, dict) or st.get('state') not in ('WARNING', 'TEXT WARNING', 'NO WARNING IN FORCE', 'NO READING'):
         return None
@@ -304,7 +304,7 @@ def main(argv=None, fetcher=None, now=None):
         pass
     folder = os.path.dirname(os.path.abspath(out_path))
     ncm = prev.get('ncm') if isinstance(prev.get('ncm'), dict) else {'level': 'unknown', 'text': 'No NCM reading recorded yet', 'source': 'https://www.ncm.gov.ae', 'asof': None}
-    if ncm.get('reader'):                                    # a block of the live reader is good only while it is under 30 minutes old; it is never carried on as if it were a logged reading
+    if ncm.get('reader'):                                    # a block of the live reader is good only while it is under 90 minutes old; it is never carried on as if it were a logged reading
         ncm = {'level': 'unknown', 'text': 'No NCM reading recorded yet', 'source': 'https://www.ncm.gov.ae', 'asof': None}
     try:
         with open(os.path.join(folder, 'ncm.json'), encoding='utf-8') as f:

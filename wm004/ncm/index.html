@@ -250,7 +250,7 @@ small{font-size:12.5px}
 
 <script>
 /*__BOARD_LOGIC_START__*/
-var SILENT_MIN=40,LIST_LIMIT_H=72;
+var SILENT_MIN=90,LIST_LIMIT_H=72;
 var COLOURS={red:"Red",orange:"Orange",yellow:"Yellow"},RANK={red:3,orange:2,yellow:1};
 var HAZ={rain:"Rain",fog:"Fog",dust:"Dust",wind:"Wind",sea:"Rough sea",other:"Other hazard"};
 var CODES={TR:"Thunder rain",CC:"Cumulonimbus clouds",FG:"Fog",DS:"Dust or sand",WD:"Wind",RS:"Rough sea"};
@@ -270,7 +270,7 @@ function rakOf(x){var r=x&&x.rak;return (r&&typeof r==="object")?(r.status||"not
 function sortWarnings(a){var rr={"touched":0,"not known":1,"not touched":2};return (a||[]).slice().sort(function(p,q){var x=(rr[rakOf(p)]==null?1:rr[rakOf(p)])-(rr[rakOf(q)]==null?1:rr[rakOf(q)]);if(x)return x;return (RANK[q.colour]||0)-(RANK[p.colour]||0)||String(p.id).localeCompare(String(q.id));});}
 function rakWords(r){var st=(r&&r.status)||"not known",u=(r&&r.units)||[];if(st==="touched"){var c=r.city===true?"the city is touched":(r.city===false?"the city is not touched":"the city is not known");return {cls:"t",word:"touched",more:c+(u.length?": "+u.join(", "):"")+(r.named===true?", named in NCM's text":"")};}
   if(st==="not touched")return {cls:"",word:"not touched",more:""};return {cls:"nk",word:"not known",more:(r&&r.named===true)?"named in NCM's text; the polygon test was not made":"not known is not no"};}
-/* what the head says. Nothing here can produce a calm word without a reader state that says so, read in the last 40 minutes: every other path is NO READING or READER SILENT. The message NCM's page prints over an empty map is never read: section 4 of SCHEMA.md lists what reaches it. */
+/* what the head says. Nothing here can produce a calm word without a reader state that says so, read in the last 90 minutes: every other path is NO READING or READER SILENT. The message NCM's page prints over an empty map is never read: section 4 of SCHEMA.md lists what reaches it. */
 function boardView(s,now,err){
   if(!s||typeof s!=="object")return {mode:"nofile",sig:"n",word:"NO READING",sub:err?("The reader's file could not be read: "+err):"The reader's file has not been read yet.",rak:null};
   var age=minsSince(s.readAt,now),st=s.state;
@@ -358,7 +358,7 @@ function foldHistory(frames){var map={},order=[],arch=[];(frames||[]).forEach(fu
     marks.forEach(function(m){var X=x(m[0]);tk+='<line class="tk" x1="'+X+'" x2="'+X+'" y1="'+(m[2]?4:9)+'" y2="14"/>';if(m[1]!=null)tk+='<text class="tx" x="'+Math.min(w-16,X+(X?-5:0))+'" y="26">'+m[1]+'</text>';});
     var h=tk+'<line class="bs" x1="0" x2="'+w+'" y1="14" y2="14"/>';if(val!=null&&isFinite(val)){var vx=x(val);h='<rect class="fl" x="0" y="4" width="'+vx.toFixed(1)+'" height="10"/>'+h+'<line class="nd" x1="'+vx.toFixed(1)+'" x2="'+vx.toFixed(1)+'" y1="1" y2="17"/>';}$(svgId).innerHTML=h;}
   function drawScales(){var s=cur(),n=now(),ra=s?minsSince(s.readAt,n):null,la=s?minsSince(s.listTime,n):null;
-    var rm=[];for(var i=0;i<=40;i+=5)rm.push([i,(i===0||i===15||i===30||i===40)?i:null,i%15===0||i===40]);scale("scRead",ra,40,rm);
+    var rm=[];for(var i=0;i<=90;i+=10)rm.push([i,(i%30===0)?i:null,i%30===0]);scale("scRead",ra,90,rm);
     var lm=[];for(var j=0;j<=72;j+=6)lm.push([j,j%24===0?j:null,j%24===0]);scale("scList",la==null?null:la/60,72,lm);}
   function fmtMin(m){return m<120?Math.round(m)+" min":(m<2880?Math.round(m/60)+" h":Math.round(m/1440)+" d");}
   function warningCard(w,hasText){var c=colourCls(w.colour),d=el("article","wn "+c);d.appendChild(el("div","wn-c",c==="u"?"Colour not read":colourWord(w.colour)));var b=el("div");b.appendChild(el("div","wn-h",hazardWords(w).join(", ")||"Hazard not read"));var m=el("div","wn-m");
