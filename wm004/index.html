@@ -58,44 +58,69 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
   <div class="foot" id="foot">Model: Open Meteo at the plan's eight rain points, a forecast, not a warning. NCM is the warning. Live register: Wet Utilities pump map. No person is named on this page.</div>
 </div>
 <script>
-/* 30 Oct 2026: the NCM reader, public facts only: the state word, the colour, the hazard and the time from ncm_state.json. NCM's own words and pictures stay behind the access code on the board. A file that cannot be read, or a reader silent over 40 minutes, is never calm. The age uses the Date header of the reply. */
-(function(){
-  var COL={red:'Red',orange:'Orange',yellow:'Yellow'},CLS={red:'r',orange:'o',yellow:'y'},HZ={rain:'Rain',fog:'Fog',dust:'Dust',wind:'Wind',sea:'Rough sea',other:'Other hazard'};
-  function uae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
-  function age(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
-  function put(cls,word,when){var c=document.getElementById('ncmcard');c.className='ncmc '+cls;document.getElementById('ncmWord').textContent=word;document.getElementById('ncmWhen').textContent=when;}
-  async function read(){try{
-    var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store'});var d=Date.parse(r.headers.get('date')||''),now=isNaN(d)?Date.now():d;if(!r.ok)throw new Error('status '+r.status);var s=await r.json();
-    var t=Date.parse(s.readAt||''),m=isNaN(t)?null:(now-t)/6e4,at=(uae(s.readAt)||'no time')+' UAE'+(m==null?'':' ('+age(m)+' ago)');
-    if(m==null||m>90){put('nr','NCM: READER SILENT','Last read '+at+'. This is not a current reading.');return;}
-    if(s.state==='WARNING'){var rr={'touched':0,'not known':1,'not touched':2},rk={red:3,orange:2,yellow:1},top=(s.items||[]).slice().sort(function(p,q){var x=(rr[p.rak]==null?1:rr[p.rak])-(rr[q.rak]==null?1:rr[q.rak]);return x||(rk[q.colour]||0)-(rk[p.colour]||0);})[0],c=top?top.colour:s.highest,hz=((top&&top.hazards)||s.hazards||[]).map(function(h){return HZ[h]||String(h);}).join(', ');put(CLS[c]||'nr','NCM: '+(COL[c]||'Colour not read')+(hz?' · '+hz:''),(s.count>1?s.count+' warnings. ':'')+'Read '+at+'. Reported.');return;}
-    if(s.state==='TEXT WARNING'){put('nr','NCM: Text warning, colour not read','Read '+at+'. Reported.');return;}
-    if(s.state==='NO WARNING IN FORCE'){put('none','NCM: No warning in force','Read '+at+'. Reported.');return;}
-    put('nr','NCM: NO READING','Read '+at+'.');
-  }catch(e){put('nr','NCM: NO READING','The file of the NCM reader could not be read.');}}
-  read();setInterval(read,60000);
-})();
+/* 30 Oct 2026: the NCM reader, public facts only: the state word, the colour, the hazard and the time from ncm_state.json. NCM's own words and pictures stay behind the access code on the board. A file that cannot be read, a reader silent over 90 minutes or a read time ahead of the clock is never calm. The age uses the Date header of the reply.
+   1 Nov 2026 (independent review): status.json is the laptop's and can be hours old, so this card does not print it under the reader unchecked. The reader's word, the read time and the age of NCM's list go together; with the reader fresh the NCM line and the hazard rows come from it; with the reader down a none that was automatic, or that a person logged over 3 hours ago, is no reading, and a Routine stage cannot rest on it. A colour on the record stands. */
+/*__CARD_LOGIC_START__*/
+var CARD_COL={red:'Red',orange:'Orange',yellow:'Yellow'},CARD_CLS={red:'r',orange:'o',yellow:'y'},CARD_HZ={rain:'Rain',fog:'Fog',dust:'Dust',wind:'Wind',sea:'Rough sea',other:'Other hazard'},CARD_SILENT_MIN=90,CARD_AHEAD_MIN=10,CARD_CURRENT_H=3,CARD_RANK={yellow:1,orange:2,red:3};
+function cardUae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
+function cardAge(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
+/* the card's top line. down: the reader has nothing fresh. fresh: its reading can stand in for the laptop's record. */
+function cardView(s,now){
+  if(!s||typeof s!=='object'||Array.isArray(s)||!s.state)return {cls:'nr',word:'NCM: NO READING',when:'The file of the NCM reader could not be read.',down:true,why:'the NCM reader file could not be read'};
+  var t=Date.parse(s.readAt||''),m=isNaN(t)?null:(now-t)/6e4,at=(cardUae(s.readAt)||'no time')+' UAE'+(m==null?'':(m<0?' ('+cardAge(-m)+' ahead of the clock)':' ('+cardAge(m)+' ago)'));
+  if(m==null||m>CARD_SILENT_MIN||m<-CARD_AHEAD_MIN)return {cls:'nr',word:'NCM: READER SILENT',when:'Last read '+at+'. This is not a current reading.',down:true,why:'the NCM reader is silent'};
+  var l=Date.parse(s.listTime||''),lm=isNaN(l)?null:(now-l)/6e4,list=' NCM list '+(cardUae(s.listTime)||'no time')+' UAE'+(lm==null?'':', '+cardAge(Math.max(0,lm))+' old')+'.';
+  if(s.state==='WARNING'){var rr={'touched':0,'not known':1,'not touched':2},top=(s.items||[]).slice().sort(function(p,q){var x=(rr[p.rak]==null?1:rr[p.rak])-(rr[q.rak]==null?1:rr[q.rak]);return x||(CARD_RANK[q.colour]||0)-(CARD_RANK[p.colour]||0);})[0],c=top?top.colour:s.highest,hz=((top&&top.hazards)||s.hazards||[]).map(function(h){return CARD_HZ[h]||String(h);}).join(', ');return {cls:CARD_CLS[c]||'nr',word:'NCM: '+(CARD_COL[c]||'Colour not read')+(hz?' · '+hz:''),when:(s.count>1?s.count+' warnings. ':'')+'Read '+at+'.'+list+' Reported.',fresh:true,s:s};}
+  if(s.state==='TEXT WARNING')return {cls:'nr',word:'NCM: Text warning, colour not read',when:'Read '+at+'.'+list+' Reported.',fresh:true,s:s};
+  if(s.state==='NO WARNING IN FORCE')return {cls:'none',word:'NCM: No warning in force',when:'Read '+at+'.'+list+' Reported.',fresh:true,s:s};
+  return {cls:'nr',word:'NCM: NO READING',when:'Read '+at+'.',down:true,why:'the NCM reader says NO READING'};}
+/* rain, fog and dust from a fresh reading, the rule of the feed writer: a warning counts unless it is known not to touch RAK; a hazard the list cannot answer for is unknown, never none */
+function cardLevels(s){var keys=['rain','fog','dust'],out={};
+  if(s.state==='NO WARNING IN FORCE'){keys.forEach(function(k){out[k]='none';});return out;}
+  if(s.state!=='WARNING'||s.itemsMore>0){keys.forEach(function(k){out[k]='unknown';});return out;}
+  var rows=(s.items||[]).filter(function(x){return x.rak!=='not touched'||x.named;}),all=s.tickerRead===false||rows.some(function(x){return (x.hazards||[]).indexOf('other')>=0;}),th=s.tickerHazards||[];
+  if(s.tickerNotNews>0&&(!th.length||th.indexOf('other')>=0))all=true;
+  keys.forEach(function(k){var best=null,un=false;rows.forEach(function(x){if((x.hazards||[]).indexOf(k)<0)return;if(CARD_RANK[x.colour]){if(!best||CARD_RANK[x.colour]>CARD_RANK[best])best=x.colour;}else un=true;});out[k]=un?'unknown':(best||((all||(s.tickerNotNews>0&&th.indexOf(k)>=0))?'unknown':'none'));});return out;}
+/* the NCM block the card may print: the reader's when it is fresh, else the record, with a calm word stopped when it cannot stand beside a reader with nothing fresh */
+function cardNcm(n,v,now){n=n||{};
+  if(v&&v.fresh){var lv=cardLevels(v.s);return {level:lv.rain,levels:lv,text:'NCM reader: '+v.word.replace(/^NCM: /,'')+'.',asof:cardUae(v.s.readAt),reader:true};}
+  var a=Date.parse(String(n.asof||'').replace(' ','T')+':00+04:00'),h=isNaN(a)?null:(now-a)/36e5,person=n.by&&n.by!=='engine'&&!n.auto&&h!=null&&h<=CARD_CURRENT_H,lv2=n.levels||{},stop=!person&&(n.level==='none'||Object.keys(lv2).some(function(k){return lv2[k]==='none';})),o={};
+  if(!stop)return {level:n.level,levels:lv2,text:n.text,asof:n.asof};
+  Object.keys(lv2).forEach(function(k){o[k]=lv2[k]==='none'?'unknown':lv2[k];});return {level:n.level==='none'?'unknown':n.level,levels:o,text:'No current NCM reading: '+((v&&v.why)||'the NCM reader has nothing fresh')+'.',asof:n.asof,stopped:true};}
+/* the stage line: Routine readiness cannot stand under an NCM rain word that is not none */
+function cardStage(stage,why,v,sh){if(stage==='Routine readiness'&&sh&&sh.level!=='none'){return {stage:'Not determined',why:(v&&v.fresh)?'The NCM reader reads a warning newer than this record, so no stage is proposed from the weather alone':'The last NCM reading is not current and '+((v&&v.why)||'the NCM reader has nothing fresh')+', so no stage is proposed from the weather alone'};}return {stage:stage,why:why};}
+/*__CARD_LOGIC_END__*/
+var CARD={s:null,v:null,skew:0};
+function put(v){var c=document.getElementById('ncmcard');c.className='ncmc '+v.cls;document.getElementById('ncmWord').textContent=v.word;document.getElementById('ncmWhen').textContent=v.when;}
+async function readNcm(){var v;try{
+  var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store'});var d=Date.parse(r.headers.get('date')||'');if(!isNaN(d))CARD.skew=d-Date.now();if(!r.ok)throw new Error('status '+r.status);v=cardView(await r.json(),Date.now()+CARD.skew);
+}catch(e){v=cardView(null,Date.now());}
+  put(v);var was=CARD.v;CARD.v=v;if(!was||was.word!==v.word||was.when!==v.when)paintNcm();return v;}
+/* a level that is missing or unknown reads no reading here, never none (28 Oct 2026, L2) */
+function cardWord(v){return (v==null||v===''||v==='unknown')?'no reading':v;}
+function paintNcm(){var s=CARD.s;if(!s||!CARD.v)return;var v=CARD.v,sh=cardNcm(s.ncm,v,Date.now()+CARD.skew),g=cardStage(s.stage,s.stageWhy,v,sh),nw=cardWord;
+  var cls={'Routine readiness':'s1','Enhanced watch':'s2','Pre deployment':'s3','Active response':'s4','Not determined':'s0'}[g.stage]||'s0';   // 28 Oct 2026 (L2): Not determined has its own look, never the Routine one
+  var st=document.getElementById('stage'); st.className='stage '+cls; st.querySelector('b').textContent=g.stage; st.querySelector('small').textContent=g.why;
+  var nl=sh.levels||{}; var nh='NCM rain '+nw(sh.level)+(nl.fog&&nl.fog!=='none'?' · fog '+nw(nl.fog):'')+(nl.dust&&nl.dust!=='none'?' · dust '+nw(nl.dust):'');
+  var nb=document.getElementById('ncm'); nb.textContent=''; var nbb=document.createElement('b'); nbb.textContent=nh; nb.appendChild(nbb); nb.appendChild(document.createTextNode(' · '+(sh.text||'no reading')));
+  if(sh.asof){var ns=document.createElement('span'); ns.style.color='var(--grey)'; ns.textContent=' ('+sh.asof+')'; nb.appendChild(ns);}
+  var hz=s.hazards||{}, rows=[], over=sh.reader||sh.stopped;
+  ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var cn=over?(nl[k]):x.ncm, lvl=(x.level==='none'&&over&&nl[k]&&nl[k]!=='none')?'unknown':x.level, l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+nw(lvl)+(k==='dust'?'':' (NCM '+nw(cn)+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
+  if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}}
+var CARD_FIRST=readNcm();setInterval(readNcm,60000);
 (async function(){
   var r=await fetch('status.json?x='+Date.now(),{cache:'no-store'}); var s=await r.json();
-  var cls={'Routine readiness':'s1','Enhanced watch':'s2','Pre deployment':'s3','Active response':'s4','Not determined':'s0'}[s.stage]||'s0';   // 28 Oct 2026 (L2): Not determined has its own look, never the Routine one
-  var st=document.getElementById('stage'); st.className='stage '+cls; st.querySelector('b').textContent=s.stage; st.querySelector('small').textContent=s.stageWhy;
+  await CARD_FIRST;CARD.s=s;paintNcm();
   var asof=new Date(s.feedAsof.replace(' ','T')+':00+04:00'); var ageH=(Date.now()-asof.getTime())/36e5;
   document.getElementById('feed').textContent='Feed '+s.feedAsof+' UAE ('+(ageH<1?'under an hour':Math.round(ageH)+' h')+' old) · pumps read '+(s.pumps.captured||'').slice(0,16);
   if(ageH>24){document.getElementById('old').hidden=false;}
   document.getElementById('t1').textContent=(s.worstMax6==null?'…':s.worstMax6);
   document.getElementById('t2').textContent=s.pumps.standby+' / '+s.pumps.total;
   document.getElementById('t3').textContent=s.actions.late+' / '+s.actions.total;
-  var nw=function(v){return (v==null||v===''||v==='unknown')?'no reading':v;};   // 28 Oct 2026 (L2): a level that is missing or unknown reads no reading here, never none
-  var n=s.ncm||{}, nl=n.levels||{}; var nh='NCM rain '+nw(n.level)+(nl.fog&&nl.fog!=='none'?' · fog '+nw(nl.fog):'')+(nl.dust&&nl.dust!=='none'?' · dust '+nw(nl.dust):'');
-  var nb=document.getElementById('ncm'); nb.textContent=''; var nbb=document.createElement('b'); nbb.textContent=nh; nb.appendChild(nbb); nb.appendChild(document.createTextNode(' · '+(n.text||'no reading')));
-  if(n.asof){var ns=document.createElement('span'); ns.style.color='var(--grey)'; ns.textContent=' ('+n.asof+')'; nb.appendChild(ns);}
   var ha=s.highAlerts||[]; if(ha.length){var ab=document.getElementById('alert'); ab.hidden=false; ab.textContent=''; ha.forEach(function(x){var d=document.createElement('div'); var bb=document.createElement('b'); bb.textContent='HIGH ALERT '; d.appendChild(bb); d.appendChild(document.createTextNode(x.text||'')); ab.appendChild(d);});}
   var mx=Math.max(10,...s.points.map(function(p){return p.next72||0}));
   var esc=function(x){return String(x==null?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]});};
   document.getElementById('pts').innerHTML=s.points.map(function(p){var w=Math.round(100*(p.next72||0)/mx);return '<tr><td>'+esc(p.name)+'</td><td class="n">'+(p.error?'no data':(p.next24==null?'no reading':esc(p.next24)))+'</td><td class="n">'+(p.error?'':(p.next72==null?'no reading':esc(p.next72)))+'</td><td><div class="bar"><i style="width:'+(isFinite(w)?w:0)+'%"></i></div></td></tr>'}).join('');
-  var hz=s.hazards||{}, rows=[];
-  ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+nw(x.level)+(k==='dust'?'':' (NCM '+nw(x.ncm)+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
-  if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}
   var en=s.engine; if(en){var eb=document.getElementById('eng'); var t=[]; if(en.ok===false){t.push('LAST ENGINE RUN FAILED ('+en.lastRun+'); showing the last good reading of '+(en.lastGoodAsof||'unknown'));} else if(en.pointsTotal){t.push('Reading '+(en.readingQuality||'')+': '+en.pointsRead+' of '+en.pointsTotal+' points');} if(en.ncmWarningsReadingAgeHours!=null){t.push('NCM warnings last read by a person '+Math.round(en.ncmWarningsReadingAgeHours)+' h ago');} if(t.length){eb.hidden=false; eb.textContent=t.join(' · ');}}
   document.getElementById('console').href=s.console;
   document.getElementById('foot').textContent+=' Written '+s.written+'.';
