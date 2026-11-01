@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-01 16:07",
+ "asof": "2026-11-01 16:27",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -2451,30 +2451,30 @@
   "level": "yellow",
   "levels": {
    "rain": "yellow",
-   "fog": "none",
+   "fog": "unknown",
    "dust": "yellow"
   },
   "levelAtReading": "yellow",
   "levelsAtReading": {
    "rain": "yellow",
-   "fog": "none",
+   "fog": "unknown",
    "dust": "yellow"
   },
   "levelInForce": "yellow",
   "levelsInForce": {
    "rain": "yellow",
-   "fog": "none",
+   "fog": "unknown",
    "dust": "yellow"
   },
   "inForce": [
    "2435"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 01 Nov 15:42, list 1.14 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 01 Nov 16:14, list 1.67 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-01 15:42",
-  "ageHours": 0.42,
+  "asof": "2026-11-01 16:14",
+  "ageHours": 0.21,
   "hazard": [
    "dust",
    "rain",
@@ -2483,8 +2483,9 @@
   "id": null,
   "stale": false,
   "by": "live reader",
+  "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-01 16:07",
+  "refreshed": "2026-11-01 16:27",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2493,16 +2494,16 @@
    "rak": "touched",
    "named": false,
    "city": true,
-   "listAgeH": 1.14,
+   "listAgeH": 1.67,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-01T11:42:33Z",
+    "lastOk": "2026-11-01T12:14:09Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-01 15:42; it reads the list and the ticker every 15 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-01 16:14; it reads the list and the ticker every 30 minutes"
  }
 }
