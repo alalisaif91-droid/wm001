@@ -1,5 +1,5 @@
 # WM004 site keeper (1 Nov 2026). GitHub Pages refuses a deploy while it holds another as in progress, and it can hold one long after that one ended: the deploy of 08:13 UTC was still named at 08:40, and the deploy of 08:47, which reported success, was still named at 09:10. Each refused deploy left the live site behind main.
-# The clock starts this job after the reader and the feed. It looks at the Pages deploy of the newest gh-pages commit. If that deploy ended in anything but success, it cancels the deploy named in GitHub's error, as the error asks, then adds one commit holding main's tree, which starts a clean deploy.
+# The clock starts this job after the reader and the feed. It looks at the Pages deploy of the newest gh-pages commit. If that deploy ended in anything but success, it adds one commit holding main's tree, which starts a clean deploy. GitHub clears the hold by itself, and the cancel its error asks for is refused as finished, so this job does not try it.
 # One try per failure: a commit this job made is never followed by another from this job, so a Pages fault cannot start a loop. The next commit from the reader or the feed starts the count again.
 # A push of this file forces one deploy, which proves the path each time the file changes.
 name: WM004 site keeper
@@ -13,7 +13,6 @@ permissions:
   actions: read
   checks: read
   contents: write
-  pages: write
 concurrency:
   group: wm004-site
   cancel-in-progress: false
@@ -52,11 +51,7 @@ jobs:
           fi
           JOB=$(gh api "repos/$R/actions/runs/$RUN/jobs" --jq '[.jobs[] | select(.name == "deploy")][0].id')
           HELD=$(gh api "repos/$R/check-runs/$JOB/annotations" --jq '.[].message' | sed -n 's/.*Please cancel \([0-9a-f]\{40\}\) first.*/\1/p' | head -n 1)
-          if [ -n "$HELD" ]; then
-            echo "GitHub holds $HELD as in progress: cancelling it"
-            gh api -X POST "repos/$R/pages/deployments/$HELD/cancel" --silent || echo "the cancel was refused"
-            sleep 15
-          fi
+          if [ -n "$HELD" ]; then echo "GitHub holds $HELD as in progress"; fi
           TREE=$(gh api "repos/$R/commits/main" --jq .commit.tree.sha)
           C=$(gh api -X POST "repos/$R/git/commits" -f message="wm004: deploy the site again, the last deploy ended $S (GitHub Actions)" -f tree="$TREE" -f "parents[]=$HEAD" --jq .sha)
           gh api -X PATCH "repos/$R/git/refs/heads/gh-pages" -f sha="$C" --silent

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WM004 NCM reader, run by GitHub Actions every 30 minutes (Saif, 31 Oct 2026). Why: the only reader was on the laptop, hourly, and it stops when the laptop sleeps, so warnings were missed.
+"""WM004 NCM reader, run by GitHub Actions every 30 minutes (the owner's decision of 31 Oct 2026). Why: the only reader was on the laptop, hourly, and it stops when the laptop sleeps, so warnings were missed.
 
 What it does: one ordinary page visit to the NCM warnings page, capturing only what that page loads. It never builds a token, never logs in, never hides what it is. A refusal, a block or a change of
 shape is reported and the run stops; it is never worked around. The rules are SCHEMA.md section 8 and nothing else produces NO WARNING IN FORCE. NCM's own message is never read.
@@ -9,14 +9,14 @@ Output, one writer per file, in the folder given (wm004 on the runner):
   ncm_index.json     public, facts only: the reader's memory, because the runner cannot open its own sealed files
   ncm_live.enc       sealed: the full reading (frame 1), and when this run read nothing, the last good reading copied unopened (frame 2, not in force)
   ncm_history.enc    sealed: every warning and ticker item ever seen, append only, frames never rewritten
-  ncm_radar.enc      sealed: one clipped radar still, only while a warning is in force or rain was measured in RAK, at most every 30 minutes, under 200 KB
+  ncm_radar.enc      sealed: one clipped radar still, only while a warning may touch RAK or rain was measured there, at most every 60 minutes, under 200 KB
 The sealed formats are in CRYPTO.md. NCM's words and radar pictures go only into sealed files: decision of 30 Oct 2026, because NCM's copyright page prohibits unauthorized reproduction.
 Times: now is the Date header of NCM's reply, because the laptop clock was 3 min 22 s fast on 30 Oct (SCHEMA.md section 1).
 
-Usage: python3 ncm_reader_action.py <folder> [--no-issues] [--plain] [--radar-test] [--force-commit] [--pub <file>]
---pub reads the public key from another place, for a laptop check into a scratch folder.
-Exit 0 whether or not NCM could be read: a failed read is a state, written as NO READING. Exit 1 only when the reader cannot write at all (no public key)."""
-import base64, datetime as dt, gzip, hashlib, json, os, re, sys, time, urllib.error, urllib.request
+Usage: python3 ncm_reader_action.py <folder> [--no-issues] [--plain] [--radar-test] [--any-time] [--pub <file>]
+--pub reads the public key from another place, for a laptop check into a scratch folder. --any-time leaves out the 10 minute spacing between visits, as a run started by hand does.
+Exit 0 whether or not NCM could be read: a failed read is a state, written as NO READING, and a fault in this script is a NO READING too (step). Exit 1 only when the reader cannot write at all (no public key)."""
+import base64, datetime as dt, gzip, hashlib, json, math, os, re, sys, time, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -29,12 +29,12 @@ REPO = 'alalisaif91-droid/wm001'
 OWNER = 'alalisaif91-droid'
 LABEL = 'wm004-ncm'
 LIMIT_H = 72                    # freshness limit of generated_at, decided 30 Oct 2026; the age is always shown and the gaps are logged so it can be set from data later
-HEARTBEAT_MIN = 25              # commit when the last commit is this old: every 30 minute run, so a commit is never older than about 30 minutes
-RADAR_EVERY_MIN = 28            # the radar is due at the second run after the last still, which keeps it to at most one every 30 minutes
+RADAR_EVERY_MIN = 58            # at the 30 minute cadence the radar is due at every second run. It is a second page load of about 8 MB decoded, and the decided load is one visit a poll, so it is kept to an hour
 RADAR_MAX = 200000              # bytes of the sealed file
 STATE_MAX = 6000                # bytes of the public state
 HISTORY_MAX = 1500000           # bytes of ncm_history.enc before it is moved aside and a compact index starts the next file
-ALERTS_PER_DAY = 8
+ALERTS_PER_DAY = 8              # warnings clear of RAK spend this. A warning that touches RAK or may touch it, any red, a ticker warning and a failed reader are never held back by it
+MIN_SPACING_MIN = 10            # SCHEMA.md section 10: no two page visits closer than this, except a run started by hand
 FAIL_ALERT_H = 2.0
 GAPS_KEPT = 300
 UAE = dt.timezone(dt.timedelta(hours=4))
@@ -43,6 +43,7 @@ COLOURS = {1: ('yellow', 'Be Aware'), 2: ('orange', 'Be Prepared'), 3: ('red', '
 RANK = {'not read': 0, 'none': 0, 'yellow': 1, 'orange': 2, 'red': 3}
 HAZARD_OF = {'FG': 'fog', 'DS': 'dust', 'WD': 'wind', 'RS': 'sea', 'TR': 'rain', 'CC': 'rain'}
 RAK_WORDS = re.compile(r'ras\s*al[\s\-]*kh[a]?i?mah|رأس\s*الخيمة|راس\s*الخيمة', re.I)
+TYPE_OK = re.compile(r'^[a-z_]{1,20}$')
 TEXT_HAZARDS = (('rain', re.compile(r'\brain|thunder|lightning|convective|أمطار|مطر|رعد|برق|ركامية', re.I)), ('fog', re.compile(r'\bfog\b|\bmist\b|ضباب', re.I)),
                 ('dust', re.compile(r'\bdust|\bsand\b|غبار|رمال', re.I)), ('wind', re.compile(r'\bwind|رياح', re.I)), ('sea', re.compile(r'rough sea|\bsea\b|بحر', re.I)))
 REQUIRED = ('areas', 'list', 'tickers', 'announcements', 'aws', 'airports')
@@ -51,11 +52,15 @@ CITY_UNITS = ('RK001',)         # Al Mamourah holds the city; station 420 is the
 CITY_STATION = 420
 STATE_WORDS = {'warning': 'WARNING', 'text_warning': 'TEXT WARNING', 'none': 'NO WARNING IN FORCE', 'no_reading': 'NO READING'}
 RAIN_NOTE = 'A 0 is Reported, and a stuck gauge reads the same. A missing station is no reading, never dry.'
+YEARS = (2000, 2100)            # a time outside these years is not a time of NCM's: it is kept as unreadable, and it cannot overflow a conversion
 
 
 # ------------------------------------------------------------------------------------------------ small helpers
 def iso(t):
-    return t.astimezone(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ') if t else None
+    try:
+        return t.astimezone(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ') if t else None
+    except (OverflowError, ValueError, OSError):
+        return None
 
 
 def parse_iso(s):
@@ -65,6 +70,8 @@ def parse_iso(s):
     try:
         t = dt.datetime.fromisoformat(s.strip().replace('Z', '+00:00'))
     except ValueError:
+        return None
+    if not YEARS[0] <= t.year <= YEARS[1]:
         return None
     return t if t.tzinfo else t.replace(tzinfo=UAE)
 
@@ -79,6 +86,8 @@ def parse_time(v):
     try:
         t = dt.datetime.fromisoformat(s.replace('Z', '+00:00'))
     except ValueError:
+        return None, False, True
+    if not YEARS[0] <= t.year <= YEARS[1]:
         return None, False, True
     if t.tzinfo:
         return t, False, False
@@ -173,6 +182,8 @@ def _fields(b):
             i += 4
         else:
             raise ValueError('wire type %d' % w)
+        if i > n:                               # a cut tile: a slice past the end gives short bytes with no error, and a tile that cannot be read in full is a tile not read
+            raise ValueError('cut message')
         yield f, v
 
 
@@ -299,33 +310,38 @@ def _rings_touch(a, b):
     return False
 
 
-def polygons_of(tiles):
-    """{warning id: [{'rings': lon lat rings, 'tile': (z, x, y), 'seam': bool}]}, read from every captured tile. seam: the polygon reaches the edge that joins the other tile of its pair."""
+def polygons_of(tiles, read=None):
+    """{warning id: [{'rings': lon lat rings, 'tile': (z, x, y)}]}, read from every captured tile. A tile that cannot be read in full gives nothing and is left out of read (a set the caller passes): it counts as a tile
+    not read, whatever the fault. The tile branch runs only on a real warning, so it is the last place a fault may stop a run (SCHEMA.md section 9 item 4: no real tile has been read yet)."""
     out = {}
     for key, data in (tiles or {}).items():
         z, x, y = key
         try:
-            layers = decode_tile(data)
-        except (ValueError, IndexError, OSError):
+            found = {}
+            for name, lay in decode_tile(data).items():
+                m = re.match(r'warning_(.+)$', name)
+                for f in lay['features']:
+                    wid = f['props'].get('warning_id')
+                    wid = wid if wid is not None else (m.group(1) if m else None)
+                    if wid is None:
+                        continue
+                    rings = [[_lonlat(p[0], p[1], z, x, y, lay['extent']) for p in r] for r in f['rings']]
+                    found.setdefault(norm_id(wid, None), []).append({'rings': rings, 'tile': key})
+        except Exception:                       # damaged bytes reach many kinds of error; every one of them is a tile not read
             continue
-        for name, lay in layers.items():
-            m = re.match(r'warning_(.+)$', name)
-            for f in lay['features']:
-                wid = f['props'].get('warning_id')
-                wid = str(wid) if wid is not None else (m.group(1) if m else None)
-                if wid is None:
-                    continue
-                ext = lay['extent']
-                seam = any(p[0] <= 8 or p[0] >= ext - 8 for r in f['rings'] for p in r)
-                rings = [[_lonlat(p[0], p[1], z, x, y, ext) for p in r] for r in f['rings']]
-                out.setdefault(wid, []).append({'rings': rings, 'tile': key, 'seam': seam})
+        if read is not None:
+            read.add(key)
+        for wid, polys in found.items():
+            out.setdefault(wid, []).extend(polys)
     return out
 
 
 def rak_of_polygons(polys, tiles, places):
-    """(status, city, units) of one warning from its polygons. A polygon that runs to the edge of a tile whose neighbour was not read cannot say not touched."""
+    """(status, city, units) of one warning from its polygons; tiles holds the tiles that were read. 56.25 E splits the emirate, so a warning can have a second part in the tile of a pair that was not read (SCHEMA.md
+    section 8): with no complete pair read a polygon that touches says touched and the city stays open unless it was hit, and nothing else can be said. Not known is never no."""
     if not polys:
         return 'not known', None, []
+    pair_read = any(all(t in (tiles or ()) for t in pair) for pair in TILE_PAIRS)
     hit_units, city, st_hit = set(), False, False
     for p in polys:
         for s in places['stations']:
@@ -341,22 +357,25 @@ def rak_of_polygons(polys, tiles, places):
                 if u['id'] in CITY_UNITS:
                     city = True
     if hit_units or st_hit:
-        return 'touched', city, sorted(hit_units)
-    for p in polys:
-        for pair in TILE_PAIRS:
-            if p['tile'] in pair and p['seam'] and any(t not in (tiles or {}) for t in pair):
-                return 'not known', None, []
+        return 'touched', True if city else (False if pair_read else None), sorted(hit_units)
+    if not pair_read:
+        return 'not known', None, []
     return 'not touched', False, []
 
 
 # ------------------------------------------------------------------------------------------------ the reading
 def norm_id(v, raw):
+    """the id of an item. Digits pass as they are, never through a float, which would round a long id. Anything else is not an id of the shape read so far and may be NCM's own words, so it stays sealed in the raw item
+    and the id everywhere else is a short hash of it (decision of 30 Oct 2026: public files hold facts only)."""
     if isinstance(v, bool) or v is None:
         return 'x' + short_key(json.dumps(raw, sort_keys=True, ensure_ascii=False))
+    if isinstance(v, float) and v.is_integer():
+        v = int(v)
     s = str(v).strip()
-    if re.match(r'^-?\d+(\.0+)?$', s):
-        return str(int(float(s)))
-    return s or ('x' + short_key(json.dumps(raw, sort_keys=True, ensure_ascii=False)))
+    m = re.match(r'^(-?[0-9]{1,40})(\.0+)?$', s)
+    if m:
+        return str(int(m.group(1)))
+    return 'x' + short_key(s) if s else 'x' + short_key(json.dumps(raw, sort_keys=True, ensure_ascii=False))
 
 
 def norm_codes(v):
@@ -399,7 +418,9 @@ def normalise_item(raw, now, polys, tiles, places):
                       'colourNotRead': sev is None, 'placeNotKnown': status == 'not known'},
             'rak': {'status': status, 'named': named, 'city': city, 'units': units},
             'en': en if isinstance(en, str) else None, 'ar': ar if isinstance(ar, str) else None, 'raw': raw}
-    return item, bool(to and to < now)
+    # a no offset end is read as UAE time (SCHEMA.md section 8). If it is really UTC it ends 4 hours later, so such an item leaves the warnings only when it has passed on both readings (section 9 item 1)
+    end = (to + dt.timedelta(hours=4)) if (to and to_no) else to
+    return item, bool(end and end < now)
 
 
 def read_tickers(c):
@@ -413,11 +434,13 @@ def read_tickers(c):
     for x in d['result']:
         if not isinstance(x, dict):             # never dropped: an item that cannot be read is not news, so it cannot leave the ticker reading as calm (SCHEMA.md section 8)
             raw = json.dumps(x, ensure_ascii=False)
-            out.append({'type': 'not read', 'time': None, 'en': x if isinstance(x, str) else None, 'ar': None, 'key': short_key('not read', raw), 'raw': x})
+            out.append({'type': 'not read', 'time': None, 'en': x if isinstance(x, str) else None, 'ar': None, 'key': short_key('not read', raw), 'raw': x, 'odd': True})
             continue
         t, en, ar, tm = x.get('type'), x.get('text_en'), x.get('text_ar'), x.get('time')
-        out.append({'type': str(t) if t is not None else 'not read', 'time': tm if isinstance(tm, str) else None, 'en': en if isinstance(en, str) else None, 'ar': ar if isinstance(ar, str) else None,
-                    'key': short_key(t, tm, en, ar), 'raw': x})
+        # a type and a time reach public files, so only the shapes read so far pass: anything else stays in the raw item, which is sealed
+        ty = t if isinstance(t, str) and TYPE_OK.match(t) else 'not read'
+        when = tm if isinstance(tm, str) and parse_iso(tm) else None
+        out.append({'type': ty, 'time': when, 'en': en if isinstance(en, str) else None, 'ar': ar if isinstance(ar, str) else None, 'key': short_key(t, tm, en, ar), 'raw': x, 'odd': ty != t or when != tm})
     return out, None
 
 
@@ -433,7 +456,7 @@ def read_announcements(c):
 def station_row(obs, now):
     """(last report, latest row) from a station's rows, newest row with a usable time"""
     best, row = None, None
-    for r in obs or []:
+    for r in obs if isinstance(obs, list) else []:
         if not isinstance(r, dict):
             continue
         t = parse_iso(r.get('time'))
@@ -445,12 +468,12 @@ def station_row(obs, now):
 def rain_sum(obs, now, hours):
     """the amount in the rows inside the window. Rows are summed, never multiplied, because a row's span differs by station. (sum or None, rows with a value, rows with no value). None: no row had a value."""
     lo, total, got, bad = now - dt.timedelta(hours=hours), 0.0, 0, 0
-    for r in obs or []:
+    for r in obs if isinstance(obs, list) else []:
         t = parse_iso(r.get('time')) if isinstance(r, dict) else None
         if not t or not lo < t <= now + dt.timedelta(minutes=10):
             continue
         v = r.get('precipitation')
-        if isinstance(v, bool) or not isinstance(v, (int, float)):
+        if isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or v < 0:
             bad += 1
             continue
         total += float(v)
@@ -465,7 +488,7 @@ def _obs_map(c):
     res = d.get('result') if isinstance(d, dict) else None
     if not isinstance(res, list):
         return None, 'no result list'
-    return {s.get('id'): s for s in res if isinstance(s, dict)}, None
+    return {s.get('id'): s for s in res if isinstance(s, dict) and isinstance(s.get('id'), (int, str))}, None
 
 
 def read_stations(c, now, places):
@@ -509,7 +532,7 @@ def rain_totals(stations):
         if not vals:
             return None
         v = max(vals, key=lambda x: x[0])
-        return {'mm': v[0], 'station': v[1]}
+        return {'mm': v[0], 'station': v[1] if v[0] > 0 else None}          # when every station reads 0 the first of the tie is not named as the highest
     return {'h1': top('rain1h'), 'h3': top('rain3h'), 'h24': top('rain24h'), 'stationsRead': len([s for s in rak if s['reading']]), 'stationsExpected': len(rak),
             'missing': [s['id'] for s in rak if not s['reading']], 'note': RAIN_NOTE}
 
@@ -524,8 +547,14 @@ def judge(capture, now, limit_h):
     if capture.get('failed'):
         out.update(reason_nr('visit_failed', 'the visit could not be made: %s' % capture['failed']))
         return out
+    if capture.get('fault'):
+        out.update(reason_nr('reader_fault', 'the reader stopped on a fault of its own (%s), so nothing from this run can be stated' % capture['fault']))
+        return out
     if capture.get('refused'):
         out.update(reason_nr('refused', 'NCM refused the page visit: %s' % capture['refused']))
+        return out
+    if capture.get('noDate'):
+        out.update(reason_nr('no_date', 'the replies of NCM carried no readable Date header, so the age of the list cannot be worked out'))
         return out
     areas, why = parse_body(capture.get('areas'))
     if areas is None:
@@ -535,7 +564,7 @@ def judge(capture, now, limit_h):
     if not latest:
         out.update(reason_nr('areas_no_latest', 'warnings_areas.json has no latest_warnings'))
         return out
-    out['latest'] = str(latest)
+    out['latest'] = str(latest) if re.match(r'^[0-9A-Za-z_\-]{1,40}$', str(latest)) else 'x' + short_key(latest)
     lst, why = parse_body(capture.get('list'))
     if lst is None:
         out.update(reason_nr('list_json' if why == 'not JSON' else 'list_missing', 'the warnings list reply was not JSON' if why == 'not JSON' else 'the warnings list was %s in this run' % why))
@@ -567,17 +596,23 @@ def judge(capture, now, limit_h):
     return out
 
 
+def text_hazards(t):
+    """our own hazard labels for one ticker item, from its words. The words themselves stay sealed. other: the text was read and no hazard could be taken from it."""
+    words = (t.get('en') or '') + ' ' + (t.get('ar') or '')
+    return sorted(h for h, rx in TEXT_HAZARDS if rx.search(words)) or ['other']
+
+
 def evaluate(capture, now, places, limit_h=LIMIT_H):
     """The full reading of one run, public and private fields together. public_state() takes only facts from it."""
     j = judge(capture, now, limit_h)
     tick, tick_why = read_tickers(capture.get('tickers'))
     ann, ann_why = read_announcements(capture.get('announcements'))
-    tiles = capture.get('tiles') or {}
-    polys = polygons_of(tiles)
+    tiles, tiles_read = capture.get('tiles') or {}, set()
+    polys = polygons_of(tiles, tiles_read)
     items, dropped = [], []
     for raw in j['items_raw']:
-        it, exp = normalise_item(raw, now, polys, tiles, places)
-        (dropped.append(it['id']) if exp else items.append(it))
+        it, exp = normalise_item(raw, now, polys, tiles_read, places)
+        (dropped.append(it) if exp else items.append(it))
     items.sort(key=lambda x: (-RANK[x['colour']], x['id']))
     non_news = [t for t in (tick or []) if t['type'] != 'news']
     if j.get('state') == 'no_reading':
@@ -586,10 +621,14 @@ def evaluate(capture, now, places, limit_h=LIMIT_H):
         state, reason, text = 'warning', 'list_items', '%d warning%s on the NCM list' % (len(items), '' if len(items) == 1 else 's')
         if tick is None:
             text += '; %s, so the ticker was not read in this run' % tick_why
+    elif non_news:
+        state, reason, text = 'text_warning', 'ticker_only', 'the NCM list %s and the ticker holds %d item%s that are not news; the colour is not read' % ('holds only expired items' if dropped else 'is empty', len(non_news), '' if len(non_news) == 1 else 's')
+    elif dropped:
+        # section 8 gives NO WARNING IN FORCE only to an empty list whose hash holds, and says nothing else may produce it. A list of expired items is not that, and an end read 4 hours wrong would reach calm here, so it is not
+        # read as calm. The word for this case waits on the owner (DEPLOY.md section 7); until then the items stay in the sealed reading.
+        state, reason, text = 'no_reading', 'list_expired_only', 'the list holds %d item%s, all past their end, so it is not an empty list and gives no reading; the rule for this case waits on the owner' % (len(dropped), '' if len(dropped) == 1 else 's')
     elif tick is None:
         state, reason, text = 'no_reading', 'ticker_failed', 'the list is empty but the ticker was not read: %s' % tick_why
-    elif non_news:
-        state, reason, text = 'text_warning', 'ticker_only', 'the NCM list is empty and the ticker holds %d item%s that are not news; the colour is not read' % (len(non_news), '' if len(non_news) == 1 else 's')
     else:
         state, reason, text = 'none', 'list_and_ticker_clear', 'the list is empty, recent, its hash holds, and the ticker holds only news; both were read in this run'
     colours = [i['colour'] for i in items if i['colour'] != 'not read']
@@ -600,10 +639,9 @@ def evaluate(capture, now, places, limit_h=LIMIT_H):
     else:
         highest = 'not read'
     in_force = items if state == 'warning' else []
-    hazards = sorted({h for i in in_force for h in i['hazards']})
-    if state == 'text_warning':
-        words = ' '.join((t.get('en') or '') + ' ' + (t.get('ar') or '') for t in non_news)
-        hazards = sorted({h for h, rx in TEXT_HAZARDS if rx.search(words)}) or ['other']
+    # a ticker warning has no colour and no polygon, on an empty list or beside a list warning (SCHEMA.md section 1 item 3): it adds the hazards its text may hold, and it says RAK is not known
+    tick_hz = sorted({h for t in non_news for h in text_hazards(t)})
+    hazards = sorted({h for i in in_force for h in i['hazards']} | (set(tick_hz) if state in ('warning', 'text_warning') else set()))
     # RAK of the whole reading
     named = any(i['rak']['named'] for i in in_force) or bool(RAK_WORDS.search(' '.join((t.get('en') or '') + ' ' + (t.get('ar') or '') for t in non_news)))
     units = sorted({u for i in in_force for u in i['rak']['units']})
@@ -611,19 +649,22 @@ def evaluate(capture, now, places, limit_h=LIMIT_H):
         status, city = 'not touched', False
     elif in_force:
         sts = [i['rak']['status'] for i in in_force]
-        status = 'touched' if 'touched' in sts else ('not known' if 'not known' in sts else 'not touched')
-        city = True if any(i['rak']['city'] for i in in_force) else (False if status != 'not known' else None)
+        open_text = bool(non_news) or tick is None      # a ticker warning, or a ticker not read, leaves RAK open whatever the polygons say
+        status = 'touched' if 'touched' in sts else ('not known' if ('not known' in sts or open_text) else 'not touched')
+        cities = [i['rak']['city'] for i in in_force] + ([None] if open_text else [])
+        city = True if True in cities else (None if None in cities else False)
     else:
         status, city = 'not known', None
     stations, st_why = read_stations(capture.get('aws'), now, places)
-    latest_tick = sorted(tick or [], key=lambda t: t.get('time') or '', reverse=True)[:10]
+    by_time = sorted(tick or [], key=lambda t: t.get('time') or '', reverse=True)
+    latest_tick = ([t for t in by_time if t['type'] != 'news'] + [t for t in by_time if t['type'] == 'news'])[:max(10, len(non_news))]      # a warning is never cut for news: the board says its text is in the ticker
     r = {'state': state, 'stateWord': STATE_WORDS[state], 'reason': reason, 'reasonText': text, 'now': now, 'latest': j['latest'], 'version': j['version'], 'contentHash': j['contentHash'],
          'listTime': j['generatedAt'], 'listAgeH': j['listAgeH'], 'limitH': limit_h, 'highest': highest, 'hazards': hazards, 'count': len(in_force),
          'colourNotRead': len([i for i in in_force if i['colour'] == 'not read']), 'oldListItems': len(items) if state == 'no_reading' else 0,
-         'rak': {'status': status, 'named': named, 'city': city, 'units': units}, 'warnings': items, 'droppedExpired': dropped,
+         'rak': {'status': status, 'named': named, 'city': city, 'units': units}, 'warnings': items, 'droppedExpired': [i['id'] for i in dropped], 'droppedItems': dropped, 'tickerHazards': tick_hz,
          'ticker': {'read': tick is not None, 'reason': tick_why, 'items': [{k: t[k] for k in ('type', 'time', 'en', 'ar')} for t in latest_tick]}, 'tickerAll': tick,
          'announcements': {'read': ann is not None, 'reason': ann_why, 'items': ann or [], 'flag': bool(ann)}, 'stations': stations, 'stationsReason': st_why, 'airport': read_airport(capture.get('airports'), now, places),
-         'tilesRead': len(tiles), 'visit': {k: capture.get(k) for k in ('bytes', 'decoded', 'requests', 'aborted', 'aborts', 'ms')}}
+         'tilesRead': len(tiles_read), 'visit': {k: capture.get(k) for k in ('bytes', 'decoded', 'requests', 'aborted', 'aborts', 'ms')}}
     r['rain'] = rain_totals(stations)
     return r
 
@@ -640,7 +681,7 @@ def public_state(reading, health, radar_at, clock):
     st = {'schema': 1, 'status': 'Reported', 'source': 'NCM reader on GitHub Actions', 'state': reading['stateWord'], 'reason': reading['reason'], 'reasonText': reading['reasonText'],
           'readAt': iso(reading['now']), 'readClock': clock, 'listTime': reading['listTime'], 'listAgeH': reading['listAgeH'], 'limitH': reading['limitH'], 'highest': reading['highest'], 'hazards': reading['hazards'],
           'count': reading['count'], 'colourNotRead': reading['colourNotRead'], 'oldListItems': reading['oldListItems'], 'tickerRead': reading['ticker']['read'],
-          'tickerFailed': reading['ticker']['reason'], 'tickerNotNews': len([t for t in (reading.get('tickerAll') or []) if t['type'] != 'news']), 'announcements': len(reading['announcements']['items']),
+          'tickerFailed': reading['ticker']['reason'], 'tickerNotNews': len([t for t in (reading.get('tickerAll') or []) if t['type'] != 'news']), 'tickerHazards': reading['tickerHazards'], 'expiredOnList': len(reading['droppedExpired']), 'announcements': len(reading['announcements']['items']),
           'rak': reading['rak'], 'items': items, 'itemsMore': 0, 'rain': reading['rain'], 'health': health, 'live': True, 'radarAt': radar_at,
           'bytes': reading['visit'].get('bytes'), 'requests': reading['visit'].get('requests')}
     while len(json.dumps(st, ensure_ascii=False, separators=(',', ':')).encode('utf-8')) > STATE_MAX - 100 and st['items']:
@@ -653,7 +694,7 @@ def live_doc(reading, health, clock):
     r = reading
     return {'kind': 'live', 'schema': 1, 'status': 'Reported', 'state': r['stateWord'], 'reason': r['reason'], 'reasonText': r['reasonText'], 'readAt': iso(r['now']), 'readClock': clock, 'listTime': r['listTime'],
             'listAgeH': r['listAgeH'], 'limitH': r['limitH'], 'latest': r['latest'], 'version': r['version'], 'contentHash': r['contentHash'], 'highest': r['highest'], 'hazards': r['hazards'], 'count': r['count'],
-            'colourNotRead': r['colourNotRead'], 'oldListItems': r['oldListItems'], 'rak': r['rak'], 'warnings': r['warnings'], 'droppedExpired': r['droppedExpired'], 'ticker': r['ticker'], 'announcements': r['announcements'],
+            'colourNotRead': r['colourNotRead'], 'oldListItems': r['oldListItems'], 'rak': r['rak'], 'warnings': r['warnings'], 'droppedExpired': r['droppedExpired'], 'droppedItems': r['droppedItems'], 'tickerHazards': r['tickerHazards'], 'ticker': r['ticker'], 'announcements': r['announcements'],
             'stations': r['stations'], 'stationsReason': r['stationsReason'], 'airport': r['airport'], 'rain': r['rain'],
             'health': dict(health, bytes=r['visit'].get('bytes'), requests=r['visit'].get('requests'), aborts=r['visit'].get('aborts'), tilesRead=r['tilesRead'])}
 
@@ -666,17 +707,9 @@ def update_health(prev, reading):
     return {'lastOk': t, 'consecutiveFailures': 0, 'failingSince': None}
 
 
-def fingerprint(reading, health, radar_at):
-    """what counts as a change: a different state, reason, colour, hazard, count, RAK flag, warning, ticker item or rain number. The age of the list and the read time do not."""
-    return short_key(json.dumps({'s': reading['stateWord'], 'r': reading['reason'], 'h': reading['highest'], 'z': reading['hazards'], 'c': reading['count'], 'k': reading['rak'],
-                                 'w': [[i['id'], i['colour'], i['from'], i['to'], i['rak']['status']] for i in reading['warnings']],
-                                 't': sorted(t['key'] for t in (reading.get('tickerAll') or [])), 'a': reading['announcements']['flag'], 'f': health['consecutiveFailures'],
-                                 'n': [reading['rain'][k] and reading['rain'][k]['mm'] for k in ('h1', 'h3', 'h24')], 'o': radar_at}, sort_keys=True, ensure_ascii=False))
-
-
 def new_index():
     return {'schema': 1, 'warnings': {}, 'ticker': {}, 'announcements': {}, 'shapes': {}, 'gaps': [], 'maxAgeH': None, 'alerts': {'day': None, 'count': 0, 'suppressed': 0, 'sent': {}, 'open': {}}, 'lastCommitAt': None,
-            'fingerprint': None, 'lastRadarAt': None, 'archives': []}
+            'lastRadarAt': None, 'archives': []}
 
 
 def _mk_history(events, now, public_key):
@@ -688,9 +721,9 @@ def diff_records(index, reading):
     """Update the public index from this reading and return the history events for the sealed record. An old item is never rewritten: a change is a new event, and an end is a new event.
     A reading that failed proves nothing about what ended, so it ends nothing."""
     ev, t = [], iso(reading['now'])
-    good_list = reading['state'] != 'no_reading' or reading['reason'] == 'ticker_failed'
+    good_list = reading['state'] != 'no_reading' or reading['reason'] in ('ticker_failed', 'list_expired_only')
     wx = index['warnings']
-    for i in reading['warnings']:
+    for i in reading['warnings'] + reading['droppedItems']:             # an expired item is the only item some lists will ever hold: its raw shape is kept all the same
         shape = shape_of(i['raw'])
         known = index['shapes'].setdefault('warning', [])
         if not known:
@@ -699,6 +732,7 @@ def diff_records(index, reading):
         elif shape not in known:
             ev.append({'event': 'shape', 'type': 'warning', 't': t, 'raw': i['raw'], 'note': 'new item shape'})
             known.append(shape)
+    for i in reading['warnings']:
         rec = wx.get(i['id'])
         facts = {'colour': i['colour'], 'hazards': i['hazards'], 'from': i['from'], 'to': i['to'], 'rak': i['rak']['status']}
         if rec is None or rec.get('ended'):
@@ -715,6 +749,11 @@ def diff_records(index, reading):
             if not rec.get('ended') and wid not in now_ids:
                 rec['ended'] = t
                 ev.append({'event': 'ended', 'type': 'warning', 'id': wid, 't': t, 'lastSeen': rec.get('last')})
+        for i in reading['droppedItems']:                               # first seen after its end: kept in the record, flags and all, and it opens no alert
+            if i['id'] not in wx:
+                wx[i['id']] = {'colour': i['colour'], 'hazards': i['hazards'], 'from': i['from'], 'to': i['to'], 'rak': i['rak']['status'], 'first': t, 'last': t, 'ended': t, 'reopened': False, 'expiredOnList': True}
+                ev.append({'event': 'first', 'type': 'warning', 'id': i['id'], 't': t, 'item': i, 'note': 'first seen after its end'})
+                ev.append({'event': 'ended', 'type': 'warning', 'id': i['id'], 't': t, 'lastSeen': t})
     tick = reading.get('tickerAll')
     if tick is not None:
         tx = index['ticker']
@@ -734,7 +773,10 @@ def diff_records(index, reading):
             rec = tx.get(it['key'])
             if rec is None or rec.get('ended'):
                 tx[it['key']] = {'type': it['type'], 'time': it['time'], 'first': t, 'last': t, 'ended': None}
-                ev.append({'event': 'first', 'type': 'ticker', 'key': it['key'], 't': t, 'item': {k: it[k] for k in ('type', 'time', 'en', 'ar')}})
+                e = {'event': 'first', 'type': 'ticker', 'key': it['key'], 't': t, 'item': {k: it[k] for k in ('type', 'time', 'en', 'ar')}}
+                if it.get('odd'):
+                    e['raw'] = it['raw']                                # a type or a time that public files will not carry stays here, sealed
+                ev.append(e)
             else:
                 rec['last'] = t
         keys = {it['key'] for it in tick}
@@ -780,32 +822,47 @@ def _rak_words(status, named):
 
 
 def alert_events(index, reading, health):
-    """What deserves a phone alert now. Worked out from what has been sent, not from what the reader saw before, so an alert whose call failed stays due. Facts only: colour, our own hazard labels, from, to, RAK status, read time."""
+    """What deserves a phone alert now. Worked out from what has been sent, not from what the reader saw before, so an alert whose call failed stays due. Facts only: colour, our own hazard labels, from, to, RAK status, read time.
+    A warning alerts when it is first seen, when its colour rises, when it first touches RAK, when a hazard joins it, and when it comes back after the phone was told it ended; a ticker warning when it is first seen and when it comes
+    back after it left the ticker. A colour not read is rank 0, so any colour read later is a rise. priority: an alert the daily cap never holds back."""
     ev, read, sent = [], fmt_uae(iso(reading['now'])), index['alerts']['sent']
     for i in reading['warnings'] if reading['state'] == 'warning' else []:
-        first = sent.get('w:%s' % i['id'])
-        told = (first or {}).get('colour')
-        for k, r in sent.items():
-            if k.startswith('w:%s:' % i['id']) and RANK.get(r.get('colour'), 0) > RANK.get(told, 0):
-                told = r.get('colour')
-        if first is None:
-            title = 'NCM warning: %s, %s. %s' % (i['colour'], ', '.join(i['hazards']), _rak_words(i['rak']['status'], i['rak']['named']))
-            key = 'w:%s' % i['id']
-        elif told is not None and RANK[i['colour']] > RANK.get(told, 0):
-            title = 'NCM warning rose from %s to %s: %s. %s' % (told, i['colour'], ', '.join(i['hazards']), _rak_words(i['rak']['status'], i['rak']['named']))
-            key = 'w:%s:%s' % (i['id'], i['colour'])
+        wkey, rak = 'w:%s' % i['id'], i['rak']
+        recs = {k: r for k, r in sent.items() if r.get('close') == wkey}
+        told = max([RANK.get(r.get('colour'), 0) for r in recs.values()] or [0])                # a record with no readable colour, or rebuilt from GitHub with none, counts as rank 0
+        told_word = next((c for c, n in RANK.items() if n == told and c != 'none'), 'not read')
+        told_hz = {h for r in recs.values() for h in (r.get('hazards') or [])}
+        where = _rak_words(rak['status'], rak['named'])
+        what = '%s: %s. %s' % (i['colour'], ', '.join(i['hazards']), where)
+        if wkey not in sent:
+            title, key = 'NCM warning: %s, %s. %s' % (i['colour'], ', '.join(i['hazards']), where), wkey
+        elif all(r.get('closed') for r in recs.values()):
+            title, key = 'NCM warning back in force after it ended, %s' % what, 'w:%s:back%d' % (i['id'], 1 + len([k for k in recs if ':back' in k]))
+        elif RANK[i['colour']] > told:
+            title, key = 'NCM warning rose from %s to %s' % (told_word, what), 'w:%s:%s' % (i['id'], i['colour'])
+        elif rak['status'] == 'touched' and not any(r.get('rak', 'touched') == 'touched' for r in recs.values()):      # a record of the first reader holds no rak, and its issue already said what touched
+            title, key = 'NCM warning now touches RAK, %s' % what, 'w:%s:rak' % i['id']
+        elif told_hz and set(i['hazards']) - told_hz:
+            title, key = 'NCM warning changed hazard, %s' % what, 'w:%s:hz:%s' % (i['id'], '+'.join(i['hazards']))
         else:
             continue
-        ev.append({'key': key, 'close': 'w:%s' % i['id'], 'colour': i['colour'], 'title': title,
-                   'lines': [('Colour', i['colour']), ('Hazard', ', '.join(i['hazards'])), ('From', fmt_uae(i['from'])), ('To', fmt_uae(i['to'])), ('RAK', _rak_words(i['rak']['status'], i['rak']['named'])), ('Read', read)]})
+        ev.append({'key': key, 'close': wkey, 'colour': i['colour'], 'hazards': i['hazards'], 'rak': rak['status'], 'priority': rak['status'] != 'not touched' or rak['named'] or i['colour'] == 'red', 'title': title,
+                   'lines': [('Colour', i['colour']), ('Hazard', ', '.join(i['hazards'])), ('From', fmt_uae(i['from'])), ('To', fmt_uae(i['to'])), ('RAK', where), ('Read', read)]})
     for it in reading.get('tickerAll') or []:
-        key = 't:%s' % it['key']
-        if it['type'] != 'news' and key not in sent:
-            ev.append({'key': key, 'close': key, 'title': 'NCM text warning, no colour read. %s' % _rak_words(reading['rak']['status'], reading['rak']['named']),
-                       'lines': [('Colour', 'not read'), ('Hazard', ', '.join(reading['hazards']) or 'not read'), ('Issued', fmt_uae(it['time'])), ('RAK', _rak_words(reading['rak']['status'], reading['rak']['named'])), ('Read', read)]})
+        tkey = 't:%s' % it['key']
+        if it['type'] == 'news':
+            continue
+        recs = {k: r for k, r in sent.items() if r.get('close') == tkey}
+        back = tkey in sent and all(r.get('closed') for r in recs.values())
+        if tkey not in sent or back:
+            # a text warning has no polygon: RAK is not known, or named, for this item, whatever a list warning beside it touches, and the hazard is what its own text may hold
+            where = _rak_words('not known', bool(RAK_WORDS.search((it.get('en') or '') + ' ' + (it.get('ar') or ''))))
+            key = 't:%s:back%d' % (it['key'], 1 + len([k for k in recs if ':back' in k])) if back else tkey
+            ev.append({'key': key, 'close': tkey, 'priority': True, 'title': ('NCM text warning back on the ticker after it left, no colour read. %s' if back else 'NCM text warning, no colour read. %s') % where,
+                       'lines': [('Colour', 'not read'), ('Hazard', ', '.join(text_hazards(it))), ('Issued', fmt_uae(it['time'])), ('RAK', where), ('Read', read)]})
     since = parse_iso(health.get('failingSince'))
     if since and (reading['now'] - since).total_seconds() / 3600.0 >= FAIL_ALERT_H:
-        ev.append({'key': 'fail:%s' % health['failingSince'], 'close': 'fail', 'title': 'NCM reader: no reading for over %d hours' % FAIL_ALERT_H,
+        ev.append({'key': 'fail:%s' % health['failingSince'], 'close': 'fail', 'priority': True, 'title': 'NCM reader: no reading for over %d hours' % FAIL_ALERT_H,
                    'lines': [('State', reading['stateWord']), ('Reason', reading['reason']), ('Since', fmt_uae(health['failingSince'])), ('Last good read', fmt_uae(health.get('lastOk'))), ('Read', read)]})
     return [e for e in ev if e['key'] not in sent]
 
@@ -863,15 +920,16 @@ class Issues:
         r = self.call('POST', '/issues', {'title': title, 'body': body, 'assignees': [OWNER], 'labels': [LABEL]})
         return r.get('number') if isinstance(r, dict) else None
 
-    def close(self, number, note):
-        self.call('POST', '/issues/%d/comments' % number, {'body': note})
-        return self.call('PATCH', '/issues/%d' % number, {'state': 'closed', 'state_reason': 'completed'}) is not None
+    def close(self, number, note, noted=False):
+        """(comment posted, issue closed). A comment reaches the phone, so a close that has to be tried again never posts a second one: noted says the first went out."""
+        noted = noted or self.call('POST', '/issues/%d/comments' % number, {'body': note}) is not None
+        return noted, noted and self.call('PATCH', '/issues/%d' % number, {'state': 'closed', 'state_reason': 'completed'}) is not None
 
 
 def issue_body(ev, last_of_day=False):
     lines = ['@%s' % OWNER, ''] + ['**%s:** %s' % (k, v) for k, v in ev['lines']] + ['', 'Board: %s' % BOARD_URL, '', 'Status: Reported, read by the WM004 NCM reader.']
     if last_of_day:
-        lines += ['', 'This is alert %d of the %d allowed today. Further changes today appear on the board only.' % (ALERTS_PER_DAY, ALERTS_PER_DAY)]
+        lines += ['', 'This is alert %d of the %d allowed today. Further warnings clear of RAK today appear on the board only. A warning that touches RAK or may touch it, any red and a failed reader are still sent.' % (ALERTS_PER_DAY, ALERTS_PER_DAY)]
     lines += ['', '<!-- wm004-ncm key=%s -->' % ev['key']]
     return '\n'.join(lines)
 
@@ -880,7 +938,7 @@ def _close_of(key):
     """the close key of an alert found on GitHub with no record here"""
     if key.startswith('fail:'):
         return 'fail'
-    return ':'.join(key.split(':')[:2])
+    return ':'.join(key.split(':')[:2])            # w:<id> of w:<id>:<colour>, w:<id>:rak and w:<id>:back<n>
 
 
 def run_alerts(index, reading, health, issues, log):
@@ -898,32 +956,30 @@ def run_alerts(index, reading, health, issues, log):
         fresh = [e for e in fresh if e['key'] not in al['sent']]
     done = []
     for e in fresh:
-        if al['count'] >= ALERTS_PER_DAY:
+        if al['count'] >= ALERTS_PER_DAY and not e.get('priority'):
             if e['key'] not in al['suppressedKeys']:
                 al['suppressedKeys'].append(e['key'])
                 al['suppressed'] = len(al['suppressedKeys'])
                 log('alert held back by the daily cap: %s' % e['key'])
             continue
+        if not issues:
+            log('alert due, no token in this run: %s' % e['key'])       # nothing went out, so nothing is recorded as sent: it stays due
+            continue
+        num = issues.open(e['title'], issue_body(e, last_of_day=al['count'] + 1 == ALERTS_PER_DAY))
+        if num is None:
+            log('alert not sent: %s' % e['key'])                        # it stays due at the next run
+            continue
         al['count'] += 1
-        if issues:
-            num = issues.open(e['title'], issue_body(e, last_of_day=al['count'] == ALERTS_PER_DAY))
-            if num is None:
-                al['count'] -= 1            # not sent: it stays due at the next run
-                log('alert not sent: %s' % e['key'])
-                continue
-            log('alert opened: issue %s for %s' % (num, e['key']))
-        else:
-            num = None
-            log('alert due, no token in this run: %s' % e['key'])
-        al['sent'][e['key']] = {'issue': num, 'close': e['close'], 'closed': False, 'colour': e.get('colour')}
+        log('alert opened: issue %s for %s' % (num, e['key']))
+        al['sent'][e['key']] = {'issue': num, 'close': e['close'], 'closed': False, 'colour': e.get('colour'), 'rak': e.get('rak'), 'hazards': e.get('hazards')}
         done.append(e)
     closers = dict(ended_closers(index, reading, health))
     for k, rec in al['sent'].items():
         if rec.get('closed') or rec.get('close') not in closers:
             continue
         if issues and rec.get('issue'):
-            if issues.close(rec['issue'], closers[rec['close']]):
-                rec['closed'] = True
+            rec['noted'], rec['closed'] = issues.close(rec['issue'], closers[rec['close']], bool(rec.get('noted')))
+            if rec['closed']:
                 log('alert closed: issue %s' % rec['issue'])
         elif not rec.get('issue'):
             rec['closed'] = True
@@ -958,14 +1014,42 @@ def write_atomic(p, data):
 
 
 def radar_due(reading, index, now):
-    wet = reading['state'] in ('warning', 'text_warning') or any((reading['rain'][k] or {}).get('mm') for k in ('h1', 'h3'))
+    wet = (reading['state'] == 'warning' and reading['rak']['status'] != 'not touched') or reading['state'] == 'text_warning' or any((reading['rain'][k] or {}).get('mm') for k in ('h1', 'h3'))
     if not wet:
         return False
     last = parse_iso(index.get('lastRadarAt'))
     return last is None or (now - last).total_seconds() / 60.0 >= RADAR_EVERY_MIN
 
 
-def step(capture, folder, public_key, places, now, clock, issues=None, radar_fn=None, force_commit=False, limit_h=LIMIT_H, history_max=HISTORY_MAX, log=print):
+def step(capture, folder, public_key, places, now, clock, issues=None, radar_fn=None, limit_h=LIMIT_H, history_max=HISTORY_MAX, log=print):
+    """One run. A fault in this script must not leave the last reading standing as if it were current, because the last reading may be NO WARNING IN FORCE: a run that cannot finish writes NO READING with the reason, keeps
+    the sealed record it holds and exits 0, as every other failed read does. If even that cannot run, a short state is written with no help from the record."""
+    try:
+        return _step(capture, folder, public_key, places, now, clock, issues, radar_fn, limit_h, history_max, log)
+    except Exception as e:
+        kind = type(e).__name__                 # the name only: the message of an error can carry a value of NCM's reply
+        log('reader fault, written as NO READING: %s' % kind)
+    try:
+        return _step({'fault': kind, 'tiles': {}}, folder, public_key, places, now, clock, issues, None, limit_h, history_max, log)
+    except Exception as e:
+        log('reader fault in the fallback, short state written: %s' % type(e).__name__)
+    prior = read_json_file(os.path.join(folder, 'ncm_state.json'))
+    prior = prior if isinstance(prior, dict) else {}
+    was = prior.get('health') if isinstance(prior.get('health'), dict) else {}
+    try:
+        fails = int(was.get('consecutiveFailures') or 0) + 1
+    except (TypeError, ValueError):
+        fails = 1
+    health = {'lastOk': was.get('lastOk') if isinstance(was.get('lastOk'), str) else None, 'consecutiveFailures': fails, 'failingSince': was.get('failingSince') if isinstance(was.get('failingSince'), str) else iso(now)}
+    st = {'schema': 1, 'status': 'Reported', 'source': 'NCM reader on GitHub Actions', 'state': 'NO READING', 'reason': 'reader_fault', 'reasonText': 'the reader stopped on a fault of its own (%s), so nothing from this run can be stated' % kind,
+          'readAt': iso(now), 'readClock': clock, 'listTime': None, 'listAgeH': None, 'limitH': limit_h, 'highest': 'not read', 'hazards': [], 'count': 0, 'colourNotRead': 0, 'oldListItems': 0, 'tickerRead': False, 'tickerFailed': 'not read in this run',
+          'tickerNotNews': 0, 'tickerHazards': [], 'expiredOnList': 0, 'announcements': 0, 'rak': {'status': 'not known', 'named': False, 'city': None, 'units': []}, 'items': [], 'itemsMore': 0,
+          'rain': {'h1': None, 'h3': None, 'h24': None, 'stationsRead': 0, 'stationsExpected': 14, 'missing': [], 'note': RAIN_NOTE}, 'health': health, 'live': True, 'radarAt': prior.get('radarAt') if isinstance(prior.get('radarAt'), str) else None}
+    write_atomic(os.path.join(folder, 'ncm_state.json'), json.dumps(st, ensure_ascii=False, separators=(',', ':')).encode('utf-8'))
+    return {'commit': True, 'reading': {'stateWord': 'NO READING'}, 'events': [], 'summary': {'state': 'NO READING', 'reason': 'reader_fault'}, 'state': st}
+
+
+def _step(capture, folder, public_key, places, now, clock, issues, radar_fn, limit_h, history_max, log):
     """Everything after the visit. Pure apart from the files in folder and the calls on issues, so the whole of it runs in the tests with no network."""
     p = lambda n: os.path.join(folder, n)
     prior_state = read_json_file(p('ncm_state.json')) or {}
@@ -996,23 +1080,13 @@ def step(capture, folder, public_key, places, now, clock, issues=None, radar_fn=
             else:
                 radar_at = iso(now)
                 index['lastRadarAt'] = radar_at
-    fp = fingerprint(reading, health, radar_at)
-    last = parse_iso(index.get('lastCommitAt'))
-    age_min = (now - last).total_seconds() / 60.0 if last else None
-    changed = fp != index.get('fingerprint') or bool(events)
     fired = run_alerts(index, reading, health, issues, log)
-    alerts_changed = bool(fired) or any(True for r in index['alerts']['sent'].values() if r.get('closed') and not r.get('closeLogged'))
-    for r in index['alerts']['sent'].values():
-        if r.get('closed'):
-            r['closeLogged'] = True
-    commit = force_commit or changed or alerts_changed or age_min is None or age_min >= HEARTBEAT_MIN
     summary = {'read': iso(now), 'clock': clock, 'state': reading['stateWord'], 'reason': reading['reason'], 'latest': reading['latest'], 'generated_at': reading['listTime'], 'ageH': reading['listAgeH'], 'count': reading['count'],
                'highest': reading['highest'], 'rak': reading['rak']['status'], 'failures': health['consecutiveFailures'], 'bytes': reading['visit'].get('bytes'), 'decoded': reading['visit'].get('decoded'),
-               'requests': reading['visit'].get('requests'), 'aborted': reading['visit'].get('aborted'), 'commit': bool(commit), 'events': len(events), 'alerts': len(fired)}
+               'requests': reading['visit'].get('requests'), 'aborted': reading['visit'].get('aborted'), 'commit': True, 'events': len(events), 'alerts': len(fired)}
     log('NCM ' + json.dumps(summary, ensure_ascii=False))
-    if not commit:
-        return {'commit': False, 'reading': reading, 'events': events, 'summary': summary}
-    index['fingerprint'], index['lastCommitAt'] = fp, iso(now)
+    # every visit is committed. too_soon measures the spacing from readAt, and a visit that left no trace let the next start visit again minutes later (independent review, L1). It also keeps the read age what it says it is.
+    index['lastCommitAt'] = iso(now)
     # the sealed reading: on a failed read the last good reading is copied unopened as frame 2
     frame1 = C.seal(json.dumps(live_doc(reading, health, clock), ensure_ascii=False, separators=(',', ':')).encode('utf-8'), public_key)
     live = C.frame(frame1)
@@ -1040,8 +1114,7 @@ def step(capture, folder, public_key, places, now, clock, issues=None, radar_fn=
             index['archives'].append(archive)
             index['ticker'] = {k: v for k, v in index['ticker'].items() if not v.get('ended')}
             hist = head
-        with open(p('ncm_history.enc'), 'wb') as f:
-            f.write(hist + new)
+        write_atomic(p('ncm_history.enc'), hist + new)
     if radar_blob:
         write_atomic(p('ncm_radar.enc'), radar_blob)
     state = public_state(reading, health, radar_at, clock)
@@ -1207,7 +1280,28 @@ def clock_of(cap):
     t = http_date(cap.get('docDate'))
     if t:
         return t, 'NCM Date header'
+    if any(cap.get(k) for k in ('list', 'areas', 'tickers', 'aws', 'docDate')):
+        cap['noDate'] = True                    # replies came and none carried a date this reader can read: the age of the list cannot be taken, and the local clock is never used for it (judge says NO READING)
+        return dt.datetime.now(dt.timezone.utc), 'runner clock, the replies of NCM had no Date header'
     return dt.datetime.now(dt.timezone.utc), 'runner clock, no NCM reply'
+
+
+def by_hand():
+    """a person pressed Run workflow. The clock (wm004-clock.yml) starts this job with workflow_dispatch too, as github-actions[bot], and that is a scheduled run: it keeps the spacing."""
+    who = (os.environ.get('GITHUB_TRIGGERING_ACTOR') or os.environ.get('GITHUB_ACTOR') or '').lower()
+    return os.environ.get('GITHUB_EVENT_NAME') == 'workflow_dispatch' and '[bot]' not in who and who != 'github-actions'
+
+
+def too_soon(folder, flags):
+    """minutes since the last read when that is under the spacing, else None. A run started by hand is never held back. This is the one use of the machine clock: it decides whether to visit, and no reading is stamped with it."""
+    if by_hand() or '--any-time' in flags:
+        return None
+    st = read_json_file(os.path.join(folder, 'ncm_state.json'))
+    t = parse_iso(st.get('readAt')) if isinstance(st, dict) else None
+    if t is None:
+        return None
+    age = (dt.datetime.now(dt.timezone.utc) - t).total_seconds() / 60.0
+    return age if 0 <= age < MIN_SPACING_MIN else None
 
 
 def main(argv=None):
@@ -1219,6 +1313,14 @@ def main(argv=None):
         del argv[i:i + 2]
     flags = {a for a in argv if a.startswith('--')}
     folder = next((a for a in argv if not a.startswith('--')), 'wm004')
+    gap = too_soon(folder, flags)
+    if gap is not None:
+        print('NCM not visited: the last read is %.1f minutes old, under the %d minute spacing' % (gap, MIN_SPACING_MIN))
+        gh = os.environ.get('GITHUB_OUTPUT')
+        if gh:
+            with open(gh, 'a') as f:
+                f.write('commit=no\nstate=not_visited\n')
+        return 0
     pem = read_bytes(pub_path or os.path.join(folder, 'ncm_pub.txt')) or read_bytes(os.path.join(folder, 'ncm_pub.pem'))
     if not pem:
         print('READER CANNOT WRITE: ncm_pub.txt is missing in %s' % folder)
@@ -1242,7 +1344,7 @@ def main(argv=None):
         if still:
             write_atomic(os.path.join(folder, 'ncm_radar.enc'), C.frame(C.seal(json.dumps({'kind': 'radar', 'schema': 1, 'status': 'Reported', 'readAt': iso(now), 'frameTime': still['frameTime'], 'mime': still['mime'],
                                                                                           'b64': base64.b64encode(still['data']).decode('ascii')}, separators=(',', ':')).encode('utf-8'), public_key)))
-    res = step(cap, folder, public_key, places, now, clock, issues=issues, radar_fn=radar_fn, force_commit='--force-commit' in flags)
+    res = step(cap, folder, public_key, places, now, clock, issues=issues, radar_fn=radar_fn)
     if issues and issues.errors:
         print('issue calls that failed, the reading stands:', issues.errors[:5])
     gh = os.environ.get('GITHUB_OUTPUT')
