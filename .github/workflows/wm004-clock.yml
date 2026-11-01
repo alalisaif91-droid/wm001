@@ -1,5 +1,7 @@
-# WM004 clock (Saif, 1 Nov 2026: every 30 minutes, and the team starts on it). GitHub's own schedule fired about 1 time in 10 on the feed, so the reader and the feed cannot rest on it.
-# This job waits in the environment wm004-wait, whose wait timer of 28 minutes holds no runner, then starts the NCM reader and the rain feed, then starts itself again.
+# WM004 clock (the owner, 1 Nov 2026: every 30 minutes, and the team starts on it). GitHub's own schedule fired about 1 time in 10 on the feed, so the reader and the feed cannot rest on it.
+# This job waits in the environment wm004-wait, whose wait timer of 28 minutes holds no runner, then starts itself again, the NCM reader, the rain feed and the site keeper. A tick takes about 3 minutes, so a read comes about every 31 minutes.
+# The reader and the feed start 100 seconds apart: two commits seconds apart made the last Pages deploy fail, and the site stayed an hour behind main on 1 Nov 2026. The site keeper (wm004-site.yml) repairs any deploy that still fails.
+# The next tick starts first, so a fault later in this job cannot break the chain.
 # No outside service and no token: the workflow token may start a workflow_dispatch. The concurrency group keeps one tick running and at most one waiting, so the ticks cannot multiply.
 # The schedule below only restarts the chain if a tick ever fails. To stop the clock: disable this workflow in the Actions tab, or delete this file.
 name: WM004 clock
@@ -20,12 +22,19 @@ jobs:
   tick:
     runs-on: ubuntu-latest
     environment: wm004-wait
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
-      - name: Start the reader, the feed and the next tick
+      - name: Start the next tick
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run wm004-clock.yml --repo "$GITHUB_REPOSITORY" --ref main
+      - name: Start the reader, the feed and the site keeper
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh workflow run wm004-ncm.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "the reader did not start"
+          sleep 100
           gh workflow run wm004-feed.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "the feed did not start"
-          gh workflow run wm004-clock.yml --repo "$GITHUB_REPOSITORY" --ref main
+          sleep 75
+          gh workflow run wm004-site.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "the site keeper did not start"
