@@ -1,17 +1,23 @@
 {
  "level": "none",
- "text": "NCM reading of 2026-10-31 07:42: none for rain.",
- "source": "https://mobile.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-10-31 07:42",
+ "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+ "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
+ "asof": "2026-11-01 08:35",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "rain"
+  "rain",
+  "fog",
+  "dust",
+  "wind"
  ],
- "ageHours": 0.3,
- "id": "NCM-20261031-002",
- "writtenAt": "2026-10-31 08:00"
+ "areas": "all areas",
+ "ageHours": 0.4,
+ "id": "NCM-20261101-003",
+ "by": "engine",
+ "auto": true,
+ "writtenAt": "2026-11-01 09:00"
 }
