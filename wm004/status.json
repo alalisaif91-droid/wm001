@@ -1,10 +1,10 @@
 {
- "written": "2026-11-02 00:00",
+ "written": "2026-11-02 01:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-02 00:00",
+ "feedAsof": "2026-11-02 01:00",
  "modelLevel": "none",
  "worstMax6": 1.3,
  "thresholds": {
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-01 23:47",
+  "captured": "2026-11-02 00:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -129,22 +129,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 2.6,
+  "ageHours": 3.6,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 8.8,
+  "warningsAgeHours": 9.9,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-01 23:35",
-  "lastGoodAsof": "2026-11-01 23:35",
+  "lastRun": "2026-11-02 00:20",
+  "lastGoodAsof": "2026-11-02 00:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 8.4
+  "ncmWarningsReadingAgeHours": 9.2
  }
 }
