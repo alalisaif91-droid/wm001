@@ -1227,6 +1227,8 @@ def main(argv=None):
     places = load_places()
     try:
         cap = visit(aborts='--plain' not in flags)
+        if cap.get('aborts') and not cap.get('refused') and ('list' not in cap or 'areas' not in cap):
+            cap = visit(aborts=False, limit_s=60)   # 1 Nov 2026: on the runner the warning files did not come with pictures skipped: one plain, ordinary visit in the same run
     except Exception as e:              # a visit that dies is NO READING, never a run that leaves the last reading standing as if it were current
         cap = {'failed': scrub(e, 120), 'tiles': {}}
     now, clock = clock_of(cap)
