@@ -293,7 +293,7 @@ class Ncm(Folder):
         return self.doc()['ncm']
 
     def test_fresh_reading_is_aged_now_and_nothing_is_in_force(self):
-        n = self.ncm_after(READING)
+        n = AC.refresh_ncm(dict(READING), NOW)
         self.assertEqual(n['ageHours'], 4.5, 'the age is worked out at the run, never the 0.0 that ncm.json carries')
         self.assertIs(n['stale'], False)
         self.assertEqual(n['level'], 'none')
@@ -339,9 +339,11 @@ class Ncm(Folder):
     def test_pending_page_colour_for_fog_only_keeps_a_fresh_rain_colour(self):
         blk = dict(READING, levels={'rain': 'yellow', 'fog': 'none', 'dust': 'none'}, level='yellow',
                    pageShows={'pending': True, 'since': '2026-10-29 03:20', 'pendingHazards': ['fog']})
-        n = self.ncm_after(blk)
+        n = AC.refresh_ncm(dict(blk), NOW)
         self.assertEqual(n['level'], 'yellow')
         self.assertEqual(n['levels'], {'rain': 'yellow', 'fog': 'unknown', 'dust': 'none'})
+        n = self.ncm_after(blk)                    # the run itself has no reader file here: the none beside the colour is stopped, and the colour stands
+        self.assertEqual(n['levels'], {'rain': 'yellow', 'fog': 'unknown', 'dust': 'unknown'})
 
     def test_reading_with_no_stamp_or_a_stamp_ahead_of_the_clock_is_stale(self):
         for asof in (None, '2026-10-29 09:00', 'yesterday'):
@@ -445,6 +447,91 @@ class Reader(Folder):
         self.assertNotIn('text_en', json.dumps(n))
 
 
+class ReaderDown(Folder):
+    """independent review, F2: a reader gone silent, or whose last word is NO READING, cannot stand beside a calm word from the laptop. A colour stands; a none a person logged in the last 3 hours stands."""
+
+    def after(self, block, state=None):
+        self.put('ncm.json', block)
+        if state is not None:
+            self.put('ncm_state.json', state)
+        code, out = self.run_main(lambda la, lo: reply(NOW), now=NOW)
+        self.assertEqual(code, 0, out)
+        return self.doc()['ncm']
+
+    AUTO = dict(READING, asof='2026-10-29 05:50', by='engine', auto=True, levels={'rain': 'none', 'fog': 'none', 'dust': 'none'}, text='own words')
+
+    def test_automatic_none_beside_a_silent_reader_is_unknown_and_stale(self):
+        for name, state in (('no reader file', None), ('silent 2 hours', reader_state(read='2026-10-29T00:20:00Z')), ('silent 20 hours', reader_state(read='2026-10-28T06:20:00Z'))):
+            n = self.after(self.AUTO, state)
+            self.assertEqual((n['level'], n['stale']), ('unknown', True), name)
+            self.assertEqual(set(n['levels'].values()), {'unknown'}, name)
+            self.assertIn('No current NCM reading', n['text'], name)
+            os.remove(self.out)
+            if state is not None:
+                os.remove(os.path.join(self.dir, 'ncm_state.json'))
+
+    def test_auto_true_alone_is_enough(self):
+        n = self.after(dict(self.AUTO, by='live reader'), reader_state(read='2026-10-29T00:20:00Z'))
+        self.assertEqual(n['level'], 'unknown')
+
+    def test_a_none_a_person_logged_under_3_hours_ago_stands(self):
+        n = self.after(dict(READING, asof='2026-10-29 05:00', by='manual', levels={'rain': 'none', 'fog': 'none', 'dust': 'none'}))
+        self.assertEqual((n['level'], n['stale']), ('none', False))
+
+    def test_a_none_a_person_logged_over_3_hours_ago_is_unknown(self):
+        n = self.after(dict(READING, asof='2026-10-29 02:50', by='manual', levels={'rain': 'none', 'fog': 'none', 'dust': 'none'}))
+        self.assertEqual((n['level'], n['stale']), ('unknown', True))
+
+    def test_a_colour_stands_and_only_the_none_beside_it_goes(self):
+        n = self.after(dict(READING, level='orange', asof='2026-10-29 02:50', by='engine', levels={'rain': 'orange', 'fog': 'none'}))
+        self.assertEqual((n['level'], n['levels']['fog']), ('orange', 'unknown'))
+
+    def test_the_last_word_no_reading_gives_unknown_from_the_reader_block(self):
+        n = self.after(self.AUTO, reader_state('NO READING', reason='refused', highest='not read'))
+        self.assertEqual((n['level'], n['stale'], n['by']), ('unknown', True, 'live reader'))
+
+
+class ReaderHazards(Folder):
+    """independent review, F3, F4, F5: a hazard the list cannot answer for is unknown, never none"""
+    FOG = {'id': '1', 'colour': 'orange', 'hazards': ['fog'], 'from': None, 'to': None, 'rak': 'not touched', 'named': False}
+    ODD = {'id': '2', 'colour': 'red', 'hazards': ['other'], 'from': None, 'to': None, 'rak': 'touched', 'named': False}
+
+    def block(self, st):
+        b = AC.reader_block(st, NOW)
+        self.assertIsNotNone(b)
+        return b
+
+    def st(self, items, **kw):
+        return reader_state('WARNING', highest='orange', count=len(items), items=items, reason='list_items', **kw)
+
+    def test_a_read_ticker_answers_for_a_hazard_with_no_item(self):
+        self.assertEqual(self.block(self.st([self.FOG], tickerRead=True, tickerNotNews=0))['levels'], {'rain': 'none', 'fog': 'none', 'dust': 'none'})
+
+    def test_f3_a_ticker_warning_opens_the_hazards_it_may_hold(self):
+        b = self.block(self.st([self.FOG], tickerRead=True, tickerNotNews=1, tickerHazards=['rain']))
+        self.assertEqual(b['levels'], {'rain': 'unknown', 'fog': 'none', 'dust': 'none'})
+
+    def test_f3_a_ticker_warning_with_no_hazard_read_opens_all_three(self):
+        for hz in ([], ['other']):
+            b = self.block(self.st([self.FOG], tickerRead=True, tickerNotNews=1, tickerHazards=hz))
+            self.assertEqual(set(b['levels'].values()), {'unknown'}, hz)
+
+    def test_f4_a_failed_ticker_leaves_every_hazard_with_no_item_unknown(self):
+        b = self.block(self.st([dict(self.FOG, rak='touched')], tickerRead=False))
+        self.assertEqual(b['levels'], {'rain': 'unknown', 'fog': 'orange', 'dust': 'unknown'})
+
+    def test_f5_hazard_other_that_may_touch_rak_is_not_none(self):
+        for rak, named in (('touched', False), ('not known', False), ('not touched', True)):
+            b = self.block(self.st([dict(self.ODD, rak=rak, named=named)], tickerRead=True))
+            self.assertEqual(set(b['levels'].values()), {'unknown'}, rak)
+        b = self.block(self.st([dict(self.ODD, rak='not touched')], tickerRead=True))
+        self.assertEqual(set(b['levels'].values()), {'none'})
+
+    def test_every_note_says_30_minutes(self):
+        self.assertIn('every 30 minutes', self.block(self.st([self.FOG], tickerRead=True))['note'])
+        self.assertEqual(AC.WRITER, 'GitHub Actions, every 30 minutes')
+
+
 class Refused(Folder):
     def block(self, extra):
         self.put('ncm.json', dict(READING, **extra))
@@ -454,8 +541,10 @@ class Refused(Folder):
 
     def test_a_refusal_makes_the_hazards_it_names_unknown_and_the_block_stale(self):
         n = self.block({'level': 'yellow', 'levels': {'rain': 'yellow', 'fog': 'none'}, 'refused': {'open': [{'at': '2026-10-29 05:00', 'level': 'red', 'hazard': 'rain', 'pendingHazards': ['rain']}], 'note': 'x'}})
-        self.assertEqual((n['stale'], n['level'], n['levels']['fog'], n['levelAtReading']), (True, 'unknown', 'none', 'yellow'))
+        self.assertEqual((n['stale'], n['level'], n['levels']['fog'], n['levelAtReading']), (True, 'unknown', 'unknown', 'yellow'))     # no reader file in this run: an old none is no reading
         self.assertIn('refused', n['note'])
+        n = AC.refresh_ncm(dict(READING, level='yellow', levels={'rain': 'yellow', 'fog': 'none'}, refused={'open': [{'at': '2026-10-29 05:00', 'level': 'red', 'hazard': 'rain', 'pendingHazards': ['rain']}], 'note': 'x'}), NOW)
+        self.assertEqual((n['stale'], n['level'], n['levels']['fog'], n['levelAtReading']), (True, 'unknown', 'none', 'yellow'))
 
     def test_unreadable_refused_lines_make_every_hazard_unknown(self):
         n = self.block({'refused': {'open': [], 'unreadableLines': 2}})

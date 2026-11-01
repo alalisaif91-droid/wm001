@@ -6,7 +6,7 @@ shape the console and the website card read. A model forecast, not a warning. Py
 Rules: fewer than 6 of the 8 points read = write nothing and exit 1 (the workflow then fails visibly and GitHub e-mails the owner); the last good file stays.
 A feed written in the last 20 minutes is fresh enough and the run does nothing, unless FEED_FORCE=1.
 The NCM reading is not read here: it comes from wm004/ncm_state.json (the NCM live reader, every 30 minutes) when that is under 90 minutes old, else from wm004/ncm.json, written from the department laptop when a reading
-is logged. The block says which (via). Facts only: no sentence of NCM reaches this file.
+is logged. The block says which (via). With the reader silent or failed, a none that was automatic, or that a person logged over 3 hours ago, is no reading, never calm. Facts only: no sentence of NCM reaches this file.
 Usage: python3 wm004/weather_feed_action.py wm004/weather.json
 
 28 Oct 2026 (second audit of the weather channel, CLOUD-FEED): this is the file the hosted console loads (wm001-site wm004/weather.json), and it still had the four faults that
@@ -33,7 +33,11 @@ weather_feed_legacy.py lost on the laptop (F05, F07, LEGACY-1). Fixed here, the 
   *  reader_block: the ncm block is built from wm004/ncm_state.json when it is under 90 minutes old. In force is known there, so levelInForce and inForce are stated. NO READING and TEXT WARNING give unknown, never none.
   *  FEED-REFUSED-NOTE-INTERNAL-NAMES: refused.note, the words of a refused reading and by pass through public_text or by_role, so no internal name reaches the public feed.
   *  HOSTED-NCM-DROPS-REFUSAL: a typed reading the log refused travels in ncm.json, and refresh_ncm makes the block stale and the hazards it names unknown.
-Status (30 Oct 2026): staged in rain emergency/_build/site_feed; deployment is in site_ncm/DEPLOY.md.
+1 Nov 2026 (independent review of the reader):
+  *  F2: a reader gone silent, or whose last word is NO READING, left this file saying level none, stale false, up to 24 hours later, from the laptop reading underneath it. refresh_ncm now takes reader_down, and a none that was
+     automatic (by engine, or auto in ncm.json) or is over 3 hours old is unknown and stale. The limit is the console's (WX_CURRENT_H in wx3/core.js). A colour stands: only a calm word is stopped.
+  *  F3, F4, F5: reader_block gives unknown for a hazard the list cannot answer: a ticker warning beside the list, a ticker not read, a warning of hazard other that may touch RAK. A hazard not read is not none.
+Status (1 Nov 2026): staged in rain emergency/_build/site_feed; deployment is in site_ncm/DEPLOY.md.
 The workflow does not change. The tests are wm001-site/wm004/test_weather_feed_action.py (python3 -m unittest, no network)."""
 import json, sys, os, re, datetime, urllib.request, urllib.parse, time
 from concurrent.futures import ThreadPoolExecutor, wait
@@ -47,6 +51,7 @@ WINDOW_H = 72
 FORECAST_DAYS = 4                              # 4 days from midnight hold at least 73 hours from any hour of the day
 NCM_STALE_H = 24                               # the same limit as ncm_log.ncm_block on the laptop
 READER_FRESH_MIN = 90                          # ncm_state.json older than this gives way to ncm.json
+NCM_CURRENT_H = 3                              # beside a reader with nothing fresh, a none a person logged stands this long: the limit of WX_CURRENT_H in wx3/core.js
 NCM_PAGE = 'https://www.ncm.gov.ae/maps-warnings?lang=en'
 FRESH_MIN = 20                                 # a feed written this many minutes ago is fresh enough (the triggers do not pile up commits)
 WRITER = 'GitHub Actions, every 30 minutes'
@@ -173,7 +178,8 @@ def _utc_as_uae(s):
 
 def reader_block(st, now):
     """The ncm block from wm004/ncm_state.json, or None when that file is missing, in another shape or 90 minutes old or more. Facts only. A warning counts for a hazard unless it is known not to touch RAK, the same rule as the
-    NCM log. TEXT WARNING and NO READING say unknown, never none: a failed read must not look calm."""
+    NCM log. TEXT WARNING and NO READING say unknown, never none: a failed read must not look calm. Beside a WARNING, none needs the hazard to have been answered: a ticker warning, a ticker that was not read or a warning of
+    hazard other that may touch RAK leaves it unknown (SCHEMA.md section 8: none for a hazard needs the list and the ticker read)."""
     if not isinstance(st, dict) or st.get('state') not in ('WARNING', 'TEXT WARNING', 'NO WARNING IN FORCE', 'NO READING'):
         return None
     read = _utc_as_uae(st.get('readAt'))
@@ -186,12 +192,20 @@ def reader_block(st, now):
     items = [x for x in (st.get('items') or []) if isinstance(x, dict)]
     counts = [x for x in items if x.get('rak') != 'not touched' or x.get('named')]
     keys = list(HAZARDS)
+    tick_hz = [h for h in (st.get('tickerHazards') or []) if isinstance(h, str)]
+    open_hz = set()
+    if st.get('tickerRead') is False or any('other' in (x.get('hazards') or []) for x in counts):
+        open_hz = set(keys)
+    if st.get('tickerNotNews'):
+        open_hz |= set(keys) if ('other' in tick_hz or not tick_hz) else set(tick_hz)
 
     def top(rows, h):
         cols = [x.get('colour') for x in rows if h in (x.get('hazards') or [])]
         if 'not read' in cols:
             return 'unknown'
-        return max(cols, key=NCM_LEVELS.index) if cols else 'none'
+        if cols:
+            return max(cols, key=NCM_LEVELS.index)
+        return 'unknown' if h in open_hz else 'none'
     if state == 'NO WARNING IN FORCE':
         levels = {h: 'none' for h in keys}
         now_levels = dict(levels)
@@ -211,14 +225,14 @@ def reader_block(st, now):
     return {'level': levels['rain'], 'levels': levels, 'levelAtReading': levels['rain'], 'levelsAtReading': dict(levels), 'levelInForce': now_levels['rain'], 'levelsInForce': now_levels,
             'inForce': [x.get('id') for x in started] if state == 'WARNING' and levels['rain'] != 'unknown' else [], 'upcoming': [x.get('id') for x in counts if (_utc_as_uae(x.get('from')) or now) > now] if state == 'WARNING' else [],
             'text': text, 'source': NCM_PAGE, 'via': 'NCM live reader on GitHub Actions, wm004/ncm_state.json', 'asof': read.strftime('%Y-%m-%d %H:%M'), 'ageHours': round(max(0.0, age_min) / 60.0, 2), 'hazard': hz, 'id': None,
-            'stale': state == 'NO READING', 'by': 'live reader', 'kind': 'warning', 'refreshed': now.strftime('%Y-%m-%d %H:%M'),
+            'stale': state == 'NO READING', 'by': 'live reader', 'auto': True, 'kind': 'warning', 'refreshed': now.strftime('%Y-%m-%d %H:%M'),
             'reader': {'state': state, 'reason': st.get('reason'), 'highest': st.get('highest'), 'count': st.get('count'), 'rak': rak.get('status'), 'named': rak.get('named'), 'city': rak.get('city'), 'listAgeH': st.get('listAgeH'),
                        'limitH': st.get('limitH'), 'tickerRead': st.get('tickerRead'), 'health': st.get('health'), 'status': 'Reported'},
-            'note': 'the colours are those of the NCM live reader at %s; it reads the list and the ticker every 15 minutes' % read.strftime('%Y-%m-%d %H:%M')}
+            'note': 'the colours are those of the NCM live reader at %s; it reads the list and the ticker every 30 minutes' % read.strftime('%Y-%m-%d %H:%M')}
 
 
-def refresh_ncm(n, now):
-    """The ncm block as it stands at `now` (CLOUD-FEED 3 and 4). What the laptop wrote (ncm.json, or the block of the previous run) says what the reading SAID at its stamp; how old it is, whether it
+def refresh_ncm(n, now, reader_down=None):
+    """The ncm block as it stands at `now` (CLOUD-FEED 3 and 4). reader_down, when given, says why the live reader has nothing fresh: a none that was automatic or is over NCM_CURRENT_H hours old is then no reading. What the laptop wrote (ncm.json, or the block of the previous run) says what the reading SAID at its stamp; how old it is, whether it
     is stale and what is in force are worked out again here, at this run, from the stamp. This script cannot read the NCM log (it is on the laptop), so it never claims that a colour is in force now:
     levelInForce and levelsInForce are unknown and inForce is empty. A block that already passed through here is read from what it kept of the reading (levelAtReading, levelsAtReading)."""
     n = dict(n or {})
@@ -255,6 +269,13 @@ def refresh_ncm(n, now):
         n['levels'] = {h: ('unknown' if (h in pend or v not in NCM_LEVELS) else v) for h, v in lv.items()}
         for h in pend:
             n['levels'][h] = 'unknown'
+    auto = by_role(n.get('by')) == 'engine' or bool(n.get('auto'))
+    calm_stopped = bool(reader_down) and (auto or age is None or age > NCM_CURRENT_H) and (n['level'] == 'none' or 'none' in n['levels'].values())
+    if calm_stopped:
+        n['level'] = 'unknown' if n['level'] == 'none' else n['level']
+        n['levels'] = {h: ('unknown' if v == 'none' else v) for h, v in n['levels'].items()}
+        n['stale'] = True
+        n['text'] = 'No current NCM reading: %s. The last logged reading is %s.' % (reader_down, ('%.1f h old' % age) if age is not None else 'of unknown age')
     n['levelInForce'] = 'unknown'
     n['levelsInForce'] = {h: 'unknown' for h in keys}
     n['inForce'] = []
@@ -276,9 +297,9 @@ def refresh_ncm(n, now):
         n['by'] = by_role(n['by'])
     n.setdefault('via', 'laptop reading, wm004/ncm.json')
     n['refreshed'] = now.strftime('%Y-%m-%d %H:%M')
-    n['note'] = ('the colours are those of the reading at %s, %s; this feed cannot read the NCM log, so nothing is claimed to be in force now%s%s'
+    n['note'] = ('the colours are those of the reading at %s, %s; this feed cannot read the NCM log, so nothing is claimed to be in force now%s%s%s'
                  % (n.get('asof') or 'an unknown time', ('%.1f h old' % age) if age is not None else 'age unknown', '; the NCM warnings page shows a colour nobody has logged' if page_pending else '',
-                    '; a reading typed at the weather desk was refused by the log' if refused else ''))
+                    '; a reading typed at the weather desk was refused by the log' if refused else '', ('; %s, so a none here is no reading' % reader_down) if calm_stopped else ''))
     return n
 
 
@@ -313,10 +334,13 @@ def main(argv=None, fetcher=None, now=None):
             ncm = n2
     except Exception:
         pass
-    live_block = None
+    live_block, down = None, 'the NCM reader file could not be read'
     try:
         with open(os.path.join(folder, 'ncm_state.json'), encoding='utf-8') as f:
-            live_block = reader_block(json.load(f), now)
+            st = json.load(f)
+        live_block = reader_block(st, now)
+        if live_block is None:
+            down = 'the NCM reader has been silent for over %d minutes' % READER_FRESH_MIN
     except Exception:
         pass
     ex = ThreadPoolExecutor(max_workers=len(POINTS))
@@ -332,7 +356,7 @@ def main(argv=None, fetcher=None, now=None):
     level = 'high' if worst >= THRESH6['high'] else ('watch' if worst >= THRESH6['watch'] else 'none')
     out = {'asof': now.strftime('%Y-%m-%d %H:%M'), 'tz': 'Asia/Dubai', 'source': 'Open-Meteo best match model (ECMWF and others), model forecast, not an official warning',
            'writer': WRITER, 'thresholds': THRESH6, 'modelLevel': level, 'worstMax6': round(worst, 1), 'pointsRead': len(got), 'pointsTotal': len(POINTS),
-           'unreadPoints': [x['name'] for x in pts if 'error' in x], 'windowHours': WINDOW_H, 'points': pts, 'ncm': live_block or refresh_ncm(ncm, now)}
+           'unreadPoints': [x['name'] for x in pts if 'error' in x], 'windowHours': WINDOW_H, 'points': pts, 'ncm': live_block or refresh_ncm(ncm, now, down)}
     tmp = out_path + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)

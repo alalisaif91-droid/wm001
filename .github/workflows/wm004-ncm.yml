@@ -5,7 +5,7 @@
 # A failed read is not a failed run: it is written as NO READING. The run itself fails only if nothing can be written or pushed, and then GitHub e-mails the owner.
 # A run from the schedule or a push makes no visit when the last read is under 10 minutes old (the laptop's hourly push falls near the :02 cron); a run started by hand always visits.
 # It never retriggers itself: a push made with the workflow token starts no workflow, and the paths below leave out everything the job writes.
-# It commits only when something changed or the last commit is 25 minutes old, which is every run: GitHub Pages allows about 10 builds an hour, and the feed and the laptop card use some of them.
+# Every visit commits, because the spacing is measured from the read time in the state file: about 2 commits an hour, 3 when the laptop's push starts a run. GitHub Pages allows about 10 builds an hour, and the feed and the laptop card use some of them.
 # The minutes avoid the hour, when GitHub's schedule is busiest, and the feed at 7 and 37.
 name: WM004 NCM reader
 on:
