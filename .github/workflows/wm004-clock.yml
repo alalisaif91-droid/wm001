@@ -1,0 +1,31 @@
+# WM004 clock (Saif, 1 Nov 2026: every 30 minutes, and the team starts on it). GitHub's own schedule fired about 1 time in 10 on the feed, so the reader and the feed cannot rest on it.
+# This job waits in the environment wm004-wait, whose wait timer of 28 minutes holds no runner, then starts the NCM reader and the rain feed, then starts itself again.
+# No outside service and no token: the workflow token may start a workflow_dispatch. The concurrency group keeps one tick running and at most one waiting, so the ticks cannot multiply.
+# The schedule below only restarts the chain if a tick ever fails. To stop the clock: disable this workflow in the Actions tab, or delete this file.
+name: WM004 clock
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wm004-clock.yml'
+  schedule:
+    - cron: '11 */3 * * *'
+permissions:
+  actions: write
+concurrency:
+  group: wm004-clock
+  cancel-in-progress: false
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    environment: wm004-wait
+    timeout-minutes: 5
+    steps:
+      - name: Start the reader, the feed and the next tick
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run wm004-ncm.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "the reader did not start"
+          gh workflow run wm004-feed.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "the feed did not start"
+          gh workflow run wm004-clock.yml --repo "$GITHUB_REPOSITORY" --ref main
