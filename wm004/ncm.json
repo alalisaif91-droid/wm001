@@ -1,12 +1,12 @@
 {
- "level": "yellow",
+ "level": "none",
  "text": "NCM warning 2435, yellow, dust, rain, wind, from 2026-11-01 15:00 to 2026-11-01 20:00, RAK touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
  "asof": "2026-11-01 15:11",
  "levels": {
-  "rain": "yellow",
+  "rain": "none",
   "fog": "none",
-  "dust": "yellow"
+  "dust": "none"
  },
  "hazard": [
   "dust",
@@ -14,9 +14,9 @@
   "wind"
  ],
  "areas": "RAK touched: Al Degdaga, Al Ghayl, Al Hamraniah, Al Mamourah, Al Rams, Masafi, Shaam",
- "ageHours": 1.8,
+ "ageHours": 6.4,
  "id": "NCM-20261101-005",
  "by": "live reader",
  "auto": false,
- "writtenAt": "2026-11-01 17:00"
+ "writtenAt": "2026-11-01 21:34"
 }
