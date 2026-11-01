@@ -1,32 +1,33 @@
 {
- "written": "2026-11-01 21:34",
+ "written": "2026-11-01 22:00",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather engine has not written for 4 hours (last 2026-11-01 17:35), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-01 21:34",
+ "feedAsof": "2026-11-01 22:00",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 1.3,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader has been silent for 259 minutes.",
-  "asof": "2026-11-01 15:11",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "asof": "2026-11-01 21:24",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
-   "dust",
    "rain",
+   "fog",
+   "dust",
    "wind"
   ],
-  "by": "live reader",
-  "auto": false
+  "by": "engine",
+  "auto": true
  },
  "points": [
   {
@@ -73,21 +74,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 1.2,
+   "next72": 1.2,
+   "max6": 1.2,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 1.3,
+   "next72": 1.3,
+   "max6": 1.3,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-11-01 21:34",
+  "captured": "2026-11-01 21:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -100,25 +101,50 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "none",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "none",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 6.4,
-  "by": "live reader",
+  "ageHours": 0.6,
+  "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 6.4,
-  "stale": true
+  "warningsAgeHours": 6.8,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-01 17:35",
-  "lastGoodAsof": "2026-11-01 17:35",
+  "lastRun": "2026-11-01 21:34",
+  "lastGoodAsof": "2026-11-01 21:34",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 2.4
+  "ncmWarningsReadingAgeHours": 6.4
  }
 }
