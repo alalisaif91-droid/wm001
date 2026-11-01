@@ -1,0 +1,88 @@
+# WM004 NCM reader, every 30 minutes (the owner's decision of 31 Oct 2026), on GitHub's own servers.
+# The laptop reader is hourly and stops when the laptop sleeps, and warnings were missed. This job runs whether or not any laptop is awake: one ordinary visit to the NCM warnings page.
+# It writes wm004/ncm_state.json and wm004/ncm_index.json (public, facts only) and the sealed files wm004/ncm_live.enc, ncm_history.enc and ncm_radar.enc, then commits to main and brings gh-pages level
+# (the site is served from gh-pages), the same way as wm004-feed.yml. A new warning opens a GitHub issue for the owner.
+# A failed read is not a failed run: it is written as NO READING. The run itself fails only if nothing can be written or pushed, and then GitHub e-mails the owner.
+# A run from the schedule or a push makes no visit when the last read is under 10 minutes old (the laptop's hourly push falls near the :02 cron); a run started by hand always visits.
+# It never retriggers itself: a push made with the workflow token starts no workflow, and the paths below leave out everything the job writes.
+# It commits only when something changed or the last commit is 25 minutes old, which is every run: GitHub Pages allows about 10 builds an hour, and the feed and the laptop card use some of them.
+# The minutes avoid the hour, when GitHub's schedule is busiest, and the feed at 7 and 37.
+name: WM004 NCM reader
+on:
+  schedule:
+    - cron: '2,32 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wm004-ncm.yml'
+      - 'wm004/ncm_reader_action.py'
+      - 'wm004/ncm_crypto.py'
+      - 'wm004/ncm_places.json'
+      - 'wm004/ncm.trigger'
+      - 'wm004/feed.trigger'   # the laptop pushes this every hour while it is awake: GitHub's schedule alone fired about 1 time in 10 on the feed
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: wm004-ncm
+  cancel-in-progress: false
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Keep the browser between runs
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ms-playwright-${{ runner.os }}-1.63.0-shell
+      - name: Install the browser driver and the sealing library
+        run: pip install --quiet playwright==1.63.0 cryptography==50.0.0
+      - name: Install Chromium if the cache does not hold it, and its system libraries
+        run: python -m playwright install --with-deps --only-shell chromium
+      - name: Read NCM
+        id: read
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python wm004/ncm_reader_action.py wm004
+      - name: Commit to main and bring gh-pages level
+        if: steps.read.outputs.commit == 'yes'
+        run: |
+          set -e
+          git config user.name "WM004 NCM reader"
+          git config user.email "wm004@users.noreply.github.com"
+          git add wm004/ncm_state.json wm004/ncm_index.json wm004/ncm_live.enc
+          for f in wm004/ncm_history*.enc wm004/ncm_radar.enc; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          STATE=$(python -c "import json;d=json.load(open('wm004/ncm_state.json'));print(d['state'],d['readAt'])")
+          git commit -m "wm004: NCM reading ${STATE} (GitHub Actions)"
+          pushed=0
+          for i in 1 2 3 4; do
+            if git pull --rebase origin main; then
+              if git push origin HEAD:main; then pushed=1; break; fi
+            else
+              git rebase --abort || true
+            fi
+            echo "push to main rejected, try $i"; sleep $((i * 5))
+          done
+          if [ "$pushed" != "1" ]; then echo "PUSH TO MAIN FAILED"; exit 1; fi
+          level=0
+          for i in 1 2 3 4; do
+            git fetch origin gh-pages main
+            TREE=$(git rev-parse origin/main^{tree})
+            if [ "$TREE" = "$(git rev-parse origin/gh-pages^{tree})" ]; then echo "gh-pages already level"; level=1; break; fi
+            C=$(git commit-tree "$TREE" -p origin/gh-pages -m "wm004: site synced from main $(git rev-parse --short origin/main) (GitHub Actions)")
+            if git push origin "$C:refs/heads/gh-pages"; then level=1; break; fi
+            echo "push to gh-pages rejected, try $i"; sleep $((i * 5))
+          done
+          if [ "$level" != "1" ]; then echo "PUSH TO GH-PAGES FAILED: the site still shows the last reading"; exit 1; fi
