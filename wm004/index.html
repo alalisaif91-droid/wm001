@@ -65,7 +65,7 @@ var CARD_COL={red:'Red',orange:'Orange',yellow:'Yellow'},CARD_CLS={red:'r',orang
 function cardUae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
 function cardAge(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
 /* the shape this card reads: valid JSON of another shape is a file it cannot read, never a stage left at status unavailable */
-function cardShapeOk(s){var list=function(v){return v==null||Array.isArray(v);};return list(s.items)&&list(s.hazards)&&list(s.tickerHazards)&&(s.items||[]).every(function(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&list(x.hazards);});}
+function cardShapeOk(s){var list=function(v){return v==null||Array.isArray(v);};return (s.readAt==null||typeof s.readAt==='string')&&list(s.items)&&list(s.hazards)&&list(s.tickerHazards)&&(s.items||[]).every(function(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&list(x.hazards);});}
 /* the card's top line. down: the reader has nothing fresh. fresh: its reading can stand in for the laptop's record. */
 function cardView(s,now){
   if(!s||typeof s!=='object'||Array.isArray(s)||!s.state)return {cls:'nr',word:'NCM: NO READING',when:'The file of the NCM reader could not be read.',down:true,why:'the NCM reader file could not be read'};
