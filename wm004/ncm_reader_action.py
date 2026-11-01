@@ -1219,9 +1219,9 @@ def main(argv=None):
         del argv[i:i + 2]
     flags = {a for a in argv if a.startswith('--')}
     folder = next((a for a in argv if not a.startswith('--')), 'wm004')
-    pem = read_bytes(pub_path or os.path.join(folder, 'ncm_pub.pem'))
+    pem = read_bytes(pub_path or os.path.join(folder, 'ncm_pub.txt')) or read_bytes(os.path.join(folder, 'ncm_pub.pem'))
     if not pem:
-        print('READER CANNOT WRITE: ncm_pub.pem is missing in %s' % folder)
+        print('READER CANNOT WRITE: ncm_pub.txt is missing in %s' % folder)
         return 1
     public_key = C.public_from_pem(pem)
     places = load_places()
