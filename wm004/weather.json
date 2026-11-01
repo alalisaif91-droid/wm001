@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-01 13:08",
+ "asof": "2026-11-01 13:39",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.3,
  "pointsRead": 8,
  "pointsTotal": 8,
  "unreadPoints": [],
@@ -26,7 +26,7 @@
    "peakAt": "2026-11-01T13:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 23,
+   "gustMax24": 25,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -330,7 +330,7 @@
    "peakAt": "2026-11-01T13:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 18,
+   "gustMax24": 20,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -634,7 +634,7 @@
    "peakAt": "2026-11-01T13:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 23,
+   "gustMax24": 25,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -930,15 +930,15 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0.1,
-   "next24": 0.1,
-   "next72": 0.1,
+   "next6": 0.3,
+   "next24": 0.3,
+   "next72": 0.3,
    "hoursInWindow": 72,
-   "max6": 0.1,
+   "max6": 0.3,
    "peakAt": "2026-11-01T14:00",
-   "peakMm": 0.1,
+   "peakMm": 0.3,
    "probMax24": 8,
-   "gustMax24": 22,
+   "gustMax24": 23,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -946,7 +946,7 @@
     ],
     [
      "2026-11-01T14:00",
-     0.1
+     0.3
     ],
     [
      "2026-11-01T15:00",
@@ -1242,7 +1242,7 @@
    "peakAt": "2026-11-01T13:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 27,
+   "gustMax24": 28,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -1844,13 +1844,13 @@
    "lon": 56.1193,
    "next6": 0.0,
    "next24": 0.0,
-   "next72": 0.0,
+   "next72": 0.1,
    "hoursInWindow": 72,
-   "max6": 0.0,
-   "peakAt": "2026-11-01T13:00",
-   "peakMm": 0.0,
+   "max6": 0.1,
+   "peakAt": "2026-11-03T16:00",
+   "peakMm": 0.1,
    "probMax24": 0,
-   "gustMax24": 20,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -2058,7 +2058,7 @@
     ],
     [
      "2026-11-03T16:00",
-     0.0
+     0.1
     ],
     [
      "2026-11-03T17:00",
@@ -2154,7 +2154,7 @@
    "peakAt": "2026-11-01T13:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 21,
+   "gustMax24": 22,
    "hourly": [
     [
      "2026-11-01T13:00",
@@ -2468,17 +2468,17 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 01 Nov 12:39, list 18.47 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 01 Nov 13:38, list 19.44 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-01 12:39",
-  "ageHours": 0.49,
+  "asof": "2026-11-01 13:38",
+  "ageHours": 0.02,
   "hazard": [],
   "id": null,
   "stale": false,
   "by": "live reader",
   "kind": "warning",
-  "refreshed": "2026-11-01 13:08",
+  "refreshed": "2026-11-01 13:39",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2487,16 +2487,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 18.47,
+   "listAgeH": 19.44,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-01T08:39:45Z",
+    "lastOk": "2026-11-01T09:38:13Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-01 12:39; it reads the list and the ticker every 15 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-01 13:38; it reads the list and the ticker every 15 minutes"
  }
 }
