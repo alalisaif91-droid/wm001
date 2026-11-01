@@ -65,7 +65,7 @@ var CARD_COL={red:'Red',orange:'Orange',yellow:'Yellow'},CARD_CLS={red:'r',orang
 function cardUae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
 function cardAge(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
 /* the shape this card reads: valid JSON of another shape is a file it cannot read, never a stage left at status unavailable */
-function cardShapeOk(s){var list=function(v){return v==null||Array.isArray(v);};return (s.readAt==null||typeof s.readAt==='string')&&list(s.items)&&list(s.hazards)&&list(s.tickerHazards)&&(s.items||[]).every(function(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&list(x.hazards);});}
+function cardShapeOk(s){var list=function(v){return v==null||Array.isArray(v);};return (s.readAt==null||typeof s.readAt==='string')&&list(s.items)&&list(s.hazards)&&list(s.tickerHazards)&&(s.rak==null||(typeof s.rak==='object'&&!Array.isArray(s.rak)))&&(s.items||[]).every(function(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&list(x.hazards);});}
 /* the card's top line. down: the reader has nothing fresh. fresh: its reading can stand in for the laptop's record. */
 function cardView(s,now){
   if(!s||typeof s!=='object'||Array.isArray(s)||!s.state)return {cls:'nr',word:'NCM: NO READING',when:'The file of the NCM reader could not be read.',down:true,why:'the NCM reader file could not be read'};
@@ -96,9 +96,14 @@ function cardStage(stage,why,v,sh){if(stage==='Routine readiness'&&sh&&sh.level!
 var CARD={s:null,v:null,skew:0};
 function put(v){var c=document.getElementById('ncmcard');c.className='ncmc '+v.cls;document.getElementById('ncmWord').textContent=v.word;document.getElementById('ncmWhen').textContent=v.when;}
 async function readNcm(){var v;try{
-  var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store'});var d=Date.parse(r.headers.get('date')||'');if(!isNaN(d))CARD.skew=d-Date.now();if(!r.ok)throw new Error('status '+r.status);v=cardView(await r.json(),Date.now()+CARD.skew);
-}catch(e){v=cardView(null,Date.now());}
-  put(v);var was=CARD.v;CARD.v=v;if(!was||was.word!==v.word||was.when!==v.when)paintNcm();return v;}
+  var c=new AbortController(),t=setTimeout(function(){c.abort();},30000);   // 1 Nov 2026 (independent review, HUNG-FETCH-BOARD-AND-CARD): the limit of the console, over the headers and the body
+  try{var r=await fetch('ncm_state.json?x='+Date.now(),{cache:'no-store',signal:c.signal});var d=Date.parse(r.headers.get('date')||'');if(!isNaN(d))CARD.skew=d-Date.now();if(!r.ok)throw new Error('status '+r.status);CARD.j=await r.json();}finally{clearTimeout(t);}
+  v=cardView(CARD.j,Date.now()+CARD.skew);
+}catch(e){CARD.j=null;v=cardView(null,Date.now());}
+  show(v);return v;}
+function show(v){put(v);var was=CARD.v;CARD.v=v;if(!was||was.word!==v.word||was.when!==v.when)paintNcm();}
+/* the age runs on the clock, not on the fetch: a read that has not ended must not stop the age or hide READER SILENT */
+function ageTick(){if(CARD.j)show(cardView(CARD.j,Date.now()+CARD.skew));}
 /* a level that is missing or unknown reads no reading here, never none (28 Oct 2026, L2) */
 function cardWord(v){return (v==null||v===''||v==='unknown')?'no reading':v;}
 function paintNcm(){var s=CARD.s;if(!s||!CARD.v)return;var v=CARD.v,sh=cardNcm(s.ncm,v,Date.now()+CARD.skew),g=cardStage(s.stage,s.stageWhy,v,sh),nw=cardWord;
@@ -110,7 +115,7 @@ function paintNcm(){var s=CARD.s;if(!s||!CARD.v)return;var v=CARD.v,sh=cardNcm(s
   var hz=s.hazards||{}, rows=[], over=sh.reader||sh.stopped;
   ['rain','fog','dust'].forEach(function(k){var x=hz[k]; if(!x) return; var cn=over?(nl[k]):x.ncm, lvl=(x.level==='none'&&over&&nl[k]&&nl[k]!=='none')?'unknown':x.level, l=document.createElement('div'); l.textContent=k.charAt(0).toUpperCase()+k.slice(1)+': '+nw(lvl)+(k==='dust'?'':' (NCM '+nw(cn)+')')+' · '+x.label+(x.proposedVote&&x.proposedVote.aboveRule?' · The proposed model vote says '+x.proposedVote.level+' (Proposed, not applied until it is decided)':''); rows.push(l);});
   if(rows.length){var hb=document.getElementById('haz'); hb.hidden=false; hb.textContent=''; rows.forEach(function(e){hb.appendChild(e);});}}
-var CARD_FIRST=readNcm();setInterval(readNcm,60000);
+var CARD_FIRST=readNcm();setInterval(readNcm,60000);setInterval(ageTick,20000);
 (async function(){
   var r=await fetch('status.json?x='+Date.now(),{cache:'no-store'}); var s=await r.json();
   await CARD_FIRST;CARD.s=s;paintNcm();

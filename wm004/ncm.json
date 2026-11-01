@@ -1,23 +1,36 @@
 {
- "level": "none",
- "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+ "level": "yellow",
+ "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-01 15:20: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2435, yellow, dust, rain, wind, from 2026-11-01 15:00 to 2026-11-01 20:00, RAK touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-01 11:45",
+ "asof": "2026-11-01 15:11",
  "levels": {
-  "rain": "none",
+  "rain": "yellow",
   "fog": "none",
-  "dust": "none"
+  "dust": "yellow"
  },
  "hazard": [
-  "rain",
-  "fog",
   "dust",
+  "rain",
   "wind"
  ],
- "areas": "all areas",
- "ageHours": 1.3,
- "id": "NCM-20261101-004",
- "by": "engine",
- "auto": true,
- "writtenAt": "2026-11-01 13:00"
+ "areas": "RAK touched: Al Degdaga, Al Ghayl, Al Hamraniah, Al Mamourah, Al Rams, Masafi, Shaam",
+ "ageHours": 1.0,
+ "id": "NCM-20261101-005",
+ "by": "live reader",
+ "auto": false,
+ "pageShows": {
+  "state": "warnings",
+  "colours": [],
+  "since": "2026-11-01 15:20",
+  "seen": "2026-11-01 15:20",
+  "pending": true,
+  "pendingHazards": [
+   "rain",
+   "fog",
+   "dust"
+  ],
+  "namedHazards": [],
+  "note": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-01 15:20: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force"
+ },
+ "writtenAt": "2026-11-01 16:10"
 }
