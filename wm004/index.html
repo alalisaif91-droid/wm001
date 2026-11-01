@@ -32,7 +32,7 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
 .alertbox b{color:var(--red)}.alertbox div+div{margin-top:6px}
 .ncmc{--c:var(--slate);display:block;border:1px solid var(--pale);border-left:5px solid var(--c);border-radius:6px;padding:8px 10px;margin:0 0 10px;color:var(--ink);text-decoration:none;background:var(--soft)}
 .ncmc b{display:block;font-size:17px;color:var(--c)}.ncmc small{display:block;font-size:11.5px;color:var(--grey)}.ncmc .go{display:block;font-size:11.5px;color:var(--ink);text-decoration:underline;margin-top:2px}
-.ncmc.y{--c:var(--ncm-y)}.ncmc.o{--c:var(--ncm-o)}.ncmc.r{--c:var(--ncm-r)}.ncmc.none b{color:var(--ink)}.ncmc.nr{background-image:repeating-linear-gradient(135deg,var(--ncm-hatch) 0 6px,transparent 6px 12px);border-style:dashed;border-left-style:solid}.ncmc.nr b{color:var(--ink)}
+.ncmc.y{--c:var(--ncm-y)}.ncmc.o{--c:var(--ncm-o)}.ncmc.r{--c:var(--ncm-r)}.ncmc.none b{color:var(--ink)}.ncmc.nr{background-image:repeating-linear-gradient(135deg,var(--ncm-hatch) 0 6px,transparent 6px 12px);border-style:dashed;border-left-style:solid}.ncmc.nr b,.ncmc.nr small{color:var(--ink)}
 .links{font-size:11.5px;margin-top:10px}.links a{color:var(--blue);text-decoration:none;margin-right:12px}
 .foot{font-size:10px;color:var(--grey);margin-top:8px}
 </style>
@@ -64,9 +64,12 @@ td{padding:4px 2px;border-bottom:1px solid var(--pale)}td.n{text-align:right;fon
 var CARD_COL={red:'Red',orange:'Orange',yellow:'Yellow'},CARD_CLS={red:'r',orange:'o',yellow:'y'},CARD_HZ={rain:'Rain',fog:'Fog',dust:'Dust',wind:'Wind',sea:'Rough sea',other:'Other hazard'},CARD_SILENT_MIN=90,CARD_AHEAD_MIN=10,CARD_CURRENT_H=3,CARD_RANK={yellow:1,orange:2,red:3};
 function cardUae(i){var t=Date.parse(i||'');if(isNaN(t))return null;return new Date(t+4*36e5).toISOString().slice(0,16).replace('T',' ');}
 function cardAge(m){return m<60?Math.round(m)+' min':(m<2880?(m/60).toFixed(1)+' h':Math.round(m/1440)+' days');}
+/* the shape this card reads: valid JSON of another shape is a file it cannot read, never a stage left at status unavailable */
+function cardShapeOk(s){var list=function(v){return v==null||Array.isArray(v);};return list(s.items)&&list(s.hazards)&&list(s.tickerHazards)&&(s.items||[]).every(function(x){return !!x&&typeof x==='object'&&!Array.isArray(x)&&list(x.hazards);});}
 /* the card's top line. down: the reader has nothing fresh. fresh: its reading can stand in for the laptop's record. */
 function cardView(s,now){
   if(!s||typeof s!=='object'||Array.isArray(s)||!s.state)return {cls:'nr',word:'NCM: NO READING',when:'The file of the NCM reader could not be read.',down:true,why:'the NCM reader file could not be read'};
+  if(!cardShapeOk(s))return {cls:'nr',word:'NCM: NO READING',when:'The file of the NCM reader is not in the shape this card reads.',down:true,why:'the NCM reader file could not be read'};
   var t=Date.parse(s.readAt||''),m=isNaN(t)?null:(now-t)/6e4,at=(cardUae(s.readAt)||'no time')+' UAE'+(m==null?'':(m<0?' ('+cardAge(-m)+' ahead of the clock)':' ('+cardAge(m)+' ago)'));
   if(m==null||m>CARD_SILENT_MIN||m<-CARD_AHEAD_MIN)return {cls:'nr',word:'NCM: READER SILENT',when:'Last read '+at+'. This is not a current reading.',down:true,why:'the NCM reader is silent'};
   var l=Date.parse(s.listTime||''),lm=isNaN(l)?null:(now-l)/6e4,list=' NCM list '+(cardUae(s.listTime)||'no time')+' UAE'+(lm==null?'':', '+cardAge(Math.max(0,lm))+' old')+'.';
