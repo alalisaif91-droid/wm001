@@ -1,10 +1,10 @@
 {
- "written": "2026-11-02 18:38",
+ "written": "2026-11-02 20:18",
  "tz": "Asia/Dubai",
- "stage": "Enhanced watch",
- "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-02 18:34",
+ "feedAsof": "2026-11-02 20:15",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -12,20 +12,21 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "yellow",
-  "text": "No current NCM reading: the NCM reader file could not be read.",
-  "asof": "2026-11-02 18:33",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "asof": "2026-11-02 20:14",
   "levels": {
-   "rain": "yellow",
-   "fog": "unknown",
-   "dust": "yellow"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
-   "dust",
    "rain",
+   "fog",
+   "dust",
    "wind"
   ],
-  "by": "live reader",
+  "by": "engine",
   "auto": true
  },
  "points": [
@@ -73,21 +74,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
-  },
-  {
-   "name": "Al Munai (9A)",
    "next24": 0.1,
    "next72": 0.1,
    "max6": 0.1,
    "error": false
+  },
+  {
+   "name": "Al Munai (9A)",
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
+   "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-11-02 18:36",
+  "captured": "2026-11-02 20:17",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -102,11 +103,11 @@
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
-   "level": "watch",
+   "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "unknown",
-   "ncm": "yellow",
-   "stationRainNow": null,
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -114,11 +115,11 @@
    }
   },
   "fog": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
-   "observed": "unknown",
-   "ncm": "unknown"
+   "observed": "none",
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -126,25 +127,25 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "full",
  "ncmDetail": {
   "ageHours": 0.1,
-  "by": "live reader",
+  "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": null,
-  "stale": true
+  "warningsAgeHours": 5.1,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-02 18:36",
-  "lastGoodAsof": "2026-11-02 18:36",
-  "readingQuality": "degraded",
-  "pointsRead": 5,
+  "lastRun": "2026-11-02 20:17",
+  "lastGoodAsof": "2026-11-02 20:17",
+  "readingQuality": "full",
+  "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 16,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.4
+  "ncmWarningsReadingAgeHours": 5.1
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
