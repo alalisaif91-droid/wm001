@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "source": "Audit of the plan and the console, 24 Oct 2026: the actions of actions17.json that the plan ties to the weather, and plan section 6.1. The wording of every action is read from actions17.json at each run; this file only says when the weather asks for it.",
+ "status": "Verified that each action's own text names the weather link; the grouping by level is Proposed",
+ "notes": [
+  "standing: due whatever the level is; watch: Enhanced watch, a rain level of watch; high: Pre deployment, a rain level of high or an NCM orange; red: Active response, an NCM red.",
+  "No action is tied to fog: the plan has no fog procedure (named gap, owner Waste Management with LOD). The fog measures are Proposed in interaction.json, never listed here as plan actions.",
+  "No figure is typed here. A detail such as a tranche size is read from the action text with the pattern shown."
+ ],
+ "triggers": [
+  {"id": "A1", "when": "standing", "rule": "Name the weather lead, who owns the weather feedback of A26 and reads this record", "basis": "actions17.json A1"},
+  {"id": "A3", "when": "standing", "rule": "The Oman liaison on the upper Wadi Bih, so that flow from Oman is known before it reaches the dam; no rain point covers the upper catchment", "basis": "actions17.json A3"},
+  {"id": "A5", "when": "standing", "rule": "The NCM station files and the layers on the twin; the model is never shown as an official warning", "basis": "actions17.json A5"},
+  {"id": "A26", "when": "standing", "rule": "Weather feedback to the command center: the next trough, the expected level and the equipment moves it calls for", "basis": "actions17.json A26"},
+  {"id": "A26", "when": "watch", "rule": "On watch the feedback is every 24 hours, otherwise every 48 hours", "basis": "actions17.json A26"},
+  {"id": "A15", "when": "watch", "rule": "The clearing drill and the call before the school day at the Al Jeer school approaches (Sector 1)", "basis": "actions17.json A15; tying it to a watch day is Proposed"},
+  {"id": "A24", "when": "high", "rule": "Relief labourers placed at Pre deployment, Sectors 7 and 8 first", "basis": "actions17.json A24", "detailPattern": "Place the (\\d+ relief labourers)"},
+  {"id": "A29", "when": "high", "rule": "Rental of pumps released in tranches by level: the first tranche at orange", "basis": "actions17.json A29", "detailPattern": "\\((\\d+ at orange, \\d+ at red)\\)"},
+  {"id": "A29", "when": "red", "rule": "Rental of pumps released in tranches by level: the second tranche at red", "basis": "actions17.json A29", "detailPattern": "\\((\\d+ at orange, \\d+ at red)\\)"}
+ ]
+}

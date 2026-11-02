@@ -1,0 +1,22 @@
+{
+ "schema": 1,
+ "tz": "Asia/Dubai",
+ "readAt": "2026-11-02 05:52",
+ "asof": "2026-11-02 05:52",
+ "complaintsHash": "bcea003641369cd9",
+ "complaints": {
+  "read": "2026-11-02 05:52",
+  "count": 1491,
+  "open": 0,
+  "newest": "2026-10-31 15:51",
+  "lastId": 1510
+ },
+ "pumpsHash": "9902abc5826ef02a",
+ "pumps": {
+  "captured": "2026-11-02 05:52",
+  "total": 134,
+  "standby": 40,
+  "working": 0,
+  "noPump": 93
+ }
+}

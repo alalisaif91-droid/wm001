@@ -1,0 +1,949 @@
+{
+  "schema": 1,
+  "title": "WM004 weather channel rules",
+  "status": "Proposed",
+  "version": "2026-10-25",
+  "drill": false,
+  "note": "Every rule is data: a condition over named facts, the rung of the readiness ladder it supports, the plan actions it starts, the tier and the audience (roles only), a message, a cooldown, an acknowledgement time and the escalation target. A rule never sets a stage: the rain committee does that. Where the plan holds a value (10 and 25 mm in 6 h, the 24 h bands of 5, 15 and 30 mm, the NCM colours) the rule says Verified and a test ties it to the plan file; every other threshold is Proposed and is copied from data/weather/params_calibration.json (a test ties each number to that file). A reading that is not there is no reading, never zero and never calm.",
+  "ladder": {
+    "source": "wx_interact.STAGES (the plan stage table of build_console.py); the names are read, never renamed",
+    "highestRung": 3,
+    "recoveryNote": "Recovery is the plan stage that follows an event and is set by the committee on evidence. It is not a rung of readiness and the channel never recommends it."
+  },
+  "hysteresis": {
+    "fallClearReadings": 3,
+    "fallMinHoursAtRung": 6,
+    "stepDownOneRung": true,
+    "blindHoldHours": 6,
+    "basis": "Proposed. A rung rises at once and falls only after 3 consecutive clear hourly readings and at least 6 hours at the rung, one rung at a time, so inputs that flap around a threshold cannot flap the rung or the notifications. An unknown or stale reading never lowers the rung."
+  },
+  "freshness": {
+    "feedWarnHours": 2,
+    "currentHours": 3,
+    "ncmReadHours": 24,
+    "engineSilentHours": 3,
+    "basis": "A file whose own asof is older than 3 hours is not current: its readings are no reading and the blind rules apply. The feed warning at 2 hours and the NCM limit of 24 hours follow the plan console alarm AL13 and the engine NCM staleness rule."
+  },
+  "tiers": {
+    "T0": {"label": "Weather desk owner", "roles": ["DESK-OWNER"], "automatic": true, "ackMin": null, "next": null,
+           "delivery": "Windows toast on this laptop, the outbox file and the entry in the console; automatic, never needs approval"},
+    "T1": {"label": "Weather lead and the duty roles", "roles": ["WEATHER-LEAD", "DESK-DUTY"], "automatic": false, "ackMin": 30, "next": "T2",
+           "delivery": "draft until the desk owner approves it, unless autoSend is set for the tier in channel_local.json"},
+    "T2": {"label": "Rain committee", "roles": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "automatic": false, "ackMin": 20, "next": "T3",
+           "delivery": "draft until the desk owner approves it, unless autoSend is set for the tier in channel_local.json"},
+    "T3": {"label": "Heads of section and the Director", "roles": ["SECTION-HEADS", "DIRECTOR"], "automatic": false, "ackMin": 15, "next": null,
+           "delivery": "draft until the desk owner approves it, unless autoSend is set for the tier in channel_local.json"}
+  },
+  "roles": {
+    "DESK-OWNER": {"label": "Weather desk owner", "tier": "T0", "contactOwner": "Weather desk owner"},
+    "WEATHER-LEAD": {"label": "Weather lead", "tier": "T1", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "DESK-DUTY": {"label": "Rain desk duty officers", "tier": "T1", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "COMMITTEE-HEAD": {"label": "Head of the rain committee", "tier": "T2", "contactOwner": "Director's office (contact sheet WM-RNE-02)"},
+    "COMMITTEE": {"label": "Rain committee members", "tier": "T2", "contactOwner": "Director's office (contact sheet WM-RNE-02)"},
+    "OPS-DIRECTOR": {"label": "Operations Director", "tier": "T2", "contactOwner": "Director's office (contact sheet WM-RNE-02)"},
+    "SECTION-HEADS": {"label": "Heads of section (WM, LOD, LSC, INF, WU, OMA)", "tier": "T3", "contactOwner": "Director's office (contact sheet WM-RNE-02)"},
+    "DIRECTOR": {"label": "Director", "tier": "T3", "contactOwner": "Director's office (contact sheet WM-RNE-02)"},
+    "SECTOR-LEADS": {"label": "Sector duty leads", "tier": "ACT", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "AREA-LEADS": {"label": "Area leads", "tier": "ACT", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "LABOUR-TEAM-LEADS": {"label": "Team leaders of the labour on the ground", "tier": "ACT", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "PLANT-LEAD": {"label": "Plant lead", "tier": "ACT", "contactOwner": "LOD (contact sheet WM-RNE-02)"},
+    "EQUIPMENT-MOB": {"label": "Equipment and mobilization", "tier": "ACT", "contactOwner": "Director (A1, contact sheet WM-RNE-02)"},
+    "DRAINAGE-LEAD": {"label": "Drainage lead", "tier": "ACT", "contactOwner": "Wet Utilities (contact sheet WM-RNE-02)"},
+    "ROADS-LEAD": {"label": "Roads lead", "tier": "ACT", "contactOwner": "Infrastructure section (contact sheet WM-RNE-02)"},
+    "LANDSCAPE-LEAD": {"label": "Landscape lead", "tier": "ACT", "contactOwner": "Landscape section (contact sheet WM-RNE-02)"},
+    "EMERGENCY-TEAM": {"label": "Emergency team", "tier": "ACT", "contactOwner": "Wet Utilities (contact sheet WM-RNE-02)"},
+    "HSE-LEAD": {"label": "HSE lead", "tier": "ACT", "contactOwner": "PSD HSE (contact sheet WM-RNE-02)"},
+    "PUBLIC-INFO-LEAD": {"label": "Public information lead", "tier": "ACT", "contactOwner": "Director's office (contact sheet WM-RNE-02)"}
+  },
+  "scales": {
+    "rain": ["none", "watch", "high"],
+    "fog": ["none", "watch", "alert", "severe"],
+    "hazard": ["none", "watch", "alert"],
+    "ncm": ["none", "yellow", "orange", "red"]
+  },
+  "rules": [
+    {
+      "id": "WC-00", "kind": "rung-change", "hazard": "readiness", "title": "Readiness rung changed", "status": "Proposed",
+      "rung": null, "tier": "by rung", "audience": [], "cooldownMin": 0, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "A rung change always notifies. The tier is the tier of the new rung (Enhanced watch T1, Pre deployment T2, Active response T3; a fall is T1).",
+      "message": {
+        "subject": "Readiness {direction}: {stage} recommended",
+        "lines": [
+          "Hazard: readiness {direction} from {from_stage} to {stage}.",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "The Weather lead reads the rules that hold the rung and the actions due, in the channel record"
+    },
+    {
+      "id": "WC-01", "hazard": "rain", "title": "Rain at the plan watch level", "status": "Verified",
+      "when": {"fact": "rain.planRung", "op": "==", "value": 1},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "Plan section 6.1: 10 mm in 6 h at any point, or over 5 to 15 mm in 24 h at the worst point, is Enhanced watch (the model level watch of console alarm AL10).",
+      "message": {
+        "subject": "Rain watch: Enhanced watch recommended",
+        "lines": [
+          "Hazard: rain at the plan watch level (10 mm in 6 h, or over 5 mm in 24 h).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead checks the NCM bulletin and the radar and starts the watch actions A15 and A26 (AL10)"
+    },
+    {
+      "id": "WC-02", "hazard": "rain", "title": "Rain at the plan high level", "status": "Verified",
+      "when": {"fact": "rain.planRung", "op": "==", "value": 2},
+      "rung": 2, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 360, "ackMin": 20, "escalateTo": "T3", "actions": ["A24", "A29"],
+      "basis": "Plan section 6.1: 25 mm in 6 h at any point, or over 15 to 30 mm in 24 h at the worst point, is Pre deployment (the model level high of console alarm AL11).",
+      "message": {
+        "subject": "Rain high: Pre deployment recommended",
+        "lines": [
+          "Hazard: rain at the plan high level (25 mm in 6 h, or over 15 mm in 24 h).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead reads the NCM now and proposes Pre deployment; the pumps and relief labourers of A24 and A29 are called (AL11)"
+    },
+    {
+      "id": "WC-03", "hazard": "rain", "title": "Rain above 30 mm in 24 h", "status": "Verified",
+      "when": {"fact": "rain.planRung", "op": "==", "value": 3},
+      "rung": 3, "tier": "T3", "audience": ["SECTION-HEADS", "DIRECTOR"], "cooldownMin": 720, "ackMin": 15, "escalateTo": null, "actions": ["A29"],
+      "basis": "Plan section 6.1: over 30 mm in 24 h at the worst point is Active response.",
+      "message": {
+        "subject": "Rain above 30 mm in 24 h: Active response recommended",
+        "lines": [
+          "Hazard: rain above 30 mm in 24 h at the worst point. Readiness is at its highest.",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; the full activation pack is in the channel record."
+        ]
+      },
+      "first": "Head of the rain committee decides Active response now; the surge pool and the second pump tranche are called"
+    },
+    {
+      "id": "WC-04", "hazard": "rain", "title": "Models vote watch, above the plan rule", "status": "Proposed",
+      "when": {"all": [{"fact": "rain.voteAbove", "op": "==", "value": true}, {"fact": "rain.voteLevel", "op": "==", "value": "watch"}]},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "The proposed vote of the calibration (7 models, 5 mm in 6 h) is above the plan rule. It is not applied to the plan level until the department head decides, so a none under the plan rule is not read as no rain.",
+      "message": {
+        "subject": "Models vote rain watch above the plan rule",
+        "lines": [
+          "Hazard: the proposed vote of the models says watch while the plan rule says less.",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The vote is Proposed and not applied to the plan level; read the models and the NCM page."
+        ]
+      },
+      "first": "Weather lead reads the models and the NCM page and says whether the stage should rise"
+    },
+    {
+      "id": "WC-05", "hazard": "rain", "title": "Models vote high, above the plan rule", "status": "Proposed",
+      "when": {"all": [{"fact": "rain.voteAbove", "op": "==", "value": true}, {"fact": "rain.voteLevel", "op": "==", "value": "high"}]},
+      "rung": 2, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 360, "ackMin": 20, "escalateTo": "T3", "actions": ["A24", "A29"],
+      "basis": "The proposed vote of the calibration (7 models, 25 mm in 6 h) is above the plan rule.",
+      "message": {
+        "subject": "Models vote rain high above the plan rule",
+        "lines": [
+          "Hazard: the proposed vote of the models says high while the plan rule says less.",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The vote is Proposed and not applied to the plan level; the committee decides."
+        ]
+      },
+      "first": "Weather lead reads the NCM now and proposes Pre deployment if the models are confirmed"
+    },
+    {
+      "id": "WC-06", "hazard": "rain", "title": "A station reports rain or thunder", "status": "Proposed",
+      "when": {"fact": "rain.stationRain", "op": "nonempty"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 240, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "The engine rule: a station report of rain, a shower or a thunderstorm is a rain watch (Reported).",
+      "message": {
+        "subject": "Station reports rain: watch",
+        "lines": [
+          "Hazard: a station reports rain, a shower or thunder (Reported).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead checks the radar and the sector duty leads for water on the ground"
+    },
+    {
+      "id": "WC-07", "hazard": "ncm", "title": "NCM rain warning at yellow", "status": "Verified",
+      "when": {"fact": "ncm.rain", "op": "==", "value": "yellow"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "Plan stage table: an NCM yellow rain warning is Enhanced watch. The colour counts when the entry names Ras Al Khaimah or does not say.",
+      "message": {
+        "subject": "NCM yellow rain warning: Enhanced watch recommended",
+        "lines": [
+          "Hazard: NCM rain warning at yellow (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead reads the NCM warning in full and confirms the area and the time"
+    },
+    {
+      "id": "WC-08", "hazard": "ncm", "title": "NCM rain warning at orange", "status": "Verified",
+      "when": {"fact": "ncm.rain", "op": "==", "value": "orange"},
+      "rung": 2, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 360, "ackMin": 20, "escalateTo": "T3", "actions": ["A24", "A29"],
+      "basis": "Plan stage table: an NCM orange rain warning is Pre deployment.",
+      "message": {
+        "subject": "NCM orange rain warning: Pre deployment recommended",
+        "lines": [
+          "Hazard: NCM rain warning at orange (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Head of the rain committee decides Pre deployment; the desk goes live within 30 minutes"
+    },
+    {
+      "id": "WC-09", "hazard": "ncm", "title": "NCM rain warning at red", "status": "Verified",
+      "when": {"fact": "ncm.rain", "op": "==", "value": "red"},
+      "rung": 3, "tier": "T3", "audience": ["SECTION-HEADS", "DIRECTOR"], "cooldownMin": 720, "ackMin": 15, "escalateTo": null, "actions": ["A29"],
+      "basis": "Plan stage table: an NCM red rain warning is Active response.",
+      "message": {
+        "subject": "NCM red rain warning: Active response recommended",
+        "lines": [
+          "Hazard: NCM rain warning at red. Readiness is at its highest (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; the full activation pack is in the channel record."
+        ]
+      },
+      "first": "Head of the rain committee decides Active response now; the surge pool is released"
+    },
+    {
+      "id": "WC-10", "hazard": "ncm", "title": "NCM warning at yellow for fog, dust or wind", "status": "Proposed",
+      "when": {"fact": "ncm.otherMax", "op": "==", "value": "yellow"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "The plan has no stage trigger for a fog, dust or wind warning. Proposed: a yellow warning that names Ras Al Khaimah or does not say supports Enhanced watch.",
+      "message": {
+        "subject": "NCM yellow warning: Enhanced watch recommended",
+        "lines": [
+          "Hazard: NCM warning at yellow for fog, dust or wind (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no trigger for this hazard; the committee decides."
+        ]
+      },
+      "first": "Weather lead reads the NCM warning in full and tells the crews on the road"
+    },
+    {
+      "id": "WC-11", "hazard": "ncm", "title": "NCM warning at orange for fog, dust or wind", "status": "Proposed",
+      "when": {"fact": "ncm.otherMax", "op": "==", "value": "orange"},
+      "rung": 2, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 360, "ackMin": 20, "escalateTo": "T3", "actions": ["A24", "A29"],
+      "basis": "The plan has no stage trigger for a fog, dust or wind warning. Proposed: an orange warning supports Pre deployment.",
+      "message": {
+        "subject": "NCM orange warning: Pre deployment recommended",
+        "lines": [
+          "Hazard: NCM warning at orange for fog, dust or wind (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no trigger for this hazard; the committee decides."
+        ]
+      },
+      "first": "Head of the rain committee decides whether to go to Pre deployment; HSE sets the stop work limits"
+    },
+    {
+      "id": "WC-12", "hazard": "ncm", "title": "NCM warning at red for fog, dust or wind", "status": "Proposed",
+      "when": {"fact": "ncm.otherMax", "op": "==", "value": "red"},
+      "rung": 2, "tier": "T3", "audience": ["SECTION-HEADS", "DIRECTOR"], "cooldownMin": 720, "ackMin": 15, "escalateTo": null, "actions": ["A24", "A29"],
+      "basis": "The plan has no stage trigger for a fog, dust or wind warning. Proposed: a red warning supports Pre deployment and tells the Director; the committee decides whether Active response is needed.",
+      "message": {
+        "subject": "NCM red warning: Pre deployment recommended",
+        "lines": [
+          "Hazard: NCM warning at red for fog, dust or wind (Reported, official).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no trigger for this hazard; the committee decides."
+        ]
+      },
+      "first": "Director and the head of the rain committee decide the stage now; HSE sets the stop work limits"
+    },
+    {
+      "id": "WC-13", "hazard": "fog", "title": "Fog watch", "status": "Proposed",
+      "when": {"fact": "fog.level", "op": "==", "value": "watch"},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 720, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "The engine fog ladder (spread 1.0 deg C or less with wind 10 kt or less, 02:00 to 08:00). The plan has no fog procedure (named gap, owner Waste Management with LOD).",
+      "message": {
+        "subject": "Fog watch",
+        "lines": [
+          "Hazard: fog watch (Proposed ladder).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no fog procedure; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead looks at the stations at dawn and tells the crews on the road"
+    },
+    {
+      "id": "WC-14", "hazard": "fog", "title": "Fog alert", "status": "Proposed",
+      "when": {"fact": "fog.level", "op": "==", "value": "alert"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 720, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "The engine fog ladder at alert (spread 0.5 deg C or less) or a station report of fog, or an NCM fog colour. Proposed: supports Enhanced watch.",
+      "message": {
+        "subject": "Fog alert: Enhanced watch recommended",
+        "lines": [
+          "Hazard: fog alert (Proposed ladder, stations and NCM).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no fog procedure; the committee decides."
+        ]
+      },
+      "first": "Weather lead tells the crews on the road and the sector duty leads; HSE reviews night work"
+    },
+    {
+      "id": "WC-15", "hazard": "fog", "title": "Fog severe", "status": "Proposed",
+      "when": {"fact": "fog.level", "op": "==", "value": "severe"},
+      "rung": 2, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 720, "ackMin": 20, "escalateTo": "T3", "actions": ["A24", "A29"],
+      "basis": "The engine fog ladder at severe (spread 0.25 deg C or less), station fog or an NCM red fog colour. Proposed: supports Pre deployment.",
+      "message": {
+        "subject": "Fog severe: Pre deployment recommended",
+        "lines": [
+          "Hazard: severe fog (Proposed ladder, stations and NCM).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no fog procedure; the committee decides."
+        ]
+      },
+      "first": "Head of the rain committee decides the stage; HSE sets the stop work limits for visibility"
+    },
+    {
+      "id": "WC-16", "hazard": "fog", "title": "Visibility at or under 1,000 m, or fog reported", "status": "Proposed",
+      "when": {"fact": "vis.level", "op": "==", "value": "alert"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "Observed only (T09): visibility of 1,000 m or less, or any FG, BCFG, MIFG or PRFG, at a station. Model visibility has no skill and is never a trigger.",
+      "message": {
+        "subject": "Low visibility at a station",
+        "lines": [
+          "Hazard: visibility at or under 1,000 m, or fog reported (Reported).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no fog procedure; the committee decides."
+        ]
+      },
+      "first": "Weather lead tells the crews on the road and the desk; HSE reviews night work"
+    },
+    {
+      "id": "WC-17", "hazard": "wind", "title": "Wind watch", "status": "Proposed", "threshold": "T01",
+      "when": {"all": [{"any": [{"fact": "wind.fc", "op": ">=", "value": 25}, {"fact": "wind.obs", "op": ">=", "value": 30}]},
+                       {"not": {"any": [{"fact": "wind.fc", "op": ">=", "value": 30}, {"fact": "wind.obs", "op": ">=", "value": 40}]}}]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 360, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T01 of params_calibration.json: mean wind 25 km/h or more forecast (median of the models) or 30 km/h or more observed. The plan has no wind trigger.",
+      "message": {
+        "subject": "Wind watch",
+        "lines": [
+          "Hazard: sustained wind at watch (Proposed thresholds).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no wind trigger; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead checks the gust reading and the loose items at the depots"
+    },
+    {
+      "id": "WC-18", "hazard": "wind", "title": "Wind alert", "status": "Proposed", "threshold": "T01",
+      "when": {"any": [{"fact": "wind.fc", "op": ">=", "value": 30}, {"fact": "wind.obs", "op": ">=", "value": 40}]},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "T01 of params_calibration.json: mean wind 30 km/h or more forecast or 40 km/h or more observed. Proposed: supports Enhanced watch.",
+      "message": {
+        "subject": "Wind alert: Enhanced watch recommended",
+        "lines": [
+          "Hazard: sustained wind at alert (Proposed thresholds).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no wind trigger; the committee decides."
+        ]
+      },
+      "first": "Weather lead tells the sector duty leads and HSE; loose items at the depots and the barrier sets are secured"
+    },
+    {
+      "id": "WC-19", "hazard": "gust", "title": "Gust watch", "status": "Proposed", "threshold": "T02",
+      "when": {"all": [{"any": [{"fact": "gust.fc", "op": ">=", "value": 50}, {"fact": "gust.obs", "op": ">=", "value": 40}]},
+                       {"not": {"any": [{"fact": "gust.fc", "op": ">=", "value": 60}, {"fact": "gust.obs", "op": ">=", "value": 50}]}}]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 360, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T02 of params_calibration.json (the weakest set): gust 50 km/h or more forecast, 40 km/h or more observed. A model gust is not a METAR gust, so the forecast values sit 10 km/h above the observed ones.",
+      "message": {
+        "subject": "Gust watch",
+        "lines": [
+          "Hazard: gusts at watch (Proposed thresholds, the weakest set).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no gust trigger; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead checks the stations for a dust code and the trees and signs on the roads"
+    },
+    {
+      "id": "WC-20", "hazard": "gust", "title": "Gust alert", "status": "Proposed", "threshold": "T02",
+      "when": {"any": [{"fact": "gust.fc", "op": ">=", "value": 60}, {"fact": "gust.obs", "op": ">=", "value": 50}]},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "T02 of params_calibration.json: gust 60 km/h or more forecast, 50 km/h or more observed. Proposed: supports Enhanced watch.",
+      "message": {
+        "subject": "Gust alert: Enhanced watch recommended",
+        "lines": [
+          "Hazard: gusts at alert (Proposed thresholds).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no gust trigger; the committee decides."
+        ]
+      },
+      "first": "Weather lead tells HSE and the Landscape lead; work at height and on the wadi roads is held"
+    },
+    {
+      "id": "WC-21", "hazard": "dust", "title": "Dust watch", "status": "Proposed", "threshold": "T08",
+      "when": {"all": [{"any": [{"fact": "dust.fc", "op": ">=", "value": 300}, {"fact": "dust.obsLevel", "op": "==", "value": "watch"}]},
+                       {"not": {"any": [{"fact": "dust.fc", "op": ">=", "value": 500}, {"fact": "dust.pm10", "op": ">=", "value": 300}, {"fact": "dust.obsLevel", "op": "==", "value": "alert"}]}}]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 480, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T08 of params_calibration.json: CAMS dust 300 ug/m3 or more, or a dust code at a station. A weak signal.",
+      "message": {
+        "subject": "Dust watch",
+        "lines": [
+          "Hazard: dust at watch (Proposed thresholds, a weak signal).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no dust trigger; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead reads the station reports and the wind before anything is moved"
+    },
+    {
+      "id": "WC-22", "hazard": "dust", "title": "Dust alert, observed", "status": "Proposed", "threshold": "T08",
+      "when": {"fact": "dust.obsLevel", "op": "==", "value": "alert"},
+      "rung": 1, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A15", "A26"],
+      "basis": "T08 of params_calibration.json: a dust code with visibility under 3,000 m, or dust with a peak wind of 40 km/h or more, at a station (Reported). Proposed: supports Enhanced watch.",
+      "message": {
+        "subject": "Dust alert at a station: Enhanced watch recommended",
+        "lines": [
+          "Hazard: dust at alert, observed at a station (Reported).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no dust trigger; the committee decides."
+        ]
+      },
+      "first": "Weather lead tells the crews on the road and HSE; sand on the roads is planned for"
+    },
+    {
+      "id": "WC-23", "hazard": "dust", "title": "Dust alert, forecast only", "status": "Proposed", "threshold": "T08",
+      "when": {"all": [{"any": [{"fact": "dust.fc", "op": ">=", "value": 500}, {"fact": "dust.pm10", "op": ">=", "value": 300}]},
+                       {"not": {"fact": "dust.obsLevel", "op": "==", "value": "alert"}}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 720, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "T08 of params_calibration.json: CAMS dust 500 ug/m3 or more, or pm10 300 ug/m3 or more. Weak: about three alarms in four had no dust within 6 hours, so it asks for a check and does not raise the rung.",
+      "message": {
+        "subject": "Dust alert in the forecast: check the stations",
+        "lines": [
+          "Hazard: dust at alert in the CAMS forecast (Model forecast, Proposed, a weak signal).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "About three in four such alarms had no dust within 6 hours; the rung is not raised."
+        ]
+      },
+      "first": "Weather lead reads the station reports and the wind at the time shown and says whether it is real"
+    },
+    {
+      "id": "WC-24", "hazard": "pressure", "title": "Pressure fall watch", "status": "Proposed", "threshold": "T07",
+      "when": {"all": [{"any": [{"fact": "press.fcFall", "op": ">=", "value": 4}, {"fact": "press.obsLevel", "op": "==", "value": "watch"}]},
+                       {"not": {"any": [{"fact": "press.fcFall", "op": ">=", "value": 6}, {"fact": "press.obsLevel", "op": "==", "value": "alert"}]}}]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 720, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T07 of params_calibration.json: a 24 h fall of 4 hPa or more forecast, or observed (24 h fall of 4 hPa, or a 3 h fall of 2 hPa beyond the daily tide). A supporting reading only.",
+      "message": {
+        "subject": "Pressure fall watch",
+        "lines": [
+          "Hazard: falling pressure at watch (Proposed, a supporting reading).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Most falls of this size are not followed by rain; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead looks at the model rain and the NCM bulletin for the next 12 hours"
+    },
+    {
+      "id": "WC-25", "hazard": "pressure", "title": "Pressure fall alert", "status": "Proposed", "threshold": "T07",
+      "when": {"any": [{"fact": "press.fcFall", "op": ">=", "value": 6}, {"fact": "press.obsLevel", "op": "==", "value": "alert"}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 720, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "T07 of params_calibration.json: a 24 h fall of 6 hPa or more, or a 3 h fall of 3 hPa beyond the daily tide. A supporting reading: 85 to 88 percent of such falls are not followed by rain, so it asks for a check and does not raise the rung.",
+      "message": {
+        "subject": "Pressure fall alert: read the rain evidence",
+        "lines": [
+          "Hazard: falling pressure at alert (Proposed, a supporting reading).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Most falls of this size are not followed by rain; the rung is not raised by this alone."
+        ]
+      },
+      "first": "Weather lead reads the model rain, the NCM bulletin and the radar for the next 12 hours"
+    },
+    {
+      "id": "WC-26", "hazard": "temperature", "title": "Heat or cold alert", "status": "Proposed", "threshold": "T05, T06",
+      "when": {"any": [{"fact": "heat.fc", "op": ">=", "value": 42}, {"fact": "heat.obs", "op": ">=", "value": 42}, {"fact": "cold.fc", "op": "<=", "value": 8}, {"fact": "cold.obs", "op": "<=", "value": 8}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 720, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "T06 and T05 of params_calibration.json: a daily maximum of 42 deg C or more, or a daily minimum of 8 deg C or less. Summer heat belongs to the summer arrangements (owner HSE).",
+      "message": {
+        "subject": "Temperature alert",
+        "lines": [
+          "Hazard: heat at 42 deg C or more, or cold at 8 deg C or less (Proposed thresholds).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The plan has no temperature trigger; the rung is not raised."
+        ]
+      },
+      "first": "Weather lead tells HSE so that work and rest hours can be set"
+    },
+    {
+      "id": "WC-27", "hazard": "humidity", "title": "Dry air alert", "status": "Proposed", "threshold": "T04",
+      "when": {"any": [{"fact": "dry.fc", "op": "<=", "value": 10}, {"fact": "dry.obs", "op": "<=", "value": 10}]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 720, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T04 of params_calibration.json: relative humidity of 10 percent or less. A reading band, not a trigger for anything in the plan.",
+      "message": {
+        "subject": "Dry air alert",
+        "lines": [
+          "Hazard: relative humidity at 10 percent or less (Proposed, a reading band).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "No hazard in the plan follows from dry air; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead notes it on the readiness record"
+    },
+    {
+      "id": "WC-28", "hazard": "humidity", "title": "Fog prone evening", "status": "Proposed", "threshold": "T03",
+      "when": {"fact": "fogprone.level", "op": "in", "value": ["watch", "alert"]},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 720, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "T03 of params_calibration.json: at 20:00 a dew point spread of 5 deg C or less at OMRK or OMSJ. A watch means prone, not forecast: fog is 4 to 5 percent of nights.",
+      "message": {
+        "subject": "Fog prone evening",
+        "lines": [
+          "Hazard: the evening is fog prone, which is not a fog forecast (Proposed).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Fog is 4 to 5 percent of nights; this is for the desk owner only."
+        ]
+      },
+      "first": "Weather lead looks at the stations at 02:00 and at dawn"
+    },
+    {
+      "id": "WC-29", "hazard": "health", "title": "Weather feed older than 2 hours", "status": "Verified", "blind": false,
+      "when": {"fact": "feed.ageH", "op": ">", "value": 2},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 180, "ackMin": 60, "escalateTo": "T2", "actions": ["A26"],
+      "basis": "The hourly run is late. Console alarm AL13 notes a feed over 6 hours and raises it at 24 hours; the channel warns at 2 hours and treats a feed over 3 hours as no reading.",
+      "message": {
+        "subject": "Weather feed is late",
+        "lines": [
+          "Hazard: the weather feed is older than 2 hours. The rung is held, never lowered.",
+          "Where: the laptop run of the weather engine and the legacy reader.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "After 3 hours the feed counts as no reading and the blind alert applies."
+        ]
+      },
+      "first": "Weather lead runs web_refresh.cmd or the Barq update and reads the NCM directly until it is back"
+    },
+    {
+      "id": "WC-30", "hazard": "health", "title": "No current rain reading", "status": "Proposed", "blind": true,
+      "when": {"fact": "rain.model", "op": "unknown"},
+      "rung": 0, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 180, "ackMin": 20, "escalateTo": "T3", "actions": ["A26"],
+      "basis": "The rain model reading is missing, unknown or older than 3 hours. A reading that is not there never lowers the rung: it is held for 6 hours and the blind alert is raised.",
+      "message": {
+        "subject": "Blind: no current rain reading",
+        "lines": [
+          "Hazard: the channel has no current rain model reading. Not calm: no reading.",
+          "Where: the rain points of the plan.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rung is held for 6 hours and is not lowered by a missing reading."
+        ]
+      },
+      "first": "Weather lead reads the NCM and the radar directly and runs the Barq update"
+    },
+    {
+      "id": "WC-31", "hazard": "health", "title": "Reading quality degraded or none", "status": "Proposed", "blind": true,
+      "when": {"fact": "health.quality", "op": "in", "value": ["degraded", "none"]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "The engine says some of what it reads is missing (a point, a model, a station, the NCM page). What is missing is no reading, so the rung is not lowered.",
+      "message": {
+        "subject": "Reading quality is {quality}",
+        "lines": [
+          "Hazard: the weather engine reports reading quality {quality}.",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "What is not read counts as no reading; the rung is held."
+        ]
+      },
+      "first": "Weather lead reads the health alerts of the engine and clears what can be cleared"
+    },
+    {
+      "id": "WC-32", "hazard": "health", "title": "NCM read older than 24 hours", "status": "Verified", "blind": true,
+      "when": {"any": [{"fact": "ncm.ageH", "op": ">", "value": 24}, {"fact": "ncm.ageH", "op": "unknown"}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 60, "escalateTo": "T2", "actions": ["A5"],
+      "basis": "The plan has the Weather lead read the NCM at every handover. No reading of the NCM warnings in 24 hours means an official warning could be missing from the log.",
+      "message": {
+        "subject": "NCM not read for 24 hours",
+        "lines": [
+          "Hazard: the NCM warnings were last read more than 24 hours ago (or never).",
+          "Where: the NCM warnings page and the NCM log.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "An official warning could be missing; the rung is held."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page and logs it with ncm_log.py add"
+    },
+    {
+      "id": "WC-33", "hazard": "health", "title": "NCM page colour or log line not logged", "status": "Verified", "blind": true,
+      "when": {"any": [{"fact": "ncm.pagePending", "op": "==", "value": true}, {"fact": "ncm.unreadable", "op": "==", "value": true}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A5"],
+      "basis": "The NCM warnings page showed a colour that nobody has logged, or a line of the NCM log cannot be read. Rain, fog and dust are unknown, not none, until a person logs a reading.",
+      "message": {
+        "subject": "NCM warning colour not logged",
+        "lines": [
+          "Hazard: the NCM page shows a warning colour nobody has logged, or an NCM log line is unreadable.",
+          "Where: the NCM warnings page and the NCM log.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Rain, fog and dust are unknown until it is logged; the rung is held."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page and logs it with ncm_log.py add"
+    },
+    {
+      "id": "WC-34", "hazard": "health", "title": "Weather engine silent", "status": "Proposed", "blind": true,
+      "when": {"any": [{"fact": "engine.ageH", "op": ">", "value": 3}, {"fact": "engine.ageH", "op": "unknown"}]},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "The engine has not written its health record for more than 3 hours, or there is no engine record. Fog, wind, humidity, pressure, dust and the sector exposure come from the engine only.",
+      "message": {
+        "subject": "Weather engine silent",
+        "lines": [
+          "Hazard: the weather engine has not run for more than 3 hours, or has no record.",
+          "Where: the hourly task WM004 Web Status Refresh on the laptop.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Fog, wind, dust and pressure are no reading until it runs; the rung is held."
+        ]
+      },
+      "first": "Desk owner checks the hourly task and web_refresh.log on the laptop"
+    },
+    {
+      "id": "WC-35", "hazard": "health", "title": "The channel itself has no reading", "status": "Proposed", "blind": true,
+      "when": {"fact": "channel.noReading", "op": "==", "value": true},
+      "rung": 0, "tier": "T2", "audience": ["COMMITTEE-HEAD", "COMMITTEE", "OPS-DIRECTOR"], "cooldownMin": 180, "ackMin": 20, "escalateTo": "T3", "actions": ["A26"],
+      "basis": "No input file is readable and current: no weather feed, no engine record, no NCM log. The channel is blind and says so.",
+      "message": {
+        "subject": "Blind: the channel has no reading at all",
+        "lines": [
+          "Hazard: the weather channel has no readable and current input of any kind.",
+          "Where: the laptop and its data folder.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rung is held for 6 hours; read the NCM and the radar directly."
+        ]
+      },
+      "first": "Desk owner restores the hourly task; the Weather lead reads the NCM and the radar directly"
+    },
+    {
+      "id": "WC-36", "hazard": "health", "title": "Conditions file not current", "status": "Proposed", "blind": false,
+      "when": {"fact": "conditions.current", "op": "==", "value": false},
+      "rung": 0, "tier": "T0", "audience": ["DESK-OWNER"], "cooldownMin": 360, "ackMin": null, "escalateTo": null, "actions": [],
+      "basis": "conditions.json has an asof older than 3 hours or is missing. The console must show its age and never present it as current.",
+      "message": {
+        "subject": "Conditions file not current",
+        "lines": [
+          "Hazard: conditions.json is older than 3 hours or missing.",
+          "Where: conditions.json in the rain folder.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The console shows its age and does not present it as current."
+        ]
+      },
+      "first": "Desk owner checks that the engine run reached the conditions step"
+    },
+    {
+      "id": "WC-37", "hazard": "health", "title": "Fewer than 6 of 8 rain points read", "status": "Proposed", "blind": true,
+      "when": {"fact": "rain.pointsRead", "op": "<", "value": 6},
+      "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 180, "ackMin": 60, "escalateTo": "T2", "actions": [],
+      "basis": "The legacy reader writes nothing when fewer than 6 of 8 points answer. A feed with fewer points read is partial and is no reading for the points that did not answer.",
+      "message": {
+        "subject": "Rain points not read",
+        "lines": [
+          "Hazard: fewer than 6 of the 8 rain points were read.",
+          "Where: the rain points of the plan.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The points not read are no reading, not calm; the rung is held."
+        ]
+      },
+      "first": "Weather lead runs the Barq update and reads the NCM directly"
+    },
+    {
+      "id": "WC-38", "hazard": "health", "title": "Blind for 6 hours or more", "status": "Proposed", "blind": true, "phase": 2,
+      "when": {"all": [{"fact": "blind.any", "op": "==", "value": true}, {"fact": "blind.hours", "op": ">=", "value": 6}]},
+      "rung": 0, "tier": "T3", "audience": ["SECTION-HEADS", "DIRECTOR"], "cooldownMin": 360, "ackMin": 15, "escalateTo": null, "actions": ["A26"],
+      "basis": "The channel has held the rung without a clear reading for 6 hours or more. The hold has run out and the rung stays until a clear reading returns; people must read the sources.",
+      "message": {
+        "subject": "Blind for 6 hours: the rung is held without a reading",
+        "lines": [
+          "Hazard: the channel has been blind for 6 hours or more. The rung is still held, not lowered.",
+          "Where: the weather channel of the laptop.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The Director and the section heads decide whether to keep the stage."
+        ]
+      },
+      "first": "Weather lead reads the NCM and the radar directly and tells the committee what they show"
+    },
+    {
+      "id": "WC-39",
+      "hazard": "ncm",
+      "title": "A typed NCM reading at yellow was refused by the log",
+      "status": "Proposed",
+      "when": {
+        "fact": "ncm.refusedRain",
+        "op": "==",
+        "value": "yellow"
+      },
+      "rung": 1,
+      "tier": "T1",
+      "audience": [
+        "WEATHER-LEAD",
+        "DESK-DUTY"
+      ],
+      "cooldownMin": 360,
+      "ackMin": 30,
+      "escalateTo": "T2",
+      "actions": [
+        "A15",
+        "A26"
+      ],
+      "basis": "A person typed an NCM reading and the log refused it, so it is not in the log. A typed warning must never vanish: until a valid reading is logged or the refusal is cleared, what was typed counts at its level, as in the plan stage table.",
+      "message": {
+        "subject": "Typed NCM yellow refused by the log: Enhanced watch recommended",
+        "lines": [
+          "Hazard: an NCM reading typed as yellow was refused by the log and is not in it (typed by a person, not logged).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page again and logs the reading with ncm_log.py add"
+    },
+    {
+      "id": "WC-40",
+      "hazard": "ncm",
+      "title": "A typed NCM reading at orange was refused by the log",
+      "status": "Proposed",
+      "when": {
+        "fact": "ncm.refusedRain",
+        "op": "==",
+        "value": "orange"
+      },
+      "rung": 2,
+      "tier": "T2",
+      "audience": [
+        "COMMITTEE-HEAD",
+        "COMMITTEE",
+        "OPS-DIRECTOR"
+      ],
+      "cooldownMin": 360,
+      "ackMin": 20,
+      "escalateTo": "T3",
+      "actions": [
+        "A24",
+        "A29"
+      ],
+      "basis": "A person typed an NCM reading and the log refused it, so it is not in the log. A typed warning must never vanish: until a valid reading is logged or the refusal is cleared, what was typed counts at its level, as in the plan stage table.",
+      "message": {
+        "subject": "Typed NCM orange refused by the log: Pre deployment recommended",
+        "lines": [
+          "Hazard: an NCM reading typed as orange was refused by the log and is not in it (typed by a person, not logged).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; this is a recommendation."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page now and logs the reading; the committee head decides Pre deployment"
+    },
+    {
+      "id": "WC-41",
+      "hazard": "ncm",
+      "title": "A typed NCM reading at red was refused by the log",
+      "status": "Proposed",
+      "when": {
+        "fact": "ncm.refusedRain",
+        "op": "==",
+        "value": "red"
+      },
+      "rung": 3,
+      "tier": "T3",
+      "audience": [
+        "SECTION-HEADS",
+        "DIRECTOR"
+      ],
+      "cooldownMin": 720,
+      "ackMin": 15,
+      "escalateTo": null,
+      "actions": [
+        "A29"
+      ],
+      "basis": "A person typed an NCM reading and the log refused it, so it is not in the log. A typed warning must never vanish: until a valid reading is logged or the refusal is cleared, what was typed counts at its level, as in the plan stage table.",
+      "message": {
+        "subject": "Typed NCM red refused by the log: Active response recommended",
+        "lines": [
+          "Hazard: an NCM reading typed as red was refused by the log and is not in it (typed by a person, not logged).",
+          "Where: {where}.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "The rain committee sets the stage; the full activation pack is in the channel record."
+        ]
+      },
+      "first": "Head of the rain committee decides Active response now; the Weather lead logs the reading with ncm_log.py add"
+    },
+    {
+      "id": "WC-42",
+      "hazard": "health",
+      "title": "A typed NCM reading is not in the log",
+      "status": "Proposed",
+      "blind": true,
+      "when": {
+        "fact": "ncm.refusedAny",
+        "op": "==",
+        "value": true
+      },
+      "rung": 0,
+      "tier": "T1",
+      "audience": [
+        "WEATHER-LEAD",
+        "DESK-DUTY"
+      ],
+      "cooldownMin": 360,
+      "ackMin": 30,
+      "escalateTo": "T2",
+      "actions": [
+        "A5"
+      ],
+      "basis": "An NCM reading was typed and the log refused it, or a line of the refused file cannot be read. What was typed is an official warning that nobody can see in the log: the rung is held until it is dealt with.",
+      "message": {
+        "subject": "A typed NCM reading is not in the log",
+        "lines": [
+          "Hazard: an NCM reading was typed and refused by the log, or the file of refused readings cannot be read.",
+          "Where: the NCM log and the file of refused readings.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "Rain, fog and dust are unknown until it is dealt with; the rung is held."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page, logs the reading with ncm_log.py add, and clears the refusal with ncm_log.py clear-refused"
+    },
+    {
+      "id": "WC-43",
+      "hazard": "health",
+      "title": "NCM live reader silent, or reading nothing",
+      "status": "Proposed",
+      "blind": true,
+      "when": {"any": [{"fact": "ncm.readerAgeMin", "op": ">", "value": 90}, {"fact": "ncm.readerState", "op": "==", "value": "NO READING"}, {"fact": "ncm.readerUnreachable", "op": "==", "value": true}]},
+      "rung": 0,
+      "tier": "T1",
+      "audience": ["WEATHER-LEAD", "DESK-DUTY"],
+      "cooldownMin": 360,
+      "ackMin": 60,
+      "escalateTo": "T2",
+      "actions": ["A5"],
+      "basis": "The reader writes every 30 minutes, the owner's cadence of 31 Oct 2026. Proposed: 90 minutes, three runs, means it has stopped; the owner has stated no number. A file that cannot be fetched is the same. It fires with or without a storm.",
+      "message": {
+        "subject": "NCM live reader silent or reading nothing",
+        "lines": [
+          "Hazard: the NCM live reader has not written for over 90 minutes, or it says NO READING.",
+          "Where: the NCM reader on the site.",
+          "When: {when}.",
+          "Evidence: {evidence}.",
+          "First action: {first}.",
+          "An official warning could be missing; the rung is held."
+        ]
+      },
+      "first": "Weather lead reads the NCM warnings page and checks the NCM reader runs on GitHub"
+    },
+    {"id": "WC-44", "hazard": "health", "title": "NCM warning in force with its hazard not read", "status": "Proposed", "blind": true, "when": {"any": [{"fact": "ncm.hazardNotRead", "op": "==", "value": true}]}, "rung": 0, "tier": "T1", "audience": ["WEATHER-LEAD", "DESK-DUTY"], "cooldownMin": 360, "ackMin": 30, "escalateTo": "T2", "actions": ["A5"], "basis": "The NCM reader read a warning whose hazard no colour answers: a code it does not know, no code, a ticker warning beside the list, or a ticker that failed. A hazard not read is not none. Proposed: this rule was added by the independent review of 31 Oct 2026.", "message": {"subject": "NCM warning with its hazard not read", "lines": ["Hazard: the NCM reader read a warning in force and cannot say which hazard it is, or the ticker that could say was not read.", "Where: the NCM reader on the site.", "When: {when}.", "Evidence: {evidence}.", "First action: {first}.", "Rain, fog and dust are unknown, not none, until it is read; the rung is held."]}, "first": "Weather lead opens the NCM board, reads the warning and logs it"}
+  ]
+}
