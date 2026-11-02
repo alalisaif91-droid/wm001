@@ -1,10 +1,10 @@
 {
- "written": "2026-11-02 05:22",
+ "written": "2026-11-02 05:54",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-02 05:22",
+ "feedAsof": "2026-11-02 05:44",
  "modelLevel": "none",
  "worstMax6": 0.4,
  "thresholds": {
@@ -14,7 +14,7 @@
  "ncm": {
   "level": "none",
   "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-02 03:57",
+  "asof": "2026-11-02 05:43",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-02 05:22",
+  "captured": "2026-11-02 05:52",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -100,13 +100,13 @@
  },
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
- "console": "https://claude.ai/artifact/YJnu8AUBVFWXt1WK7GyrMU",
+ "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -129,22 +129,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 1.4,
+  "ageHours": 0.2,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 14.2,
-  "stale": false
+  "warningsAgeHours": null,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-02 04:50",
-  "lastGoodAsof": "2026-11-02 04:50",
+  "lastRun": "2026-11-02 05:52",
+  "lastGoodAsof": "2026-11-02 05:52",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 13.7
- }
+  "ncmWarningsReadingAgeHours": null
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
