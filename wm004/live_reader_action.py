@@ -8,7 +8,6 @@ A failed read is never calm: the sealed file stays as it was and the index names
   python3 wm004/live_reader_action.py"""
 import csv
 import datetime as dt
-import gzip
 import hashlib
 import io
 import json
@@ -72,11 +71,11 @@ def pumps():
 def seal(obj, name, pub, memo):
     """writes the sealed file when the content changed; returns the content hash"""
     plain = json.dumps(obj, ensure_ascii=False, separators=(',', ':'), sort_keys=True).encode('utf-8')
-    h = hashlib.sha256(plain).hexdigest()[:16]
+    h = hashlib.sha256(b'plain json\n' + plain).hexdigest()[:16]
     if memo != h or not os.path.exists(os.path.join(HERE, name)):
         tmp = os.path.join(HERE, '.' + name + '.part')
         with open(tmp, 'wb') as f:
-            f.write(C.frame(C.seal(gzip.compress(plain, 9, mtime=0), pub)))
+            f.write(C.frame(C.seal(plain, pub)))
         os.replace(tmp, os.path.join(HERE, name))
     return h
 
