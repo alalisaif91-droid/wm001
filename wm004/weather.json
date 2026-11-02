@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-02 17:27",
+ "asof": "2026-11-02 18:01",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 1.8,
+ "worstMax6": 0.1,
  "pointsRead": 8,
  "pointsTotal": 8,
  "unreadPoints": [],
@@ -23,15 +23,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 3,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -314,6 +310,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -327,15 +327,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 5,
    "gustMax24": 19,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -618,6 +614,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -631,15 +631,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 3,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -922,6 +918,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -935,15 +935,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 8,
-   "gustMax24": 29,
+   "gustMax24": 30,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -1226,6 +1222,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -1239,15 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 3,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -1530,6 +1526,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -1543,15 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T17:00",
+   "peakAt": "2026-11-02T18:00",
    "peakMm": 0.0,
    "probMax24": 3,
    "gustMax24": 25,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     0.0
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -1834,6 +1830,10 @@
     ],
     [
      "2026-11-05T16:00",
+     0.0
+    ],
+    [
+     "2026-11-05T17:00",
      0.0
     ]
    ]
@@ -1842,20 +1842,16 @@
    "name": "Showkah and Kadrah (8A)",
    "lat": 25.0925,
    "lon": 56.1193,
-   "next6": 1.5,
-   "next24": 1.5,
-   "next72": 1.5,
+   "next6": 0.0,
+   "next24": 0.0,
+   "next72": 0.0,
    "hoursInWindow": 72,
-   "max6": 1.5,
-   "peakAt": "2026-11-02T17:00",
-   "peakMm": 1.5,
-   "probMax24": 20,
-   "gustMax24": 43,
+   "max6": 0.0,
+   "peakAt": "2026-11-02T18:00",
+   "peakMm": 0.0,
+   "probMax24": 15,
+   "gustMax24": 40,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     1.5
-    ],
     [
      "2026-11-02T18:00",
      0.0
@@ -2139,6 +2135,10 @@
     [
      "2026-11-05T16:00",
      0.0
+    ],
+    [
+     "2026-11-05T17:00",
+     0.0
     ]
    ]
   },
@@ -2146,20 +2146,16 @@
    "name": "Al Munai (9A)",
    "lat": 24.9231,
    "lon": 56.1496,
-   "next6": 1.8,
-   "next24": 1.8,
-   "next72": 1.8,
+   "next6": 0.1,
+   "next24": 0.1,
+   "next72": 0.1,
    "hoursInWindow": 72,
-   "max6": 1.8,
-   "peakAt": "2026-11-02T17:00",
-   "peakMm": 1.7,
+   "max6": 0.1,
+   "peakAt": "2026-11-02T18:00",
+   "peakMm": 0.1,
    "probMax24": 5,
    "gustMax24": 38,
    "hourly": [
-    [
-     "2026-11-02T17:00",
-     1.7
-    ],
     [
      "2026-11-02T18:00",
      0.1
@@ -2443,6 +2439,10 @@
     [
      "2026-11-05T16:00",
      0.0
+    ],
+    [
+     "2026-11-05T17:00",
+     0.0
     ]
    ]
   }
@@ -2470,11 +2470,11 @@
    "2436"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 02 Nov 17:25, list 0.18 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 02 Nov 17:59, list 0.74 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-02 17:25",
-  "ageHours": 0.02,
+  "asof": "2026-11-02 17:59",
+  "ageHours": 0.03,
   "hazard": [
    "dust",
    "rain",
@@ -2485,7 +2485,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-02 17:27",
+  "refreshed": "2026-11-02 18:01",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2494,16 +2494,16 @@
    "rak": "touched",
    "named": false,
    "city": true,
-   "listAgeH": 0.18,
+   "listAgeH": 0.74,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-02T13:25:58Z",
+    "lastOk": "2026-11-02T13:59:32Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-02 17:25; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-02 17:59; it reads the list and the ticker every 30 minutes"
  }
 }
