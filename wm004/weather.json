@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-02 09:35",
+ "asof": "2026-11-02 10:08",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.4,
  "pointsRead": 8,
  "pointsTotal": 8,
  "unreadPoints": [],
@@ -23,15 +23,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 25,
+   "gustMax24": 23,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -314,6 +310,10 @@
     ],
     [
      "2026-11-05T08:00",
+     0.0
+    ],
+    [
+     "2026-11-05T09:00",
      0.0
     ]
    ]
@@ -327,15 +327,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 20,
+   "gustMax24": 18,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -618,6 +614,10 @@
     ],
     [
      "2026-11-05T08:00",
+     0.0
+    ],
+    [
+     "2026-11-05T09:00",
      0.0
     ]
    ]
@@ -631,15 +631,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 25,
+   "gustMax24": 23,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -922,6 +918,10 @@
     ],
     [
      "2026-11-05T08:00",
+     0.0
+    ],
+    [
+     "2026-11-05T09:00",
      0.0
     ]
    ]
@@ -935,15 +935,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 23,
+   "gustMax24": 22,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -1226,6 +1222,10 @@
     ],
     [
      "2026-11-05T08:00",
+     0.0
+    ],
+    [
+     "2026-11-05T09:00",
      0.0
     ]
    ]
@@ -1239,15 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 32,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -1530,6 +1526,10 @@
     ],
     [
      "2026-11-05T08:00",
+     0.0
+    ],
+    [
+     "2026-11-05T09:00",
      0.0
     ]
    ]
@@ -1543,15 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
+   "peakAt": "2026-11-02T10:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 26,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -1835,6 +1831,10 @@
     [
      "2026-11-05T08:00",
      0.0
+    ],
+    [
+     "2026-11-05T09:00",
+     0.0
     ]
    ]
   },
@@ -1843,19 +1843,15 @@
    "lat": 25.0925,
    "lon": 56.1193,
    "next6": 0.0,
-   "next24": 0.0,
-   "next72": 0.1,
+   "next24": 0.4,
+   "next72": 0.5,
    "hoursInWindow": 72,
-   "max6": 0.1,
-   "peakAt": "2026-11-03T16:00",
-   "peakMm": 0.1,
+   "max6": 0.4,
+   "peakAt": "2026-11-02T17:00",
+   "peakMm": 0.4,
    "probMax24": 5,
-   "gustMax24": 38,
+   "gustMax24": 42,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -1886,7 +1882,7 @@
     ],
     [
      "2026-11-02T17:00",
-     0.0
+     0.4
     ],
     [
      "2026-11-02T18:00",
@@ -2139,6 +2135,10 @@
     [
      "2026-11-05T08:00",
      0.0
+    ],
+    [
+     "2026-11-05T09:00",
+     0.0
     ]
    ]
   },
@@ -2147,19 +2147,15 @@
    "lat": 24.9231,
    "lon": 56.1496,
    "next6": 0.0,
-   "next24": 0.0,
-   "next72": 0.0,
+   "next24": 0.4,
+   "next72": 0.4,
    "hoursInWindow": 72,
-   "max6": 0.0,
-   "peakAt": "2026-11-02T09:00",
-   "peakMm": 0.0,
+   "max6": 0.4,
+   "peakAt": "2026-11-02T17:00",
+   "peakMm": 0.4,
    "probMax24": 0,
-   "gustMax24": 28,
+   "gustMax24": 34,
    "hourly": [
-    [
-     "2026-11-02T09:00",
-     0.0
-    ],
     [
      "2026-11-02T10:00",
      0.0
@@ -2190,7 +2186,7 @@
     ],
     [
      "2026-11-02T17:00",
-     0.0
+     0.4
     ],
     [
      "2026-11-02T18:00",
@@ -2443,6 +2439,10 @@
     [
      "2026-11-05T08:00",
      0.0
+    ],
+    [
+     "2026-11-05T09:00",
+     0.0
     ]
    ]
   }
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 02 Nov 09:33, list 15.32 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 02 Nov 10:07, list 15.88 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-02 09:33",
+  "asof": "2026-11-02 10:07",
   "ageHours": 0.02,
   "hazard": [],
   "id": null,
@@ -2479,7 +2479,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-02 09:35",
+  "refreshed": "2026-11-02 10:08",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 15.32,
+   "listAgeH": 15.88,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-02T05:33:42Z",
+    "lastOk": "2026-11-02T06:07:22Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-02 09:33; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-02 10:07; it reads the list and the ticker every 30 minutes"
  }
 }
