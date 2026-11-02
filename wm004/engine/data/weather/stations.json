@@ -1,0 +1,14 @@
+{
+ "schema": 1,
+ "status": "Verified: station records of aviationweather.gov (stationinfo and the METAR records read on 24 Oct 2026). The distance to each rain point is worked out by the engine from these coordinates at every run and written into weather.json (obs.stations.*.distKm).",
+ "stations": [
+  {"icao": "OMRK", "name": "Ras Al Khaimah Intl", "lat": 25.613, "lon": 55.939, "elev": 18, "side": "west coast", "source": "aviationweather.gov station record"},
+  {"icao": "OMFJ", "name": "Fujairah Intl", "lat": 25.112, "lon": 56.324, "elev": 27, "side": "east coast", "source": "aviationweather.gov station record"},
+  {"icao": "OMSJ", "name": "Sharjah Intl", "lat": 25.329, "lon": 55.517, "elev": 33, "side": "west coast (Sharjah, not Ras Al Khaimah)", "source": "aviationweather.gov station record"}
+ ],
+ "notes": [
+  "OMSJ is Sharjah. It is the nearest METAR site west of Ras Al Khaimah and carries fog evidence (190 fog hours in seven seasons against 151 at OMRK, calibration.json).",
+  "No METAR site exists in the eastern mountains; OMFJ is on the east coast about 21 km from Showkah.",
+  "NCM automatic weather stations (26 in the area, rain gauges) are not read: access is a token gated page (gap, owner Wet Utilities with NCM)."
+ ]
+}

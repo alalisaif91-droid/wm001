@@ -1,0 +1,77 @@
+# WM004 live job, on GitHub's servers (2 Nov 2026, the owner: "i need it to auto and live all time").
+# It runs on every tick of wm004-clock.yml, so about every 33 minutes, whether or not any laptop is on.
+# Step one reads the complaints and the pumps. Step two runs the weather engine only when the record the laptop published is over 100 minutes old (engine_action.py), so the engine stands in
+# when the laptop sleeps and stays out when it is awake. Open-Meteo is called only in that case.
+# The engine's memory between runs is kept in the Actions cache, not in this public repository: nothing but screened files is committed. A lost cache only means a fresh start.
+# A push of wm004/engine.trigger forces one engine run, which proves the path. The schedule below only restarts it if the clock ever stops.
+name: WM004 live job
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/wm004-engine.yml'
+      - 'wm004/engine.trigger'
+  schedule:
+    - cron: '23 */2 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: wm004-engine
+  cancel-in-progress: false
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Install the sealing library
+        run: python3 -m pip install --quiet cryptography
+      - name: Read the complaints and the pumps
+        continue-on-error: true
+        run: python3 wm004/live_reader_action.py
+      - name: Restore the memory of the engine
+        id: restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/wm004run
+          key: wm004-engine-${{ github.run_id }}
+          restore-keys: wm004-engine-
+      - name: Run the engine if the laptop has stopped
+        id: engine
+        continue-on-error: true
+        env:
+          FORCE: ${{ github.event_name == 'push' }}
+        run: python3 wm004/engine_action.py
+      - name: Keep the memory of the engine
+        if: steps.engine.outputs.ran == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/wm004run
+          key: wm004-engine-${{ github.run_id }}
+      - name: Commit to main and bring gh-pages level
+        run: |
+          set -e
+          git config user.name "WM004 live job"
+          git config user.email "wm004@users.noreply.github.com"
+          for f in live_index.json complaints.enc pumps_live.enc engine.json conditions.json channel.json status.json; do
+            if [ -f "wm004/$f" ]; then git add "wm004/$f"; fi
+          done
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -q -m "wm004: live job $(date -u +%H:%M) (GitHub Actions)"
+          for i in 1 2 3 4; do
+            if git pull --rebase origin main && git push origin HEAD:main; then break; fi
+            git rebase --abort 2>/dev/null || true
+            echo "push to main rejected, try $i"; sleep $((i * 5))
+          done
+          for i in 1 2 3 4; do
+            git fetch origin gh-pages main
+            TREE=$(git rev-parse origin/main^{tree})
+            if [ "$TREE" = "$(git rev-parse origin/gh-pages^{tree})" ]; then echo "gh-pages already level"; break; fi
+            C=$(git commit-tree "$TREE" -p origin/gh-pages -m "wm004: site synced from main $(git rev-parse --short origin/main) (GitHub Actions)")
+            git push origin "$C:refs/heads/gh-pages" && break
+            echo "push to gh-pages rejected, try $i"; sleep $((i * 5))
+          done
