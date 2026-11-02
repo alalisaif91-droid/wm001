@@ -1,32 +1,27 @@
 {
- "written": "2026-11-02 07:00",
+ "written": "2026-11-02 08:29",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-02 07:00",
+ "feedAsof": "2026-11-02 08:27",
  "modelLevel": "none",
- "worstMax6": 0.4,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-02 03:57",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 02 Nov 08:26, list 14.2 h old.",
+  "asof": "2026-11-02 08:26",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
@@ -74,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.4,
-   "next72": 0.5,
-   "max6": 0.4,
+   "next24": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.1,
-   "next72": 0.2,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-11-02 06:47",
+  "captured": "2026-11-02 08:29",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -106,7 +101,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -129,22 +124,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.1,
-  "by": "engine",
+  "ageHours": 0.1,
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 15.9,
+  "warningsAgeHours": null,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-02 06:20",
-  "lastGoodAsof": "2026-11-02 06:20",
+  "lastRun": "2026-11-02 08:29",
+  "lastGoodAsof": "2026-11-02 08:29",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 15.2
- }
+  "ncmWarningsReadingAgeHours": null
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
