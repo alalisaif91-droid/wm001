@@ -36,6 +36,18 @@ def age_min(path):
         return None
 
 
+def failed(path):
+    """the published record is a failed read: no model point answered, or the run says it was not ok (3 Nov 2026: the laptop lost its network at 13:59, published a run
+    with 0 of 8 points, and the standby stayed out for 100 minutes because the record was young)"""
+    try:
+        with open(path, encoding='utf-8') as f:
+            a = json.load(f)
+    except (OSError, ValueError):
+        return False
+    lr = (a.get('health') or {}).get('lastRun') or {}
+    return a.get('readingQuality') in ('degraded', 'none') or lr.get('ok') is False
+
+
 def said(ran):
     if FLAG:
         with open(FLAG, 'a', encoding='utf-8') as f:
@@ -45,11 +57,12 @@ def said(ran):
 def main():
     force = os.environ.get('FORCE') == 'true'
     age = age_min(os.path.join(HERE, 'engine.json'))
-    if not force and age is not None and age < LIMIT_MIN:
+    bad = failed(os.path.join(HERE, 'engine.json'))
+    if not force and not bad and age is not None and age < LIMIT_MIN:
         print('the published engine record is %d minutes old: the standby stays out' % age)
         said(False)
         return 0
-    print('running the engine here: published record %s minutes old, force %s' % ('unknown' if age is None else int(age), force))
+    print('running the engine here: published record %s minutes old, failed read %s, force %s' % ('unknown' if age is None else int(age), bad, force))
     os.makedirs(APP, exist_ok=True)
     shutil.copytree(CODE, APP, dirs_exist_ok=True)          # the code and the fixed rules over the state kept from the last run
     env = dict(os.environ, PYTHONIOENCODING='utf-8')
