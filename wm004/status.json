@@ -1,10 +1,10 @@
 {
- "written": "2026-11-03 15:08",
+ "written": "2026-11-03 15:53",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather could not be read well enough at the last run, so no stage is proposed from it",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-03 15:08",
+ "feedAsof": "2026-11-03 15:53",
  "modelLevel": "none",
  "worstMax6": 0.2,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader file could not be read.",
-  "asof": "2026-11-03 12:11",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "asof": "2026-11-03 15:05",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
    "rain",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-03 15:07",
+  "captured": "2026-11-03 15:47",
   "total": 134,
   "standby": 40,
   "working": 0,
@@ -103,11 +103,11 @@
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "unknown",
-   "ncm": "unknown",
-   "stationRainNow": null,
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -115,11 +115,11 @@
    }
   },
   "fog": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "unknown",
-   "observed": "unknown",
-   "ncm": "unknown"
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -127,24 +127,24 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.0,
+  "ageHours": 0.8,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 7.7,
-  "stale": true
+  "warningsAgeHours": 8.5,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
-  "ok": false,
-  "lastRun": "2026-11-03 13:59",
-  "lastGoodAsof": "2026-11-03 12:20",
-  "readingQuality": "degraded",
-  "pointsRead": 0,
+  "ok": true,
+  "lastRun": "2026-11-03 15:20",
+  "lastGoodAsof": "2026-11-03 15:20",
+  "readingQuality": "full",
+  "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 13,
-  "modelFailuresInARow": 1,
-  "ncmWarningsReadingAgeHours": 6.5
+  "alertCount": 0,
+  "modelFailuresInARow": 0,
+  "ncmWarningsReadingAgeHours": 7.9
  }
 }
