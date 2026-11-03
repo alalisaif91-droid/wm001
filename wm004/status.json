@@ -1,32 +1,27 @@
 {
- "written": "2026-11-03 20:29",
+ "written": "2026-11-03 22:10",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The last NCM reading is not current and the NCM reader file could not be read, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-03 20:26",
+ "feedAsof": "2026-11-03 22:07",
  "modelLevel": "none",
- "worstMax6": 0.2,
+ "worstMax6": 0.4,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-03 20:24",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader file could not be read.",
+  "asof": "2026-11-03 21:32",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
@@ -39,9 +34,9 @@
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.2,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -60,9 +55,9 @@
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.2,
-   "next72": 0.2,
-   "max6": 0.2,
+   "next24": 0.4,
+   "next72": 0.4,
+   "max6": 0.4,
    "error": false
   },
   {
@@ -88,11 +83,11 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-03 20:27",
-  "total": 134,
-  "standby": 40,
+  "captured": "2026-11-03 22:08",
+  "total": 125,
+  "standby": 42,
   "working": 0,
-  "noPump": 93
+  "noPump": 82
  },
  "actions": {
   "total": 30,
@@ -106,7 +101,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -119,7 +114,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "alert",
    "observed": "none",
-   "ncm": "none"
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -129,23 +124,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
-  "by": "engine",
+  "ageHours": 0.6,
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 15.8,
-  "stale": false
+  "warningsAgeHours": null,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-03 20:27",
-  "lastGoodAsof": "2026-11-03 20:27",
+  "lastRun": "2026-11-03 22:08",
+  "lastGoodAsof": "2026-11-03 22:08",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 7,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 15.8
+  "ncmWarningsReadingAgeHours": 17.5
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
