@@ -1,5 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><meta http-equiv="Cache-Control" content="no-store"><title>WM004 Rain Emergency Response</title>
+<meta name="robots" content="noindex,nofollow"><meta http-equiv="Cache-Control" content="no-store"><script>(function(){var d=document.documentElement,q=/[?&]view=(desktop|mobile)(&|#|$)/.exec(location.search),v=q?q[1]:"",w=window,s=w.screen||{},p=(navigator.maxTouchPoints||0)>0&&!!w.matchMedia&&w.matchMedia("(pointer:coarse)").matches&&Math.min(s.width||9999,s.height||9999)<=600;w.__WM004_PHONE=p;if(w.__WM004_VIEW==="mobile-inner"||v==="mobile"||(p&&v!=="desktop"))d.setAttribute("data-app","1");})();</script><title>WM004 Rain Emergency Response</title>
+<meta name="theme-color" content="#0C1319"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="WM004"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="manifest" href="../manifest.webmanifest"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <style>
 :root{--ground:#0C1319;--panel:#121C24;--panel-2:#17232C;--line:#24333F;--ink:#E7EEF3;--ink-soft:#9EB0BF;--accent:#2FA3C0;--accent-wash:rgba(47,163,192,.14);--sans:Calibri,Carlito,"Segoe UI",sans-serif}
 html,body{margin:0;height:100%;background:var(--ground);color:var(--ink);font-family:var(--sans)}
@@ -12,23 +13,27 @@ h1{margin:0 0 4px;font-size:20px;font-weight:700}p{margin:0 0 16px;font-size:13.
 #gate-in:focus{outline:2px solid var(--accent);outline-offset:1px}
 button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;padding:9px;border-radius:8px;cursor:pointer;border:1px solid var(--accent);background:var(--accent-wash);color:var(--ink)}
 .g-msg{min-height:18px;margin:10px 0 0;font-size:13px}
-.view{border:1px solid var(--line);border-radius:8px;margin:12px 0 0;padding:6px 8px 8px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
-.view legend{font-size:12px;color:var(--ink-soft);padding:0 6px}
-.view label{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink);padding:5px 12px;border:1px solid var(--line);border-radius:14px;cursor:pointer}
-.view input{margin:0;accent-color:var(--accent)}
-.view label:has(input:checked){background:var(--accent-wash);border-color:var(--accent)}
 .bar{height:4px;background:var(--panel-2);border-radius:2px;margin-top:12px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+/* the sign in screen of the app: one field, one button; both themes. Every line is under html[data-app="1"], so a computer's gate cannot change. */
+html[data-app="1"]{--ground:#F3F5F7;--panel:#FFFFFF;--panel-2:#F3F5F7;--line:#D3DAE3;--ink:#14202B;--ink-soft:#5C6672;--accent:#1B7A93;--accent-wash:rgba(27,122,147,.14)}
+@media (prefers-color-scheme:dark){html[data-app="1"]{--ground:#0C1319;--panel:#121C24;--panel-2:#17232C;--line:#24333F;--ink:#E7EEF3;--ink-soft:#9EB0BF;--accent:#2FA3C0;--accent-wash:rgba(47,163,192,.14)}}
+html[data-app="1"] #gate{align-items:flex-start;padding:calc(4vh + env(safe-area-inset-top,0px)) 20px 20px;overflow:auto}
+html[data-app="1"] .g-box{background:none;border:0;padding:0;max-width:420px;margin:0 auto}
+html[data-app="1"] h1{font-size:24px;margin-bottom:8px}
+html[data-app="1"] p{font-size:15px;margin-bottom:24px}
+html[data-app="1"] #gate-in{font-size:16px;min-height:52px;padding:12px;border-radius:10px}
+html[data-app="1"] .shw{display:none}
+html[data-app="1"] button{font-size:17px;min-height:52px;margin-top:14px;border-radius:10px}
+html[data-app="1"] .g-msg{font-size:15px}
 </style></head><body>
 <div id="gate" role="dialog" aria-modal="true" aria-label="Access code"><form class="g-box" autocomplete="off">
 <h1>WM004 Rain Emergency Response</h1><p>Enter the access code to open the console. It refreshes its weather feed every 15 minutes.</p>
 <input id="gate-in" type="text" maxlength="96" aria-label="Access code" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
 <label class="shw"><input type="checkbox" id="gate-show"> Show the code I type</label>
-<fieldset class="view" aria-label="Open as"><legend>Open as</legend>
-<label><input type="radio" name="gview" value="auto" checked> Auto</label><label><input type="radio" name="gview" value="desktop"> Desktop</label><label><input type="radio" name="gview" value="mobile"> Mobile</label></fieldset>
 <button type="submit">Open</button><div class="g-msg" id="gate-msg" aria-live="polite"></div><div class="bar"><i id="gate-bar"></i></div></form></div>
 <script>
 (function(){
-  var ROUNDS=1000000, APPROX=3851081;
+  var ROUNDS=1000000, APPROX=5177256;
   var form=document.querySelector("form"), inp=document.getElementById("gate-in"), msg=document.getElementById("gate-msg"), bar=document.getElementById("gate-bar");
   var busy=false, wait=0, tries=0;
   document.getElementById("gate-show").addEventListener("change",function(e){ inp.className=e.target.checked?"shown":""; });
@@ -45,13 +50,9 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
     var ds=new DecompressionStream("gzip"); var w=ds.writable.getWriter(); w.write(buf); w.close();
     return new Response(ds.readable).arrayBuffer();
   }
-  /* The view: Auto (the page decides from the screen), Desktop (a desktop layout even on a phone), Mobile (the phone layout even on a wide screen, in a phone width frame).
-     The choice comes from the address (?view=mobile or ?view=desktop, so a link can carry it), else from the buttons above, else from what this browser remembered (set only when a button is used). */
-  var KEY="wm004_view", VIEWS={auto:1,desktop:1,mobile:1};
-  function qView(){ var m=/[?&]view=(auto|desktop|mobile)/.exec(location.search); return m?m[1]:""; }
-  function savedView(){ try{ var v=localStorage.getItem(KEY); return VIEWS[v]?v:""; }catch(e){ return ""; } }
-  (function(){ var v=qView()||savedView(); if(v){ var r=document.querySelector('input[name=gview][value='+v+']'); if(r) r.checked=true; } })();
-  function chosenView(){ var r=document.querySelector('input[name=gview]:checked'); var v=r?r.value:"auto"; if(!qView()){ try{ if(v==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,v); }catch(e){} } return qView()||v; }
+  /* The view (1 Nov 2026): the device decides, in the head of the page (wx3/device.js); the user is asked nothing. ?view=desktop (a desktop layout even on a phone) and ?view=mobile (the phone layout even on a wide screen, in a phone width frame) stay as the override, so a link can carry it.
+     What this browser remembered from the old buttons (wm004_view) is no longer read: a choice made once must not hold a computer in the phone frame. */
+  function chosenView(){ var m=/[?&]view=(desktop|mobile)/.exec(location.search); return m?m[1]:"auto"; }
   function openIn(html, view){
     var wide=window.innerWidth>760;
     if(view==="mobile" && wide){
@@ -61,7 +62,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
       document.open();
       document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WM004 Rain Emergency Response</title><style>html,body{margin:0;height:100%;background:#0C1319;color:#E7EEF3;font-family:Calibri,Carlito,"Segoe UI",sans-serif}body{display:flex;flex-direction:column;align-items:center}.vbar{box-sizing:border-box;width:100%;display:flex;gap:10px;align-items:center;justify-content:center;padding:6px 12px;font-size:13px;color:#9EB0BF;border-bottom:1px solid #24333F}.vbar a{color:#E7EEF3;text-decoration:underline;cursor:pointer}.phone{flex:1;min-height:0;width:430px;max-width:100%;border-left:1px solid #24333F;border-right:1px solid #24333F;background:#fff}iframe{display:block;width:100%;height:100%;border:0}</style></head><body><div class="vbar"><span>Mobile view</span><a id="vd">Desktop view</a><a id="va">Auto</a></div><div class="phone"><iframe id="vf" title="WM004 mobile view"></iframe></div></body></html>');
       document.close();
-      function sw(v){ try{ if(v==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,v); }catch(e){} var u=location.pathname+(v==="auto"?"":"?view="+v); location.href=u; }
+      function sw(v){ location.href=location.pathname+(v==="auto"?"":"?view="+v); }
       document.getElementById("vd").onclick=function(){ sw("desktop"); };
       document.getElementById("va").onclick=function(){ sw("auto"); };
       document.getElementById("vf").srcdoc=inner;
@@ -104,7 +105,7 @@ button{margin-top:12px;width:100%;font:inherit;font-size:14px;font-weight:700;pa
       return unlockNcm(v).then(function(){ bar.style.width="100%"; openIn(html, chosenView()); });
     }).catch(function(e){
       busy=false; bar.style.width="0";
-      if(String(e.message)==="bad code"){ tries++; try{ inp.select(); }catch(x){} msg.textContent="Access code not recognised. Tick Show the code and check it."; wait=Date.now()+Math.min(30000,1500*tries); }
+      if(String(e.message)==="bad code"){ tries++; try{ inp.select(); }catch(x){} msg.textContent=document.documentElement.getAttribute("data-app")==="1"?"Access code not recognised. Check it and try again.":"Access code not recognised. Tick Show the code and check it."; wait=Date.now()+Math.min(30000,1500*tries); }
       else { msg.textContent=String(e.message||e); }
     });
   });
