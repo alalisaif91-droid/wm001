@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-04 19:27",
+ "asof": "2026-11-04 19:57",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T19:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 5,
    "gustMax24": 23,
    "hourly": [
     [
@@ -1242,7 +1242,7 @@
    "peakAt": "2026-11-04T19:00",
    "peakMm": 0.0,
    "probMax24": 3,
-   "gustMax24": 29,
+   "gustMax24": 28,
    "hourly": [
     [
      "2026-11-04T19:00",
@@ -1546,7 +1546,7 @@
    "peakAt": "2026-11-04T19:00",
    "peakMm": 0.0,
    "probMax24": 5,
-   "gustMax24": 22,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-04T19:00",
@@ -2470,11 +2470,11 @@
    "2470"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, sea, wind, RAK touched, read 04 Nov 19:25, list 0.22 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, sea, wind, RAK touched, read 04 Nov 19:40, list 0.47 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-04 19:25",
-  "ageHours": 0.02,
+  "asof": "2026-11-04 19:40",
+  "ageHours": 0.27,
   "hazard": [
    "dust",
    "rain",
@@ -2486,7 +2486,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-04 19:27",
+  "refreshed": "2026-11-04 19:57",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2495,16 +2495,16 @@
    "rak": "touched",
    "named": false,
    "city": null,
-   "listAgeH": 0.22,
+   "listAgeH": 0.47,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-04T15:25:46Z",
+    "lastOk": "2026-11-04T15:40:37Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-04 19:25; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-04 19:40; it reads the list and the ticker every 30 minutes"
  }
 }
