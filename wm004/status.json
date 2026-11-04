@@ -1,28 +1,27 @@
 {
- "written": "2026-11-04 19:00",
+ "written": "2026-11-04 20:00",
  "tz": "Asia/Dubai",
- "stage": "Pre deployment",
+ "stage": "Enhanced watch",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 19:00",
+ "feedAsof": "2026-11-04 20:00",
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "orange",
-  "text": "NCM warning 2472, orange, dust, rain, wind, from 2026-11-04 14:40 to 2026-11-04 18:40, RAK touched. Read by the NCM live reader.",
-  "asof": "2026-11-04 14:56",
+  "level": "none",
+  "text": "NCM warning 2476, yellow, sea, wind, from 2026-11-04 16:40 to 2026-11-04 21:00, RAK not touched. Read by the NCM live reader.",
+  "asof": "2026-11-04 17:10",
   "levels": {
-   "rain": "orange",
+   "rain": "none",
    "fog": "none",
-   "dust": "orange"
+   "dust": "none"
   },
   "hazard": [
-   "dust",
-   "rain",
+   "sea",
    "wind"
   ],
   "by": "live reader",
@@ -74,8 +73,8 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -87,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 18:47",
+  "captured": "2026-11-04 19:47",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -102,10 +101,10 @@
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
-   "level": "high",
+   "level": "watch",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "orange",
+   "ncm": "yellow",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -123,29 +122,27 @@
   "dust": {
    "level": "reported only",
    "label": "Station reports (Reported); no level",
-   "stations": [
-    "OMFJ"
-   ]
+   "stations": []
   }
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 4.1,
+  "ageHours": 2.8,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 1.9,
+  "warningsAgeHours": 2.8,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 18:20",
-  "lastGoodAsof": "2026-11-04 18:20",
+  "lastRun": "2026-11-04 19:50",
+  "lastGoodAsof": "2026-11-04 19:50",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 1.2
+  "ncmWarningsReadingAgeHours": 2.7
  }
 }
