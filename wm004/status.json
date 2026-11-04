@@ -1,10 +1,10 @@
 {
- "written": "2026-11-04 16:00",
+ "written": "2026-11-04 16:06",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 16:00",
+ "feedAsof": "2026-11-04 15:57",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -13,8 +13,8 @@
  },
  "ncm": {
   "level": "orange",
-  "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-04 15:20: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2472, orange, dust, rain, wind, from 2026-11-04 14:40 to 2026-11-04 18:40, RAK touched. Read by the NCM live reader.",
-  "asof": "2026-11-04 14:56",
+  "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-04 15:32: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2472, orange, dust, rain, wind, from 2026-11-04 14:40 to 2026-11-04 18:40, RAK touched. Read by the NCM live reader.",
+  "asof": "2026-11-04 15:29",
   "levels": {
    "rain": "orange",
    "fog": "unknown",
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 15:47",
+  "captured": "2026-11-04 16:06",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -128,22 +128,23 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 1.1,
+  "ageHours": 0.6,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 1.1,
+  "warningsAgeHours": 0.6,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 15:20",
-  "lastGoodAsof": "2026-11-04 15:20",
+  "lastRun": "2026-11-04 16:06",
+  "lastGoodAsof": "2026-11-04 16:06",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 2,
+  "alertCount": 7,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.4
- }
+  "ncmWarningsReadingAgeHours": 0.6
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
