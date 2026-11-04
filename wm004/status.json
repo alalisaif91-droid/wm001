@@ -1,10 +1,10 @@
 {
- "written": "2026-11-04 18:00",
+ "written": "2026-11-04 19:00",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 18:00",
+ "feedAsof": "2026-11-04 19:00",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 17:47",
+  "captured": "2026-11-04 18:47",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -123,27 +123,29 @@
   "dust": {
    "level": "reported only",
    "label": "Station reports (Reported); no level",
-   "stations": []
+   "stations": [
+    "OMFJ"
+   ]
   }
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.1,
+  "ageHours": 4.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 0.8,
+  "warningsAgeHours": 1.9,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 17:35",
-  "lastGoodAsof": "2026-11-04 17:35",
+  "lastRun": "2026-11-04 18:20",
+  "lastGoodAsof": "2026-11-04 18:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.4
+  "ncmWarningsReadingAgeHours": 1.2
  }
 }
