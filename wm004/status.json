@@ -1,10 +1,10 @@
 {
- "written": "2026-11-04 17:00",
+ "written": "2026-11-04 17:14",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 17:00",
+ "feedAsof": "2026-11-04 17:12",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -12,21 +12,22 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "orange",
-  "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-04 15:20: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2472, orange, dust, rain, wind, from 2026-11-04 14:40 to 2026-11-04 18:40, RAK touched. Read by the NCM live reader.",
-  "asof": "2026-11-04 14:56",
+  "level": "yellow",
+  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 04 Nov 17:10, list 0.3 h old.",
+  "asof": "2026-11-04 17:10",
   "levels": {
-   "rain": "orange",
-   "fog": "unknown",
-   "dust": "orange"
+   "rain": "yellow",
+   "fog": "none",
+   "dust": "yellow"
   },
   "hazard": [
    "dust",
    "rain",
+   "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": false
+  "auto": true
  },
  "points": [
   {
@@ -87,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 16:47",
+  "captured": "2026-11-04 17:13",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -105,8 +106,8 @@
    "level": "high",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "unknown",
-   "stationRainNow": true,
+   "ncm": "orange",
+   "stationRainNow": false,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -114,11 +115,11 @@
    }
   },
   "fog": {
-   "level": "unknown",
+   "level": "none",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "unknown"
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -126,24 +127,25 @@
    "stations": []
   }
  },
- "readingQuality": "degraded",
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 2.1,
+  "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 2.1,
-  "stale": true
+  "warningsAgeHours": null,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 16:50",
-  "lastGoodAsof": "2026-11-04 16:50",
-  "readingQuality": "degraded",
+  "lastRun": "2026-11-04 17:13",
+  "lastGoodAsof": "2026-11-04 17:13",
+  "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 2,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 1.9
- }
+  "ncmWarningsReadingAgeHours": 0.1
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
