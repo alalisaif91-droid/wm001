@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-04 15:31",
+ "asof": "2026-11-04 15:57",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -2153,7 +2153,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T15:00",
    "peakMm": 0.0,
-   "probMax24": 18,
+   "probMax24": 25,
    "gustMax24": 27,
    "hourly": [
     [
@@ -2475,7 +2475,7 @@
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
   "asof": "2026-11-04 15:29",
-  "ageHours": 0.02,
+  "ageHours": 0.46,
   "hazard": [
    "dust",
    "rain",
@@ -2487,7 +2487,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-04 15:31",
+  "refreshed": "2026-11-04 15:57",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
