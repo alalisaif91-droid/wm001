@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-04 08:13",
+ "asof": "2026-11-04 08:46",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -25,7 +25,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T08:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 8,
    "gustMax24": 25,
    "hourly": [
     [
@@ -329,7 +329,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T08:00",
    "peakMm": 0.0,
-   "probMax24": 13,
+   "probMax24": 8,
    "gustMax24": 22,
    "hourly": [
     [
@@ -937,7 +937,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T08:00",
    "peakMm": 0.0,
-   "probMax24": 13,
+   "probMax24": 25,
    "gustMax24": 28,
    "hourly": [
     [
@@ -1241,7 +1241,7 @@
    "max6": 0.3,
    "peakAt": "2026-11-04T13:00",
    "peakMm": 0.2,
-   "probMax24": 8,
+   "probMax24": 23,
    "gustMax24": 26,
    "hourly": [
     [
@@ -1545,7 +1545,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T08:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 5,
    "gustMax24": 25,
    "hourly": [
     [
@@ -1849,7 +1849,7 @@
    "max6": 0.1,
    "peakAt": "2026-11-04T17:00",
    "peakMm": 0.1,
-   "probMax24": 8,
+   "probMax24": 13,
    "gustMax24": 36,
    "hourly": [
     [
@@ -2153,7 +2153,7 @@
    "max6": 0.2,
    "peakAt": "2026-11-04T17:00",
    "peakMm": 0.1,
-   "probMax24": 8,
+   "probMax24": 23,
    "gustMax24": 26,
    "hourly": [
     [
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest red, fog, RAK not known, read 04 Nov 08:11, list 1.27 h old.",
+  "text": "NCM live reader: WARNING, highest red, fog, RAK not known, read 04 Nov 08:45, list 1.83 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-04 08:11",
+  "asof": "2026-11-04 08:45",
   "ageHours": 0.02,
   "hazard": [
    "fog"
@@ -2481,7 +2481,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-04 08:13",
+  "refreshed": "2026-11-04 08:46",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2490,16 +2490,16 @@
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 1.27,
+   "listAgeH": 1.83,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-04T04:11:47Z",
+    "lastOk": "2026-11-04T04:45:28Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-04 08:11; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-04 08:45; it reads the list and the ticker every 30 minutes"
  }
 }
