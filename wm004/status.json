@@ -1,12 +1,12 @@
 {
- "written": "2026-11-05 01:00",
+ "written": "2026-11-05 02:14",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 01:00",
+ "feedAsof": "2026-11-05 02:07",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -14,7 +14,7 @@
  "ncm": {
   "level": "none",
   "text": "NCM warning 2487, yellow, fog, from 2026-11-04 00:00 to 2026-11-05 09:00, RAK not touched. Read by the NCM live reader.",
-  "asof": "2026-11-04 21:07",
+  "asof": "2026-11-05 02:10",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -71,9 +71,9 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -85,7 +85,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 00:47",
+  "captured": "2026-11-05 02:12",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -126,22 +126,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.9,
+  "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 3.9,
+  "warningsAgeHours": 0.0,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 00:20",
-  "lastGoodAsof": "2026-11-05 00:20",
+  "lastRun": "2026-11-05 02:12",
+  "lastGoodAsof": "2026-11-05 02:12",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.2
- }
+  "ncmWarningsReadingAgeHours": 0.0
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
