@@ -1,10 +1,10 @@
 {
- "written": "2026-11-04 10:30",
+ "written": "2026-11-04 12:10",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 10:27",
+ "feedAsof": "2026-11-04 11:57",
  "modelLevel": "none",
  "worstMax6": 0.3,
  "thresholds": {
@@ -13,20 +13,15 @@
  },
  "ncm": {
   "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-04 10:26",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 04 Nov 11:33, list 2.56 h old.",
+  "asof": "2026-11-04 11:33",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
@@ -88,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 10:29",
+  "captured": "2026-11-04 12:10",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -129,23 +124,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
-  "by": "engine",
+  "ageHours": 0.6,
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 9.0,
+  "warningsAgeHours": null,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 10:29",
-  "lastGoodAsof": "2026-11-04 10:29",
+  "lastRun": "2026-11-04 12:10",
+  "lastGoodAsof": "2026-11-04 12:10",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 9.0
+  "ncmWarningsReadingAgeHours": 10.7
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
