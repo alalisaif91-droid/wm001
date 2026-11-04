@@ -1,36 +1,41 @@
 {
- "written": "2026-11-04 12:10",
+ "written": "2026-11-04 13:34",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather engine has not written for 12 hours (last 2026-11-04 01:28), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 11:57",
+ "feedAsof": "2026-11-04 13:34",
  "modelLevel": "none",
- "worstMax6": 0.3,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 04 Nov 11:33, list 2.56 h old.",
-  "asof": "2026-11-04 11:33",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "asof": "2026-11-04 13:14",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
-  "hazard": [],
-  "by": "live reader",
+  "hazard": [
+   "rain",
+   "fog",
+   "dust",
+   "wind"
+  ],
+  "by": "engine",
   "auto": true
  },
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Rams (1B)",
@@ -55,10 +60,10 @@
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.3,
-   "next72": 0.3,
-   "max6": 0.3,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
@@ -83,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 12:10",
+  "captured": "2026-11-04 13:32",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -96,51 +101,25 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
- "hazards": {
-  "rain": {
-   "level": "none",
-   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
-   "ncm": "none",
-   "stationRainNow": false,
-   "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
-    "applied": false
-   }
-  },
-  "fog": {
-   "level": "none",
-   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
-  },
-  "dust": {
-   "level": "reported only",
-   "label": "Station reports (Reported); no level",
-   "stations": []
-  }
- },
- "readingQuality": "full",
+ "hazards": {},
+ "readingQuality": null,
  "ncmDetail": {
-  "ageHours": 0.6,
-  "by": "live reader",
+  "ageHours": 0.3,
+  "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": null,
-  "stale": false
+  "warningsAgeHours": 30.1,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 12:10",
-  "lastGoodAsof": "2026-11-04 12:10",
+  "lastRun": "2026-11-04 13:28",
+  "lastGoodAsof": "2026-11-04 13:28",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 10.7
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 30.0
+ }
 }
