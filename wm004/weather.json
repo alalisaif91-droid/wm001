@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-04 18:19",
+ "asof": "2026-11-04 18:53",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T18:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 3,
    "gustMax24": 23,
    "hourly": [
     [
@@ -2153,7 +2153,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-04T18:00",
    "peakMm": 0.0,
-   "probMax24": 10,
+   "probMax24": 15,
    "gustMax24": 24,
    "hourly": [
     [
@@ -2470,10 +2470,10 @@
    "2470"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 04 Nov 18:18, list 0.02 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, sea, wind, RAK touched, read 04 Nov 18:52, list 0.12 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-04 18:18",
+  "asof": "2026-11-04 18:52",
   "ageHours": 0.02,
   "hazard": [
    "dust",
@@ -2486,25 +2486,25 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-04 18:19",
+  "refreshed": "2026-11-04 18:53",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
-   "highest": "orange",
-   "count": 3,
+   "highest": "yellow",
+   "count": 2,
    "rak": "touched",
    "named": false,
    "city": null,
-   "listAgeH": 0.02,
+   "listAgeH": 0.12,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-04T14:18:18Z",
+    "lastOk": "2026-11-04T14:52:07Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-04 18:18; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-04 18:52; it reads the list and the ticker every 30 minutes"
  }
 }
