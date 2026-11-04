@@ -1,10 +1,10 @@
 {
- "written": "2026-11-04 17:14",
+ "written": "2026-11-04 18:00",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-04 17:12",
+ "feedAsof": "2026-11-04 18:00",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -12,22 +12,21 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "yellow",
-  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 04 Nov 17:10, list 0.3 h old.",
-  "asof": "2026-11-04 17:10",
+  "level": "orange",
+  "text": "NCM warning 2472, orange, dust, rain, wind, from 2026-11-04 14:40 to 2026-11-04 18:40, RAK touched. Read by the NCM live reader.",
+  "asof": "2026-11-04 14:56",
   "levels": {
-   "rain": "yellow",
+   "rain": "orange",
    "fog": "none",
-   "dust": "yellow"
+   "dust": "orange"
   },
   "hazard": [
    "dust",
    "rain",
-   "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": true
+  "auto": false
  },
  "points": [
   {
@@ -88,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-04 17:13",
+  "captured": "2026-11-04 17:47",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -129,23 +128,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 3.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": null,
+  "warningsAgeHours": 0.8,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-04 17:13",
-  "lastGoodAsof": "2026-11-04 17:13",
+  "lastRun": "2026-11-04 17:35",
+  "lastGoodAsof": "2026-11-04 17:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.1
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 0.4
+ }
 }
