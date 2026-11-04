@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-04 09:20",
+ "asof": "2026-11-04 09:54",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -26,7 +26,7 @@
    "peakAt": "2026-11-04T09:00",
    "peakMm": 0.0,
    "probMax24": 8,
-   "gustMax24": 25,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -330,7 +330,7 @@
    "peakAt": "2026-11-04T09:00",
    "peakMm": 0.0,
    "probMax24": 8,
-   "gustMax24": 22,
+   "gustMax24": 18,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -634,7 +634,7 @@
    "peakAt": "2026-11-04T09:00",
    "peakMm": 0.0,
    "probMax24": 8,
-   "gustMax24": 25,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -1234,15 +1234,15 @@
    "name": "Khatt, Wadi Naqab front (5A)",
    "lat": 25.6433,
    "lon": 56.0105,
-   "next6": 0.3,
+   "next6": 0.2,
    "next24": 0.3,
    "next72": 0.3,
    "hoursInWindow": 72,
    "max6": 0.3,
-   "peakAt": "2026-11-04T13:00",
+   "peakAt": "2026-11-04T14:00",
    "peakMm": 0.2,
    "probMax24": 23,
-   "gustMax24": 26,
+   "gustMax24": 27,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -1262,15 +1262,15 @@
     ],
     [
      "2026-11-04T13:00",
-     0.2
+     0.0
     ],
     [
      "2026-11-04T14:00",
-     0.1
+     0.2
     ],
     [
      "2026-11-04T15:00",
-     0.0
+     0.1
     ],
     [
      "2026-11-04T16:00",
@@ -1546,7 +1546,7 @@
    "peakAt": "2026-11-04T09:00",
    "peakMm": 0.0,
    "probMax24": 5,
-   "gustMax24": 25,
+   "gustMax24": 22,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -1850,7 +1850,7 @@
    "peakAt": "2026-11-04T17:00",
    "peakMm": 0.1,
    "probMax24": 13,
-   "gustMax24": 36,
+   "gustMax24": 32,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -2147,14 +2147,14 @@
    "lat": 24.9231,
    "lon": 56.1496,
    "next6": 0.0,
-   "next24": 0.2,
-   "next72": 0.2,
+   "next24": 0.0,
+   "next72": 0.0,
    "hoursInWindow": 72,
-   "max6": 0.2,
-   "peakAt": "2026-11-04T17:00",
-   "peakMm": 0.1,
-   "probMax24": 23,
-   "gustMax24": 26,
+   "max6": 0.0,
+   "peakAt": "2026-11-04T09:00",
+   "peakMm": 0.0,
+   "probMax24": 10,
+   "gustMax24": 24,
    "hourly": [
     [
      "2026-11-04T09:00",
@@ -2190,7 +2190,7 @@
     ],
     [
      "2026-11-04T17:00",
-     0.1
+     0.0
     ],
     [
      "2026-11-04T18:00",
@@ -2198,7 +2198,7 @@
     ],
     [
      "2026-11-04T19:00",
-     0.1
+     0.0
     ],
     [
      "2026-11-04T20:00",
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 04 Nov 09:19, list 0.32 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 04 Nov 09:52, list 0.88 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-04 09:19",
+  "asof": "2026-11-04 09:52",
   "ageHours": 0.02,
   "hazard": [],
   "id": null,
@@ -2479,7 +2479,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-04 09:20",
+  "refreshed": "2026-11-04 09:54",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 0.32,
+   "listAgeH": 0.88,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-04T05:19:08Z",
+    "lastOk": "2026-11-04T05:52:47Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-04 09:19; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-04 09:52; it reads the list and the ticker every 30 minutes"
  }
 }
