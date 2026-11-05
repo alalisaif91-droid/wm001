@@ -1,30 +1,33 @@
 {
- "written": "2026-11-05 09:00",
+ "written": "2026-11-05 10:40",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The last NCM reading is not current and the NCM reader file could not be read, so no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 09:00",
+ "feedAsof": "2026-11-05 10:36",
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader file could not be read.",
-  "asof": "2026-11-04 21:07",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "asof": "2026-11-05 10:35",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
-   "fog"
+   "rain",
+   "fog",
+   "dust",
+   "wind"
   ],
-  "by": "live reader",
-  "auto": false
+  "by": "engine",
+  "auto": true
  },
  "points": [
   {
@@ -50,9 +53,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -85,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 08:47",
+  "captured": "2026-11-05 10:38",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -103,7 +106,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "unknown",
+   "ncm": "none",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -116,7 +119,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "unknown"
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -126,22 +129,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 11.9,
-  "by": "live reader",
+  "ageHours": 0.1,
+  "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 11.9,
-  "stale": true
+  "warningsAgeHours": 8.5,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 08:35",
-  "lastGoodAsof": "2026-11-05 08:35",
+  "lastRun": "2026-11-05 10:38",
+  "lastGoodAsof": "2026-11-05 10:38",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 3,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 11.5
- }
+  "ncmWarningsReadingAgeHours": 8.5
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
