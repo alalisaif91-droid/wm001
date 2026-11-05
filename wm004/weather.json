@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-05 07:14",
+ "asof": "2026-11-05 07:48",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -8,7 +8,7 @@
   "high": 25.0
  },
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "pointsRead": 8,
  "pointsTotal": 8,
  "unreadPoints": [],
@@ -931,14 +931,14 @@
    "lat": 25.9357,
    "lon": 56.1176,
    "next6": 0.0,
-   "next24": 0.0,
-   "next72": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
    "hoursInWindow": 72,
-   "max6": 0.0,
-   "peakAt": "2026-11-05T07:00",
-   "peakMm": 0.0,
+   "max6": 0.1,
+   "peakAt": "2026-11-05T13:00",
+   "peakMm": 0.1,
    "probMax24": 8,
-   "gustMax24": 21,
+   "gustMax24": 23,
    "hourly": [
     [
      "2026-11-05T07:00",
@@ -966,7 +966,7 @@
     ],
     [
      "2026-11-05T13:00",
-     0.0
+     0.1
     ],
     [
      "2026-11-05T14:00",
@@ -1850,7 +1850,7 @@
    "peakAt": "2026-11-05T07:00",
    "peakMm": 0.0,
    "probMax24": 38,
-   "gustMax24": 26,
+   "gustMax24": 19,
    "hourly": [
     [
      "2026-11-05T07:00",
@@ -2468,11 +2468,11 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, fog, RAK not known, read 05 Nov 07:14, list 10.24 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, fog, RAK not known, read 05 Nov 07:47, list 10.79 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-05 07:14",
-  "ageHours": 0.01,
+  "asof": "2026-11-05 07:47",
+  "ageHours": 0.02,
   "hazard": [
    "fog"
   ],
@@ -2481,7 +2481,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-05 07:14",
+  "refreshed": "2026-11-05 07:48",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2490,16 +2490,16 @@
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 10.24,
+   "listAgeH": 10.79,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-05T03:14:15Z",
+    "lastOk": "2026-11-05T03:47:18Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-05 07:14; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-05 07:47; it reads the list and the ticker every 30 minutes"
  }
 }
