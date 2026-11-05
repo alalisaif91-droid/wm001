@@ -1,30 +1,30 @@
 {
- "written": "2026-11-05 07:17",
+ "written": "2026-11-05 08:01",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The last NCM reading is not current and the NCM reader has been silent for 124 minutes, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 07:14",
+ "feedAsof": "2026-11-05 08:01",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "NCM live reader: WARNING, highest yellow, fog, RAK not known, read 05 Nov 07:14, list 10.24 h old.",
-  "asof": "2026-11-05 07:14",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader has been silent for 124 minutes.",
+  "asof": "2026-11-04 21:07",
   "levels": {
-   "rain": "none",
+   "rain": "unknown",
    "fog": "unknown",
-   "dust": "none"
+   "dust": "unknown"
   },
   "hazard": [
    "fog"
   ],
   "by": "live reader",
-  "auto": true
+  "auto": false
  },
  "points": [
   {
@@ -50,9 +50,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -85,7 +85,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 07:16",
+  "captured": "2026-11-05 08:01",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -103,7 +103,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -126,23 +126,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 10.9,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": null,
-  "stale": false
+  "warningsAgeHours": 10.9,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 07:16",
-  "lastGoodAsof": "2026-11-05 07:16",
+  "lastRun": "2026-11-05 06:20",
+  "lastGoodAsof": "2026-11-05 06:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.1
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 9.2
+ }
 }
