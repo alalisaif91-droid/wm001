@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-05 13:25",
+ "asof": "2026-11-05 13:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -937,7 +937,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-05T13:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 13,
    "gustMax24": 22,
    "hourly": [
     [
@@ -1241,7 +1241,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-05T13:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 28,
    "hourly": [
     [
@@ -1849,8 +1849,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-05T13:00",
    "peakMm": 0.0,
-   "probMax24": 25,
-   "gustMax24": 23,
+   "probMax24": 33,
+   "gustMax24": 25,
    "hourly": [
     [
      "2026-11-05T13:00",
@@ -2153,8 +2153,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-05T13:00",
    "peakMm": 0.0,
-   "probMax24": 15,
-   "gustMax24": 24,
+   "probMax24": 8,
+   "gustMax24": 26,
    "hourly": [
     [
      "2026-11-05T13:00",
@@ -2468,18 +2468,18 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 05 Nov 13:20, list 4.33 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 05 Nov 13:57, list 0.49 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-05 13:20",
-  "ageHours": 0.08,
+  "asof": "2026-11-05 13:57",
+  "ageHours": 0.02,
   "hazard": [],
   "id": null,
   "stale": false,
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-05 13:25",
+  "refreshed": "2026-11-05 13:58",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 4.33,
+   "listAgeH": 0.49,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-05T09:20:04Z",
+    "lastOk": "2026-11-05T09:57:25Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-05 13:20; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-05 13:57; it reads the list and the ticker every 30 minutes"
  }
 }
