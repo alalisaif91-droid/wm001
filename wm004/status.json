@@ -1,10 +1,10 @@
 {
- "written": "2026-11-05 15:42",
+ "written": "2026-11-05 16:16",
  "tz": "Asia/Dubai",
  "stage": "Enhanced watch",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 15:39",
+ "feedAsof": "2026-11-05 16:13",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -13,19 +13,21 @@
  },
  "ncm": {
   "level": "yellow",
-  "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-05 15:41: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2490, yellow, rain, wind, from 2026-11-05 14:00 to 2026-11-05 20:00, RAK touched. Read by the NCM live reader.",
-  "asof": "2026-11-05 15:38",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, sea, wind, RAK touched, read 05 Nov 16:12, list 2.16 h old.",
+  "asof": "2026-11-05 16:12",
   "levels": {
    "rain": "yellow",
-   "fog": "unknown",
+   "fog": "none",
    "dust": "unknown"
   },
   "hazard": [
+   "dust",
    "rain",
+   "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": false
+  "auto": true
  },
  "points": [
   {
@@ -86,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 15:41",
+  "captured": "2026-11-05 16:14",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -117,7 +119,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "unknown"
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -130,20 +132,20 @@
   "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 0.1,
-  "stale": true
+  "warningsAgeHours": null,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 15:41",
-  "lastGoodAsof": "2026-11-05 15:41",
+  "lastRun": "2026-11-05 16:14",
+  "lastGoodAsof": "2026-11-05 16:14",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 7,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.1
+  "ncmWarningsReadingAgeHours": 0.6
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
