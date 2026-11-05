@@ -1,10 +1,10 @@
 {
- "written": "2026-11-05 20:31",
+ "written": "2026-11-05 21:56",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather could not be read well enough at the last run, so no stage is proposed from it",
+ "stage": "Enhanced watch",
+ "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 19:57",
+ "feedAsof": "2026-11-05 21:56",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -13,21 +13,19 @@
  },
  "ncm": {
   "level": "yellow",
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, sea, wind, RAK touched, read 05 Nov 19:34, list 5.53 h old.",
-  "asof": "2026-11-05 19:34",
+  "text": "The NCM reader reads a warning whose colour or hazard it could not read, first seen 2026-11-05 18:35: the rain, fog, dust level(s) are unknown, not none, until the reader reads a colour for it or reads no warning in force. Last logged reading: NCM warning 2490, yellow, rain, wind, from 2026-11-05 14:00 to 2026-11-05 20:00, RAK touched. Read by the NCM live reader.",
+  "asof": "2026-11-05 18:27",
   "levels": {
    "rain": "yellow",
-   "fog": "none",
+   "fog": "unknown",
    "dust": "unknown"
   },
   "hazard": [
-   "dust",
    "rain",
-   "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": true
+  "auto": false
  },
  "points": [
   {
@@ -88,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 20:30",
+  "captured": "2026-11-05 21:56",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -103,7 +101,7 @@
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
-   "level": "unknown",
+   "level": "watch",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
    "ncm": "unknown",
@@ -119,7 +117,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "none"
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -129,23 +127,22 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 1.0,
+  "ageHours": 3.5,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": null,
-  "stale": false
+  "warningsAgeHours": 3.5,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 20:30",
-  "lastGoodAsof": "2026-11-05 20:30",
+  "lastRun": "2026-11-05 19:50",
+  "lastGoodAsof": "2026-11-05 19:50",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 8,
+  "alertCount": 2,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 4.9
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 1.4
+ }
 }
