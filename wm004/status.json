@@ -1,10 +1,10 @@
 {
- "written": "2026-11-05 08:01",
+ "written": "2026-11-05 09:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The last NCM reading is not current and the NCM reader has been silent for 124 minutes, so no stage is proposed from the weather alone",
+ "stageWhy": "The last NCM reading is not current and the NCM reader file could not be read, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-05 08:01",
+ "feedAsof": "2026-11-05 09:00",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -13,7 +13,7 @@
  },
  "ncm": {
   "level": "unknown",
-  "text": "No current NCM reading: the NCM reader has been silent for 124 minutes.",
+  "text": "No current NCM reading: the NCM reader file could not be read.",
   "asof": "2026-11-04 21:07",
   "levels": {
    "rain": "unknown",
@@ -85,7 +85,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-05 08:01",
+  "captured": "2026-11-05 08:47",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -126,22 +126,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 10.9,
+  "ageHours": 11.9,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 10.9,
+  "warningsAgeHours": 11.9,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-05 06:20",
-  "lastGoodAsof": "2026-11-05 06:20",
+  "lastRun": "2026-11-05 08:35",
+  "lastGoodAsof": "2026-11-05 08:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 3,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 9.2
+  "ncmWarningsReadingAgeHours": 11.5
  }
 }
