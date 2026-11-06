@@ -1,10 +1,10 @@
 {
- "written": "2026-11-06 11:00",
+ "written": "2026-11-06 12:18",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The last NCM reading is not current and the NCM reader has been silent for 94 minutes, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-06 11:00",
+ "feedAsof": "2026-11-06 12:18",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader has been silent for 94 minutes.",
   "asof": "2026-11-06 08:29",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "rain",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-06 10:47",
+  "captured": "2026-11-06 12:18",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -106,7 +106,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -119,7 +119,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "none"
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -129,11 +129,11 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 2.5,
+  "ageHours": 3.8,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 16.6,
-  "stale": false
+  "warningsAgeHours": 17.9,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
