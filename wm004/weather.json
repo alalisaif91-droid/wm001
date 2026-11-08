@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-08 09:19",
+ "asof": "2026-11-08 09:53",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -938,7 +938,7 @@
    "peakAt": "2026-11-08T09:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 29,
+   "gustMax24": 28,
    "hourly": [
     [
      "2026-11-08T09:00",
@@ -1242,7 +1242,7 @@
    "peakAt": "2026-11-08T09:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 30,
+   "gustMax24": 31,
    "hourly": [
     [
      "2026-11-08T09:00",
@@ -2154,7 +2154,7 @@
    "peakAt": "2026-11-08T09:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 17,
+   "gustMax24": 19,
    "hourly": [
     [
      "2026-11-08T09:00",
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 08 Nov 09:18, list 16.3 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 08 Nov 09:51, list 16.86 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-08 09:18",
+  "asof": "2026-11-08 09:51",
   "ageHours": 0.02,
   "hazard": [],
   "id": null,
@@ -2479,7 +2479,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-08 09:19",
+  "refreshed": "2026-11-08 09:53",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 16.3,
+   "listAgeH": 16.86,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-08T05:18:17Z",
+    "lastOk": "2026-11-08T05:51:51Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-08 09:18; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-08 09:51; it reads the list and the ticker every 30 minutes"
  }
 }
