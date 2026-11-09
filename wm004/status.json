@@ -1,12 +1,12 @@
 {
- "written": "2026-11-09 07:00",
+ "written": "2026-11-09 08:22",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-09 07:00",
+ "feedAsof": "2026-11-09 08:19",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -14,7 +14,7 @@
  "ncm": {
   "level": "none",
   "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-09 05:57",
+  "asof": "2026-11-09 08:17",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -61,8 +61,8 @@
   {
    "name": "Khatt, Wadi Naqab front (5A)",
    "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-09 06:47",
+  "captured": "2026-11-09 08:20",
   "total": 125,
   "standby": 42,
   "working": 0,
@@ -129,22 +129,23 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 1.1,
+  "ageHours": 0.1,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 65.5,
+  "warningsAgeHours": 42.1,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-09 06:20",
-  "lastGoodAsof": "2026-11-09 06:20",
+  "lastRun": "2026-11-09 08:20",
+  "lastGoodAsof": "2026-11-09 08:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 6,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 64.8
- }
+  "ncmWarningsReadingAgeHours": 42.1
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
