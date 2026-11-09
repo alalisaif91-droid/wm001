@@ -1,21 +1,22 @@
 {
  "level": "none",
- "text": "NCM warning 2500, yellow, sea, wind, from 2026-11-10 12:30 to 2026-11-11 12:30, RAK not touched. Read by the NCM live reader.",
+ "text": "NCM warning 2502, yellow, dust, rain, wind, from 2026-11-10 14:15 to 2026-11-10 19:00, RAK not touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-10 12:57",
+ "asof": "2026-11-10 14:33",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "sea",
+  "dust",
+  "rain",
   "wind"
  ],
  "areas": "RAK not touched",
- "ageHours": -11.9,
- "id": "NCM-20261110-004",
+ "ageHours": -12.5,
+ "id": "NCM-20261110-006",
  "by": "live reader",
  "auto": false,
- "writtenAt": "2026-11-10 01:00"
+ "writtenAt": "2026-11-10 02:00"
 }
