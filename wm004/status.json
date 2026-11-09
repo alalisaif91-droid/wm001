@@ -1,68 +1,63 @@
 {
- "written": "2026-11-09 19:01",
+ "written": "2026-11-09 20:42",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-09 18:58",
+ "feedAsof": "2026-11-09 20:40",
  "modelLevel": "none",
- "worstMax6": 0.3,
+ "worstMax6": 0.7,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-09 18:57",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 09 Nov 20:38, list 51.65 h old.",
+  "asof": "2026-11-09 20:38",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
    "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next72": 0.3,
+   "max6": 0.3,
    "error": false
   },
   {
    "name": "Al Rams (1B)",
+   "next24": 0.0,
+   "next72": 0.2,
+   "max6": 0.2,
+   "error": false
+  },
+  {
+   "name": "Al Burairat, Wadi Al Beeh front (2B)",
    "next24": 0.0,
    "next72": 0.3,
    "max6": 0.3,
    "error": false
   },
   {
-   "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
-  },
-  {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 1.0,
+   "max6": 0.7,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
    "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -74,21 +69,21 @@
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-11-09 19:00",
+  "captured": "2026-11-09 20:41",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -130,22 +125,22 @@
  "readingQuality": "full",
  "ncmDetail": {
   "ageHours": 0.1,
-  "by": "engine",
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 52.8,
-  "stale": true
+  "warningsAgeHours": null,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-09 19:00",
-  "lastGoodAsof": "2026-11-09 19:00",
+  "lastRun": "2026-11-09 20:41",
+  "lastGoodAsof": "2026-11-09 20:41",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 6,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 52.8
+  "ncmWarningsReadingAgeHours": 54.5
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
