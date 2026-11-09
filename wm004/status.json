@@ -1,10 +1,10 @@
 {
- "written": "2026-11-09 08:47",
+ "written": "2026-11-09 09:00",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The last NCM reading is not current and the NCM reader has been silent for 110 minutes, so no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-09 08:47",
+ "feedAsof": "2026-11-09 09:00",
  "modelLevel": "none",
  "worstMax6": 0.1,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader has been silent for 110 minutes.",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
   "asof": "2026-11-09 05:57",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
    "rain",
@@ -119,7 +119,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "unknown"
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -129,22 +129,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 2.8,
+  "ageHours": 3.1,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 67.3,
+  "warningsAgeHours": 67.5,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-09 07:05",
-  "lastGoodAsof": "2026-11-09 07:05",
+  "lastRun": "2026-11-09 08:49",
+  "lastGoodAsof": "2026-11-09 08:49",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 65.6
+  "ncmWarningsReadingAgeHours": 67.3
  }
 }
