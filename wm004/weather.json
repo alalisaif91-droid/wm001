@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-10 01:22",
+ "asof": "2026-11-10 01:56",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -633,7 +633,7 @@
    "max6": 0.3,
    "peakAt": "2026-11-12T06:00",
    "peakMm": 0.1,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 22,
    "hourly": [
     [
@@ -937,7 +937,7 @@
    "max6": 0.7,
    "peakAt": "2026-11-12T01:00",
    "peakMm": 0.4,
-   "probMax24": 3,
+   "probMax24": 5,
    "gustMax24": 33,
    "hourly": [
     [
@@ -1241,7 +1241,7 @@
    "max6": 0.1,
    "peakAt": "2026-11-12T08:00",
    "peakMm": 0.1,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 34,
    "hourly": [
     [
@@ -1546,7 +1546,7 @@
    "peakAt": "2026-11-10T01:00",
    "peakMm": 0.0,
    "probMax24": 3,
-   "gustMax24": 24,
+   "gustMax24": 25,
    "hourly": [
     [
      "2026-11-10T01:00",
@@ -1849,7 +1849,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-10T01:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 8,
    "gustMax24": 45,
    "hourly": [
     [
@@ -2153,8 +2153,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-10T01:00",
    "peakMm": 0.0,
-   "probMax24": 0,
-   "gustMax24": 44,
+   "probMax24": 3,
+   "gustMax24": 42,
    "hourly": [
     [
      "2026-11-10T01:00",
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 10 Nov 01:21, list 56.35 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 10 Nov 01:54, list 56.91 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-10 01:21",
+  "asof": "2026-11-10 01:54",
   "ageHours": 0.02,
   "hazard": [],
   "id": null,
@@ -2479,7 +2479,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-10 01:22",
+  "refreshed": "2026-11-10 01:56",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 56.35,
+   "listAgeH": 56.91,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-09T21:21:03Z",
+    "lastOk": "2026-11-09T21:54:45Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-10 01:21; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-10 01:54; it reads the list and the ticker every 30 minutes"
  }
 }
