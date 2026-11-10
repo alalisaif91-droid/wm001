@@ -1,10 +1,10 @@
 {
- "written": "2026-11-10 06:00",
+ "written": "2026-11-10 07:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The weather engine record is stamped 2026-11-10 19:07, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stageWhy": "The weather engine record is stamped 2026-11-10 19:52, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-10 06:00",
+ "feedAsof": "2026-11-10 07:00",
  "modelLevel": "none",
  "worstMax6": 0.6,
  "thresholds": {
@@ -13,16 +13,15 @@
  },
  "ncm": {
   "level": "none",
-  "text": "NCM warning 2502, yellow, dust, rain, wind, from 2026-11-10 14:15 to 2026-11-10 19:00, RAK not touched. Read by the NCM live reader.",
-  "asof": "2026-11-10 14:33",
+  "text": "NCM warning 2500, yellow, sea, wind, from 2026-11-10 12:30 to 2026-11-15 08:00, RAK not touched. Read by the NCM live reader.",
+  "asof": "2026-11-10 19:33",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
   "hazard": [
-   "dust",
-   "rain",
+   "sea",
    "wind"
   ],
   "by": "live reader",
@@ -87,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-10 05:47",
+  "captured": "2026-11-10 06:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -106,19 +105,19 @@
   "ageHours": 0.0,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": -8.5,
+  "warningsAgeHours": -12.5,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-10 19:07",
-  "lastGoodAsof": "2026-11-10 19:07",
+  "lastRun": "2026-11-10 19:52",
+  "lastGoodAsof": "2026-11-10 19:52",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 4.6
+  "ncmWarningsReadingAgeHours": 0.3
  }
 }
