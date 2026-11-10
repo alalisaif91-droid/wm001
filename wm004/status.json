@@ -1,8 +1,8 @@
 {
- "written": "2026-11-10 12:00",
+ "written": "2026-11-10 13:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The weather engine record is stamped 2026-11-11 01:07, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stageWhy": "The weather engine record is stamped 2026-11-11 01:52, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
  "feedAsof": "2026-11-10 10:00",
  "modelLevel": "none",
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-10 11:47",
+  "captured": "2026-11-10 12:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -105,19 +105,19 @@
   "ageHours": 0.0,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": -7.5,
+  "warningsAgeHours": -6.5,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-11 01:07",
-  "lastGoodAsof": "2026-11-11 01:07",
+  "lastRun": "2026-11-11 01:52",
+  "lastGoodAsof": "2026-11-11 01:52",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.6
+  "ncmWarningsReadingAgeHours": 6.3
  }
 }
