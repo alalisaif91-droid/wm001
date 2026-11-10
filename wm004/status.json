@@ -1,12 +1,12 @@
 {
- "written": "2026-11-10 05:00",
+ "written": "2026-11-10 06:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The weather engine record is stamped 2026-11-10 18:22, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stageWhy": "The weather engine record is stamped 2026-11-10 19:07, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-10 05:00",
+ "feedAsof": "2026-11-10 06:00",
  "modelLevel": "none",
- "worstMax6": 0.9,
+ "worstMax6": 0.6,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -32,43 +32,43 @@
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
    "next24": 0.0,
-   "next72": 0.7,
-   "max6": 0.6,
+   "next72": 0.4,
+   "max6": 0.3,
    "error": false
   },
   {
    "name": "Al Rams (1B)",
    "next24": 0.0,
-   "next72": 1.1,
-   "max6": 0.9,
-   "error": false
-  },
-  {
-   "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.0,
    "next72": 0.7,
    "max6": 0.6,
    "error": false
   },
   {
+   "name": "Al Burairat, Wadi Al Beeh front (2B)",
+   "next24": 0.0,
+   "next72": 0.4,
+   "max6": 0.3,
+   "error": false
+  },
+  {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.2,
-   "max6": 0.2,
+   "next72": 0.4,
+   "max6": 0.3,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
    "next24": 0.0,
-   "next72": 0.5,
-   "max6": 0.5,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
    "next24": 0.0,
-   "next72": 0.3,
-   "max6": 0.3,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-10 04:47",
+  "captured": "2026-11-10 05:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -106,19 +106,19 @@
   "ageHours": 0.0,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": -9.5,
+  "warningsAgeHours": -8.5,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-10 18:22",
-  "lastGoodAsof": "2026-11-10 18:22",
+  "lastRun": "2026-11-10 19:07",
+  "lastGoodAsof": "2026-11-10 19:07",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 1,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 3.8
+  "ncmWarningsReadingAgeHours": 4.6
  }
 }
