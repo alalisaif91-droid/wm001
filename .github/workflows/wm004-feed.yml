@@ -15,9 +15,11 @@ on:
     paths:
       - '.github/workflows/wm004-feed.yml'
       - 'wm004/weather_feed_action.py'
+      - 'wm004/rain_alert_action.py'
       - 'wm004/feed.trigger'
 permissions:
   contents: write
+  issues: write
 concurrency:
   group: wm004-feed
   cancel-in-progress: false
@@ -31,6 +33,7 @@ jobs:
           ref: main
           fetch-depth: 0
       - name: Read Open-Meteo and write wm004/weather.json
+        id: feed
         run: python3 wm004/weather_feed_action.py wm004/weather.json
       - name: Commit to main and bring gh-pages level
         run: |
@@ -53,3 +56,12 @@ jobs:
             git push origin "$C:refs/heads/gh-pages" && break
             echo "push to gh-pages rejected, try $i"; sleep $((i * 5))
           done
+      # 10 Nov 2026: rain on the way, a message to the owner's phone (an issue assigned to the owner, label wm004-rain). It runs when the feed step
+      # succeeded, even if the commit step failed, and it never fails or holds the job.
+      - name: Rain on the way, a message to the owner
+        if: ${{ !cancelled() && steps.feed.outcome == 'success' }}
+        continue-on-error: true
+        timeout-minutes: 3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 wm004/rain_alert_action.py wm004/weather.json
