@@ -1,6 +1,6 @@
 {
  "level": "none",
- "text": "NCM warning 2532, yellow, dust, wind, from 2026-11-11 15:31 to 2026-11-11 20:00, RAK not touched. Read by the NCM live reader.",
+ "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-11-11 19:52, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: NCM warning 2532, yellow, dust, wind, from 2026-11-11 15:31 to 2026-11-11 20:00, RAK not touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
  "asof": "2026-11-11 16:39",
  "levels": {
@@ -13,9 +13,26 @@
   "wind"
  ],
  "areas": "RAK not touched",
- "ageHours": -12.6,
+ "ageHours": -9.6,
  "id": "NCM-20261111-007",
  "by": "live reader",
  "auto": false,
- "writtenAt": "2026-11-11 04:00"
+ "pageShows": {
+  "state": "warnings",
+  "colours": [
+   "yellow",
+   "orange"
+  ],
+  "since": "2026-11-11 19:52",
+  "seen": "2026-11-11 19:52",
+  "pending": true,
+  "pendingHazards": [
+   "rain",
+   "fog",
+   "dust"
+  ],
+  "namedHazards": [],
+  "note": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-11-11 19:52, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
+ },
+ "writtenAt": "2026-11-11 07:00"
 }
