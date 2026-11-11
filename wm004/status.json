@@ -1,39 +1,40 @@
 {
- "written": "2026-11-11 14:28",
+ "written": "2026-11-11 16:08",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-11 14:26",
+ "feedAsof": "2026-11-11 16:06",
  "modelLevel": "none",
- "worstMax6": 0.3,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "orange",
-  "text": "NCM warning 2511, orange, dust, rain, wind, from 2026-11-11 13:15 to 2026-11-11 23:00, RAK touched. Read by the NCM live reader.",
-  "asof": "2026-11-11 14:24",
+  "level": "yellow",
+  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 11 Nov 16:05, list 0.23 h old.",
+  "asof": "2026-11-11 16:05",
   "levels": {
-   "rain": "orange",
+   "rain": "yellow",
    "fog": "none",
-   "dust": "orange"
+   "dust": "yellow"
   },
   "hazard": [
    "dust",
    "rain",
+   "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": false
+  "auto": true
  },
  "points": [
   {
    "name": "RAK city (MRF, Sectors 3 and 4)",
-   "next24": 0.4,
-   "next72": 0.4,
-   "max6": 0.3,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -45,16 +46,16 @@
   },
   {
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
-   "next24": 0.4,
-   "next72": 0.4,
-   "max6": 0.3,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -87,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-11 14:27",
+  "captured": "2026-11-11 16:08",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -131,14 +132,14 @@
   "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 0.1,
+  "warningsAgeHours": null,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-11 14:27",
-  "lastGoodAsof": "2026-11-11 14:27",
+  "lastRun": "2026-11-11 16:08",
+  "lastGoodAsof": "2026-11-11 16:08",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
