@@ -1,11 +1,11 @@
 {
  "schema": 1,
  "tz": "Asia/Dubai",
- "readAt": "2026-11-11 15:00",
- "asof": "2026-11-11 15:00",
+ "readAt": "2026-11-11 15:34",
+ "asof": "2026-11-11 15:34",
  "complaintsHash": "205817962aef819f",
  "complaints": {
-  "read": "2026-11-11 15:00",
+  "read": "2026-11-11 15:34",
   "count": 1492,
   "open": 1,
   "newest": "2026-11-11 14:51",
@@ -13,7 +13,7 @@
  },
  "pumpsHash": "be71494a256525fd",
  "pumps": {
-  "captured": "2026-11-11 15:00",
+  "captured": "2026-11-11 15:34",
   "total": 126,
   "standby": 44,
   "working": 0,
