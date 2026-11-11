@@ -1,19 +1,19 @@
 {
  "schema": 1,
  "tz": "Asia/Dubai",
- "readAt": "2026-11-11 14:27",
- "asof": "2026-11-11 14:27",
- "complaintsHash": "d5c7cc7c458e21ea",
+ "readAt": "2026-11-11 15:00",
+ "asof": "2026-11-11 15:00",
+ "complaintsHash": "205817962aef819f",
  "complaints": {
-  "read": "2026-11-11 14:27",
-  "count": 1491,
-  "open": 0,
-  "newest": "2026-10-31 15:51",
-  "lastId": 1510
+  "read": "2026-11-11 15:00",
+  "count": 1492,
+  "open": 1,
+  "newest": "2026-11-11 14:51",
+  "lastId": 1512
  },
  "pumpsHash": "be71494a256525fd",
  "pumps": {
-  "captured": "2026-11-11 14:27",
+  "captured": "2026-11-11 15:00",
   "total": 126,
   "standby": 44,
   "working": 0,
