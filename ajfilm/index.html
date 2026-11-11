@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Al Jazeera Landfill</title><link rel="icon" href="data:,">
+<style>:root{--sans:Calibri,Carlito,"Segoe UI",Arial,sans-serif;--ground:#0E1318;--panel:#151C23;--line:#26323D;--ink:#EEF1F3;--soft:#A3B0BB;--gold:#D9B45A}
+@media (prefers-color-scheme:light){:root{--ground:#F4F5F6;--panel:#FFFFFF;--line:#D9DEE3;--ink:#16202A;--soft:#55616C;--gold:#8C6A16}}
+html,body{margin:0;height:100%;background:var(--ground);color:var(--ink);font-family:var(--sans)}#g{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px}
+form{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 22px;text-align:center}
+h1{margin:0;font-size:22px;font-weight:400}.ar{font-family:"Segoe UI",Tahoma,var(--sans);font-size:19px;margin:2px 0 0}p{margin:12px 0 16px;font-size:14px;color:var(--soft)}
+input{width:100%;box-sizing:border-box;font:inherit;font-size:19px;letter-spacing:.08em;text-align:center;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--ground);color:var(--ink);-webkit-text-security:disc}
+input:focus{outline:2px solid var(--gold);outline-offset:1px}button{margin-top:12px;width:100%;font:inherit;font-size:15px;font-weight:700;padding:10px;border-radius:8px;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--ink)}
+.m{min-height:18px;margin-top:10px;font-size:13px}.bar{height:3px;background:var(--line);margin-top:10px;border-radius:2px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--gold)}</style></head><body>
+<div id="g"><form autocomplete="off"><h1>Al Jazeera Landfill</h1><div class="ar" lang="ar" dir="rtl">مطمر الجزيرة</div>
+<p>Enter the access code to open the film and the brief.<br><span lang="ar" dir="rtl">أدخل رمز الدخول لفتح الفيلم والملخص.</span></p>
+<input id="c" type="text" maxlength="96" aria-label="Access code" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
+<button type="submit">Open · فتح</button><div class="m" id="m" aria-live="polite"></div><div class="bar"><i id="b"></i></div></form></div>
+<script>(function(){var R=1000000,f=document.querySelector("form"),c=document.getElementById("c"),m=document.getElementById("m"),b=document.getElementById("b"),busy=false,wait=0,n=0;
+f.addEventListener("submit",function(e){e.preventDefault();if(busy)return;if(Date.now()<wait){m.textContent="Wait a few seconds and try again.";return;}
+if(!window.crypto||!crypto.subtle||typeof DecompressionStream!=="function"){m.textContent="Use a recent Chrome, Edge or Safari.";return;}
+var v=(c.value||"").replace(/\s+/g,""),ct;busy=true;m.textContent="Checking the code";b.style.width="20%";
+fetch("app.bin",{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("app.bin "+r.status);return r.arrayBuffer();}).then(function(a){ct=new Uint8Array(a);b.style.width="40%";
+return crypto.subtle.importKey("raw",new TextEncoder().encode(v),"PBKDF2",false,["deriveKey"]);}).then(function(k){
+return crypto.subtle.deriveKey({name:"PBKDF2",salt:ct.subarray(0,16),iterations:R,hash:"SHA-256"},k,{name:"AES-GCM",length:256},false,["decrypt"]);}).then(function(key){
+return crypto.subtle.decrypt({name:"AES-GCM",iv:ct.subarray(16,28)},key,ct.subarray(28)).then(function(gz){window.__AJKEY=key;return gz;},function(){throw new Error("bad code");});}).then(function(gz){
+b.style.width="90%";var ds=new DecompressionStream("gzip"),w=ds.writable.getWriter();w.write(new Uint8Array(gz));w.close();return new Response(ds.readable).text();}).then(function(html){
+document.open();document.write(html);document.close();}).catch(function(e){busy=false;b.style.width="0";
+if(String(e.message)==="bad code"){n++;m.textContent="Access code not recognised.";wait=Date.now()+Math.min(30000,1500*n);}else m.textContent=String(e.message||e);});});})();</script></body></html>
