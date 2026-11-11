@@ -1,5 +1,5 @@
 {
- "written": "2026-11-11 21:50",
+ "written": "2026-11-11 21:57",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-11 21:48",
+  "captured": "2026-11-11 21:55",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -129,7 +129,7 @@
  },
  "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 0.2,
   "by": "live reader",
   "kind": "warning",
   "warningsAgeHours": null,
@@ -138,14 +138,14 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-11 21:48",
-  "lastGoodAsof": "2026-11-11 21:48",
+  "lastRun": "2026-11-11 21:55",
+  "lastGoodAsof": "2026-11-11 21:55",
   "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 7,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.7
+  "ncmWarningsReadingAgeHours": 5.8
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
