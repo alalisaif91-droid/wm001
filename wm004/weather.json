@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-11 21:13",
+ "asof": "2026-11-11 21:47",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -329,7 +329,7 @@
    "max6": 0.1,
    "peakAt": "2026-11-12T02:00",
    "peakMm": 0.1,
-   "probMax24": 13,
+   "probMax24": 3,
    "gustMax24": 32,
    "hourly": [
     [
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-11T21:00",
    "peakMm": 0.0,
-   "probMax24": 13,
+   "probMax24": 5,
    "gustMax24": 32,
    "hourly": [
     [
@@ -937,7 +937,7 @@
    "max6": 0.5,
    "peakAt": "2026-11-12T02:00",
    "peakMm": 0.3,
-   "probMax24": 5,
+   "probMax24": 3,
    "gustMax24": 37,
    "hourly": [
     [
@@ -1241,7 +1241,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-11T21:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 3,
    "gustMax24": 37,
    "hourly": [
     [
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK not known, read 11 Nov 21:12, list 0.21 h old.",
+  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK not known, read 11 Nov 21:46, list 0.77 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-11 21:12",
+  "asof": "2026-11-11 21:46",
   "ageHours": 0.02,
   "hazard": [
    "dust",
@@ -2484,7 +2484,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-11 21:13",
+  "refreshed": "2026-11-11 21:47",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2493,16 +2493,16 @@
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 0.21,
+   "listAgeH": 0.77,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-11T17:12:30Z",
+    "lastOk": "2026-11-11T17:46:10Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-11 21:12; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-11 21:46; it reads the list and the ticker every 30 minutes"
  }
 }
