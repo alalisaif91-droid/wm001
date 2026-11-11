@@ -1,10 +1,10 @@
 {
- "written": "2026-11-11 06:00",
+ "written": "2026-11-11 07:00",
  "tz": "Asia/Dubai",
  "stage": "Not determined",
- "stageWhy": "The weather engine record is stamped 2026-11-11 19:07, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stageWhy": "The weather engine record is stamped 2026-11-11 19:52, ahead of the clock, so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-11 06:00",
+ "feedAsof": "2026-11-11 07:00",
  "modelLevel": "none",
  "worstMax6": 0.5,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "NCM warning 2532, yellow, dust, wind, from 2026-11-11 15:31 to 2026-11-11 20:00, RAK not touched. Read by the NCM live reader.",
+  "level": "unknown",
+  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-11-11 19:52, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: NCM warning 2532, yellow, dust, wind, from 2026-11-11 15:31 to 2026-11-11 20:00, RAK not touched. Read by the NCM live reader.",
   "asof": "2026-11-11 16:39",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "dust",
@@ -51,7 +51,7 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.4,
+   "next24": 0.5,
    "next72": 0.6,
    "max6": 0.5,
    "error": false
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-11 05:47",
+  "captured": "2026-11-11 06:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -105,19 +105,19 @@
   "ageHours": 0.0,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": -10.6,
-  "stale": false
+  "warningsAgeHours": -9.6,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-11 19:07",
-  "lastGoodAsof": "2026-11-11 19:07",
-  "readingQuality": "full",
+  "lastRun": "2026-11-11 19:52",
+  "lastGoodAsof": "2026-11-11 19:52",
+  "readingQuality": "degraded",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 3,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 2.5
+  "ncmWarningsReadingAgeHours": 3.2
  }
 }
