@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-11 13:52",
+ "asof": "2026-11-11 14:26",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,20 +18,16 @@
    "name": "RAK city (MRF, Sectors 3 and 4)",
    "lat": 25.7549,
    "lon": 55.9705,
-   "next6": 0.0,
+   "next6": 0.3,
    "next24": 0.4,
    "next72": 0.4,
    "hoursInWindow": 72,
    "max6": 0.3,
    "peakAt": "2026-11-11T19:00",
    "peakMm": 0.3,
-   "probMax24": 8,
-   "gustMax24": 24,
+   "probMax24": 3,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -314,6 +310,10 @@
     ],
     [
      "2026-11-14T12:00",
+     0.0
+    ],
+    [
+     "2026-11-14T13:00",
      0.0
     ]
    ]
@@ -322,20 +322,16 @@
    "name": "Al Rams (1B)",
    "lat": 25.8713,
    "lon": 56.0218,
-   "next6": 0.0,
+   "next6": 0.1,
    "next24": 0.1,
    "next72": 0.1,
    "hoursInWindow": 72,
    "max6": 0.1,
    "peakAt": "2026-11-11T19:00",
    "peakMm": 0.1,
-   "probMax24": 20,
+   "probMax24": 15,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -619,6 +615,10 @@
     [
      "2026-11-14T12:00",
      0.0
+    ],
+    [
+     "2026-11-14T13:00",
+     0.0
     ]
    ]
   },
@@ -626,20 +626,16 @@
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
    "lat": 25.7708,
    "lon": 56.0397,
-   "next6": 0.0,
+   "next6": 0.3,
    "next24": 0.4,
    "next72": 0.4,
    "hoursInWindow": 72,
    "max6": 0.3,
    "peakAt": "2026-11-11T19:00",
    "peakMm": 0.3,
-   "probMax24": 20,
-   "gustMax24": 24,
+   "probMax24": 23,
+   "gustMax24": 25,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -923,6 +919,10 @@
     [
      "2026-11-14T12:00",
      0.0
+    ],
+    [
+     "2026-11-14T13:00",
+     0.0
     ]
    ]
   },
@@ -930,20 +930,16 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0.0,
+   "next6": 0.1,
    "next24": 0.1,
    "next72": 0.1,
    "hoursInWindow": 72,
    "max6": 0.1,
    "peakAt": "2026-11-11T19:00",
    "peakMm": 0.1,
-   "probMax24": 25,
+   "probMax24": 15,
    "gustMax24": 42,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -1226,6 +1222,10 @@
     ],
     [
      "2026-11-14T12:00",
+     0.0
+    ],
+    [
+     "2026-11-14T13:00",
      0.0
     ]
    ]
@@ -1239,15 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-11T13:00",
+   "peakAt": "2026-11-11T14:00",
    "peakMm": 0.0,
-   "probMax24": 10,
-   "gustMax24": 28,
+   "probMax24": 8,
+   "gustMax24": 30,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -1530,6 +1526,10 @@
     ],
     [
      "2026-11-14T12:00",
+     0.0
+    ],
+    [
+     "2026-11-14T13:00",
      0.0
     ]
    ]
@@ -1543,15 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-11T13:00",
+   "peakAt": "2026-11-11T14:00",
    "peakMm": 0.0,
    "probMax24": 3,
-   "gustMax24": 32,
+   "gustMax24": 34,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -1834,6 +1830,10 @@
     ],
     [
      "2026-11-14T12:00",
+     0.0
+    ],
+    [
+     "2026-11-14T13:00",
      0.0
     ]
    ]
@@ -1847,15 +1847,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-11T13:00",
+   "peakAt": "2026-11-11T14:00",
    "peakMm": 0.0,
-   "probMax24": 25,
+   "probMax24": 18,
    "gustMax24": 52,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -2138,6 +2134,10 @@
     ],
     [
      "2026-11-14T12:00",
+     0.0
+    ],
+    [
+     "2026-11-14T13:00",
      0.0
     ]
    ]
@@ -2151,15 +2151,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-11T13:00",
+   "peakAt": "2026-11-11T14:00",
    "peakMm": 0.0,
-   "probMax24": 15,
-   "gustMax24": 50,
+   "probMax24": 8,
+   "gustMax24": 52,
    "hourly": [
-    [
-     "2026-11-11T13:00",
-     0.0
-    ],
     [
      "2026-11-11T14:00",
      0.0
@@ -2443,38 +2439,43 @@
     [
      "2026-11-14T12:00",
      0.0
+    ],
+    [
+     "2026-11-14T13:00",
+     0.0
     ]
    ]
   }
  ],
  "ncm": {
-  "level": "yellow",
+  "level": "orange",
   "levels": {
-   "rain": "yellow",
+   "rain": "orange",
    "fog": "none",
-   "dust": "yellow"
+   "dust": "orange"
   },
-  "levelAtReading": "yellow",
+  "levelAtReading": "orange",
   "levelsAtReading": {
-   "rain": "yellow",
+   "rain": "orange",
    "fog": "none",
-   "dust": "yellow"
+   "dust": "orange"
   },
-  "levelInForce": "yellow",
+  "levelInForce": "orange",
   "levelsInForce": {
-   "rain": "yellow",
+   "rain": "orange",
    "fog": "none",
-   "dust": "yellow"
+   "dust": "orange"
   },
   "inForce": [
+   "2511",
    "2508"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 11 Nov 13:50, list 0.06 h old.",
+  "text": "NCM live reader: WARNING, highest orange, dust, rain, sea, wind, RAK touched, read 11 Nov 14:24, list 0.2 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-11 13:50",
-  "ageHours": 0.02,
+  "asof": "2026-11-11 14:24",
+  "ageHours": 0.03,
   "hazard": [
    "dust",
    "rain",
@@ -2486,7 +2487,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-11 13:52",
+  "refreshed": "2026-11-11 14:26",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2495,16 +2496,16 @@
    "rak": "touched",
    "named": false,
    "city": null,
-   "listAgeH": 0.06,
+   "listAgeH": 0.2,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-11T09:50:44Z",
+    "lastOk": "2026-11-11T10:24:27Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-11 13:50; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-11 14:24; it reads the list and the ticker every 30 minutes"
  }
 }
