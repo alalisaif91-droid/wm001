@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-11 20:02",
+ "asof": "2026-11-11 20:32",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-11T20:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 13,
    "gustMax24": 32,
    "hourly": [
     [
@@ -2449,7 +2449,7 @@
  ],
  "ncm": {
   "level": "unknown",
-  "text": "No current NCM reading: the NCM reader has been silent for over 90 minutes. The last logged reading is 3.4 h old.",
+  "text": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-11-11 19:52, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: NCM warning 2532, yellow, dust, wind, from 2026-11-11 15:31 to 2026-11-11 20:00, RAK not touched. Read by the NCM live reader.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "asof": "2026-11-11 16:39",
   "levels": {
@@ -2462,11 +2462,28 @@
    "wind"
   ],
   "areas": "RAK not touched",
-  "ageHours": 3.4,
+  "ageHours": 3.9,
   "id": "NCM-20261111-007",
   "by": "live reader",
   "auto": false,
-  "writtenAt": "2026-11-11 04:00",
+  "pageShows": {
+   "state": "warnings",
+   "colours": [
+    "yellow",
+    "orange"
+   ],
+   "since": "2026-11-11 19:52",
+   "seen": "2026-11-11 19:52",
+   "pending": true,
+   "pendingHazards": [
+    "rain",
+    "fog",
+    "dust"
+   ],
+   "namedHazards": [],
+   "note": "The NCM warnings page shows warning colours (yellow, orange) that nobody has logged yet, first seen 2026-11-11 19:52, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
+  },
+  "writtenAt": "2026-11-11 07:00",
   "stale": true,
   "levelAtReading": "none",
   "levelsAtReading": {
@@ -2483,7 +2500,7 @@
   "inForce": [],
   "upcoming": [],
   "via": "laptop reading, wm004/ncm.json",
-  "refreshed": "2026-11-11 20:02",
-  "note": "the colours are those of the reading at 2026-11-11 16:39, 3.4 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now; the NCM reader has been silent for over 90 minutes, so a none here is no reading"
+  "refreshed": "2026-11-11 20:32",
+  "note": "the colours are those of the reading at 2026-11-11 16:39, 3.9 h old; this feed cannot read the NCM log, so nothing is claimed to be in force now; the NCM warnings page shows a colour nobody has logged"
  }
 }
