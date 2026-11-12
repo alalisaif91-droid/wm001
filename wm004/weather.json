@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-12 09:00",
+ "asof": "2026-11-12 09:40",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -25,7 +25,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.0,
-   "probMax24": 0,
+   "probMax24": 3,
    "gustMax24": 34,
    "hourly": [
     [
@@ -329,7 +329,7 @@
    "max6": 0.2,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.1,
-   "probMax24": 0,
+   "probMax24": 15,
    "gustMax24": 31,
    "hourly": [
     [
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.0,
-   "probMax24": 0,
+   "probMax24": 10,
    "gustMax24": 34,
    "hourly": [
     [
@@ -937,7 +937,7 @@
    "max6": 0.2,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.1,
-   "probMax24": 0,
+   "probMax24": 3,
    "gustMax24": 49,
    "hourly": [
     [
@@ -1241,7 +1241,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.0,
-   "probMax24": 0,
+   "probMax24": 8,
    "gustMax24": 38,
    "hourly": [
     [
@@ -2153,7 +2153,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-12T09:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 57,
    "hourly": [
     [
@@ -2468,11 +2468,11 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 12 Nov 08:32, list 0.11 h old.",
+  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 12 Nov 09:39, list 0.66 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-12 08:32",
-  "ageHours": 0.47,
+  "asof": "2026-11-12 09:39",
+  "ageHours": 0.02,
   "hazard": [
    "sea",
    "wind"
@@ -2482,25 +2482,25 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-12 09:00",
+  "refreshed": "2026-11-12 09:40",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
    "highest": "orange",
-   "count": 2,
+   "count": 3,
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 0.11,
+   "listAgeH": 0.66,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-12T04:32:15Z",
+    "lastOk": "2026-11-12T05:39:32Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-12 08:32; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-12 09:39; it reads the list and the ticker every 30 minutes"
  }
 }
