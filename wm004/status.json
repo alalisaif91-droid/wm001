@@ -1,20 +1,20 @@
 {
- "written": "2026-11-12 10:50",
+ "written": "2026-11-12 11:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-12 10:48",
+ "feedAsof": "2026-11-11 10:00",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.4,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "none",
-  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 12 Nov 10:46, list 1.78 h old.",
-  "asof": "2026-11-12 10:46",
+  "text": "NCM warning 2553, yellow, sea, wind, from 2026-11-12 09:00 to 2026-11-13 09:00, RAK not touched. Read by the NCM live reader.",
+  "asof": "2026-11-12 09:00",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -25,7 +25,7 @@
    "wind"
   ],
   "by": "live reader",
-  "auto": true
+  "auto": false
  },
  "points": [
   {
@@ -37,9 +37,9 @@
   },
   {
    "name": "Al Rams (1B)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -51,16 +51,16 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.4,
+   "next72": 0.4,
+   "max6": 0.4,
    "error": false
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.2,
+   "next72": 0.2,
+   "max6": 0.2,
    "error": false
   },
   {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-12 10:49",
+  "captured": "2026-11-12 10:32",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -127,23 +127,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 2.0,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": null,
+  "warningsAgeHours": 2.0,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-12 10:49",
-  "lastGoodAsof": "2026-11-12 10:49",
+  "lastRun": "2026-11-12 10:50",
+  "lastGoodAsof": "2026-11-12 10:50",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
   "ncmWarningsReadingAgeHours": 1.8
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+ }
 }
