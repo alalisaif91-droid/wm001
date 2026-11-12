@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-12 06:52",
+ "asof": "2026-11-12 07:26",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -18,23 +18,19 @@
    "name": "RAK city (MRF, Sectors 3 and 4)",
    "lat": 25.7549,
    "lon": 55.9705,
-   "next6": 0.2,
-   "next24": 0.2,
-   "next72": 0.2,
+   "next6": 0.0,
+   "next24": 0.0,
+   "next72": 0.0,
    "hoursInWindow": 72,
-   "max6": 0.2,
-   "peakAt": "2026-11-12T06:00",
-   "peakMm": 0.1,
+   "max6": 0.0,
+   "peakAt": "2026-11-12T07:00",
+   "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 35,
+   "gustMax24": 34,
    "hourly": [
     [
-     "2026-11-12T06:00",
-     0.1
-    ],
-    [
      "2026-11-12T07:00",
-     0.1
+     0.0
     ],
     [
      "2026-11-12T08:00",
@@ -315,6 +311,10 @@
     [
      "2026-11-15T05:00",
      0.0
+    ],
+    [
+     "2026-11-15T06:00",
+     0.0
     ]
    ]
   },
@@ -332,10 +332,6 @@
    "probMax24": 3,
    "gustMax24": 32,
    "hourly": [
-    [
-     "2026-11-12T06:00",
-     0.0
-    ],
     [
      "2026-11-12T07:00",
      0.1
@@ -619,6 +615,10 @@
     [
      "2026-11-15T05:00",
      0.0
+    ],
+    [
+     "2026-11-15T06:00",
+     0.0
     ]
    ]
   },
@@ -626,23 +626,19 @@
    "name": "Al Burairat, Wadi Al Beeh front (2B)",
    "lat": 25.7708,
    "lon": 56.0397,
-   "next6": 0.2,
-   "next24": 0.2,
-   "next72": 0.2,
+   "next6": 0.0,
+   "next24": 0.0,
+   "next72": 0.0,
    "hoursInWindow": 72,
-   "max6": 0.2,
-   "peakAt": "2026-11-12T06:00",
-   "peakMm": 0.1,
+   "max6": 0.0,
+   "peakAt": "2026-11-12T07:00",
+   "peakMm": 0.0,
    "probMax24": 3,
-   "gustMax24": 35,
+   "gustMax24": 34,
    "hourly": [
     [
-     "2026-11-12T06:00",
-     0.1
-    ],
-    [
      "2026-11-12T07:00",
-     0.1
+     0.0
     ],
     [
      "2026-11-12T08:00",
@@ -922,6 +918,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -930,23 +930,19 @@
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "lat": 25.9357,
    "lon": 56.1176,
-   "next6": 0.1,
-   "next24": 0.1,
-   "next72": 0.1,
+   "next6": 0.2,
+   "next24": 0.2,
+   "next72": 0.2,
    "hoursInWindow": 72,
-   "max6": 0.1,
-   "peakAt": "2026-11-12T07:00",
+   "max6": 0.2,
+   "peakAt": "2026-11-12T09:00",
    "peakMm": 0.1,
    "probMax24": 0,
-   "gustMax24": 46,
+   "gustMax24": 49,
    "hourly": [
     [
-     "2026-11-12T06:00",
-     0.0
-    ],
-    [
      "2026-11-12T07:00",
-     0.1
+     0.0
     ],
     [
      "2026-11-12T08:00",
@@ -954,7 +950,7 @@
     ],
     [
      "2026-11-12T09:00",
-     0.0
+     0.1
     ],
     [
      "2026-11-12T10:00",
@@ -962,7 +958,7 @@
     ],
     [
      "2026-11-12T11:00",
-     0.0
+     0.1
     ],
     [
      "2026-11-12T12:00",
@@ -1226,6 +1222,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -1239,15 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-12T06:00",
+   "peakAt": "2026-11-12T07:00",
    "peakMm": 0.0,
    "probMax24": 5,
    "gustMax24": 38,
    "hourly": [
-    [
-     "2026-11-12T06:00",
-     0.0
-    ],
     [
      "2026-11-12T07:00",
      0.0
@@ -1530,6 +1526,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -1543,15 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-12T06:00",
+   "peakAt": "2026-11-12T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 42,
    "hourly": [
-    [
-     "2026-11-12T06:00",
-     0.0
-    ],
     [
      "2026-11-12T07:00",
      0.0
@@ -1834,6 +1830,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -1847,15 +1847,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-12T06:00",
+   "peakAt": "2026-11-12T07:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 61,
    "hourly": [
-    [
-     "2026-11-12T06:00",
-     0.0
-    ],
     [
      "2026-11-12T07:00",
      0.0
@@ -2138,6 +2134,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -2151,15 +2151,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-12T06:00",
+   "peakAt": "2026-11-12T07:00",
    "peakMm": 0.0,
-   "probMax24": 3,
+   "probMax24": 0,
    "gustMax24": 58,
    "hourly": [
-    [
-     "2026-11-12T06:00",
-     0.0
-    ],
     [
      "2026-11-12T07:00",
      0.0
@@ -2442,6 +2438,10 @@
     ],
     [
      "2026-11-15T05:00",
+     0.0
+    ],
+    [
+     "2026-11-15T06:00",
      0.0
     ]
    ]
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 12 Nov 06:51, list 0.23 h old.",
+  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 12 Nov 07:24, list 0.36 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-12 06:51",
+  "asof": "2026-11-12 07:24",
   "ageHours": 0.02,
   "hazard": [
    "sea",
@@ -2482,25 +2482,25 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-12 06:52",
+  "refreshed": "2026-11-12 07:26",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
    "highest": "orange",
-   "count": 3,
+   "count": 2,
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 0.23,
+   "listAgeH": 0.36,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-12T02:51:14Z",
+    "lastOk": "2026-11-12T03:24:58Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-12 06:51; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-12 07:24; it reads the list and the ticker every 30 minutes"
  }
 }
