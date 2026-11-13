@@ -1,5 +1,5 @@
 {
- "written": "2026-11-13 14:00",
+ "written": "2026-11-13 15:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
@@ -13,8 +13,8 @@
  },
  "ncm": {
   "level": "none",
-  "text": "NCM warning 2518, orange, sea, wind, from 2026-11-11 13:37 to 2026-11-14 12:00, RAK not touched. Read by the NCM live reader.",
-  "asof": "2026-11-13 13:10",
+  "text": "NCM warning 2560, yellow, sea, wind, from 2026-11-13 14:30 to 2026-11-14 08:00, RAK not touched. Read by the NCM live reader.",
+  "asof": "2026-11-13 14:17",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-13 13:47",
+  "captured": "2026-11-13 14:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -127,22 +127,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.8,
+  "ageHours": 0.7,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 0.9,
+  "warningsAgeHours": 0.7,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-13 13:50",
-  "lastGoodAsof": "2026-11-13 13:50",
+  "lastRun": "2026-11-13 14:35",
+  "lastGoodAsof": "2026-11-13 14:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.7
+  "ncmWarningsReadingAgeHours": 0.3
  }
 }
