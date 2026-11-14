@@ -1,8 +1,8 @@
 {
  "level": "none",
- "text": "NCM warning 2518, orange, sea, wind, from 2026-11-11 13:37 to 2026-11-13 12:00, RAK not touched. Read by the NCM live reader.",
+ "text": "NCM warning 2518, orange, sea, wind, from 2026-11-11 13:37 to 2026-11-14 20:00, RAK not touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-12 23:01",
+ "asof": "2026-11-14 12:01",
  "levels": {
   "rain": "none",
   "fog": "none",
@@ -13,9 +13,9 @@
   "wind"
  ],
  "areas": "RAK not touched",
- "ageHours": 10.9,
- "id": "NCM-20261112-004",
+ "ageHours": 0.0,
+ "id": "NCM-20261114-002",
  "by": "live reader",
  "auto": false,
- "writtenAt": "2026-11-13 10:00"
+ "writtenAt": "2026-11-14 13:00"
 }
