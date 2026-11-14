@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-14 09:57",
+ "asof": "2026-11-14 11:38",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -23,19 +23,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -314,6 +306,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -327,19 +327,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 20,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -618,6 +610,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -631,19 +631,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 23,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -922,6 +914,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -935,19 +935,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 22,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -1226,6 +1218,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -1239,19 +1239,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 26,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -1530,6 +1522,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -1543,19 +1543,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
    "gustMax24": 20,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -1834,6 +1826,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -1847,19 +1847,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 30,
+   "gustMax24": 32,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -2138,6 +2130,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -2151,19 +2151,11 @@
    "next72": 0.0,
    "hoursInWindow": 72,
    "max6": 0.0,
-   "peakAt": "2026-11-14T09:00",
+   "peakAt": "2026-11-14T11:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 28,
+   "gustMax24": 31,
    "hourly": [
-    [
-     "2026-11-14T09:00",
-     0.0
-    ],
-    [
-     "2026-11-14T10:00",
-     0.0
-    ],
     [
      "2026-11-14T11:00",
      0.0
@@ -2442,6 +2434,14 @@
     ],
     [
      "2026-11-17T08:00",
+     0.0
+    ],
+    [
+     "2026-11-17T09:00",
+     0.0
+    ],
+    [
+     "2026-11-17T10:00",
      0.0
     ]
    ]
@@ -2468,11 +2468,11 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 14 Nov 09:56, list 1.35 h old.",
+  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 14 Nov 11:38, list 3.05 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-14 09:56",
-  "ageHours": 0.02,
+  "asof": "2026-11-14 11:38",
+  "ageHours": 0.01,
   "hazard": [
    "sea",
    "wind"
@@ -2482,7 +2482,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-14 09:57",
+  "refreshed": "2026-11-14 11:38",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2491,16 +2491,16 @@
    "rak": "not known",
    "named": false,
    "city": null,
-   "listAgeH": 1.35,
+   "listAgeH": 3.05,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-14T05:56:15Z",
+    "lastOk": "2026-11-14T07:38:07Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-14 09:56; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-14 11:38; it reads the list and the ticker every 30 minutes"
  }
 }
