@@ -1,10 +1,10 @@
 {
- "written": "2026-11-14 12:00",
+ "written": "2026-11-14 12:13",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather engine has not written for 15 hours (last 2026-11-13 21:20), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-13 13:25",
+ "feedAsof": "2026-11-14 12:00",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -12,20 +12,20 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader has been silent for 899 minutes.",
-  "asof": "2026-11-12 23:01",
+  "level": "none",
+  "text": "NCM live reader: WARNING, highest orange, sea, wind, RAK not known, read 14 Nov 11:38, list 3.05 h old.",
+  "asof": "2026-11-14 11:38",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
    "sea",
    "wind"
   ],
   "by": "live reader",
-  "auto": false
+  "auto": true
  },
  "points": [
   {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-13 22:02",
+  "captured": "2026-11-14 12:13",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -99,25 +99,51 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "none",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "none",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "none",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 37.0,
+  "ageHours": 0.6,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 37.0,
-  "stale": true
+  "warningsAgeHours": null,
+  "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-13 21:20",
-  "lastGoodAsof": "2026-11-13 21:20",
+  "lastRun": "2026-11-14 12:13",
+  "lastGoodAsof": "2026-11-14 12:13",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 7.1
- }
+  "ncmWarningsReadingAgeHours": 2.3
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
