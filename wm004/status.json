@@ -1,10 +1,10 @@
 {
- "written": "2026-11-15 06:44",
+ "written": "2026-11-15 08:25",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-15 06:32",
+ "feedAsof": "2026-11-15 08:24",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -13,8 +13,8 @@
  },
  "ncm": {
   "level": "none",
-  "text": "NCM warning 2500, yellow, sea, wind, from 2026-11-10 12:30 to 2026-11-17 12:00, RAK not touched. Read by the NCM live reader.",
-  "asof": "2026-11-15 06:41",
+  "text": "NCM live reader: WARNING, highest yellow, sea, wind, RAK not known, read 15 Nov 08:22, list 1.88 h old.",
+  "asof": "2026-11-15 08:22",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -25,7 +25,7 @@
    "wind"
   ],
   "by": "live reader",
-  "auto": false
+  "auto": true
  },
  "points": [
   {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-15 06:44",
+  "captured": "2026-11-15 08:25",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -130,20 +130,20 @@
   "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 0.1,
+  "warningsAgeHours": null,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-15 06:44",
-  "lastGoodAsof": "2026-11-15 06:44",
+  "lastRun": "2026-11-15 08:25",
+  "lastGoodAsof": "2026-11-15 08:25",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 0.1
+  "ncmWarningsReadingAgeHours": 1.7
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
