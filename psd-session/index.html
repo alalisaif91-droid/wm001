@@ -52,6 +52,7 @@
   <section id="app" class="hide">
     <div class="tabs"><button id="tp" class="on" type="button">Presentation</button><button id="tv" type="button">Film</button></div>
     <div id="pp" class="panel">
+      <div id="jump" class="bar" style="margin:0 0 12px"><span class="count" style="min-width:0">Go to</span></div>
       <div class="stage"><img id="slide" alt="Slide"><div id="swait" class="wait">Opening the slide</div></div>
       <div class="bar"><button id="prev" class="ghost" type="button">Previous</button><span id="count" class="count"></span><button id="next" class="ghost" type="button">Next</button>
         <input id="seek" type="range" min="1" value="1" aria-label="Slide number"><button id="dld" type="button">Download the PowerPoint</button></div>
@@ -66,7 +67,7 @@
 <script>
 (function () {
   "use strict";
-  var SALT = Uint8Array.from(atob("bpiciK9CbbyVbLVOzudIgA=="), function (c) { return c.charCodeAt(0); }), ROUNDS = 1000000;
+  var SALT = Uint8Array.from(atob("q6XhoteHMf3WeDjyoLEIpg=="), function (c) { return c.charCodeAt(0); }), ROUNDS = 1000000;
   var KEY = null, M = null, cur = 1, cache = {}, filmUrl = null, filmBlob = null;
   var $ = function (id) { return document.getElementById(id); };
   function keyFrom(code) {
@@ -109,7 +110,7 @@
     var code = $("code").value.replace(/\s+/g, ""); if (!code) return;
     $("go").disabled = true; $("gmsg").style.color = "#63707A"; $("gmsg").textContent = "Checking";
     keyFrom(code).then(function (k) { KEY = k; return open("m.bin"); }).then(function (b) {
-      M = JSON.parse(new TextDecoder().decode(b)); $("gate").classList.add("hide"); $("app").classList.remove("hide"); $("seek").max = M.slides; show(1); if (!M.film) { $("vload").disabled = true; $("vwait").textContent = "The film will be available here shortly."; }
+      M = JSON.parse(new TextDecoder().decode(b)); $("gate").classList.add("hide"); $("app").classList.remove("hide"); $("seek").max = M.slides; show(1); (M.sections || []).forEach(function (s) { var b = document.createElement("button"); b.type = "button"; b.className = "ghost"; b.textContent = s[0]; b.onclick = function () { show(s[1]); }; $("jump").appendChild(b); }); if (!M.film) { $("vload").disabled = true; $("vwait").textContent = "The film will be available here shortly."; }
     }).catch(function () { KEY = null; $("go").disabled = false; $("gmsg").style.color = "#7A1F1F"; $("gmsg").textContent = "The passcode is not correct."; $("code").select(); });
   });
   $("prev").onclick = function () { show(cur - 1); }; $("next").onclick = function () { show(cur + 1); };
