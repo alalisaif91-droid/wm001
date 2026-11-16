@@ -1,10 +1,10 @@
 {
- "written": "2026-11-16 11:07",
+ "written": "2026-11-16 11:57",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather could not be read well enough at the last run, so no stage is proposed from it",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-16 08:09",
+ "feedAsof": "2026-11-16 11:53",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -12,21 +12,16 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-16 07:56",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader file could not be read.",
+  "asof": "2026-11-16 11:52",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
@@ -88,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-16 11:07",
+  "captured": "2026-11-16 11:55",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -103,11 +98,11 @@
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
  "hazards": {
   "rain": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
+   "model": "unknown",
    "ncm": "unknown",
-   "stationRainNow": false,
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -115,11 +110,11 @@
    }
   },
   "fog": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
+   "observed": "unknown",
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -127,24 +122,25 @@
    "stations": []
   }
  },
- "readingQuality": "full",
+ "readingQuality": "degraded",
  "ncmDetail": {
-  "ageHours": 3.2,
-  "by": "engine",
+  "ageHours": 0.1,
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 26.7,
+  "warningsAgeHours": null,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-16 10:05",
-  "lastGoodAsof": "2026-11-16 10:05",
-  "readingQuality": "full",
-  "pointsRead": 8,
+  "lastRun": "2026-11-16 11:55",
+  "lastGoodAsof": "2026-11-16 11:55",
+  "readingQuality": "degraded",
+  "pointsRead": 7,
   "pointsTotal": 8,
-  "alertCount": 0,
+  "alertCount": 17,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 25.7
- }
+  "ncmWarningsReadingAgeHours": 29.2
+ },
+ "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
