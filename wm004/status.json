@@ -1,8 +1,8 @@
 {
- "written": "2026-11-16 08:09",
+ "written": "2026-11-16 09:00",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The weather engine has not written for 15 hours (last 2026-11-15 17:35), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
  "feedAsof": "2026-11-16 08:09",
  "modelLevel": "none",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-16 08:09",
+  "captured": "2026-11-16 08:47",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -101,25 +101,50 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
- "hazards": {},
- "readingQuality": null,
+ "hazards": {
+  "rain": {
+   "level": "none",
+   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
+   "model": "none",
+   "ncm": "unknown",
+   "stationRainNow": false,
+   "proposedVote": {
+    "level": "none",
+    "aboveRule": false,
+    "applied": false
+   }
+  },
+  "fog": {
+   "level": "none",
+   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
+   "forecast": "none",
+   "observed": "none",
+   "ncm": "none"
+  },
+  "dust": {
+   "level": "reported only",
+   "label": "Station reports (Reported); no level",
+   "stations": []
+  }
+ },
+ "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.2,
+  "ageHours": 1.1,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 23.8,
-  "stale": false
+  "warningsAgeHours": 24.6,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-16 08:05",
-  "lastGoodAsof": "2026-11-16 08:05",
+  "lastRun": "2026-11-16 08:35",
+  "lastGoodAsof": "2026-11-16 08:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 23.7
+  "ncmWarningsReadingAgeHours": 24.2
  }
 }
