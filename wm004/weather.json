@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-17 08:15",
+ "asof": "2026-11-17 08:54",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -2468,18 +2468,18 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 17 Nov 07:46, list 25.52 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 17 Nov 08:53, list 26.64 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-17 07:46",
-  "ageHours": 0.49,
+  "asof": "2026-11-17 08:53",
+  "ageHours": 0.02,
   "hazard": [],
   "id": null,
   "stale": false,
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-17 08:15",
+  "refreshed": "2026-11-17 08:54",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 25.52,
+   "listAgeH": 26.64,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-17T03:46:10Z",
+    "lastOk": "2026-11-17T04:53:43Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-17 07:46; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-17 08:53; it reads the list and the ticker every 30 minutes"
  }
 }
