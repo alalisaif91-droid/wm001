@@ -1,24 +1,24 @@
 {
- "written": "2026-11-18 07:58",
+ "written": "2026-11-18 09:08",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The weather engine has not written for 16 hours (last 2026-11-17 16:50), so the colour of the NCM warnings page and the hazard levels cannot be checked and no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-18 07:56",
+ "feedAsof": "2026-11-18 09:07",
  "modelLevel": "none",
- "worstMax6": 0.7,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-18 07:54",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader has been silent for 983 minutes.",
+  "asof": "2026-11-17 16:01",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "rain",
@@ -54,8 +54,8 @@
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.4,
-   "max6": 0.4,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -75,20 +75,20 @@
   {
    "name": "Showkah and Kadrah (8A)",
    "next24": 0.0,
-   "next72": 0.5,
-   "max6": 0.5,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
    "name": "Al Munai (9A)",
    "next24": 0.0,
-   "next72": 0.7,
-   "max6": 0.7,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   }
  ],
  "pumps": {
-  "captured": "2026-11-18 07:57",
+  "captured": "2026-11-18 09:07",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -101,51 +101,25 @@
  "season": "07 Oct 2026 to 31 Mar 2027",
  "plan": "WA-PSD-PLN-05 Draft 2, 09 Oct 2026",
  "console": "https://alalisaif91-droid.github.io/wm001/wm004/console/",
- "hazards": {
-  "rain": {
-   "level": "none",
-   "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
-   "model": "none",
-   "ncm": "unknown",
-   "stationRainNow": false,
-   "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
-    "applied": false
-   }
-  },
-  "fog": {
-   "level": "none",
-   "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
-   "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
-  },
-  "dust": {
-   "level": "reported only",
-   "label": "Station reports (Reported); no level",
-   "stations": []
-  }
- },
- "readingQuality": "full",
+ "hazards": {},
+ "readingQuality": null,
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 17.1,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 73.3,
+  "warningsAgeHours": 72.8,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-18 07:57",
-  "lastGoodAsof": "2026-11-18 07:57",
+  "lastRun": "2026-11-17 16:50",
+  "lastGoodAsof": "2026-11-17 16:50",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 73.3
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 56.5
+ }
 }
