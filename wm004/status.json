@@ -1,20 +1,20 @@
 {
- "written": "2026-11-18 22:33",
+ "written": "2026-11-19 00:16",
  "tz": "Asia/Dubai",
  "stage": "Enhanced watch",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-18 22:32",
+ "feedAsof": "2026-11-19 00:13",
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
   "level": "yellow",
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 18 Nov 22:31, list 0.67 h old.",
-  "asof": "2026-11-18 22:31",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 19 Nov 00:12, list 0.95 h old.",
+  "asof": "2026-11-19 00:12",
   "levels": {
    "rain": "yellow",
    "fog": "none",
@@ -59,9 +59,9 @@
   },
   {
    "name": "Khatt, Wadi Naqab front (5A)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next24": 0.0,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-18 22:33",
+  "captured": "2026-11-19 00:14",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -108,8 +108,8 @@
    "ncm": "yellow",
    "stationRainNow": false,
    "proposedVote": {
-    "level": "none",
-    "aboveRule": false,
+    "level": "watch",
+    "aboveRule": true,
     "applied": false
    }
   },
@@ -128,7 +128,7 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.0,
+  "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
   "warningsAgeHours": null,
@@ -137,14 +137,14 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-18 22:33",
-  "lastGoodAsof": "2026-11-18 22:33",
+  "lastRun": "2026-11-19 00:14",
+  "lastGoodAsof": "2026-11-19 00:14",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 6,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 5.1
+  "ncmWarningsReadingAgeHours": 6.7
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
