@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-18 21:24",
+ "asof": "2026-11-18 21:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -25,7 +25,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 5,
+   "probMax24": 8,
    "gustMax24": 25,
    "hourly": [
     [
@@ -329,8 +329,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 10,
-   "gustMax24": 22,
+   "probMax24": 8,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-18T21:00",
@@ -633,7 +633,7 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 20,
+   "probMax24": 15,
    "gustMax24": 25,
    "hourly": [
     [
@@ -937,8 +937,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 20,
-   "gustMax24": 23,
+   "probMax24": 18,
+   "gustMax24": 24,
    "hourly": [
     [
      "2026-11-18T21:00",
@@ -1242,7 +1242,7 @@
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
    "probMax24": 13,
-   "gustMax24": 27,
+   "gustMax24": 25,
    "hourly": [
     [
      "2026-11-18T21:00",
@@ -1849,8 +1849,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 48,
-   "gustMax24": 23,
+   "probMax24": 45,
+   "gustMax24": 21,
    "hourly": [
     [
      "2026-11-18T21:00",
@@ -2153,8 +2153,8 @@
    "max6": 0.0,
    "peakAt": "2026-11-18T21:00",
    "peakMm": 0.0,
-   "probMax24": 53,
-   "gustMax24": 28,
+   "probMax24": 68,
+   "gustMax24": 23,
    "hourly": [
     [
      "2026-11-18T21:00",
@@ -2470,10 +2470,10 @@
    "2565"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 18 Nov 21:23, list 1.39 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 18 Nov 21:57, list 0.11 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-18 21:23",
+  "asof": "2026-11-18 21:57",
   "ageHours": 0.02,
   "hazard": [
    "dust",
@@ -2485,7 +2485,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-18 21:24",
+  "refreshed": "2026-11-18 21:58",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2494,16 +2494,16 @@
    "rak": "touched",
    "named": false,
    "city": true,
-   "listAgeH": 1.39,
+   "listAgeH": 0.11,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-18T17:23:42Z",
+    "lastOk": "2026-11-18T17:57:18Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-18 21:23; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-18 21:57; it reads the list and the ticker every 30 minutes"
  }
 }
