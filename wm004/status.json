@@ -1,10 +1,10 @@
 {
- "written": "2026-11-18 19:11",
+ "written": "2026-11-18 20:53",
  "tz": "Asia/Dubai",
  "stage": "Pre deployment",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-18 18:36",
+ "feedAsof": "2026-11-18 20:17",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "orange",
-  "text": "NCM live reader: WARNING, highest orange, dust, rain, wind, RAK touched, read 18 Nov 18:02, list 1.26 h old.",
-  "asof": "2026-11-18 18:02",
+  "level": "yellow",
+  "text": "NCM live reader: WARNING, highest orange, dust, rain, wind, RAK touched, read 18 Nov 19:46, list 0.42 h old.",
+  "asof": "2026-11-18 19:46",
   "levels": {
-   "rain": "orange",
+   "rain": "yellow",
    "fog": "none",
-   "dust": "orange"
+   "dust": "yellow"
   },
   "hazard": [
    "dust",
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-18 19:11",
+  "captured": "2026-11-18 20:53",
   "total": 126,
   "standby": 44,
   "working": 0,
@@ -128,7 +128,7 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 1.2,
+  "ageHours": 1.1,
   "by": "live reader",
   "kind": "warning",
   "warningsAgeHours": null,
@@ -137,14 +137,14 @@
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-18 19:11",
-  "lastGoodAsof": "2026-11-18 19:11",
+  "lastRun": "2026-11-18 20:53",
+  "lastGoodAsof": "2026-11-18 20:53",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 1.7
+  "ncmWarningsReadingAgeHours": 3.4
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
