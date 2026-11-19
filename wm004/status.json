@@ -1,5 +1,5 @@
 {
- "written": "2026-11-19 09:00",
+ "written": "2026-11-19 10:00",
  "tz": "Asia/Dubai",
  "stage": "Enhanced watch",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
@@ -87,7 +87,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-19 08:47",
+  "captured": "2026-11-19 09:47",
   "total": 125,
   "standby": 47,
   "working": 0,
@@ -128,22 +128,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 18.5,
+  "ageHours": 19.5,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 18.5,
+  "warningsAgeHours": 19.5,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-19 08:35",
-  "lastGoodAsof": "2026-11-19 08:35",
+  "lastRun": "2026-11-19 09:31",
+  "lastGoodAsof": "2026-11-19 09:31",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 18.1
+  "ncmWarningsReadingAgeHours": 19.0
  }
 }
