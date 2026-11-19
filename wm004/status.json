@@ -1,10 +1,10 @@
 {
- "written": "2026-11-19 08:07",
+ "written": "2026-11-19 09:00",
  "tz": "Asia/Dubai",
  "stage": "Enhanced watch",
  "stageWhy": "The weather alone under the plan triggers: NCM rain colour in force (Reported, official)",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-19 08:05",
+ "feedAsof": "2026-11-19 09:00",
  "modelLevel": "none",
  "worstMax6": 0.6,
  "thresholds": {
@@ -13,8 +13,8 @@
  },
  "ncm": {
   "level": "yellow",
-  "text": "NCM live reader: WARNING, highest yellow, dust, rain, wind, RAK touched, read 19 Nov 08:01, list 6.48 h old.",
-  "asof": "2026-11-19 08:01",
+  "text": "NCM warning 2565, yellow, dust, rain, wind, from 2026-11-18 13:00 to 2026-11-20 09:00, RAK touched. Read by the NCM live reader.",
+  "asof": "2026-11-18 14:30",
   "levels": {
    "rain": "yellow",
    "fog": "none",
@@ -26,7 +26,7 @@
    "wind"
   ],
   "by": "live reader",
-  "auto": true
+  "auto": false
  },
  "points": [
   {
@@ -66,17 +66,17 @@
   },
   {
    "name": "Al Jazeera Al Hamra (6A)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Showkah and Kadrah (8A)",
-   "next24": 0.1,
-   "next72": 0.1,
-   "max6": 0.1,
-   "error": false
+   "next24": null,
+   "next72": null,
+   "max6": null,
+   "error": true
   },
   {
    "name": "Al Munai (9A)",
@@ -87,11 +87,11 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-19 08:06",
-  "total": 126,
-  "standby": 45,
+  "captured": "2026-11-19 08:47",
+  "total": 125,
+  "standby": 47,
   "working": 0,
-  "noPump": 80
+  "noPump": 77
  },
  "actions": {
   "total": 30,
@@ -128,23 +128,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.1,
+  "ageHours": 18.5,
   "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": null,
+  "warningsAgeHours": 18.5,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-19 08:06",
-  "lastGoodAsof": "2026-11-19 08:06",
+  "lastRun": "2026-11-19 08:35",
+  "lastGoodAsof": "2026-11-19 08:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 14.6
- },
- "writer": "GitHub standby: the plan registers are read on the laptop only"
+  "ncmWarningsReadingAgeHours": 18.1
+ }
 }
