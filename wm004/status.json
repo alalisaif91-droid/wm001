@@ -1,5 +1,5 @@
 {
- "written": "2026-11-20 22:00",
+ "written": "2026-11-20 23:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-20 21:47",
+  "captured": "2026-11-20 22:47",
   "total": 125,
   "standby": 47,
   "working": 0,
@@ -106,7 +106,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -129,22 +129,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 0.8,
+  "ageHours": 1.8,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 23.4,
-  "stale": false
+  "warningsAgeHours": 24.4,
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-20 21:20",
-  "lastGoodAsof": "2026-11-20 21:20",
+  "lastRun": "2026-11-20 22:50",
+  "lastGoodAsof": "2026-11-20 22:50",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 22.7
+  "ncmWarningsReadingAgeHours": 24.2
  }
 }
