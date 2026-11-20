@@ -1,22 +1,22 @@
 {
- "level": "orange",
- "text": "NCM warning 2578, orange, dust, rain, wind, from 2026-11-19 11:58 to 2026-11-19 22:00, RAK touched. Read by the NCM live reader.",
+ "level": "yellow",
+ "text": "NCM warning 2565, yellow, dust, rain, wind, from 2026-11-18 13:00 to 2026-11-20 09:00, RAK touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-19 12:03",
+ "asof": "2026-11-18 14:30",
  "levels": {
-  "rain": "orange",
+  "rain": "yellow",
   "fog": "none",
-  "dust": "orange"
+  "dust": "yellow"
  },
  "hazard": [
   "dust",
   "rain",
   "wind"
  ],
- "areas": "RAK touched: Khadrah, Masafi, Showkah",
- "ageHours": 5.3,
- "id": "NCM-20261119-002",
+ "areas": "RAK touched: Al Degdaga, Al Ghayl, Al Hamraniah, Al Mamourah, Al Munai, Al Rams, Khadrah, Masafi, Shaam, Showkah",
+ "ageHours": 42.2,
+ "id": "NCM-20261118-003",
  "by": "live reader",
  "auto": false,
- "writtenAt": "2026-11-19 17:21"
+ "writtenAt": "2026-11-20 09:00"
 }
