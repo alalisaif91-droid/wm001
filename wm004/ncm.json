@@ -1,23 +1,21 @@
 {
  "level": "none",
- "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
+ "text": "NCM warning 2595, yellow, sea, wind, from 2026-11-21 12:00 to 2026-11-21 20:00, RAK touched. Read by the NCM live reader.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-21 08:55",
+ "asof": "2026-11-21 12:17",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "rain",
-  "fog",
-  "dust",
+  "sea",
   "wind"
  ],
- "areas": "all areas",
- "ageHours": 1.1,
- "id": "NCM-20261121-004",
- "by": "engine",
- "auto": true,
- "writtenAt": "2026-11-21 10:00"
+ "areas": "RAK touched: Greater Tunmb, Lesser Tunmb",
+ "ageHours": 0.7,
+ "id": "NCM-20261121-005",
+ "by": "live reader",
+ "auto": false,
+ "writtenAt": "2026-11-21 13:00"
 }
