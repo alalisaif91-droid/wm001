@@ -1,24 +1,24 @@
 {
- "written": "2026-11-21 15:42",
+ "written": "2026-11-21 17:25",
  "tz": "Asia/Dubai",
- "stage": "Routine readiness",
- "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
+ "stage": "Not determined",
+ "stageWhy": "The last NCM reading is not current and the NCM reader file could not be read, so no stage is proposed from the weather alone",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-21 15:40",
+ "feedAsof": "2026-11-21 17:21",
  "modelLevel": "none",
- "worstMax6": 0.0,
+ "worstMax6": 0.1,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
  },
  "ncm": {
-  "level": "none",
-  "text": "NCM live reader: WARNING, highest yellow, sea, wind, RAK touched, read 21 Nov 15:39, list 3.88 h old.",
-  "asof": "2026-11-21 15:39",
+  "level": "unknown",
+  "text": "No current NCM reading: the NCM reader file could not be read.",
+  "asof": "2026-11-21 17:19",
   "levels": {
-   "rain": "none",
-   "fog": "none",
-   "dust": "none"
+   "rain": "unknown",
+   "fog": "unknown",
+   "dust": "unknown"
   },
   "hazard": [
    "sea",
@@ -51,9 +51,9 @@
   },
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
-   "next24": 0.0,
-   "next72": 0.0,
-   "max6": 0.0,
+   "next24": 0.1,
+   "next72": 0.1,
+   "max6": 0.1,
    "error": false
   },
   {
@@ -86,7 +86,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-21 15:41",
+  "captured": "2026-11-21 17:22",
   "total": 125,
   "standby": 47,
   "working": 0,
@@ -104,8 +104,8 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
-   "stationRainNow": false,
+   "ncm": "unknown",
+   "stationRainNow": null,
    "proposedVote": {
     "level": "none",
     "aboveRule": false,
@@ -113,11 +113,11 @@
    }
   },
   "fog": {
-   "level": "none",
+   "level": "unknown",
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
-   "observed": "none",
-   "ncm": "none"
+   "observed": "unknown",
+   "ncm": "unknown"
   },
   "dust": {
    "level": "reported only",
@@ -125,25 +125,25 @@
    "stations": []
   }
  },
- "readingQuality": "full",
+ "readingQuality": "partial",
  "ncmDetail": {
   "ageHours": 0.1,
   "by": "live reader",
   "kind": "warning",
   "warningsAgeHours": null,
-  "stale": false
+  "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-21 15:41",
-  "lastGoodAsof": "2026-11-21 15:41",
-  "readingQuality": "full",
+  "lastRun": "2026-11-21 17:22",
+  "lastGoodAsof": "2026-11-21 17:22",
+  "readingQuality": "partial",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 5,
+  "alertCount": 14,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 1.7
+  "ncmWarningsReadingAgeHours": 3.4
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
