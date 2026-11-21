@@ -1,12 +1,12 @@
 {
- "written": "2026-11-21 09:00",
+ "written": "2026-11-21 10:00",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-21 07:41",
+ "feedAsof": "2026-11-21 10:00",
  "modelLevel": "none",
- "worstMax6": 0.1,
+ "worstMax6": 0.0,
  "thresholds": {
   "watch": 10.0,
   "high": 25.0
@@ -14,7 +14,7 @@
  "ncm": {
   "level": "none",
   "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-21 06:01",
+  "asof": "2026-11-21 08:55",
   "levels": {
    "rain": "none",
    "fog": "none",
@@ -54,8 +54,8 @@
   {
    "name": "Jebel Jais road, Wadi Shehah (1C)",
    "next24": 0.0,
-   "next72": 0.1,
-   "max6": 0.1,
+   "next72": 0.0,
+   "max6": 0.0,
    "error": false
   },
   {
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-21 08:47",
+  "captured": "2026-11-21 09:47",
   "total": 125,
   "standby": 47,
   "working": 0,
@@ -129,22 +129,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 3.0,
+  "ageHours": 1.1,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 34.3,
+  "warningsAgeHours": 35.4,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-21 08:35",
-  "lastGoodAsof": "2026-11-21 08:35",
+  "lastRun": "2026-11-21 09:20",
+  "lastGoodAsof": "2026-11-21 09:20",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 33.9
+  "ncmWarningsReadingAgeHours": 34.7
  }
 }
