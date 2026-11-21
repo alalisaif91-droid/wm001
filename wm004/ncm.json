@@ -2,7 +2,7 @@
  "level": "none",
  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-20 12:08",
+ "asof": "2026-11-21 06:01",
  "levels": {
   "rain": "none",
   "fog": "none",
@@ -15,9 +15,9 @@
   "wind"
  ],
  "areas": "all areas",
- "ageHours": 1.8,
- "id": "NCM-20261120-003",
+ "ageHours": 1.0,
+ "id": "NCM-20261121-003",
  "by": "engine",
  "auto": true,
- "writtenAt": "2026-11-20 13:55"
+ "writtenAt": "2026-11-21 07:00"
 }
