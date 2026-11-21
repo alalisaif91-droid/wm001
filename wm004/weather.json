@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-21 15:06",
+ "asof": "2026-11-21 15:40",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -2470,10 +2470,10 @@
    "2595"
   ],
   "upcoming": [],
-  "text": "NCM live reader: WARNING, highest yellow, sea, wind, RAK touched, read 21 Nov 15:05, list 3.33 h old.",
+  "text": "NCM live reader: WARNING, highest yellow, sea, wind, RAK touched, read 21 Nov 15:39, list 3.88 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-21 15:05",
+  "asof": "2026-11-21 15:39",
   "ageHours": 0.02,
   "hazard": [
    "sea",
@@ -2484,7 +2484,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-21 15:06",
+  "refreshed": "2026-11-21 15:40",
   "reader": {
    "state": "WARNING",
    "reason": "list_items",
@@ -2493,16 +2493,16 @@
    "rak": "touched",
    "named": false,
    "city": null,
-   "listAgeH": 3.33,
+   "listAgeH": 3.88,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-21T11:05:31Z",
+    "lastOk": "2026-11-21T11:39:02Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-21 15:05; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-21 15:39; it reads the list and the ticker every 30 minutes"
  }
 }
