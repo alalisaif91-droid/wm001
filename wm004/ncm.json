@@ -1,21 +1,39 @@
 {
  "level": "none",
- "text": "NCM warning 2595, yellow, sea, wind, from 2026-11-21 12:00 to 2026-11-21 20:00, RAK touched. Read by the NCM live reader.",
+ "text": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-11-21 13:05, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk. Last logged reading: The NCM live reader read the warnings list and the ticker and found no warning in force.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-21 12:17",
+ "asof": "2026-11-22 09:03",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "sea",
+  "rain",
+  "fog",
+  "dust",
   "wind"
  ],
- "areas": "RAK touched: Greater Tunmb, Lesser Tunmb",
- "ageHours": 0.7,
- "id": "NCM-20261121-005",
- "by": "live reader",
- "auto": false,
- "writtenAt": "2026-11-21 13:00"
+ "areas": "all areas",
+ "ageHours": 0.4,
+ "id": "NCM-20261122-002",
+ "by": "engine",
+ "auto": true,
+ "pageShows": {
+  "state": "warnings",
+  "colours": [
+   "yellow"
+  ],
+  "since": "2026-11-21 13:05",
+  "seen": "2026-11-21 13:05",
+  "pending": true,
+  "pendingHazards": [
+   "rain",
+   "fog",
+   "dust"
+  ],
+  "namedHazards": [],
+  "note": "The NCM warnings page shows warning colours (yellow) that nobody has logged yet, first seen 2026-11-21 13:05, and no person has logged a reading naming rain, fog, dust since: the rain, fog, dust level(s) are unknown, not none, until the page is read and logged by the weather desk"
+ },
+ "writtenAt": "2026-11-22 09:27"
 }
