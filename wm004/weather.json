@@ -1,5 +1,5 @@
 {
- "asof": "2026-11-22 21:24",
+ "asof": "2026-11-22 21:58",
  "tz": "Asia/Dubai",
  "source": "Open-Meteo best match model (ECMWF and others), model forecast, not an official warning",
  "writer": "GitHub Actions, every 30 minutes",
@@ -1242,7 +1242,7 @@
    "peakAt": "2026-11-22T21:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 19,
+   "gustMax24": 20,
    "hourly": [
     [
      "2026-11-22T21:00",
@@ -1546,7 +1546,7 @@
    "peakAt": "2026-11-22T21:00",
    "peakMm": 0.0,
    "probMax24": 0,
-   "gustMax24": 26,
+   "gustMax24": 27,
    "hourly": [
     [
      "2026-11-22T21:00",
@@ -2468,10 +2468,10 @@
   },
   "inForce": [],
   "upcoming": [],
-  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 22 Nov 21:23, list 12.39 h old.",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 22 Nov 21:57, list 12.95 h old.",
   "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
   "via": "NCM live reader on GitHub Actions, wm004/ncm_state.json",
-  "asof": "2026-11-22 21:23",
+  "asof": "2026-11-22 21:57",
   "ageHours": 0.02,
   "hazard": [],
   "id": null,
@@ -2479,7 +2479,7 @@
   "by": "live reader",
   "auto": true,
   "kind": "warning",
-  "refreshed": "2026-11-22 21:24",
+  "refreshed": "2026-11-22 21:58",
   "reader": {
    "state": "NO WARNING IN FORCE",
    "reason": "list_and_ticker_clear",
@@ -2488,16 +2488,16 @@
    "rak": "not touched",
    "named": false,
    "city": false,
-   "listAgeH": 12.39,
+   "listAgeH": 12.95,
    "limitH": 72,
    "tickerRead": true,
    "health": {
-    "lastOk": "2026-11-22T17:23:10Z",
+    "lastOk": "2026-11-22T17:57:06Z",
     "consecutiveFailures": 0,
     "failingSince": null
    },
    "status": "Reported"
   },
-  "note": "the colours are those of the NCM live reader at 2026-11-22 21:23; it reads the list and the ticker every 30 minutes"
+  "note": "the colours are those of the NCM live reader at 2026-11-22 21:57; it reads the list and the ticker every 30 minutes"
  }
 }
