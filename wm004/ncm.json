@@ -1,20 +1,23 @@
 {
  "level": "none",
- "text": "NCM warning 2632, yellow, fog, from 2026-11-26 01:00 to 2026-11-26 09:00, RAK not touched. Read by the NCM live reader.",
+ "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
  "source": "https://www.ncm.gov.ae/maps-warnings?lang=en",
- "asof": "2026-11-26 07:58",
+ "asof": "2026-11-27 17:45",
  "levels": {
   "rain": "none",
   "fog": "none",
   "dust": "none"
  },
  "hazard": [
-  "fog"
+  "rain",
+  "fog",
+  "dust",
+  "wind"
  ],
- "areas": "RAK not touched",
- "ageHours": 4.3,
- "id": "NCM-20261126-003",
- "by": "live reader",
- "auto": false,
- "writtenAt": "2026-11-26 12:14"
+ "areas": "all areas",
+ "ageHours": 0.4,
+ "id": "NCM-20261127-002",
+ "by": "engine",
+ "auto": true,
+ "writtenAt": "2026-11-27 19:00"
 }
