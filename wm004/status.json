@@ -1,8 +1,8 @@
 {
- "written": "2026-11-27 20:00",
+ "written": "2026-11-27 21:00",
  "tz": "Asia/Dubai",
- "stage": "Not determined",
- "stageWhy": "The last NCM reading is not current and the NCM reader says NO READING, so no stage is proposed from the weather alone",
+ "stage": "Routine readiness",
+ "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
  "feedAsof": "2026-11-27 18:07",
  "modelLevel": "none",
@@ -12,13 +12,13 @@
   "high": 25.0
  },
  "ncm": {
-  "level": "unknown",
-  "text": "No current NCM reading: the NCM reader says NO READING.",
+  "level": "none",
+  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
   "asof": "2026-11-27 17:45",
   "levels": {
-   "rain": "unknown",
-   "fog": "unknown",
-   "dust": "unknown"
+   "rain": "none",
+   "fog": "none",
+   "dust": "none"
   },
   "hazard": [
    "rain",
@@ -88,7 +88,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-27 19:47",
+  "captured": "2026-11-27 20:47",
   "total": 123,
   "standby": 58,
   "working": 0,
@@ -119,7 +119,7 @@
    "label": "Model forecast (Proposed ladder), with the station reports (Reported) and the NCM colour (official)",
    "forecast": "none",
    "observed": "none",
-   "ncm": "unknown"
+   "ncm": "none"
   },
   "dust": {
    "level": "reported only",
@@ -129,22 +129,22 @@
  },
  "readingQuality": "full",
  "ncmDetail": {
-  "ageHours": 2.3,
+  "ageHours": 3.3,
   "by": "engine",
   "kind": "warning",
-  "warningsAgeHours": 36.1,
+  "warningsAgeHours": 37.0,
   "stale": true
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-27 19:50",
-  "lastGoodAsof": "2026-11-27 19:50",
+  "lastRun": "2026-11-27 20:35",
+  "lastGoodAsof": "2026-11-27 20:35",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
-  "alertCount": 1,
+  "alertCount": 0,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 35.9
+  "ncmWarningsReadingAgeHours": 36.6
  }
 }
