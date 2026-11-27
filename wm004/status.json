@@ -1,10 +1,10 @@
 {
- "written": "2026-11-27 04:53",
+ "written": "2026-11-27 06:34",
  "tz": "Asia/Dubai",
  "stage": "Routine readiness",
  "stageWhy": "The weather alone under the plan triggers: no input calls a stage",
  "stageNote": "The stage the record supports; the rain committee sets it",
- "feedAsof": "2026-11-27 04:52",
+ "feedAsof": "2026-11-27 06:33",
  "modelLevel": "none",
  "worstMax6": 0.0,
  "thresholds": {
@@ -13,20 +13,15 @@
  },
  "ncm": {
   "level": "none",
-  "text": "The NCM live reader read the warnings list and the ticker and found no warning in force.",
-  "asof": "2026-11-27 04:50",
+  "text": "NCM live reader: NO WARNING IN FORCE, RAK not touched, read 27 Nov 06:31, list 21.53 h old.",
+  "asof": "2026-11-27 06:31",
   "levels": {
    "rain": "none",
    "fog": "none",
    "dust": "none"
   },
-  "hazard": [
-   "rain",
-   "fog",
-   "dust",
-   "wind"
-  ],
-  "by": "engine",
+  "hazard": [],
+  "by": "live reader",
   "auto": true
  },
  "points": [
@@ -88,7 +83,7 @@
   }
  ],
  "pumps": {
-  "captured": "2026-11-27 04:53",
+  "captured": "2026-11-27 06:34",
   "total": 123,
   "standby": 58,
   "working": 0,
@@ -106,7 +101,7 @@
    "level": "none",
    "label": "Model forecast (Proposed), with the NCM colour (official) and the station reports (Reported)",
    "model": "none",
-   "ncm": "none",
+   "ncm": "unknown",
    "stationRainNow": false,
    "proposedVote": {
     "level": "none",
@@ -130,22 +125,22 @@
  "readingQuality": "full",
  "ncmDetail": {
   "ageHours": 0.1,
-  "by": "engine",
+  "by": "live reader",
   "kind": "warning",
-  "warningsAgeHours": 22.5,
+  "warningsAgeHours": null,
   "stale": false
  },
  "highAlerts": [],
  "engine": {
   "ok": true,
-  "lastRun": "2026-11-27 04:53",
-  "lastGoodAsof": "2026-11-27 04:53",
+  "lastRun": "2026-11-27 06:34",
+  "lastGoodAsof": "2026-11-27 06:34",
   "readingQuality": "full",
   "pointsRead": 8,
   "pointsTotal": 8,
   "alertCount": 5,
   "modelFailuresInARow": 0,
-  "ncmWarningsReadingAgeHours": 22.5
+  "ncmWarningsReadingAgeHours": 24.2
  },
  "writer": "GitHub standby: the plan registers are read on the laptop only"
 }
